@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskName": "tarea-server",
+      "appliesTo": "HttpService/server.js",
+      "type": "command"
+    }
+  ]
+}
