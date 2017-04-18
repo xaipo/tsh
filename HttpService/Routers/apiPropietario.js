@@ -23,6 +23,54 @@ router.post('/savePropietario', function (req, res) {
     });
 });
 
+
+router.post('/updatePropietario', function (req, res) {
+
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+        var item = {
+            nombre_propietario: req.body.nombre_propietario,
+            cedula_propietario: req.body.cedula_propietario,
+            telefono_propietario: req.body.telefono_propietario,
+            celular_propietario: req.body.celular_propietario,
+            correo_propietario: req.body.correo_propietario
+        };
+
+
+
+        var id = req.body.id;
+        db.collection('propietario').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
+            assert.equal(null, err);
+            console.log('Item updated');
+
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+router.post('/getByIdPropietario', function (req, res) {
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+
+        var id = req.body.id;
+        db.collection('propietario').findOne({ "_id": objectId(id) }, function (err, result) {
+            assert.equal(null, err);
+            console.log(result);
+            console.log('Item loaded');
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+
 router.get('/getAllPropietario', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {

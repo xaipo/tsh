@@ -23,6 +23,51 @@ router.post('/saveUtensiliosSeleccionados', function (req, res) {
     });
 });
 
+
+router.post('/updateUtensiliosSeleccionados', function (req, res) {
+
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+        var item = {
+            utensilios: req.body.utensilios,
+            cantidad_utensilios: req.body.cantidad_utensilios
+        };
+
+
+
+        var id = req.body.id;
+        db.collection('utensilios_seleccionados').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
+            assert.equal(null, err);
+            console.log('Item updated');
+
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+router.post('/getByIdUtensiliosSeleccionados', function (req, res) {
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+
+        var id = req.body.id;
+        db.collection('utensilios_seleccionados').findOne({ "_id": objectId(id) }, function (err, result) {
+            assert.equal(null, err);
+            console.log(result);
+            console.log('Item loaded');
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+
 router.get('/getAllUtensiliosSeleccionados', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {

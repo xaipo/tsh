@@ -23,6 +23,52 @@ router.post('/saveMaterialPetreo', function (req, res) {
     });
 });
 
+
+router.post('/updateMaterialPetreo', function (req, res) {
+
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+        var item = {
+            tipo_material: req.body.tipo_material,
+            num_volquetas: req.body.num_volquetas,
+            cant_total_m3: req.body.cant_total_m3
+        };
+
+
+
+        var id = req.body.id;
+        db.collection('material_petreo').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
+            assert.equal(null, err);
+            console.log('Item updated');
+
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+router.post('/getByIdMaterialPetreo', function (req, res) {
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+
+        var id = req.body.id;
+        db.collection('material_petreo').findOne({ "_id": objectId(id) }, function (err, result) {
+            assert.equal(null, err);
+            console.log(result);
+            console.log('Item loaded');
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+
 router.get('/getAllMaterialPetreo', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {

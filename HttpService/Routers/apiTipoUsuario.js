@@ -23,6 +23,50 @@ router.post('/saveTipoUsuario',function(req,res){
     });
 });
 
+
+router.post('/updateTipoUsuario', function (req, res) {
+
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+        var item = {
+            descripcion_tipo_usuario: req.body.descripcion_tipo_usuario
+        };
+
+
+
+        var id = req.body.id;
+        db.collection('tipo_usuario').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
+            assert.equal(null, err);
+            console.log('Item updated');
+
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+router.post('/getByIdTipoUsuario', function (req, res) {
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+
+        var id = req.body.id;
+        db.collection('tipo_usuario').findOne({ "_id": objectId(id) }, function (err, result) {
+            assert.equal(null, err);
+            console.log(result);
+            console.log('Item loaded');
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+
 router.get('/getAllTipoUsuario',function(req,res){
 
     MongoClient.connect(url, function(err, db) {

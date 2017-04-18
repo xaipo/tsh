@@ -23,6 +23,51 @@ router.post('/saveVehiculos', function (req, res) {
     });
 });
 
+
+router.post('/updateVehiculos', function (req, res) {
+
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+        var item = {
+            cantidad_vehiculos: req.body.cantidad_vehiculos,
+            descripcion_vehiculos: req.body.descripcion_vehiculos
+        };
+
+
+
+        var id = req.body.id;
+        db.collection('clientes').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
+            assert.equal(null, err);
+            console.log('Item updated');
+
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+router.post('/getByIdVehiculos', function (req, res) {
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+
+        var id = req.body.id;
+        db.collection('clientes').findOne({ "_id": objectId(id) }, function (err, result) {
+            assert.equal(null, err);
+            console.log(result);
+            console.log('Item loaded');
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+
 router.get('/getAllVehiculos', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {

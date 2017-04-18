@@ -23,6 +23,56 @@ router.post('/saveClientes', function (req, res) {
     });
 });
 
+
+router.post('/updateClientes', function (req, res) {
+
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+        var item = {
+            nombre_cliente: req.body.nombre_cliente,
+            ruc_cliente: req.body.ruc_cliente,
+            direccion_cliente: req.body.direccion_cliente,
+            telefono_cliente: req.body.telefono_cliente,
+            correo_cliente: req.body.correo_cliente,
+            tipo_cliente: req.body.tipo_cliente
+        };
+
+
+
+        var id = req.body.id;
+        db.collection('clientes').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
+            assert.equal(null, err);
+            console.log('Item updated');
+
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+router.post('/getByIdClientes', function (req, res) {
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+
+        var id = req.body.id;
+        db.collection('clientes').findOne({ "_id": objectId(id) }, function (err, result) {
+            assert.equal(null, err);
+            console.log(result);
+            console.log('Item loaded');
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+
+
 router.get('/getAllClientes', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {

@@ -23,6 +23,62 @@ router.post('/saveEmbarcacion', function (req, res) {
     });
 });
 
+
+router.post('/updateEmbarcacion', function (req, res) {
+
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+        var item = {
+            nombre_embarcacion: req.body.nombre_embarcacion,
+            num_matricula: req.body.num_matricula,
+            eslora_total: req.body.eslora_total,
+            manga: req.body.manga,
+            puntual: req.body.puntual,
+            calado: req.body.calado,
+            fecha_construccion: req.body.fecha_construccion,
+            propietario: req.body.propietario,
+            propulsion: req.body.propulsion,
+            tipo_combustible: req.body.tipo_combustible,
+            tonelaje_bruto: req.body.tonelaje_bruto,
+            capasidad_carga: req.body.capasidad_carga,
+            tipo_embarcacion: req.body.tipo_embarcacion
+        };
+
+
+
+        var id = req.body.id;
+        db.collection('embarcacion').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
+            assert.equal(null, err);
+            console.log('Item updated');
+
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+router.post('/getByIdEmbarcacion', function (req, res) {
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+
+        var id = req.body.id;
+        db.collection('embarcacion').findOne({ "_id": objectId(id) }, function (err, result) {
+            assert.equal(null, err);
+            console.log(result);
+            console.log('Item loaded');
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+
 router.get('/getAllEmbarcacion', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {

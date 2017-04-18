@@ -23,6 +23,50 @@ router.post('/savePuerto', function (req, res) {
     });
 });
 
+
+router.post('/updatePuerto', function (req, res) {
+
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+        var item = {
+            descripcion_puerto: req.body.descripcion_puerto
+        };
+
+
+
+        var id = req.body.id;
+        db.collection('puerto').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
+            assert.equal(null, err);
+            console.log('Item updated');
+
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+router.post('/getByIdPuerto', function (req, res) {
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+
+        var id = req.body.id;
+        db.collection('puerto').findOne({ "_id": objectId(id) }, function (err, result) {
+            assert.equal(null, err);
+            console.log(result);
+            console.log('Item loaded');
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+
 router.get('/getAllPuerto', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {

@@ -23,7 +23,51 @@ router.post('/saveTipoEmbarcacion', function (req, res) {
     });
 });
 
-router.get('/getAllTipoCombustible', function (req, res) {
+
+router.post('/updateTipoEmbarcacion', function (req, res) {
+
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+        var item = {
+            descripcion_tipo_embarcacion: req.body.descripcion_tipo_embarcacion
+        };
+
+
+
+        var id = req.body.id;
+        db.collection('tipo_embarcacion').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
+            assert.equal(null, err);
+            console.log('Item updated');
+
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+router.post('/getByIdTipoEmbarcacion', function (req, res) {
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+
+        var id = req.body.id;
+        db.collection('tipo_embarcacion').findOne({ "_id": objectId(id) }, function (err, result) {
+            assert.equal(null, err);
+            console.log(result);
+            console.log('Item loaded');
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
+
+router.get('/getAllTipoEmbarcacion', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
