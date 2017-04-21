@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" id="pagesheet" />
+
+    <!-----angular-->
+
+    <script src="jquery/dist/jquery.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="angular/angular.js"></script>
+    <script src="app.js"></script>
+    <script src="controllers/controllerPropietario.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="ControllerPropietario">
+
+
+    <div class="jumbotron">
+        <br>
+        <br>
+        <div>
+            <h4>Nombre: </h4>
+            <input type="text" ng-model="nombrePropietario" class="form-control" />
+            <h4>Cedula: </h4>
+            <input type="text" ng-model="cedulaPropietario" class="form-control" />
+            <h4>Tellefono: </h4>
+            <input type="text" ng-model="telefonoPropietario" class="form-control" />
+            <h4>Celular: </h4>
+            <input type="text" ng-model="celularPropietario" class="form-control" />
+            <h4>Correo: </h4>
+            <input type="text" ng-model="correoPropietario" class="form-control" />
+        </div>
+        <br>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoPropietario()">Ingresar</a></p>
+    </div>
+
+</body>
+</html>

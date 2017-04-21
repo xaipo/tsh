@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" id="pagesheet" />
+
+    <!-----angular-->
+
+    <script src="jquery/dist/jquery.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="angular/angular.js"></script>
+    <script src="app.js"></script>
+    <script src="controllers/controllerUsuario.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="ControllerUsuario">
+
+
+    <div class="jumbotron">
+        <br>
+        <br>
+        <div>
+            <h4>Nombre Usuario: </h4>
+            <input type="text" ng-model="nombreUsuario" class="form-control" />
+            <h4>Cedula: </h4>
+            <input type="text" ng-model="cedulaUsuario" class="form-control" />
+            <h4>Contrasenia: </h4>
+            <input type="text" ng-model="contrasenaUsuario" class="form-control" />
+            <h4>Telefono: </h4>
+            <input type="text" ng-model="telefonoUsuario" class="form-control" />
+            <h4>Correo: </h4>
+            <input type="text" ng-model="correoUsuario" class="form-control" />
+            <h4>Tipo Usuario: </h4>
+            <input type="text" ng-model="tipoUsuario" class="form-control" />
+        </div>
+        <br>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoCliente()">Ingresar</a></p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" id="pagesheet" />
+
+    <!-----angular-->
+
+    <script src="jquery/dist/jquery.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="angular/angular.js"></script>
+    <script src="app.js"></script>
+    <script src="controllers/controllerDetalleMantenimiento.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="ControllerDetalleMantenimiento">
+
+
+    <div class="jumbotron">
+        <br>
+        <br>
+        <div>
+            <h4>Orometro: </h4>
+            <input type="text" ng-model="orometro" class="form-control" />
+            <h4>Proximo Orometro: </h4>
+            <input type="text" ng-model="proximoOrometro" class="form-control" />
+            <h4>Observaciones de Piezas: </h4>
+            <input type="text" ng-model="piezasCambiadasObservaciones" class="form-control" />
+        </div>
+        <br>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoDetalleMantenimiento()">Ingresar</a></p>
+    </div>
+
+</body>
+</html>

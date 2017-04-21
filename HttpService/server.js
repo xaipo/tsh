@@ -28,6 +28,10 @@ app.use('/api', require('./Routers/apiUtensilios'));
 app.use('/api', require('./Routers/apiUtensiliosSeleccionados'));
 app.use('/api', require('./Routers/apiProductos'));
 app.use('/api', require('./Routers/apiDetalleMantenimiento'));
+//app.use('/api', require('./Routers/apiEmbarcacion'));
+//app.use('/api', require('./Routers/apiMantenimiento'));
+//app.use('/api', require('./Routers/apiOrdenServicio'));
+//app.use('/api', require('./Routers/apiPedido'));
 
 
 

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" id="pagesheet" />
+
+    <!-----angular-->
+
+    <script src="jquery/dist/jquery.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="angular/angular.js"></script>
+    <script src="app.js"></script>
+    <script src="controllers/controllerCombustible.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="ControllerCombustible">
+
+
+    <div class="jumbotron">
+        <br>
+        <br>
+        <div>
+            <h4>Tipo Combustible: </h4>
+            <input type="text" ng-model="tipoCombustible" class="form-control" />
+            <h4>Cantidad: </h4>
+            <input type="text" ng-model="cantidad" class="form-control" />
+            <h4>Direccion: </h4>
+        </div>
+        <br>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoCombustible()">Ingresar</a></p>
+    </div>
+
+</body>
+</html>

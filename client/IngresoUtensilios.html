@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" id="pagesheet" />
+
+    <!-----angular-->
+
+    <script src="jquery/dist/jquery.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="angular/angular.js"></script>
+    <script src="app.js"></script>
+    <script src="controllers/controllerUtensilios.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="ControllerUtensilio">
+
+
+    <div class="jumbotron">
+        <br>
+        <br>
+        <div>
+            <h4>Utensilio: </h4>
+            <input type="text" ng-model="descripcionUtensilio" class="form-control" />
+            <h4>Stock: </h4>
+            <input type="text" ng-model="stock" class="form-control" />
+            <h4>Estado: </h4>
+            <input type="text" ng-model="estado" class="form-control" />
+            </div>
+        <br>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoUtensilio()">Ingresar</a></p>
+    </div>
+
+</body>
+</html>
