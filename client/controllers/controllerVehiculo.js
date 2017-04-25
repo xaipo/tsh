@@ -1,14 +1,32 @@
 app.controller('ControllerVehiculo', ['$scope', '$http', 'myProvider', function ($scope, $http, myProvider) {
 
-    $scope.url = myProvider.getUrlIngresoVehiculo();
-    console.log($scope.url);
+    $scope.url;
+    $scope.urlAllVehiculo;
     $scope.descripcionVehiculo;
-    $scope.cantidad;
+    $scope.cantidadVehiculo;
+
+    $scope.busqueda;
+    $scope.listaVehiculo;
+
+    $scope.iniciar = function () {
+        $scope.url = myProvider.getUrlIngresoVehiculo();
+        $scope.urlAllVehiculo = myProvider.getUrlAllVehiculo();
+        $http.get($scope.urlAllVehiculo)
+            .then(function (response) {
+
+                $scope.listaVehiculo = response.data;
+
+            }, function errorCallback(response) {
+
+                console.log(response);
+            });
+    }
 
     $scope.ingresoVehiculo = function () {
+        console.log($scope.cantidadVehiculo);
         console.log($scope.descripcionVehiculo);
         var obj = {
-            cantidad: $scope.cantidad, descripcion_vehiculo: $scope.descripcionVehiculo
+            cantidad_vehiculos: $scope.cantidadVehiculo, descripcion_vehiculos: $scope.descripcionVehiculo
         };
         $http.post($scope.url, obj)
             .then(function (response) {

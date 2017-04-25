@@ -1,6 +1,7 @@
 app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function ($scope, $http, myProvider) {
 
-    $scope.url = myProvider.getUrlIngresoCliente();
+    $scope.url;
+    $scope.urlAllClientes;
     console.log($scope.url);
     $scope.nombreCliente;
     $scope.rucCliente;
@@ -8,6 +9,26 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
     $scope.telefonoCliente;
     $scope.correoCliente;
     $scope.tipoCliente;
+
+    $scope.busqueda;
+    $scope.listaClientes;
+
+    $scope.iniciar = function () {
+        $scope.url = myProvider.getUrlIngresoCliente();
+        $scope.urlAllClientes = myProvider.getUrlAllClientes();
+        console.log($scope.url);
+        $http.get($scope.urlAllClientes)
+            .then(function (response) {
+
+                $scope.listaClientes = response.data;
+
+            }, function errorCallback(response) {
+
+                console.log(response);
+            });
+
+    }
+
     $scope.ingresoCliente = function () {
         console.log($scope.nombreCliente);
         var obj = {

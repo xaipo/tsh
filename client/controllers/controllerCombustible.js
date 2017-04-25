@@ -1,9 +1,27 @@
 app.controller('ControllerCombustible', ['$scope', '$http', 'myProvider', function ($scope, $http, myProvider) {
 
-    $scope.url = myProvider.getUrlIngresoCombustible();
+    $scope.url;
+    $scope.urlAllTiposCombustibles;
     console.log($scope.url);
     $scope.tipoCombustible;
     $scope.cantidad;
+
+    $scope.busqueda;
+    $scope.listaCombustible;
+
+    $scope.iniciar = function () {
+        $scope.url = myProvider.getUrlIngresoCombustible();
+        //$scope.urlAllTiposCombustibles = myProvider.urlAllTiposCombustibles();
+        //$http.get($scope.urlAllTiposCombustibles)
+        //    .then(function (response) {
+
+        //        $scope.listaPuertos = response.data;
+
+        //    }, function errorCallback(response) {
+
+        //        console.log(response);
+        //    });
+    }
 
     $scope.ingresoCombustible = function () {
         console.log($scope.tipoCombustible);

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,22 +13,108 @@
     <script src="app.js"></script>
     <script src="controllers/controllerDetalleMantenimiento.js"></script>
 </head>
-<body ng-app="myApp" ng-controller="ControllerDetalleMantenimiento">
-
+<body ng-app="myApp" ng-controller="ControllerDetalleMantenimiento" ng-init="iniciar()">
 
     <div class="jumbotron">
         <br>
         <br>
-        <div>
-            <h4>Orometro: </h4>
-            <input type="text" ng-model="orometro" class="form-control" />
-            <h4>Proximo Orometro: </h4>
-            <input type="text" ng-model="proximoOrometro" class="form-control" />
-            <h4>Observaciones de Piezas: </h4>
-            <input type="text" ng-model="piezasCambiadasObservaciones" class="form-control" />
+        <div class="row">
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><center><h3 class="panel-title">Ingreso Detalle Mantenimiento</h3></center></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Orometro: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="orometro" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Proximo Orometro: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="proximoOrometro" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Observacion: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="piezasCambiadasObservaciones" class="form-control" />
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-2">
+
+                            </div>
+
+                            <div class="col-md-4">
+                                <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoDetalleMantenimiento()">Ingresar</a></p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoPuerto()">Modificar</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><center><h3 class="panel-title">Lista de Detalle Mantenimiento</h3></center></div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-5">
+                                <h4>Filtrar: </h4>
+                            </div>
+
+                            <div class="col-md-7">
+                                <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
+                            </div>
+
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <select name="Puertos" ng-model="selecsion" multiple class="form-control" style="height: 150px;" ng-click="busquedaDetalleMantenimiento()">
+                                    <option value={{aux}}
+                                            ng-repeat="aux in listaDetalleMantenimiento | filter:busqueda| orderBy:aux.orometro">
+                                        {{aux.orometro}} {{" -- "}} {{aux.proximo_orometro}}{{" -- "}}{{aux.piezas_cambiadas_observaciones}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <br>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoDetalleMantenimiento()">Ingresar</a></p>
     </div>
 
 </body>

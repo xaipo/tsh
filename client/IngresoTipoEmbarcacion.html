@@ -13,19 +13,82 @@
     <script src="app.js"></script>
     <script src="controllers/controllerTipoEmbarcacion.js"></script>
 </head>
-<body ng-app="myApp" ng-controller="ControllerTipoEmbacacion">
-
+<body ng-app="myApp" ng-controller="ControllerTipoEmbacacion" ng-init="iniciar()">
 
     <div class="jumbotron">
         <br>
         <br>
-        <div>
-            <h4>nombre Tipo Embarcación: </h4>
-            <input type="text" ng-model="descripcionTipoEmbarcacion" class="form-control" />
+        <div class="row">
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><center><h3 class="panel-title">Ingreso Tipo Embarcacion</h3></center></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h4>nombre Tipo Embarcación: </h4>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="descripcionTipoEmbarcacion" class="form-control" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-2">
+
+                            </div>
+
+                            <div class="col-md-4">
+                                <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoTipoEmbarcacion()">Ingresar</a></p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoPuerto()">Modificar</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><center><h3 class="panel-title">Lista  Tipo Embarcacion</h3></center></div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-5">
+                                <h4>Filtrar: </h4>
+                            </div>
+
+                            <div class="col-md-7">
+                                <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
+                            </div>
+
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <select name="Puertos" ng-model="selecsion" multiple class="form-control" style="height: 150px;" ng-click="busquedaTipoEmbarcacion()">
+                                    <option value={{aux}}
+                                            ng-repeat="aux in listaTipoEmbarcacion | filter:busqueda| orderBy:aux.descripcion_tipo_embarcacion">
+                                        {{aux.descripcion_tipo_embarcacion}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <br>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoTipoEmbarcacion()">Ingresar</a></p>
     </div>
+
 
 </body>
 </html>

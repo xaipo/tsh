@@ -6,6 +6,6 @@
     "\\HttpService",
     "\\HttpService\\Routers"
   ],
-  "SelectedNode": "\\client\\IngresoDetalleMantenimiento.html",
+  "SelectedNode": "\\client\\controllers\\controllerPropietario.js",
   "PreviewInSolutionExplorer": false
 }

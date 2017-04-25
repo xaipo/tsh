@@ -1,12 +1,30 @@
 app.controller('ControllerPropietario', ['$scope', '$http', 'myProvider', function ($scope, $http, myProvider) {
 
-    $scope.url = myProvider.getUrlIngresoPropietario();
+    $scope.url;
+    $scope.urlAllPropietario;
     console.log($scope.url);
     $scope.nombrePropietario;
     $scope.cedulaPropietario;
     $scope.telefonoPropietario;
     $scope.celularPropietario;
     $scope.correoPropietario;
+
+    $scope.busqueda;
+    $scope.listaPropietario;
+
+    $scope.iniciar = function () {
+        $scope.url = myProvider.getUrlIngresoPropietario();
+        $scope.urlAllPropietario = myProvider.getUrlAllPropietario();
+        $http.get($scope.urlAllPropietario)
+            .then(function (response) {
+
+                $scope.listaPropietario = response.data;
+
+            }, function errorCallback(response) {
+
+                console.log(response);
+            });
+    }
     
     $scope.ingresoPropietario = function () {
         console.log($scope.nombrePropietario);

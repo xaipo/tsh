@@ -1,41 +1,159 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Inicio</title>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css" id="pagesheet" />
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" id="pagesheet" />
 
-	<!-----angular-->
+    <!-----angular-->
 
-	<script src="jquery/dist/jquery.min.js"></script>
-	<script src="bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="angular/angular.js"></script>
-	<script src="app.js"></script>
-	<script src="controllers/controllerCliente.js"></script>
+    <script src="jquery/dist/jquery.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="angular/angular.js"></script>
+    <script src="app.js"></script>
+    <script src="controllers/controllerCliente.js"></script>
 </head>
-<body ng-app="myApp" ng-controller="ControllerCliente">
+<body ng-app="myApp" ng-controller="ControllerCliente" ng-init="iniciar()">
 
+    <div class="jumbotron">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-1">
 
-	<div class="jumbotron">
-		<br>
-		<br>
-		<div>
-			<h4>Nombre: </h4>
-			<input type="text" ng-model="nombreCliente" class="form-control" />
-			<h4>Ruc: </h4>
-			<input type="text" ng-model="rucCliente" class="form-control" />
-			<h4>Direccion: </h4>
-			<input type="text" ng-model="direccionCliente" class="form-control" />
-			<h4>Telefono: </h4>
-			<input type="text" ng-model="telefonoCliente" class="form-control" />
-			<h4>Correo: </h4>
-			<input type="text" ng-model="correoCliente" class="form-control" />
-			<h4>Tipo cliente: </h4>
-			<input type="text" ng-model="tipoCliente" class="form-control" />
-		</div>
-		<br>
-		<p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoCliente()">Ingresar</a></p>
-	</div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><center><h3 class="panel-title">Ingreso Puerto</h3></center></div>
+                    <di class="panel-body">
+                        <div class="row">
+                            <div class="col-md-1">
 
+                            </div>
+                            <div class="col-md-3">
+                                <h4>Nombres: </h4>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="nombreCliente" class="form-control" />
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-1">
+
+                            </div>
+                            <div class="col-md-3">
+                                <h4>Ruc: </h4>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="rucCliente" class="form-control" />
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-1">
+
+                            </div>
+                            <div class="col-md-3">
+                                <h4>Direccion: </h4>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="direccionCliente" class="form-control" />
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-1">
+
+                            </div>
+                            <div class="col-md-3">
+                                <h4>Telefono: </h4>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="telefonoCliente" class="form-control" />
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-1">
+
+                            </div>
+                            <div class="col-md-3">
+                                <h4>Correo: </h4>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="correoCliente" class="form-control" />
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-1">
+
+                            </div>
+                            <div class="col-md-3">
+                                <h4>Tipo cliente: </h4>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="tipoCliente" class="form-control" />
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="row">
+                            <div class="col-md-2">
+
+                            </div>
+                            <div class="col-md-4">
+                                <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoCliente()">Ingresar</a></p>
+                            </div>
+
+                            <div class="col-md-5">
+                                <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoCliente()">Modificar</a></p>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><center><h3 class="panel-title">Lista de Puertos</h3></center></div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-5">
+                                <h4>Filtrar: </h4>
+                            </div>
+
+                            <div class="col-md-7">
+                                <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
+                            </div>
+
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <select name="Clientes" ng-model="selecsion" multiple class="form-control" style="height: 150px;" ng-click="busquedaClientes()">
+                                    <option value={{aux}}
+                                            ng-repeat="aux in listaClientes | filter:busqueda| orderBy:aux.nombre_cliente">
+                                        {{aux.ruc_cliente}} {{" -- "}} {{aux.nombre_cliente}} 
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

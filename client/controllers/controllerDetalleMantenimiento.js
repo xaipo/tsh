@@ -1,10 +1,28 @@
 app.controller('ControllerDetalleMantenimiento', ['$scope', '$http', 'myProvider', function ($scope, $http, myProvider) {
 
-    $scope.url = myProvider.getUrlIngresoDetalleMantenimiento();
+    $scope.url;
+    $scope.urlAllDetalleMantenimiento;
     console.log($scope.url);
     $scope.orometro;
     $scope.proximoOrometro;
     $scope.piezasCambiadasObservaciones;
+
+    $scope.busqueda;
+    $scope.listaDetalleMantenimiento;
+
+    $scope.iniciar = function () {
+        $scope.url = myProvider.getUrlIngresoDetalleMantenimiento();
+        $scope.urlAllDetalleMantenimiento = myProvider.getUrlAllDetalleMantenimiento();
+        $http.get($scope.urlAllDetalleMantenimiento)
+            .then(function (response) {
+
+                $scope.listaDetalleMantenimiento = response.data;
+
+            }, function errorCallback(response) {
+
+                console.log(response);
+            });
+    }
 
     $scope.ingresoDetalleMantenimiento = function () {
         console.log($scope.orometro);
