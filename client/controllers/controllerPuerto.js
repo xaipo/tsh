@@ -1,15 +1,20 @@
 app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($scope, $http, myProvider) {
 
     $scope.url;
-    $scope.urlAllPurtos;
+    $scope.urlModificar;
+    $scope.urlAllPuertos;
     console.log($scope.url);
     $scope.descripcionPuerto;
+
+    $scope.id;
+    $scope.seleccion;
 
     $scope.busqueda;
     $scope.listaPuertos;
 
     $scope.iniciar = function () {
         $scope.url = myProvider.getUrlIngresoPuerto();
+        $scope.urlModificar = myProvider.getUrlModificarPuerto();
         $scope.urlAllPuertos = myProvider.getUrlAllPuerto();
         $http.get($scope.urlAllPuertos)
             .then(function (response) {
@@ -28,6 +33,7 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
         $http.post($scope.url, obj)
             .then(function (response) {
 
+                $scope.iniciar();
                 console.log(response);
 
             }, function errorCallback(response) {
@@ -37,5 +43,26 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
 
     }
 
+    $scope.modificarPuerto = function () {
+
+        var obj = { id: $scope.id, descripcion_puerto: $scope.descripcionPuerto };
+        $http.post($scope.urlModificar, obj)
+            .then(function (response) {
+
+                $scope.iniciar();
+                console.log(response);
+
+            }, function errorCallback(response) {
+
+                console.log(response);
+            });
+
+    }
+
+    $scope.buscarSeleccion = function (aux) {
+        $scope.id = aux._id;
+        $scope.seleccion = aux.descripcion_puerto;
+        $scope.descripcionPuerto = $scope.seleccion;
+    }
 
 }]);

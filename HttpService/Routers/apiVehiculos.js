@@ -38,7 +38,7 @@ router.post('/updateVehiculos', function (req, res) {
 
 
         var id = req.body.id;
-        db.collection('clientes').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
+        db.collection('vehiculos').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
             assert.equal(null, err);
             console.log('Item updated');
 
@@ -56,7 +56,7 @@ router.post('/getByIdVehiculos', function (req, res) {
         console.log(req.body);
 
         var id = req.body.id;
-        db.collection('clientes').findOne({ "_id": objectId(id) }, function (err, result) {
+        db.collection('vehiculos').findOne({ "_id": objectId(id) }, function (err, result) {
             assert.equal(null, err);
             console.log(result);
             console.log('Item loaded');

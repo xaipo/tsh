@@ -61,7 +61,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoPuerto()">Modificar</a></p>
+                                <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="modificarUtensilio()">Modificar</a></p>
                             </div>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                             <div class="col-md-12">
                                 <select name="Puertos" ng-model="selecsion" multiple class="form-control" style="height: 150px;" ng-click="busquedaUtensilio()">
                                     <option value={{aux}}
-                                            ng-repeat="aux in listaUtensilio | filter:busqueda| orderBy:aux.descripcion_utensilio">
+                                            ng-repeat="aux in listaUtensilio | filter:busqueda| orderBy:aux.descripcion_utensilio"| ng-click="buscarSeleccion(aux)">
                                         {{aux.descripcion_utensilio}}
                                     </option>
                                 </select>

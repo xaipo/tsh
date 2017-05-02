@@ -6,6 +6,6 @@
     "\\HttpService",
     "\\HttpService\\Routers"
   ],
-  "SelectedNode": "\\client\\controllers\\controllerPropietario.js",
+  "SelectedNode": "\\HttpService\\server.js",
   "PreviewInSolutionExplorer": false
 }

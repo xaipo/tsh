@@ -37,7 +37,6 @@ router.post('/updateProductos', function (req, res) {
         };
 
 
-
         var id = req.body.id;
         db.collection('productos').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
             assert.equal(null, err);

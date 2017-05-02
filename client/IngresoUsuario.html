@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,28 +13,145 @@
     <script src="app.js"></script>
     <script src="controllers/controllerUsuario.js"></script>
 </head>
-<body ng-app="myApp" ng-controller="ControllerUsuario">
-
+<body ng-app="myApp" ng-controller="ControllerUsuario" ng-init="iniciar()">
 
     <div class="jumbotron">
         <br>
         <br>
-        <div>
-            <h4>Nombre Usuario: </h4>
-            <input type="text" ng-model="nombreUsuario" class="form-control" />
-            <h4>Cedula: </h4>
-            <input type="text" ng-model="cedulaUsuario" class="form-control" />
-            <h4>Contrasenia: </h4>
-            <input type="text" ng-model="contrasenaUsuario" class="form-control" />
-            <h4>Telefono: </h4>
-            <input type="text" ng-model="telefonoUsuario" class="form-control" />
-            <h4>Correo: </h4>
-            <input type="text" ng-model="correoUsuario" class="form-control" />
-            <h4>Tipo Usuario: </h4>
-            <input type="text" ng-model="tipoUsuario" class="form-control" />
+        <div class="row">
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><center><h3 class="panel-title">Ingreso Tipo Usuario</h3></center></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Nombre Usuario: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="nombreUsuario" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Cedula: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="cedulaUsuario" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Contrasenia: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="contrasenaUsuario" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Telefono: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="telefonoUsuario" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Correo: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="correoUsuario" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Tipo Usuario: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <select id="selectTipUsu" class="form-control" ng-model="seleccion">
+                                        <option value={{aux}}
+                                                ng-repeat="aux in listaTipoUsuario | filter:busqueda| orderBy:aux.descripcion_tipo_usuario" >
+                                            {{aux.descripcion_tipo_usuario}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+
+                        <div class="col-md-4">
+                            <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoCliente()">Ingresar</a></p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="modificarUsuario()">Modificar</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><center><h3 class="panel-title">Lista de Tipo Usuario</h3></center></div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-5">
+                                <h4>Filtrar: </h4>
+                            </div>
+
+                            <div class="col-md-7">
+                                <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
+                            </div>
+
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <select name="Usuarios" ng-model="seleccion" multiple class="form-control" style="height: 150px;" ng-click="busquedaUsuario()">
+                                    <option value={{aux}}
+                                            ng-repeat="aux in listaUsuario | filter:busqueda| orderBy:aux.nombre_usuario" | ng-click="buscarSeleccion(aux)">
+                                        {{aux.nombre_usuario}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <br>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoCliente()">Ingresar</a></p>
     </div>
 
 </body>
