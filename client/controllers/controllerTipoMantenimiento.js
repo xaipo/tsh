@@ -8,6 +8,7 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
 
     $scope.id;
     $scope.seleccion;
+    $scope.seleccionTipoMantenimiento;
 
     $scope.busqueda;
     $scope.listaTipoMantenimiento;
@@ -59,11 +60,16 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
 
     }
 
-    $scope.buscarSeleccion = function (aux) {
-        $scope.id = aux._id;
-        $scope.seleccion = aux.descripcion_tipo_mantenimiento;
-        console.log($scope.seleccion);
-        $scope.descripcionTipoMantenimiento = $scope.seleccion;
+    $scope.buscarSeleccionTipoMantenimiento = function () {
+
+        if ($scope.seleccionTipoMantenimiento != '' && $scope.seleccionTipoMantenimiento != undefined) {
+
+            $scope.selecTipMant = JSON.parse($scope.seleccionTipoMantenimiento);
+
+            $scope.id = $scope.selecTipMant._id;
+            $scope.descripcionTipoMantenimiento = $scope.selecTipMant.descripcion_tipo_mantenimiento;
+
+        }
     }
 
 }]);

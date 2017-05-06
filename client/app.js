@@ -48,6 +48,11 @@ function ApiUrl() {
         return 'http://localhost:3000/api/updateTipoUsuario';
     }
 
+    // Busacar por ID tipo Usuario
+    this.getUrlBuscarTipoUsuario = function () {
+        return 'http://localhost:3000/api/getByIdTipoUsuario';
+    }
+
     // Busacar todos los tipo Usuario
     this.getUrlAllTipoUsuario = function () {
         return 'http://localhost:3000/api/getAllTipoUsuario';

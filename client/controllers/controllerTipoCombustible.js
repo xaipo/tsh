@@ -8,6 +8,7 @@ app.controller('ControllerTipoCombustible', ['$scope', '$http', 'myProvider', fu
 
     $scope.id;
     $scope.seleccion;
+    $scope.seleccionTipoCombustible;
 
     $scope.busqueda;
     $scope.listaTipoCombustible;
@@ -58,10 +59,16 @@ app.controller('ControllerTipoCombustible', ['$scope', '$http', 'myProvider', fu
 
     }
 
-    $scope.buscarSeleccion = function (aux) {
-        $scope.id = aux._id;
-        $scope.seleccion = aux.descripcion_tipo_combustible;
-        $scope.descripcionTipoCombustible = $scope.seleccion;
+    $scope.buscarSeleccionTipoCombustible = function () {
+
+        if ($scope.seleccionTipoCombustible != '' && $scope.seleccionTipoCombustible != undefined) {
+
+            $scope.selecTipComb = JSON.parse($scope.seleccionTipoCombustible);
+
+            $scope.id = $scope.selecTipComb._id;
+            $scope.descripcionTipoCombustible = $scope.selecTipComb.descripcion_tipo_combustible;
+
+        }
     }
 
 }]);

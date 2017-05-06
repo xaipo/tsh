@@ -13,6 +13,7 @@ app.controller('ControllerUtensilio', ['$scope', '$http', 'myProvider', function
 
     $scope.busqueda;
     $scope.listaUtensilio;
+    $scope.listaEstado;
 
     $scope.iniciar = function () {
         $scope.url = myProvider.getUrlIngresoUtensilio();
@@ -27,8 +28,12 @@ app.controller('ControllerUtensilio', ['$scope', '$http', 'myProvider', function
 
                 console.log(response);
             });
+
+        $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Desactivado" }];
+        $scope.estado = "1";
+
     }
-    
+
     $scope.ingresoUtensilio = function () {
         console.log($scope.descripcionUtensilio);
         var obj = {
@@ -62,12 +67,18 @@ app.controller('ControllerUtensilio', ['$scope', '$http', 'myProvider', function
 
     }
 
-    $scope.buscarSeleccion = function (aux) {
-        $scope.id = aux._id;
-        $scope.seleccion = aux.descripcion_utensilio;
-        $scope.descripcionUtensilio = $scope.seleccion;
-        $scope.stock = aux.stock;
-        $scope.estado = aux.estado;
+    $scope.buscarSeleccionUtensilio = function (aux) {
+
+        if ($scope.seleccionUtensilio != '' && $scope.seleccionUtensilio != undefined) {
+
+            $scope.selecUten = JSON.parse($scope.seleccionUtensilio);
+
+            $scope.id = $scope.selecUten._id;
+            $scope.descripcionUtensilio = $scope.selecUten.descripcion_utensilio;
+            $scope.stock = $scope.selecUten.stock;
+            $scope.estado = $scope.selecUten.estado;
+
+        }
     }
 
 }]);

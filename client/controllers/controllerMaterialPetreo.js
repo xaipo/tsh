@@ -1,6 +1,7 @@
 app.controller('ControllerMaterialPetreo', ['$scope', '$http', 'myProvider', function ($scope, $http, myProvider) {
 
     $scope.url;
+    $scope.urlModificar;
     $scope.urlAllMaterialPetreo;
     console.log($scope.url);
     $scope.tipoMaterial;
@@ -9,9 +10,11 @@ app.controller('ControllerMaterialPetreo', ['$scope', '$http', 'myProvider', fun
 
     $scope.id;
     $scope.seleccion;
+    $scope.seleccionMaterialPetreo;
 
     $scope.busqueda;
     $scope.listaMaterialPetreo;
+    $scope.listaTipoMaterialPetreo;
 
     $scope.iniciar = function () {
         $scope.url = myProvider.getUrlIngresoMaterialPetreo();
@@ -22,10 +25,30 @@ app.controller('ControllerMaterialPetreo', ['$scope', '$http', 'myProvider', fun
 
                 $scope.listaMaterialPetreo = response.data;
 
-            }, function errorCallback(response) {
+                var n = $scope.listaMaterialPetreo.length;
+                if (n == 0) {
+                    alert('no se encontro informacion');
+                } else {
+                    for (var i = 0; i < n; i++) {
+                        for (var j = 0; j < 3; j++) {
+                            if ($scope.listaMaterialPetreo[i].tipo_material == $scope.listaTipoMaterialPetreo[j].id) {
+                                console.log("entro");
+                                $scope.aux = $scope.listaTipoMaterialPetreo[j];
+                                $scope.listaMaterialPetreo[i].tipo_material = $scope.aux;
+                            }
+                        }
+                    }
+                    
+                }
+            }), function errorCallback(response) {
 
                 console.log(response);
-            });
+            }
+
+        $scope.listaTipoMaterialPetreo = [{ id: '1', tipo_material: 'Piedra' }, { id: '2', tipo_material: "Arena" },
+        { id: '3', tipo_material: "Tierra" }];
+        $scope.tipoMaterial = "1";
+
     }
 
     $scope.ingresoMaterialPetreo = function () {
@@ -51,7 +74,8 @@ app.controller('ControllerMaterialPetreo', ['$scope', '$http', 'myProvider', fun
 
         var obj = {
             id: $scope.id, tipo_material: $scope.tipoMaterial, num_volquetas: $scope.numVolquetas,
-            cant_total_m3: $scope.cantTotalM3 };
+            cant_total_m3: $scope.cantTotalM3
+        };
         $http.post($scope.urlModificar, obj)
             .then(function (response) {
 
@@ -65,12 +89,18 @@ app.controller('ControllerMaterialPetreo', ['$scope', '$http', 'myProvider', fun
 
     }
 
-    $scope.buscarSeleccion = function (aux) {
-        $scope.id = aux._id;
-        $scope.seleccion = aux.tipo_material;
-        $scope.tipoMaterial = $scope.seleccion;
-        $scope.numVolquetas = aux.num_volquetas;
-        $scope.cantTotalM3 = aux.cant_total_m3;
+    $scope.busquedaMaterialPetreo = function (aux) {
+
+        if ($scope.seleccionMaterialPetreo != '' && $scope.seleccionMaterialPetreo != undefined) {
+
+            $scope.selecMatPetreo = JSON.parse($scope.seleccionMaterialPetreo);
+
+            $scope.id = $scope.selecMatPetreo._id;
+            $scope.tipoMaterial = $scope.selecMatPetreo.tipo_material.id;
+            $scope.numVolquetas = $scope.selecMatPetreo.num_volquetas;
+            $scope.cantTotalM3 = $scope.selecMatPetreo.cant_total_m3;
+
+        }
     }
 
 }]);

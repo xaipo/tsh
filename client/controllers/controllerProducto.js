@@ -9,9 +9,11 @@ app.controller('ControllerProducto', ['$scope', '$http', 'myProvider', function 
 
     $scope.id;
     $scope.seleccion;
+    $scope.seleccionProducto;
 
     $scope.busqueda;
     $scope.listaProductos;
+    $scope.listaTipoProductos;
 
     $scope.iniciar = function () {
         $scope.url = myProvider.getUrlIngresoProducto();
@@ -22,10 +24,32 @@ app.controller('ControllerProducto', ['$scope', '$http', 'myProvider', function 
 
                 $scope.listaProductos = response.data;
 
+                var n = $scope.listaProductos.length;
+                if (n == 0) {
+                    alert('no se encontro informacion');
+                } else {
+                    for (var i = 0; i < n; i++) {
+                        for (var j = 0; j < 4; j++) {
+                            if ($scope.listaProductos[i].tipo_producto == $scope.listaTipoProductos[j].id) {
+                                console.log("entro");
+                                $scope.aux = $scope.listaTipoProductos[j];
+                                $scope.listaProductos[i].tipo_producto = $scope.aux;
+                            }
+                        }
+                    }
+                    
+                }
+
             }, function errorCallback(response) {
 
                 console.log(response);
+
             });
+
+        $scope.listaTipoProductos = [{ id: '1', tipo_producto: 'Cereal' }, { id: '2', tipo_producto: "Avena" },
+            { id: '3', tipo_producto: "Granos" }, { id: '4', tipo_producto: "carne" }];
+        $scope.tipoProducto = "1";
+
     }
 
     $scope.ingresoProducto = function () {
@@ -68,11 +92,17 @@ app.controller('ControllerProducto', ['$scope', '$http', 'myProvider', function 
 
     }
 
-    $scope.buscarSeleccion = function (aux) {
-        $scope.id = aux._id;
-        $scope.tipoProducto = aux.tipo_producto;
-        $scope.cantidadProducto = aux.cantidad_producto;
-        $scope.unidadesProducto = aux.unidades_producto;
+    $scope.buscarSeleccionProducto = function (aux) {
+
+        if ($scope.seleccionProducto != '' && $scope.seleccionProducto != undefined) {
+
+            $scope.selecProd = JSON.parse($scope.seleccionProducto);
+
+            $scope.id = $scope.selecProd._id;
+            $scope.tipoProducto = $scope.selecProd.tipo_producto.id;
+            $scope.cantidadProducto = $scope.selecProd.cantidad_producto;
+            $scope.unidadesProducto = $scope.selecProd.unidades_producto;
+        }
     }
 
 }]);

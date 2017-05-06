@@ -4,7 +4,9 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
     $scope.urlModificar;
     $scope.urlGetAllTipoEmbarcacion;
     console.log($scope.url);
+
     $scope.id;
+    $scope.seleccionTipoEmbarcacion;
     $scope.descripcionTipoEmbarcacion;
 
     $scope.busqueda;
@@ -57,10 +59,16 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
 
     }
 
-    $scope.buscarSeleccion = function (aux) {
-        $scope.id = aux._id;
-        $scope.seleccion = aux.descripcion_tipo_embarcacion;
-        $scope.descripcionTipoEmbarcacion = $scope.seleccion;
+    $scope.buscarSeleccionTipoEmbarcacion = function (aux) {
+
+        if ($scope.seleccionTipoEmbarcacion != '' && $scope.seleccionTipoEmbarcacion != undefined) {
+
+            $scope.selecTipEmb = JSON.parse($scope.seleccionTipoEmbarcacion);
+
+            $scope.id = $scope.selecTipEmb._id;
+            $scope.descripcionTipoEmbarcacion = $scope.selecTipEmb.descripcion_tipo_embarcacion;
+
+        }
     }
 
 }]);

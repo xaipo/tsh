@@ -8,6 +8,7 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
 
     $scope.id;
     $scope.seleccion;
+    $scope.seleccionPuerto;
 
     $scope.busqueda;
     $scope.listaPuertos;
@@ -59,10 +60,15 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
 
     }
 
-    $scope.buscarSeleccion = function (aux) {
-        $scope.id = aux._id;
-        $scope.seleccion = aux.descripcion_puerto;
-        $scope.descripcionPuerto = $scope.seleccion;
+    $scope.buscarSeleccionPuerto = function () {
+
+        if ($scope.seleccionPuerto != '' && $scope.seleccionPuerto != undefined) {
+
+            $scope.selecPuerto = JSON.parse($scope.seleccionPuerto);
+            $scope.id = $scope.selecPuerto._id;
+            $scope.descripcionPuerto = $scope.selecPuerto.descripcion_puerto;
+
+        }
     }
 
 }]);

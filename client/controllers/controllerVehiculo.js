@@ -8,6 +8,7 @@ app.controller('ControllerVehiculo', ['$scope', '$http', 'myProvider', function 
 
     $scope.id;
     $scope.seleccion;
+    $scope.seleccionVehiculo;
 
     $scope.busqueda;
     $scope.listaVehiculo;
@@ -62,11 +63,17 @@ app.controller('ControllerVehiculo', ['$scope', '$http', 'myProvider', function 
 
     }
 
-    $scope.buscarSeleccion = function (aux) {
-        $scope.id = aux._id;
-        $scope.seleccion = aux.descripcion_vehiculos;
-        $scope.cantidadVehiculo = aux.cantidad_vehiculos;
-        $scope.descripcionVehiculo = $scope.seleccion;
+    $scope.buscarSeleccionVehiculo = function () {
+
+        if ($scope.seleccionVehiculo != '' && $scope.seleccionVehiculo != undefined) {
+
+            $scope.selecVehi = JSON.parse($scope.seleccionVehiculo);
+
+            $scope.id = $scope.selecVehi._id;
+            $scope.descripcionVehiculo = $scope.selecVehi.descripcion_vehiculos;
+            $scope.cantidadVehiculo = $scope.selecVehi.cantidad_vehiculos;
+
+        }
     }
 
 }]);

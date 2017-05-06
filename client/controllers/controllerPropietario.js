@@ -10,7 +10,8 @@ app.controller('ControllerPropietario', ['$scope', '$http', 'myProvider', functi
     $scope.correoPropietario;
 
     $scope.id;
-    $scope.seleccion;
+    $scope.seleccion; 
+    $scope.seleccionPropietario;
 
     $scope.busqueda;
     $scope.listaPropietario;
@@ -71,14 +72,20 @@ app.controller('ControllerPropietario', ['$scope', '$http', 'myProvider', functi
 
     }
 
-    $scope.buscarSeleccion = function (aux) {
-        $scope.id = aux._id;
-        $scope.nombrePropietario = aux.nombre_propietario;
-        $scope.cedulaPropietario = aux.cedula_propietario;
-        $scope.telefonoPropietario = aux.telefono_propietario;
-        $scope.celularPropietario = aux.celular_propietario;
-        $scope.correoPropietario = aux.correo_propietario;
+    $scope.buscarSeleccionPropietario = function () {
 
+        if ($scope.seleccionPropietario != '' && $scope.seleccionPropietario != undefined) {
+
+            $scope.selecProp = JSON.parse($scope.seleccionPropietario);
+
+            $scope.id = $scope.selecProp._id;
+            $scope.nombrePropietario = $scope.selecProp.nombre_propietario;
+            $scope.cedulaPropietario = $scope.selecProp.cedula_propietario;
+            $scope.telefonoPropietario = $scope.selecProp.telefono_propietario;
+            $scope.celularPropietario = $scope.selecProp.celular_propietario;
+            $scope.correoPropietario = $scope.selecProp.correo_propietario;
+
+        }
     }
 
 

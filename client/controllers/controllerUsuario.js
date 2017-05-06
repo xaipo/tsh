@@ -12,7 +12,9 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
     $scope.tipoUsuario;
 
     $scope.id;
-    $scope.seleccion;
+    $scope.seleccionUsuario;
+    $scope.seleccionTipoUsuario;
+
 
     $scope.busqueda;
     $scope.listaUsuario;
@@ -24,40 +26,10 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
         $scope.urlAllUsuario = myProvider.getUrlAllUsuario();
         $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoUsuario();
 
-
         $http.get($scope.urlAllUsuario)
             .then(function (response) {
 
-                console.log(response);
                 $scope.listaUsuario = response.data;
-                console.log($scope.listaUsuario);
-                for (i = 0; i < $scope.listaUsuario.length; i++) {
-
-                    $http({
-
-                        method: 'POST',
-                        url: 'localhost:3000/api/getByIdTipoUsuario',
-
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        data: { id: $scope.listaUsuario[i].tipo_usuario }
-
-
-                    })
-
-                        .then(function (data) {
-
-                            console.log(data);
-                            var aux = data[0];
-                            //  console.log(aux);
-
-                            $scope.listaUsuario[i].tipo_usuario = aux;
-
-                        }).catch(function (err) {
-                            console.log("error");
-                        });
-                }
 
             }, function errorCallback(response) {
 
@@ -69,12 +41,14 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
             .then(function (response) {
 
                 $scope.listaTipoUsuario = response.data;
+                $scope.tipoUsuario = $scope.listaTipoUsuario[0]._id;
+                console.log($scope.listaTipoUsuario);
 
             }, function errorCallback(response) {
 
                 console.log(response);
             });
-
+        
     }
 
     $scope.ingresoCliente = function () {
@@ -87,6 +61,7 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
         $http.post($scope.url, obj)
             .then(function (response) {
 
+                $scope.iniciar();
                 console.log(response);
 
             }, function errorCallback(response) {
@@ -96,7 +71,7 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
     }
 
 
-    $scope.modificarUsuario = function () {
+    $scope.modificarUsuario = function () {        
 
         var obj = {
             id: $scope.id, nombre_usuario: $scope.nombreUsuario, cedula_usuario: $scope.cedulaUsuario,
@@ -114,17 +89,33 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
                 console.log(response);
             });
 
+    }    
+
+    $scope.buscarSeleccionListaUsuario = function () {
+
+        if ($scope.seleccionUsuario != '' && $scope.seleccionUsuario != undefined) {
+
+            $scope.selecUsu = JSON.parse($scope.seleccionUsuario);
+
+            $scope.id = $scope.selecUsu._id;
+            $scope.nombreUsuario = $scope.selecUsu.nombre_usuario;
+            $scope.cedulaUsuario = $scope.selecUsu.cedula_usuario;
+            $scope.contrasenaUsuario = $scope.selecUsu.contrasena_usuario;
+            $scope.telefonoUsuario = $scope.selecUsu.telefono_usuario;
+            $scope.correoUsuario = $scope.selecUsu.correo_usuario;
+            $scope.tipoUsuario = $scope.selecUsu.tipo_usuario;
+
+        }
     }
 
-    $scope.buscarSeleccion = function (aux) {
-        $scope.id = aux._id;
-        $scope.nombreUsuario = aux.nombre_usuario;
-        $scope.cedulaUsuario = aux.cedula_usuario;
-        $scope.contrasenaUsuario = aux.contrasena_usuario;
-        $scope.telefonoUsuario = aux.telefono_usuario;
-        $scope.correoUsuario = aux.correo_usuario;
-        $scope.tipoUsuario = aux.tipo_usuario;
-        $scope.seleccion = aux.tipo_usuario;
+
+    $scope.test = function () {
+        console.log($scope.seleccion);
+        if ($scope.seleccion != '' && $scope.seleccion != undefined) {
+
+            $scope.seleccion1 = JSON.parse($scope.seleccion);
+            console.log($scope.seleccion1.descripcion_tipo_usuario);
+        }
     }
 
 

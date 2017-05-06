@@ -7,6 +7,7 @@ app.controller('ControllerTipoUsuario', ['$scope', '$http', 'myProvider', functi
 
     $scope.id;
     $scope.seleccion;
+    $scope.seleccionTipoUsuario;
 
     $scope.busqueda;
     $scope.listaTipoUsuario;
@@ -58,9 +59,16 @@ app.controller('ControllerTipoUsuario', ['$scope', '$http', 'myProvider', functi
 
     }
 
-    $scope.buscarSeleccion = function (aux) {
-        $scope.id = aux._id;
-        $scope.descripcionTipoUsuario = aux.descripcion_tipo_usuario;
+    $scope.buscarSeleccionTipoUsuario = function (aux) {
+
+        if ($scope.seleccionTipoUsuario != '' && $scope.seleccionTipoUsuario != undefined) {
+
+            $scope.selecTipUsu = JSON.parse($scope.seleccionTipoUsuario);
+
+            $scope.id = $scope.selecTipUsu._id;
+            $scope.descripcionTipoUsuario = $scope.selecTipUsu.descripcion_tipo_usuario;
+
+        }
     }
 
 }]);
