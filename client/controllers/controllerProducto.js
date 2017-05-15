@@ -19,26 +19,11 @@ app.controller('ControllerProducto', ['$scope', '$http', 'myProvider', function 
         $scope.url = myProvider.getUrlIngresoProducto();
         $scope.urlModificar = myProvider.getUrlModificarProducto();
         $scope.urlAllProducto = myProvider.getUrlALLProducto();
+
         $http.get($scope.urlAllProducto)
             .then(function (response) {
 
                 $scope.listaProductos = response.data;
-
-                var n = $scope.listaProductos.length;
-                if (n == 0) {
-                    alert('no se encontro informacion');
-                } else {
-                    for (var i = 0; i < n; i++) {
-                        for (var j = 0; j < 4; j++) {
-                            if ($scope.listaProductos[i].tipo_producto == $scope.listaTipoProductos[j].id) {
-                                console.log("entro");
-                                $scope.aux = $scope.listaTipoProductos[j];
-                                $scope.listaProductos[i].tipo_producto = $scope.aux;
-                            }
-                        }
-                    }
-                    
-                }
 
             }, function errorCallback(response) {
 
@@ -46,9 +31,35 @@ app.controller('ControllerProducto', ['$scope', '$http', 'myProvider', function 
 
             });
 
-        $scope.listaTipoProductos = [{ id: '1', tipo_producto: 'Cereal' }, { id: '2', tipo_producto: "Avena" },
-            { id: '3', tipo_producto: "Granos" }, { id: '4', tipo_producto: "carne" }];
-        $scope.tipoProducto = "1";
+        //$http.get($scope.urlAllProducto)
+        //    .then(function (response) {
+
+        //        $scope.listaProductos = response.data;
+
+        //        var n = $scope.listaProductos.length;
+        //        if (n == 0) {
+        //            alert('no se encontro informacion');
+        //        } else {
+        //            for (var i = 0; i < n; i++) {
+        //                for (var j = 0; j < 4; j++) {
+        //                    if ($scope.listaProductos[i].tipo_producto == $scope.listaTipoProductos[j].id) {
+        //                        $scope.aux = $scope.listaTipoProductos[j];
+        //                        $scope.listaProductos[i].tipo_producto = $scope.aux;
+        //                    }
+        //                }
+        //            }
+                    
+        //        }
+
+        //    }, function errorCallback(response) {
+
+        //        console.log(response);
+
+        //    });
+
+        //$scope.listaTipoProductos = [{ id: '1', tipo_producto: 'Cereal' }, { id: '2', tipo_producto: "Avena" },
+        //    { id: '3', tipo_producto: "Granos" }, { id: '4', tipo_producto: "carne" }];
+        //$scope.tipoProducto = "1";
 
     }
 
@@ -99,7 +110,7 @@ app.controller('ControllerProducto', ['$scope', '$http', 'myProvider', function 
             $scope.selecProd = JSON.parse($scope.seleccionProducto);
 
             $scope.id = $scope.selecProd._id;
-            $scope.tipoProducto = $scope.selecProd.tipo_producto.id;
+            $scope.tipoProducto = $scope.selecProd.tipo_producto;
             $scope.cantidadProducto = $scope.selecProd.cantidad_producto;
             $scope.unidadesProducto = $scope.selecProd.unidades_producto;
         }

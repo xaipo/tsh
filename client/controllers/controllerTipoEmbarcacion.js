@@ -2,7 +2,7 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
 
     $scope.url;
     $scope.urlModificar;
-    $scope.urlGetAllTipoEmbarcacion;
+    $scope.urlAllTipoEmbarcacion;
     console.log($scope.url);
 
     $scope.id;
@@ -15,8 +15,8 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
     $scope.iniciar = function () {
         $scope.url = myProvider.getUrlIngresoTipoEmbarcacion();
         $scope.urlModificar = myProvider.getUrlModificarTipoEmbarcacion();
-        $scope.urlGetAllTipoEmbarcacion = myProvider.getUrlAllTipoEmbarcacion();
-        $http.get($scope.urlGetAllTipoEmbarcacion)
+        $scope.urlAllTipoEmbarcacion = myProvider.getUrlAllTipoEmbarcacion();
+        $http.get($scope.urlAllTipoEmbarcacion)
             .then(function (response) {
 
                 $scope.listaTipoEmbarcacion = response.data;

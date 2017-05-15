@@ -3,7 +3,6 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
     $scope.url;
     $scope.urlModificar;
     $scope.urlAllClientes;
-    console.log($scope.url);
     $scope.nombreCliente;
     $scope.rucCliente;
     $scope.direccionCliente;
@@ -25,6 +24,7 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
         $scope.urlModificar = myProvider.getUrlModificarCliente();
         $scope.urlAllClientes = myProvider.getUrlAllClientes();
         
+        
         $http.get($scope.urlAllClientes)
             .then(function (response) {
 
@@ -41,7 +41,7 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
     }
 
     $scope.ingresoCliente = function () {
-        console.log($scope.nombreCliente);
+        
         var obj = {
             nombre_cliente: $scope.nombreCliente, ruc_cliente: $scope.rucCliente,
             direccion_cliente: $scope.direccionCliente, telefono_cliente: $scope.telefonoCliente,

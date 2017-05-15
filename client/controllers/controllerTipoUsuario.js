@@ -59,7 +59,7 @@ app.controller('ControllerTipoUsuario', ['$scope', '$http', 'myProvider', functi
 
     }
 
-    $scope.buscarSeleccionTipoUsuario = function (aux) {
+    $scope.buscarSeleccionTipoUsuario = function () {
 
         if ($scope.seleccionTipoUsuario != '' && $scope.seleccionTipoUsuario != undefined) {
 

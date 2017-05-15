@@ -17,6 +17,7 @@ app.controller('ControllerVehiculo', ['$scope', '$http', 'myProvider', function 
         $scope.url = myProvider.getUrlIngresoVehiculo();
         $scope.urlModificar = myProvider.getUrlModificarVehiculo();
         $scope.urlAllVehiculo = myProvider.getUrlAllVehiculo();
+
         $http.get($scope.urlAllVehiculo)
             .then(function (response) {
 

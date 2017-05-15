@@ -71,29 +71,49 @@
                     <div class="panel-heading"><center><h3 class="panel-title">Ingreso Combustible</h3></center></div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-5">
-                                <h4>Tipo Combustible: </h4>
-                                <input type="text" ng-model="tipoCombustible" class="form-control" />
-                                <h4>Cantidad: </h4>
-                                <input type="text" ng-model="cantidad" class="form-control" />
-                                <h4>Direccion: </h4>
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Tipo Combustible: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <select class="form-control" ng-model="tipoCombustible" ng-options="item._id as item.descripcion_tipo_combustible for item in listaTipoCombustible"></select>
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Cantidad: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="cantidad" class="form-control" />
+                                </div>
+                            </div>
+                            <br>
                         </div>
                         <br />
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-2">
+
+                            </div>
+
+                            <div class="col-md-4">
                                 <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoCombustible()">Ingresar</a></p>
                             </div>
 
-                            <div class="col-md-7">
-                                <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="ingresoPuerto()">Modificar</a></p>
+                            <div class="col-md-6">
+                                <p><a class="btn btn-primary btn-lg" href="#" role="button" ng-click="modificarCombustible()">Modificar</a></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!--<div class="col-md-6">
+            <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading"><center><h3 class="panel-title">Lista de Tipos de Combustible</h3></center></div>
                     <div class="panel-body">
@@ -116,19 +136,18 @@
                             </div>
 
                             <div class="col-md-12">
-                                <select name="Puertos" ng-model="selecsion" multiple class="form-control" style="height: 150px;" ng-click="busquedaCombustible()">
+                                <select name="Puertos" ng-model="seleccionCombustible" multiple class="form-control" style="height: 150px;" ng-click="buscarSeleccionCombustible()">
                                     <option value={{aux}}
-                                            ng-repeat="aux in listaPuertos | filter:busqueda| orderBy:aux.tipo_combustible">
-                                        {{aux.descripcion_puerto}}
+                                            ng-repeat="aux in listaCombustible | filter:busqueda| orderBy:aux.tipo_combustible.descripcion_tipo_combustible">
+                                        {{aux.tipo_combustible.descripcion_tipo_combustible}} {{"--"}} {{aux.cantidad}}
                                     </option>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>-->
+            </div>
         </div>
     </div>
-
 </body>
 </html>

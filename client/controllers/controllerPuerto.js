@@ -17,6 +17,7 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
         $scope.url = myProvider.getUrlIngresoPuerto();
         $scope.urlModificar = myProvider.getUrlModificarPuerto();
         $scope.urlAllPuertos = myProvider.getUrlAllPuerto();
+
         $http.get($scope.urlAllPuertos)
             .then(function (response) {
 

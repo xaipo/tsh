@@ -1,383 +1,366 @@
 var app = angular.module("myApp", [])
 function ApiUrl() {
 
+    var url;
+    url = "http://13.67.221.169:3001/api/";
+    //url = "http://localhost:3000/api/";
+
     ////ejemplo a seguir
     //this.getUser = function () {
     //    return 'http://13.67.221.169:3001/api/getAllPropietario';
     //}
 
+    /////////////////////////////////////////////////////////////////////////
+
+    //Ingreso Orden de Servicio
+    this.getUrlIngresoOrdenServicio = function () {
+        return (url + 'saveOrdenServicio');
+    }
+
+    // Modificar Orden de Servicio
+    this.getUrlModificarOrdenServicio = function () {
+        return (url + 'updateOrdenServicio');
+    }
+
+    // Buscar todos los Orden de Servicio
+    this.getUrlAllOrdenServicio = function () {
+        return (url + 'getAllOrdenServicio');
+    }
+    ///////////////////////////////////////////////////////////
+
+    //Ingreso Contrato Recepcion
+    this.getUrlIngresoContratoRecepcion = function () {
+        return (url + 'saveContratoRecepcion');
+    }
+
+    // Modificar Contrato Recepcion
+    this.getUrlModificarContratoRecepcion = function () {
+        return (url + 'updateContratoRecepcion');
+    }
+
+    // Buscar todos los Contrato Recepcion
+    this.getUrlAllContratoRecepcion = function () {
+        return (url + 'getAllContratoRecepcion');
+    }
+    ///////////////////////////////////////////////////////////
+
+    //Ingreso Embarcacion
+    this.getUrlIngresoEmbarcacion = function () {
+        return (url + 'saveEmbarcacion');
+    }
+
+    // Modificar Embarcacion
+    this.getUrlModificarEmbarcacion = function () {
+        return (url + 'updateEmbarcacion');
+    }
+
+    // Buscar todos los Embarcacion
+    this.getUrlAllEmbarcacion = function () {
+        return (url + 'getAllEmbarcacion');
+    }
+    ///////////////////////////////////////////////////////////
+
+    //Ingreso Mantenimiento
+    this.getUrlIngresoMantenimiento = function () {
+        return (url + 'saveMantenimiento');
+    }
+
+    // Modificar Mantenimiento
+    this.getUrlModificarMantenimiento = function () {
+        return (url + 'updateMantenimiento');
+    }
+
+    // Buscar todos los Mantenimiento
+    this.getUrlAllMantenimiento = function () {
+        return (url + 'getAllMantenimiento');
+    }
+    ///////////////////////////////////////////////////////////
+
     // Ingreso cliente
     this.getUrlIngresoCliente = function () {
-        return 'http://localhost:3000/api/saveClientes';
+        return (url + 'saveClientes');
     }
 
     // Modificar cliente
     this.getUrlModificarCliente = function () {
-        return 'http://localhost:3000/api/updateClientes';
+        return (url + 'updateClientes');
     }
 
     // Buscar todos los Clientes
     this.getUrlAllClientes = function () {
-        return 'http://localhost:3000/api/getAllClientes';
+        return (url + 'getAllClientes');
     }
     ///////////////////////////////////////////////////////
 
     // Ingreso Puerto
     this.getUrlIngresoPuerto = function () {
-        return 'http://localhost:3000/api/savePuerto';
+        return (url + 'savePuerto');
     }
 
     // Modificar Puerto
     this.getUrlModificarPuerto = function () {
-        return 'http://localhost:3000/api/updatePuerto';
+        return (url + 'updatePuerto');
     }
 
     // Buscar todos los Puertos
     this.getUrlAllPuerto = function () {
-        return 'http://localhost:3000/api/getAllPuerto';
+        return (url + 'getAllPuerto');
     }
+    //////////////////////////////////////////////////////
+
+    // Ingreso Tripulante
+    this.getUrlIngresoTripulante = function () {
+        return (url + 'saveTripulante');
+    }
+
+    // Modificar Tripulante
+    this.getUrlModificarTripulante = function () {
+        return (url + 'updateTripulante');
+    }
+
+    // Busacar por ID Tripulante
+    this.getUrlBuscarTripulante = function () {
+        return (url + 'getByIdTripulante');
+    }
+
+    // Buscar todos los Tripulante
+    this.getUrlAllTripulante = function () {
+        return (url + 'getAllTripulante');
+    }
+
+    //////////////////////////////////////////////////////
+
+    // Ingreso tipo Tripulante
+    this.getUrlIngresoTipoTripulante = function () {
+        return (url + 'saveTipoTripulante');
+    }
+
+    // Modificar tipo Tripulante
+    this.getUrlModificarTipoTripulante = function () {
+        return (url + 'updateTipoTripulante');
+    }
+
+    // Busacar por ID tipo Tripulante
+    this.getUrlBuscarTipoTripulante = function () {
+        return (url + 'getByIdTipoTripulante');
+    }
+
+    // Buscar todos los tipo Tripulante
+    this.getUrlAllTipoTripulante = function () {
+        return (url + 'getAllTipoTripulante');
+    }
+
     //////////////////////////////////////////////////////
 
     // Ingreso tipo Usuario
     this.getUrlIngresoTipoUsuario = function () {
-        return 'http://localhost:3000/api/saveTipoUsuario';
+        return (url + 'saveTipoUsuario');
     }
 
     // Modificar tipo Usuario
     this.getUrlModificarTipoUsuario = function () {
-        return 'http://localhost:3000/api/updateTipoUsuario';
+        return (url + 'updateTipoUsuario');
     }
 
-    // Busacar por ID tipo Usuario
+    // Buscar por ID tipo Usuario
     this.getUrlBuscarTipoUsuario = function () {
-        return 'http://localhost:3000/api/getByIdTipoUsuario';
+        return (url + 'getByIdTipoUsuario');
     }
 
     // Busacar todos los tipo Usuario
     this.getUrlAllTipoUsuario = function () {
-        return 'http://localhost:3000/api/getAllTipoUsuario';
+        return (url + 'getAllTipoUsuario');
     }
     /////////////////////////////////////////////////////////
 
     // Ingreso Tipo Combustible
     this.getUrlIngresoTipoCombustible = function () {
-        return 'http://localhost:3000/api/saveTipoCombustible';
+        return (url + 'saveTipoCombustible');
     }
 
     // Modificar Tipo Combustible
     this.getUrlModificarTipoCombustible = function () {
-        return 'http://localhost:3000/api/updateTipoCombustible';
+        return (url + 'updateTipoCombustible');
     }
 
     // Buscar todos los Tipo Combustible
     this.getUrlAllTipoCombustible = function () {
-        return 'http://localhost:3000/api/getAllTipoCombustible';
+        return (url + 'getAllTipoCombustible');
     }
     /////////////////////////////////////////////////////////////
 
     // Ingreso Tipo Embarcacion
     this.getUrlIngresoTipoEmbarcacion = function () {
-        return 'http://localhost:3000/api/saveTipoEmbarcacion';
+        return (url + 'saveTipoEmbarcacion');
     }
 
     // Modificar Tipo Embarcacion
     this.getUrlModificarTipoEmbarcacion = function () {
-        return 'http://localhost:3000/api/updateTipoEmbarcacion';
+        return (url + 'updateTipoEmbarcacion');
     }
 
     // Buscar todos los Tipo Embarcacion
     this.getUrlAllTipoEmbarcacion = function () {
-        return 'http://localhost:3000/api/getAllTipoEmbarcacion';
+        return (url + 'getAllTipoEmbarcacion');
     }
     /////////////////////////////////////////////////////////////
 
     // Ingreso Tipo Mantenimiento
     this.getUrlIngresoTipoMantenimiento = function () {
-        return 'http://localhost:3000/api/saveTipoMantenimiento';
+        return (url + 'saveTipoMantenimiento');
     }
 
     // Modificar Tipo Mantenimiento
     this.getUrlModificarTipoMantenimiento = function () {
-        return 'http://localhost:3000/api/updateTipoMantenimiento';
+        return (url + 'updateTipoMantenimiento');
     }
 
     // Buscar Todos los Tipo Mantenimiento
     this.getAllTipoMantenimiento = function () {
-        return 'http://localhost:3000/api/getAllTipoMantenimiento';
+        return (url + 'getAllTipoMantenimiento');
     }
     ///////////////////////////////////////////////////////////////
 
     // Ingreso Utensilio
     this.getUrlIngresoUtensilio = function () {
-        return 'http://localhost:3000/api/saveUtensilios';
+        return (url + 'saveUtensilios');
     }
 
     // Modificar Utensilio
     this.getUrlModificarUtensilio = function () {
-        return 'http://localhost:3000/api/updateUtensilios';
+        return (url + 'updateUtensilios');
     }
 
     // Buscar todos Utensilio
     this.getUrlAllUtensilio = function () {
-        return 'http://localhost:3000/api/getAllUtensilios';
+        return (url + 'getAllUtensilios');
     }
     /////////////////////////////////////////////////////////
 
     // Ingreso Propietario
     this.getUrlIngresoPropietario = function () {
-        return 'http://localhost:3000/api/savePropietario';
+        return (url + 'savePropietario');
     }
 
     // Modificar Propietario
     this.getUrlModificarPropietario = function () {
-        return 'http://localhost:3000/api/updatePropietario';
+        return (url + 'updatePropietario');
     }
 
     // Buscar todos los Propietario
     this.getUrlAllPropietario = function () {
-        return 'http://localhost:3000/api/getAllPropietario';
+        return (url + 'getAllPropietario');
     }
     //////////////////////////////////////////////////////////
 
     // Ingreso Producto
     this.getUrlIngresoProducto = function () {
-        return 'http://localhost:3000/api/saveProductos';
+        return (url + 'saveProductos');
     }
 
     // Modificar Producto
     this.getUrlModificarProducto = function () {
-        return 'http://localhost:3000/api/updateProductos';
+        return (url + 'updateProductos');
     }
 
     // Buscar todos los Producto
     this.getUrlALLProducto = function () {
-        return 'http://localhost:3000/api/getAllProductos';
+        return (url + 'getAllProductos');
     }
     /////////////////////////////////////////////////////////
 
     // Ingreso Material Petreo
     this.getUrlIngresoMaterialPetreo = function () {
-        return 'http://localhost:3000/api/saveMaterialPetreo';
+        return (url + 'saveMaterialPetreo');
     }
 
     // Modificar Material Petreo
     this.getUrlModificarMaterialPetreo = function () {
-        return 'http://localhost:3000/api/updateMaterialPetreo';
+        return (url + 'updateMaterialPetreo');
     }
 
     // Buscar todos Material Petreo
     this.getUrlAllMaterialPetreo = function () {
-        return 'http://localhost:3000/api/getAllMaterialPetreo';
+        return (url + 'getAllMaterialPetreo');
     }
     /////////////////////////////////////////////////////////////
 
     // Ingreso Vehiculo
     this.getUrlIngresoVehiculo = function () {
-        return 'http://localhost:3000/api/saveVehiculos';
+        return (url + 'saveVehiculos');
     }
 
     // Modificar Vehiculo
     this.getUrlModificarVehiculo = function () {
-        return 'http://localhost:3000/api/updateVehiculos';
+        return (url + 'updateVehiculos');
     }
 
     // Buscar todos Vehiculo
     this.getUrlAllVehiculo = function () {
-        return 'http://localhost:3000/api/getAllVehiculos';
+        return (url + 'getAllVehiculos');
     }
     ///////////////////////////////////////////////////////////
 
     // Ingreso Usuario
     this.getUrlIngresoUsuario = function () {
-        return 'http://localhost:3000/api/saveUsuario';
+        return (url + 'saveUsuario');
     }
 
     // Modificar Usuario
     this.getUrlModificarUsuario = function () {
-        return 'http://localhost:3000/api/updateUsuario';
+        return (url + 'updateUsuario');
     }
 
-    // Modificar Usuario
+    // Buscar todos los Usuario
     this.getUrlAllUsuario = function () {
-        return 'http://localhost:3000/api/getAllUsuario';
+        return (url + 'getAllUsuario');
     }
 
     ////////////////////////////////////////////////////////////
 
     // Ingreso Combustible
     this.getUrlIngresoCombustible = function () {
-        return 'http://localhost:3000/api/saveCombustible';
+        return (url + 'saveCombustible');
     }
 
     // Modificar Combustible
     this.getUrlModificarCombustible = function () {
-        return 'http://localhost:3000/api/updateCombustible';
+        return (url + 'updateCombustible');
+    }
+
+    // Buscar todos los Combustible
+    this.getUrlAllCombustible = function () {
+        return (url + 'getAllCombustible');
     }
 
     ///////////////////////////////////////////////////////////
 
     // Ingreso Utensilios Seleccionados
     this.getUrlIngresoUtensiliosSeleccionados = function () {
-        return 'http://localhost:3000/api/saveUtensiliosSeleccionados';
+        return (url + 'saveUtensiliosSeleccionados');
     }
 
     // Modificar Utensilios Seleccionados
     this.getUrlModificarUtensiliosSeleccionados = function () {
-        return 'http://localhost:3000/api/updateUtensiliosSeleccionados';
+        return (url + 'updateUtensiliosSeleccionados');
     }
 
     ////////////////////////////////////////////////////////////////////////
 
     // Ingreso Detalle Mantenimiento
     this.getUrlIngresoDetalleMantenimiento = function () {
-        return 'http://localhost:3000/api/saveDetalleMantenimiento';
+        return (url + 'saveDetalleMantenimiento');
     }
 
     // Modificar Detalle Mantenimiento
     this.getUrlModificarDetalleMantenimiento = function () {
-        return 'http://localhost:3000/api/updateDetalleMantenimiento';
+        return (url + 'updateDetalleMantenimiento');
     }
 
     // buscar todos los Detalle Mantenimiento
     this.getUrlAllDetalleMantenimiento = function () {
-        return 'http://localhost:3000/api/getAllDetalleMantenimiento';
+        return (url + 'getAllDetalleMantenimiento');
     }
-
-
-     //// Ingreso cliente
-    //this.getUrlIngresoCliente = function () {
-    //    return 'http://13.67.221.169:3001/api/saveClientes';
-    //}
-    //// Buscar todos los Clientes
-    //this.getUrlAllClientes = function () {
-    //    return 'http://13.67.221.169:3001/api/getAllClientes';
-    //}
-
-    //// Ingreso Puerto
-    //this.getUrlIngresoPuerto = function () {
-    //    return 'http://13.67.221.169:3001/api/savePuerto';
-    //}
-
-    //// Buscar todos los Puertos
-    //this.getUrlAllPuerto = function () {
-    //    return 'http://13.67.221.169:3001/api/getAllPuerto';
-    //}
-
-    //// Ingreso tipo Usuario
-    //this.getUrlIngresoTipoUsuario = function () {
-    //    return 'http://13.67.221.169:3001/api/saveTipoUsuario';
-    //}
-
-    //// Busacar todos los tipo Usuario
-    //this.getUrlAllTipoUsuario = function () {
-    //    return 'http://13.67.221.169:3001/api/getAllTipoUsuario';
-    //}
-
-    //// Ingreso Tipo Combustible
-    //this.getUrlIngresoTipoCombustible = function () {
-    //    return 'http://13.67.221.169:3001/api/saveTipoCombustible';
-    //}
-
-    //// Buscar todos los Tipo Combustible
-    //this.getUrlAllTipoCombustible = function () {
-    //    return 'http://13.67.221.169:3001/api/getAllTipoCombustible';
-    //}
-
-    //// Ingreso Tipo Embarcacion
-    //this.getUrlIngresoTipoEmbarcacion = function () {
-    //    return 'http://13.67.221.169:3001/api/saveTipoEmbarcacion';
-    //}
-
-    //// Buscar todos los Tipo Embarcacion
-    //this.getUrlAllTipoEmbarcacion = function () {
-    //    return 'http://13.67.221.169:3001/api/getAllTipoEmbarcacion';
-    //}
-
-    //// Ingreso Tipo Mantenimiento
-    //this.getUrlIngresoTipoMantenimiento = function () {
-    //    return 'http://13.67.221.169:3001/api/saveTipoMantenimiento';
-    //}
-
-    //// Buscar Todos los Tipo Mantenimiento
-    //this.getAllTipoMantenimiento = function () {
-    //    return 'http://13.67.221.169:3001/api/getAllTipoMantenimiento';
-    //}
-
-    //// Ingreso Utensilio
-    //this.getUrlIngresoUtensilio = function () {
-    //    return 'http://13.67.221.169:3001/api/saveUtensilios';
-    //}
-
-    //// Buscar todos Utensilio
-    //this.getUrlAllUtensilio = function () {
-    //    return 'http://13.67.221.169:3001/api/getAllUtensilios';
-    //}
-
-    //// Ingreso Propietario
-    //this.getUrlIngresoPropietario = function () {
-    //    return 'http://13.67.221.169:3001/api/savePropietario';
-    //}
-
-    //// Buscar todos los Propietario
-    //this.getUrlAllPropietario = function () {
-    //    return 'http://13.67.221.169:3001/api/getAllPropietario';
-    //}
-
-    //// Ingreso Producto
-    //this.getUrlIngresoProducto = function () {
-    //    return 'http://13.67.221.169:3001/api/saveProductos';
-    //}
-
-    //// Buscar todos los Producto
-    //this.getUrlALLProducto = function () {
-    //    return 'http://13.67.221.169:3001/api/getAllProductos';
-    //}
-
-    //// Ingreso Material Petreo
-    //this.getUrlIngresoMaterialPetreo = function () {
-    //    return 'http://13.67.221.169:3001/api/saveMaterialPetreo';
-    //}
-
-    //// Buscar todos Material Petreo
-    //this.getUrlAllMaterialPetreo = function () {
-    //    return 'http://13.67.221.169:3001/api/getAllMaterialPetreo';
-    //}
-
-    //// Ingreso Vehiculo
-    //this.getUrlIngresoVehiculo = function () {
-    //    return 'http://13.67.221.169:3001/api/saveVehiculos';
-    //}
-
-    //// Buscar todos Vehiculo
-    //this.getUrlAllVehiculo = function () {
-    //    return 'http://13.67.221.169:3001/api/getAllVehiculos';
-    //}
-
-    //// Ingreso Usuario
-    //this.getUrlIngresoUsuario = function () {
-    //    return 'http://13.67.221.169:3001/api/saveUsuario';
-    //}
-
-    //// Ingreso Combustible
-    //this.getUrlIngresoCombustible = function () {
-    //    return 'http://13.67.221.169:3001/api/saveCombustible';
-    //}
-
-    //// Ingreso Utensilios Seleccionados
-    //this.getUrlIngresoUtensiliosSeleccionados = function () {
-    //    return 'http://13.67.221.169:3001/api/saveUtensiliosSeleccionados';
-    //}
-
-    //// Ingreso Detalle Mantenimiento
-    //this.getUrlIngresoDetalleMantenimiento = function () {
-    //    return 'http://13.67.221.169:3001/api/saveDetalleMantenimiento';
-    //}
-
-    //// buscar todos los Detalle Mantenimiento
-    //this.getUrlAllDetalleMantenimiento = function () {
-    //    return 'http://13.67.221.169:3001/api/getAllDetalleMantenimiento';
-    //}
-
 
 }
 

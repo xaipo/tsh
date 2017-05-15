@@ -15,6 +15,8 @@ app.get('/', function (req, res) {
 });
 app.use('/api', require('./Routers/apiUsuario'));
 app.use('/api', require('./Routers/apiTipoUsuario'));
+app.use('/api', require('./Routers/apiTipoTripulante'));
+app.use('/api', require('./Routers/apiTripulante'));
 app.use('/api', require('./Routers/apiTipoCombustible'));
 app.use('/api', require('./Routers/apiTipoEmbarcacion'));
 app.use('/api', require('./Routers/apiTipoMantenimiento'));
@@ -28,10 +30,11 @@ app.use('/api', require('./Routers/apiUtensilios'));
 app.use('/api', require('./Routers/apiUtensiliosSeleccionados'));
 app.use('/api', require('./Routers/apiProductos'));
 app.use('/api', require('./Routers/apiDetalleMantenimiento'));
-//app.use('/api', require('./Routers/apiEmbarcacion'));
-//app.use('/api', require('./Routers/apiMantenimiento'));
-//app.use('/api', require('./Routers/apiOrdenServicio'));
-//app.use('/api', require('./Routers/apiPedido'));
+app.use('/api', require('./Routers/apiEmbarcacion'));
+app.use('/api', require('./Routers/apiMantenimiento'));
+app.use('/api', require('./Routers/apiOrdenServicio'));
+app.use('/api', require('./Routers/apiPedido'));
+app.use('/api', require('./Routers/apiContratoRecepcion'));
 
 
 

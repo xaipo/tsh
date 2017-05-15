@@ -80,7 +80,8 @@
                                 </div>
                                 <div class="col-md-7">
 
-                                    <select class="form-control" ng-model="tipoMaterial" ng-options="item.id as item.tipo_material for item in listaTipoMaterialPetreo"></select>
+                                    <input type="text" ng-model="tipoMaterial" class="form-control" />
+                                    <!--<select class="form-control" ng-model="tipoMaterial" ng-options="item.id as item.tipo_material for item in listaTipoMaterialPetreo"></select>-->
 
                                 </div>
                             </div>
@@ -152,7 +153,7 @@
                                 <select name="Puertos" ng-model="seleccionMaterialPetreo" multiple class="form-control" style="height: 150px;" ng-click="busquedaMaterialPetreo()">
                                     <option value={{aux}}
                                             ng-repeat="aux in listaMaterialPetreo | filter:busqueda| orderBy:aux.tipo_material">
-                                        {{aux.tipo_material.tipo_material}}{{" -- "}}{{aux.num_volquetas}}
+                                        {{aux.tipo_material}}{{" -- "}}{{aux.num_volquetas}}
                                     </option>
                                 </select>
                             </div>

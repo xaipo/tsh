@@ -2,7 +2,7 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
 
     $scope.url;
     $scope.urlModificar;
-    $scope.urlGetAllTipoMantenimiento;
+    $scope.urlAllTipoMantenimiento;
     console.log($scope.url);
     $scope.descripcionTipoMantenimiento;
 
@@ -16,8 +16,8 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
     $scope.iniciar = function () {
         $scope.url = myProvider.getUrlIngresoTipoMantenimiento();
         $scope.urlModificar = myProvider.getUrlModificarTipoMantenimiento();
-        $scope.urlGetAllTipoMantenimiento = myProvider.getAllTipoMantenimiento();
-        $http.get($scope.urlGetAllTipoMantenimiento)
+        $scope.urlAllTipoMantenimiento = myProvider.getAllTipoMantenimiento();
+        $http.get($scope.urlAllTipoMantenimiento)
             .then(function (response) {
 
                 $scope.listaTipoMantenimiento = response.data;

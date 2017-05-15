@@ -51,7 +51,7 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
         
     }
 
-    $scope.ingresoCliente = function () {
+    $scope.ingresoUsuario = function () {
         console.log($scope.nombreUsuario);
         var obj = {
             nombre_usuario: $scope.nombreUsuario, cedula_usuario: $scope.cedulaUsuario,
@@ -107,16 +107,5 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
 
         }
     }
-
-
-    $scope.test = function () {
-        console.log($scope.seleccion);
-        if ($scope.seleccion != '' && $scope.seleccion != undefined) {
-
-            $scope.seleccion1 = JSON.parse($scope.seleccion);
-            console.log($scope.seleccion1.descripcion_tipo_usuario);
-        }
-    }
-
 
 }]);
