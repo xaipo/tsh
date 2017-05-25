@@ -12,11 +12,10 @@ router.post('/saveVehiculos', function (req, res) {
 
         console.log(req.body);
         var collection = db.collection('vehiculos');
-        collection.insert(req.body, {
+        collection.insert(req.body, function (err, result) {
 
-        });
-
-        res.send('Info ingresada');
+            res.send(result.ops[0]);
+        });        
 
         db.close();
 

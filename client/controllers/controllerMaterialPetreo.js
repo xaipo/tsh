@@ -63,7 +63,7 @@ app.controller('ControllerMaterialPetreo', ['$scope', '$http', 'myProvider', fun
     }
 
     $scope.ingresoMaterialPetreo = function () {
-        console.log($scope.tipoMaterial);
+        
         var obj = {
             tipo_material: $scope.tipoMaterial, num_volquetas: $scope.numVolquetas,
             cant_total_m3: $scope.cantTotalM3

@@ -12,6 +12,22 @@ function ApiUrl() {
 
     /////////////////////////////////////////////////////////////////////////
 
+    //Ingreso Pedido
+    this.getUrlIngresoPedido = function () {
+        return (url + 'savePedido');
+    }
+
+    // Modificar Pedido
+    this.getUrlModificarPedido = function () {
+        return (url + 'updatePedido');
+    }
+
+    // Buscar todos los Pedido
+    this.getUrlAllPedido = function () {
+        return (url + 'getAllPedido');
+    }
+    ///////////////////////////////////////////////////////////
+
     //Ingreso Orden de Servicio
     this.getUrlIngresoOrdenServicio = function () {
         return (url + 'saveOrdenServicio');

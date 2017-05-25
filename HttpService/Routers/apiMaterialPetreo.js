@@ -12,11 +12,10 @@ router.post('/saveMaterialPetreo', function (req, res) {
 
         console.log(req.body);
         var collection = db.collection('material_petreo');
-        collection.insert(req.body, {
+        collection.insert(req.body, function (err, result) {
 
-        });
-
-        res.send('Info ingresada');
+            res.send(result.ops[0]);
+        });        
 
         db.close();
 
@@ -35,8 +34,6 @@ router.post('/updateMaterialPetreo', function (req, res) {
             num_volquetas: req.body.num_volquetas,
             cant_total_m3: req.body.cant_total_m3
         };
-
-
 
         var id = req.body.id;
         db.collection('material_petreo').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
