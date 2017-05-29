@@ -30,7 +30,8 @@ app.controller('ControllerVehiculo', ['$scope', '$http', 'myProvider', function 
     }
 
     $scope.ingresoVehiculo = function () {
-        for (var i = 0; i < 500; i++) {
+        
+        //for (var i = 0; i < 500; i++) {
             var obj = {
                 cantidad_vehiculos: $scope.cantidadVehiculo,
                 descripcion_vehiculos: $scope.descripcionVehiculo + i
@@ -46,7 +47,7 @@ app.controller('ControllerVehiculo', ['$scope', '$http', 'myProvider', function 
 
                     console.log(response);
                 });
-        }
+        //}
     }
 
     $scope.modificarVehiculo = function () {

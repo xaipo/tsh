@@ -1,4 +1,4 @@
-app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', function ($scope, $http, myProvider) {
+app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q", "$timeout", function ($scope, $http, myProvider, $q, $timeout) {
 
     $scope.url;
     $scope.urlModificar;
@@ -40,23 +40,37 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', func
     $scope.nombreCapitan;
     $scope.tripulacion;
 
+    // Variable de combustible
+    $scope.cantidadConsumoCombustible;
+    $scope.cantidadTransporteCombustible;
+
+
 
     //$scope.seleccion;
     $scope.seleccionTripulante = {};
     $scope.seleccionMatPetreo = {};
     $scope.seleccionVehiculo = {};
+    $scope.seleccionConsumoCombustible = {};
+    $scope.seleccionTransporteCombustible = {};
 
 
     //$scope.busqueda;
-    $scope.listaEmbarcacion;
-    $scope.listaCliente;
+    $scope.listaEmbarcacion = [];
+    $scope.listaCliente = [];
     $scope.listaMaterialPetreo = [];
     $scope.listaVehiculo = [];
-    $scope.listaPuerto;
-    $scope.listaCombustible;
-    $scope.listaTripulante;
-    $scope.listaContratoRecepcion;
+    $scope.listaPuerto = [];
+    $scope.listaCombustibleConsumo = [];
+    $scope.listaCombustibleConsumoSelect = [];
+    $scope.listaCombustibleConsumoIngresar = [];
+    $scope.listaCombustibleTransporte = [];
+    $scope.listaCombustibleTransporteSelect = [];
+    $scope.listaCombustibleTransporteIngresar = [];
+    $scope.listaTripulante = [];
+    $scope.listaContratoRecepcion = [];
     $scope.listaTripulanteSelect = [];
+    $scope.listaTransporteCombutible = [];
+    $scope.listaConsumoCombustible = [];
 
     // Lista de ingresos
 
@@ -71,8 +85,7 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', func
     $scope.dimMatPet;
     $scope.dimTrip;
 
-    // Bandera
-    $scope.ban;
+
 
     $scope.iniciar = function () {
         $scope.url = myProvider.getUrlIngresoOrdenServicio();
@@ -132,31 +145,23 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', func
         $http.get($scope.urlAllTipoCombustible)
             .then(function (response) {
 
-                $scope.listaTipoCombustible = response.data;
-                $scope.tipoCombustible = $scope.listaTipoCombustible[0]._id;
+                $scope.listaCombustibleConsumo = response.data;
+                $scope.combustibleConsumo = $scope.listaCombustibleConsumo[0]._id;
 
-                $http.get($scope.urlAllCombustible)
-                    .then(function (response) {
+            }, function errorCallback(response) {
 
-                        $scope.listaCombustible = response.data;
+                console.log(response);
+            });
 
-                        var n = $scope.listaCombustible.length;
-                        var n1 = $scope.listaTipoCombustible.length;
-                        for (var i = 0; i < n; i++) {
-                            for (var j = 0; j < n1; j++) {
-                                if ($scope.listaCombustible[i].tipo_combustible == $scope.listaTipoCombustible[j]._id) {
-                                    $scope.aux = $scope.listaTipoCombustible[j];
-                                    $scope.listaCombustible[i].tipo_combustible = $scope.aux;
-                                }
-                            }
-                            $scope.combustibleTransporte = $scope.listaCombustible[1]._id;
-                            $scope.combustibleConsumo = $scope.listaCombustible[0]._id;
-                        }
+        $http.get($scope.urlAllTipoCombustible)
+            .then(function (response) {
 
-                    }, function errorCallback(response) {
+                $scope.listaCombustibleTransporte = response.data;
+                $scope.combustibleTransporte = $scope.listaCombustibleTransporte[1]._id;
 
-                        console.log(response);
-                    });
+            }, function errorCallback(response) {
+
+                console.log(response);
             });
 
         $http.get($scope.urlAllPuerto)
@@ -216,117 +221,176 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', func
 
     }
 
-    var preparar = function (cd) {
+    $scope.ingresoMateriales = function (pos) {
+
+        var q = $q.defer()
+        q.resolve(
+
+            $http({
+                method: 'POST',
+                url: $scope.urlMatPetreo,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: $scope.listaMaterialPetreo[pos]
+
+
+            }).then(function successCallback(response) {
+
+                $scope.listMatPetreo.push(response.data._id.toString());
+
+
+            }, function errorCallback(response) {
+
+
+            }));
+
+        return q.promise
+    }
+
+    $scope.ingresoVehiculos = function (pos) {
+
+        $scope.objVehi = $scope.listaVehiculo[pos];
+
+        var q = $q.defer()
+        q.resolve(
+
+            $http({
+                method: 'POST',
+                url: $scope.urlVehiculo,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: $scope.listaVehiculo[pos]
+
+
+            }).then(function successCallback(response) {
+
+                $scope.listaVehi.push(response.data._id.toString());
+
+
+            }, function errorCallback(response) {
+
+
+            }));
+
+        return q.promise
+    }
+
+    $scope.ingresoOrden = function () {
+
+        $scope.selecCli = JSON.parse($scope.seleccionCliente);
+
+        var q = $q.defer()
+
+        q.resolve(
+
+            $http({
+                method: 'POST',
+                url: $scope.url,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    cliente: $scope.selecCli._id,
+                    detalle: $scope.detalle,
+                    embarcacion: $scope.embarcacion,
+                    estado: $scope.estado,
+                    fecha: $scope.fecha,
+                    puerto_embarque: $scope.puertoEmbarque,
+                    puerto_desembarque: $scope.puertoDesembarque,
+                    orometro_inicial_m1: $scope.orometroInicialM1,
+                    orometro_inicial_m2: $scope.orometroInicialM2,
+                    orometro_final_m1: $scope.orometroFinalM1,
+                    orometro_final_m2: $scope.orometroFinalM2,
+                    hora_salida: $scope.horaSalida,
+                    hora_arribo: $scope.horaArribo,
+                    carga_material_petreo: $scope.listMatPetreo,
+                    carga_vehiculo: $scope.listaVehi,
+                    observaciones: $scope.observaciones,
+                    combustible_consumo: $scope.listaCombustibleConsumoIngresar,
+                    combustible_transporte: $scope.listaCombustibleTransporteIngresar,
+                    observacion_maquinaria: $scope.observacionMaquinista,
+                    contrato_recepcion: $scope.contratoRecepcion,
+                    nombre_capitan: $scope.nombreCapitan,
+                    tripulacion: $scope.listaTrip
+                }
+
+
+            }).then(function successCallback(response) {
+
+                console.log(response.data)
+
+            }, function errorCallback(response) {
+
+
+            })
+
+        );
+
+        console.log("Bien");
+
+        return q.promise
+    }
+
+
+    $scope.ingresoOrdenServicio = function () {
 
         var dimMatPet = $scope.listaMaterialPetreo.length;
 
         for (var i = 0; i < dimMatPet; i++) {
 
-            $scope.objMat = $scope.listaMaterialPetreo[i];
-            var dato;
-            $http.post($scope.urlMatPetreo, $scope.objMat)
-                .then(function successCallback(response) {
-
-                    $scope.listMatPetreo.push(response.data._id);
-
-                }, function errorCallback(response) {
-
-                    console.log(response);
-                });
+            $scope.ingresoMateriales(i);
 
         }
-
 
         var dimVe = $scope.listaVehiculo.length;
-        var dato;
+
         for (var i = 0; i < dimVe; i++) {
 
-            $scope.objVehi = $scope.listaVehiculo[i];
+            $scope.ingresoVehiculos(i);
 
-            $http.post($scope.urlVehiculo, $scope.objVehi)
-                .then(function successCallback(response) {
-
-                    $scope.listaVehi.push(response.data._id);
-
-                }), function errorCallback(response) {
-
-                };
         }
-
 
         var dimeTrip = $scope.listaTripulanteSelect.length;
 
         for (var i = 0; i < dimeTrip; i++) {
 
-            $scope.listaTrip.push($scope.listaTripulanteSelect[i]._id);
+            $scope.listaTrip.push($scope.listaTripulanteSelect[i]._id.toString());
 
         }
 
-        console.log("Hola");
-        cd($scope.listaVehi);
-    }
+        var dimeCombusCons = $scope.listaCombustibleConsumoSelect.length;
 
-    var prepararIngreso = function (txt, obj) {
+        for (var i = 0; i < dimeCombusCons; i++) {
 
-        $scope.selecCli = JSON.parse($scope.seleccionCliente);
+            var obj = {
+                tipo_combustible: $scope.listaCombustibleConsumoSelect[i].tipo_combustible._id,
+                cantidad_combustible: $scope.listaCombustibleConsumoSelect[i].cantidad_combustible
+            }
 
-        var objVar = {
-            cliente: $scope.selecCli._id,
-            detalle: $scope.detalle,
-            embarcacion: $scope.embarcacion,
-            estado: $scope.estado,
-            fecha: $scope.fecha,
-            puerto_embarque: $scope.puertoEmbarque,
-            puerto_desembarque: $scope.puertoDesembarque,
-            orometro_inicial_m1: $scope.orometroInicialM1,
-            orometro_inicial_m2: $scope.orometroInicialM2,
-            orometro_final_m1: $scope.orometroFinalM1,
-            orometro_final_m2: $scope.orometroFinalM2,
-            hora_salida: $scope.horaSalida,
-            hora_arribo: $scope.horaArribo,
-            carga_material_petreo: $scope.listMatPetreo,
-            carga_vehiculo: $scope.listaVehi,
-            observaciones: $scope.observaciones,
-            combustible_consumo: $scope.combustibleConsumo,
-            combustible_transporte: $scope.combustibleTransporte,
-            observacion_maquinaria: $scope.observacionMaquinista,
-            contrato_recepcion: $scope.contratoRecepcion,
-            nombre_capitan: $scope.nombreCapitan,
-            tripulacion: $scope.listaTrip
-        };
+            $scope.listaCombustibleConsumoIngresar.push(obj);
 
-        console.log("Bien");
+        }
 
-        obj(objVar);
-    }
+        var dimeCombusTrans = $scope.listaCombustibleTransporteSelect.length;
 
-    var guardar = function (obj, cb) {
+        for (var i = 0; i < dimeCombusTrans; i++) {
 
-        $http.post($scope.url, obj)
-            .then(function (response) {
+            var obj = {
+                tipo_combustible: $scope.listaCombustibleTransporteSelect[i].tipo_combustible._id,
+                cantidad_combustible: $scope.listaCombustibleTransporteSelect[i].cantidad_combustible
+            }
 
-                $scope.iniciar();
-                console.log(response);
+            $scope.listaCombustibleTransporteIngresar.push(obj);
 
-            }, function errorCallback(response) {
+        }
 
-                console.log(response);
-            });
-        cb("Es lo ultimo");
-    }
+        $timeout(function () {
 
-    $scope.ingresoOrdenServicio = function () {
+            $scope.ingresoOrden();
 
-        preparar(function (cd) {
-            console.log(cd);
-            prepararIngreso(cd, function (obj) {
-                console.log(obj);
-                guardar(obj, function (cd) {
-                    console.log(cd);
-                });
-            });
-        });
-
+        }, 3000, false)
     }
 
 
@@ -433,13 +497,15 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', func
 
     $scope.agregarListaMatPetreo = function () {
 
-        var obj = {
-            tipo_material: $scope.tipoMaterial, num_volquetas: $scope.numVolquetas,
-            cant_total_m3: $scope.cantTotalM3
-        };
+        if ($scope.tipoMaterial != "" && $scope.numVolquetas != "" && $scope.cantTotalM3 != "" &&
+            $scope.tipoMaterial != undefined && $scope.numVolquetas != undefined && $scope.cantTotalM3 != undefined) {
+            var obj = {
+                tipo_material: $scope.tipoMaterial, num_volquetas: $scope.numVolquetas,
+                cant_total_m3: $scope.cantTotalM3
+            };
 
-        $scope.listaMaterialPetreo.push(obj);
-
+            $scope.listaMaterialPetreo.push(obj);
+        }
     }
 
     $scope.quitarSeleccionMaterialPetreo = function () {
@@ -466,13 +532,15 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', func
 
     $scope.agregarListaVehiculo = function () {
 
-        var obj = {
-            cantidad_vehiculos: $scope.cantidadVehiculo,
-            descripcion_vehiculos: $scope.descripcionVehiculo
-        };
+        if ($scope.cantidadVehiculo != "" && $scope.descripcionVehiculo != "" &&
+            $scope.cantidadVehiculo != undefined && $scope.descripcionVehiculo != undefined) {
+            var obj = {
+                cantidad_vehiculos: $scope.cantidadVehiculo,
+                descripcion_vehiculos: $scope.descripcionVehiculo
+            };
 
-        $scope.listaVehiculo.push(obj);
-
+            $scope.listaVehiculo.push(obj);
+        }
     }
 
     $scope.quitarSeleccionVehiculo = function () {
@@ -498,89 +566,113 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', func
 
     }
 
+    $scope.agregarListaConsumoCombustible = function () {
 
+        if ($scope.combustibleConsumo != undefined && $scope.combustibleConsumo != "" &&
+            $scope.cantidadConsumoCombustible != undefined && $scope.cantidadConsumoCombustible != "") {
 
-    $scope.ingresarTest = function () {
+            var n = $scope.listaCombustibleConsumo.length;
+            var pos = "";
+            for (var i = 0; i < n; i++) {
 
+                if ($scope.listaCombustibleConsumo[i]._id == $scope.combustibleConsumo) {
+                    pos = i;
+                    break;
+                }
+            }
 
+            var obj = {
+                tipo_combustible: $scope.listaCombustibleConsumo[pos],
+                cantidad_combustible: $scope.cantidadConsumoCombustible
+            }
 
-        var dimMatPet = $scope.listaMaterialPetreo.length;
+            $scope.listaCombustibleConsumoSelect.push(obj);
 
-        for (var i = 0; i < dimMatPet; i++) {
+            $scope.listaCombustibleConsumo.splice(pos, 1);
+            $scope.combustibleConsumo = {};
+            $scope.cantidadConsumoCombustible = "";
 
-            $http({
-                method: 'POST',
-                url: $scope.urlMatPetreo,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                data: $scope.listaMaterialPetreo[i]
-
-
-            }).then(function successCallback(response) {
-
-                $scope.listMatPetreo.push(response.data._id);
-
-
-            }, function errorCallback(response) {
-
-
-
-            }).then(function (response) {
-
-
-                console.log($scope.listMatPetreo);
-                $http({
-                    method: 'POST',
-                    url: $scope.urlMatPetreo,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    data: {
-                        carga_material: $scope.listMatPetreo
-                    }
-
-
-                }).then(function successCallback(response) {
-
-                   console.log(response.data._id)
-                 
-
-                }, function errorCallback(response) {
-
-
-
-                })
-
-
-            });
         }
-
-
-
 
     }
 
+    $scope.quitarSeleccionConsumoCombustible = function () {
 
+        if ($scope.seleccionConsumoCombustible != undefined && $scope.seleccionConsumoCombustible != "") {
 
-    function dataService($http, $q) {
-        return {
-            getAll: getAll
+            $scope.seleccionConsumoCombustibleJS = JSON.parse($scope.seleccionConsumoCombustible);
+            $scope.listaCombustibleConsumo.push($scope.seleccionConsumoCombustibleJS.tipo_combustible);
+
+            var n = $scope.listaCombustibleConsumoSelect.length;
+            var pos = "";
+            for (var i = 0; i < n; i++) {
+
+                if ($scope.listaCombustibleConsumoSelect[i].tipo_combustible._id == $scope.seleccionConsumoCombustibleJS.tipo_combustible._id) {
+                    pos = i;
+                    break;
+                }
+            }
+
+            $scope.listaCombustibleConsumoSelect.splice(pos, 1);
+            $scope.seleccionConsumoCombustible = {};
+
         }
 
-        function getAll() {
-            var defered = $q.defer();
-            var promise = defered.promise;
-
-            $http.get('http://midominio.com/recursos.json')
-                .success(function (data) {
-                    defered.resolve(data);
-                })
-                .error(function (err) {
-                    defered.reject(err)
-                });
-
-            return promise;
-        }
     }
+
+    $scope.agregarListaTransporteCombustible = function () {
+
+        if ($scope.combustibleTransporte != undefined && $scope.combustibleTransporte != "" &&
+            $scope.cantidadTransporteCombustible != undefined && $scope.cantidadTransporteCombustible != "") {
+
+            console.log($scope.combustibleTransporte);
+            var n = $scope.listaCombustibleTransporte.length;
+            var pos = "";
+            for (var i = 0; i < n; i++) {
+
+                if ($scope.listaCombustibleTransporte[i]._id == $scope.combustibleTransporte) {
+                    pos = i;
+                    break;
+                }
+            }
+
+            var obj = {
+                tipo_combustible: $scope.listaCombustibleTransporte[pos],
+                cantidad_combustible: $scope.cantidadTransporteCombustible
+            }
+
+            $scope.listaCombustibleTransporteSelect.push(obj);
+
+            $scope.listaCombustibleTransporte.splice(pos, 1);
+            $scope.combustibleTransporte = {};
+            $scope.cantidadTransporteCombustible = "";
+
+        }
+
+    }
+
+    $scope.quitarSeleccionTrasnsporteCombustible = function () {
+
+        if ($scope.seleccionTransporteCombustible != undefined && $scope.seleccionTransporteCombustible != "") {
+
+            $scope.seleccionTransporteCombustibleJS = JSON.parse($scope.seleccionTransporteCombustible);
+            $scope.listaCombustibleTransporte.push($scope.seleccionTransporteCombustibleJS.tipo_combustible);
+
+            var n = $scope.listaCombustibleTransporteSelect.length;
+            var pos = "";
+            for (var i = 0; i < n; i++) {
+
+                if ($scope.listaCombustibleTransporteSelect[i].tipo_combustible._id == $scope.seleccionTransporteCombustibleJS.tipo_combustible._id) {
+                    pos = i;
+                    break;
+                }
+            }
+
+            $scope.listaCombustibleTransporteSelect.splice(pos, 1);
+            $scope.seleccionTransporteCombustible = {};
+
+        }
+
+    }
+
 }]);

@@ -1,4 +1,4 @@
-app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', function ($scope, $http, myProvider) {
+app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$timeout", function ($scope, $http, myProvider, $q, $timeout) {
 
     $scope.url;
     $scope.urlProductos;
@@ -41,6 +41,7 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', function ($
             .then(function (response) {
 
                 $scope.listaUtensilios = response.data;
+                $scope.utensilios = $scope.listaUtensilios[0]._id;
 
             }, function errorCallback(response) {
 
@@ -52,6 +53,7 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', function ($
             .then(function (response) {
 
                 $scope.listaOrdenServicio = response.data;
+                $scope.ordenServicio = $scope.listaOrdenServicio[0]._id;
 
             }, function errorCallback(response) {
 
@@ -59,25 +61,52 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', function ($
             });
     }
 
-    var ingresoProductos = function () {
+    $scope.ingresoProductos = function (pos) {
 
-        var n = listaProductos.length;
+        var obj = $scope.listaProductos[pos];
+        var q = $q.defer()
+        q.resolve(
 
-        for (var i = 0; i < n; i++) {
             $http.post($scope.urlProductos, obj)
-                .then(function (response) {
+                .then(function successCallback(response) {
 
-                    $scope.iniciar();
-                    console.log(response);
+                    $scope.listaProductosArray.push(response.data._id.toString());
 
                 }, function errorCallback(response) {
 
                     console.log(response);
-                });
-        }
+                }));
+
+        return q.promise
     }
 
-    $scope.ingresoPedido = function () {
+    $scope.ingresoUtensiliosSeleccionados = function (pos) {
+
+        var aux = $scope.listaUtensilioSelect[pos];
+
+        var obj = {
+            utensilio: aux.utensilios._id,
+            cantidad_utensilios: aux.cantidad_utensilios
+        }
+
+        var q = $q.defer()
+        q.resolve(
+
+            $http.post($scope.urlUtensiliosSeleccionados, obj)
+                .then(function successCallback(response) {
+
+                    $scope.listaUtensiliosArray.push(response.data._id.toString());
+
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                }));
+
+        return q.promise
+    }
+
+    $scope.ingresoPesidoBase = function () {
+
         var obj = {
             orden_servicio: $scope.ordenServicio,
             productos: $scope.listaProductosArray,
@@ -85,23 +114,56 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', function ($
             observaciones: $scope.observaciones
         };
 
-        $http.post($scope.url, obj)
-            .then(function (response) {
+        console.log(obj);
 
-                $scope.iniciar();
-                console.log(response);
+        var q = $q.defer()
+        q.resolve(
 
-            }, function errorCallback(response) {
+            $http.post($scope.url, obj)
+                .then(function successCallback(response) {
 
-                console.log(response);
-            });
+                    $scope.iniciar();
+                    console.log(response);
+
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                }));
+
+        return q.promise
+    }
+
+    $scope.ingresoPedido = function () {
+
+        var dimProduc = $scope.listaProductos.length;
+
+        for (var i = 0; i < dimProduc; i++) {
+
+            $scope.ingresoProductos(i);
+
+        }
+
+        var dimUtenSelect = $scope.listaUtensilioSelect.length;
+
+        for (var i = 0; i < dimUtenSelect; i++) {
+
+            $scope.ingresoUtensiliosSeleccionados(i);
+
+        }       
+
+        $timeout(function () {
+
+            $scope.ingresoPesidoBase();
+
+        }, 3000, false)
 
     }
 
 
     $scope.agregarListaUtensilios = function () {
 
-        if ($scope.utensilios != undefined && $scope.utensilios != "") {
+        if ($scope.utensilios != undefined && $scope.utensilios != "" &&
+            $scope.cantidadUtensilios != "" && $scope.cantidadUtensilios != undefined) {
 
             var n = $scope.listaUtensilios.length;
             var pos = "";
@@ -154,18 +216,20 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', function ($
 
     $scope.agregarListaProductos = function () {
 
-        var obj = {
-            tipo_producto: $scope.tipoProducto,
-            cantidad_producto: $scope.cantidadProducto,
-            unidades_producto: $scope.unidades
+        if ($scope.tipoProducto != "" && $scope.cantidadProducto != "" && $scope.unidades != "" &&
+            $scope.tipoProducto != undefined && $scope.cantidadProducto != undefined && $scope.unidades != undefined) {
+            var obj = {
+                tipo_producto: $scope.tipoProducto,
+                cantidad_producto: $scope.cantidadProducto,
+                unidades_producto: $scope.unidades
+            }
+
+            $scope.listaProductos.push(obj);
+
+            $scope.tipoProducto = "";
+            $scope.cantidadProducto = "";
+            $scope.unidades = "";
         }
-
-        $scope.listaProductos.push(obj);
-
-        $scope.tipoProducto = "";
-        $scope.cantidadProducto = "";
-        $scope.unidades = "";
-
     }
 
     $scope.quitarSeleccionProductos = function () {

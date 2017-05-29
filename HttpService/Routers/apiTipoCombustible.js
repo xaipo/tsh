@@ -69,21 +69,21 @@ router.post('/getByIdTipoCombustible', function (req, res) {
 
 router.get('/getAllTipoCombustible', function (req, res) {
 
+    var resultArray = [];
     MongoClient.connect(url, function (err, db) {
+
         assert.equal(null, err);
+        var cursor = db.collection('tipo_combustible').find();
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function () {
+            db.close();
+            res.send(resultArray);
 
-        console.log(req.body);
-        var collection = db.collection('tipo_combustible');
-
-        collection.find().toArray(function (err, results) {
-            console.log(results)
-            // send HTML file populated with quotes here
-            res.send(results);
         });
-
-        db.close();
-
     });
+
 });
 
 

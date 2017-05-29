@@ -42,6 +42,7 @@ app.controller('ControllerUtensilio', ['$scope', '$http', 'myProvider', function
         $http.post($scope.url, obj)
             .then(function (response) {
 
+                $scope.iniciar();
                 console.log(response);
 
             }, function errorCallback(response) {

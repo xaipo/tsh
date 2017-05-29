@@ -13,7 +13,6 @@ router.post('/saveMaterialPetreo', function (req, res) {
         console.log(req.body);
         var collection = db.collection('material_petreo');
         collection.insert(req.body, function (err, result) {
-
             res.send(result.ops[0]);
         });        
 
@@ -68,21 +67,21 @@ router.post('/getByIdMaterialPetreo', function (req, res) {
 
 router.get('/getAllMaterialPetreo', function (req, res) {
 
+    var resultArray = [];
     MongoClient.connect(url, function (err, db) {
+
         assert.equal(null, err);
+        var cursor = db.collection('material_petreo').find();
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function () {
+            db.close();
+            res.send(resultArray);
 
-        console.log(req.body);
-        var collection = db.collection('material_petreo');
-
-        collection.find().toArray(function (err, results) {
-            console.log(results)
-            // send HTML file populated with quotes here
-            res.send(results);
         });
-
-        db.close();
-
     });
+
 });
 
 

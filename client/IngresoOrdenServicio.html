@@ -53,7 +53,6 @@
                                 <li><a href="IngresoTripulante.html">Tripulante</a></li>
                                 <li><a href="IngresoTipoUsuario.html">Tipo Usuario</a></li>
                                 <li><a href="IngresoUsuario.html">Usuario</a></li>
-                                <li><a href="IngresoPropietario.html">Propietario</a></li>
                                 <li><a href="IngresoVehiculo.html">Vehículos</a></li>
                             </ul>
                         </li>
@@ -347,24 +346,72 @@
 
                     <div class="col-md-4">
                         <div class="row">
+                            <div class="col-md-10">
+                                <h3>Consumo Combustible: </h3>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-4">
                                 <h4>Consumo Conbustible: </h4>
                             </div>
                             <div class="col-md-7">
-                                <select class="form-control" ng-model="combustibleConsumo" ng-options="item._id as item.tipo_combustible.descripcion_tipo_combustible for item in listaCombustible"></select>
+                                <select class="form-control" ng-model="combustibleConsumo" ng-options="item._id as item.descripcion_tipo_combustible for item in listaCombustibleConsumo"></select>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h4>Cantidad: </h4>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="cantidadConsumoCombustible" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaConsumoCombustible()" />
+                        </div>
+                        <div class="col-md-12">
+                            <select name="Puertos" ng-model="seleccionConsumoCombustible" multiple class="form-control" style="height: 150px;" ng-click="quitarSeleccionConsumoCombustible()">
+                                <option value={{aux}}
+                                        ng-repeat="aux in listaCombustibleConsumoSelect">
+                                    {{aux.tipo_combustible.descripcion_tipo_combustible}} {{" -- "}} {{aux.cantidad_combustible}}
+                                </option>
+                            </select>
                         </div>
                     </div>
 
 
                     <div class="col-md-4">
                         <div class="row">
+                            <div class="col-md-10">
+                                <h3>Transporte Combustible: </h3>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-4">
                                 <h4>Transportacion Combustible: </h4>
                             </div>
                             <div class="col-md-7">
-                                <select class="form-control" ng-model="combustibleTransporte" ng-options="item._id as item.tipo_combustible.descripcion_tipo_combustible for item in listaCombustible"></select>
+                                <select class="form-control" ng-model="combustibleTransporte" ng-options="item._id as item.descripcion_tipo_combustible for item in listaCombustibleTransporte"></select>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h4>Cantidad: </h4>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="cantidadTransporteCombustible" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaTransporteCombustible()" />
+                        </div>
+                        <div class="col-md-12">
+                            <select name="Puertos" ng-model="seleccionTransporteCombustible" multiple class="form-control" style="height: 150px;" ng-click="quitarSeleccionTrasnsporteCombustible()">
+                                <option value={{aux}}
+                                        ng-repeat="aux in listaCombustibleTransporteSelect">
+                                    {{aux.tipo_combustible.descripcion_tipo_combustible}} {{" -- "}} {{aux.cantidad_combustible}}
+                                </option>
+                            </select>
                         </div>
                     </div>
 
@@ -460,7 +507,7 @@
 
                         </div>
                         <div class="col-md-2">
-                            <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresarTest()" />
+                            <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoOrdenServicio()" />
                         </div>
 
                         <div class="col-md-2">

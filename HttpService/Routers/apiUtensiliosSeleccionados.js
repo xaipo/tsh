@@ -12,11 +12,9 @@ router.post('/saveUtensiliosSeleccionados', function (req, res) {
 
         console.log(req.body);
         var collection = db.collection('utensilios_seleccionados');
-        collection.insert(req.body, {
-
-        });
-
-        res.send('Info ingresada');
+        collection.insert(req.body, function (err, result) {
+            res.send(result.ops[0]);
+        });        
 
         db.close();
 
@@ -70,21 +68,21 @@ router.post('/getByIdUtensiliosSeleccionados', function (req, res) {
 
 router.get('/getAllUtensiliosSeleccionados', function (req, res) {
 
+    var resultArray = [];
     MongoClient.connect(url, function (err, db) {
+
         assert.equal(null, err);
+        var cursor = db.collection('utensilios_seleccionados').find();
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function () {
+            db.close();
+            res.send(resultArray);
 
-        console.log(req.body);
-        var collection = db.collection('utensilios_seleccionados');
-
-        collection.find().toArray(function (err, results) {
-            console.log(results)
-            // send HTML file populated with quotes here
-            res.send(results);
         });
-
-        db.close();
-
     });
+
 });
 
 
