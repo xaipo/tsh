@@ -104,7 +104,7 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
             $scope.telefonoUsuario = $scope.selecUsu.telefono_usuario;
             $scope.correoUsuario = $scope.selecUsu.correo_usuario;
             $scope.tipoUsuario = $scope.selecUsu.tipo_usuario;
-
+            console.log($scope.selecUsu);
         }
     }
 

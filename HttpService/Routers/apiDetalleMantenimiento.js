@@ -12,11 +12,9 @@ router.post('/saveDetalleMantenimiento', function (req, res) {
 
         console.log(req.body);
         var collection = db.collection('detalle_mantenimiento');
-        collection.insert(req.body, {
-
+        collection.insert(req.body, function (err, result) {
+            res.send(result.ops[0]);
         });
-
-        res.send('Info ingresada');
 
         db.close();
 
