@@ -84,7 +84,7 @@ app.controller('ControllerMaterialPetreo', ['$scope', '$http', 'myProvider', fun
     $scope.modificarMaterialPetreo = function () {
 
         var obj = {
-            id: $scope.id, tipo_material: $scope.tipoMaterial, num_volquetas: $scope.numVolquetas,
+            _id: $scope.id, tipo_material: $scope.tipoMaterial, num_volquetas: $scope.numVolquetas,
             cant_total_m3: $scope.cantTotalM3
         };
         $http.post($scope.urlModificar, obj)

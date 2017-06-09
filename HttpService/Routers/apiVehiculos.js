@@ -36,7 +36,7 @@ router.post('/updateVehiculos', function (req, res) {
 
 
 
-        var id = req.body.id;
+        var id = req.body._id;
         db.collection('vehiculos').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
             assert.equal(null, err);
             console.log('Item updated');

@@ -2,8 +2,8 @@ var app = angular.module("myApp", [])
 function ApiUrl() {
 
     var url;
-    url = "http://13.67.221.169:3001/api/";
-    //url = "http://localhost:3000/api/";
+    //url = "http://13.67.221.169:3001/api/";
+    url = "http://localhost:3000/api/";
 
     ////ejemplo a seguir
     //this.getUser = function () {
@@ -102,10 +102,16 @@ function ApiUrl() {
         return (url + 'updateClientes');
     }
 
+    // Buscar Cliente
+    this.getUrlIdClientes = function () {
+        return (url + 'getByIdClientes');
+    }
+
     // Buscar todos los Clientes
     this.getUrlAllClientes = function () {
         return (url + 'getAllClientes');
     }
+
     ///////////////////////////////////////////////////////
 
     // Ingreso Puerto
@@ -295,6 +301,11 @@ function ApiUrl() {
         return (url + 'updateMaterialPetreo');
     }
 
+    // Buscar Material Petreo
+    this.getUrlIdMaterialPetreo = function () {
+        return (url + 'getByIdMaterialPetreo');
+    }
+
     // Buscar todos Material Petreo
     this.getUrlAllMaterialPetreo = function () {
         return (url + 'getAllMaterialPetreo');
@@ -309,6 +320,11 @@ function ApiUrl() {
     // Modificar Vehiculo
     this.getUrlModificarVehiculo = function () {
         return (url + 'updateVehiculos');
+    }
+
+    // Buscar  Vehiculo
+    this.getUrlIdVehiculo = function () {
+        return (url + 'getByIdVehiculos');
     }
 
     // Buscar todos Vehiculo

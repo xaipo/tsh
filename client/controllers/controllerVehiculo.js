@@ -30,31 +30,34 @@ app.controller('ControllerVehiculo', ['$scope', '$http', 'myProvider', function 
     }
 
     $scope.ingresoVehiculo = function () {
-        
+
         //for (var i = 0; i < 500; i++) {
-            var obj = {
-                cantidad_vehiculos: $scope.cantidadVehiculo,
-                descripcion_vehiculos: $scope.descripcionVehiculo + i
-            };
+        var obj = {
+            cantidad_vehiculos: $scope.cantidadVehiculo,
+            descripcion_vehiculos: $scope.descripcionVehiculo + i
+        };
 
-            $http.post($scope.url, obj)
-                .then(function (response) {
+        $http.post($scope.url, obj)
+            .then(function (response) {
 
-                    $scope.iniciar();
-                    console.log(response);
+                $scope.iniciar();
+                console.log(response);
 
-                }, function errorCallback(response) {
+            }, function errorCallback(response) {
 
-                    console.log(response);
-                });
+                console.log(response);
+            });
         //}
     }
 
     $scope.modificarVehiculo = function () {
 
-        var obj = { id: $scope.id, cantidad_vehiculos: $scope.cantidadVehiculo, descripcion_vehiculos: $scope.descripcionVehiculo };
-        console.log($scope.cantidad_vehiculos);
-        console.log($scope.descripcion_vehiculos);
+        var obj = {
+            _id: $scope.id,
+            cantidad_vehiculos: $scope.cantidadVehiculo, 
+            descripcion_vehiculos: $scope.descripcionVehiculo
+        };
+        
         $http.post($scope.urlModificar, obj)
             .then(function (response) {
 

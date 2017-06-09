@@ -34,7 +34,7 @@ router.post('/updateMaterialPetreo', function (req, res) {
             cant_total_m3: req.body.cant_total_m3
         };
 
-        var id = req.body.id;
+        var id = req.body._id;
         db.collection('material_petreo').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
             assert.equal(null, err);
             console.log('Item updated');
