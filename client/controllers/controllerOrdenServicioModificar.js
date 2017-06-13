@@ -18,6 +18,8 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     $scope.urlVehiculo;
     $scope.urlVehiculoModificar;
     $scope.urlBuscarClienteId;
+    $scope.urlBuscarCombustibleId;
+    $scope.urlBuscarTipoCombustibleId;
 
     //atributos
     $scope.id;
@@ -115,10 +117,15 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
         $scope.urlAllCombustible = myProvider.getUrlAllCombustible();
         $scope.urlModificarCombustible = myProvider.getUrlModificarCombustible();
+        $scope.urlBuscarCombustibleId = myProvider.getUrlBuscarCombustible();
 
         $scope.urlAllTripulante = myProvider.getUrlAllTripulante();
+
         $scope.urlAllContratoRecepcion = myProvider.getUrlAllContratoRecepcion();
+
         $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
+        $scope.urlBuscarTipoCombustibleId = myProvider.getUrlBuscarTipoCombustible();
+
         $scope.urlAllTipoTripulante = myProvider.getUrlAllTipoTripulante();
 
         $scope.urlMatPetreo = myProvider.getUrlIngresoMaterialPetreo();
@@ -293,6 +300,33 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
     }
 
+    $scope.ingresoMateriales = function (pos) {
+
+        var q = $q.defer()
+        q.resolve(
+
+            $http({
+                method: 'POST',
+                url: $scope.urlMatPetreo,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: $scope.listaMatPetreoNueva[pos]
+
+
+            }).then(function successCallback(response) {
+
+                $scope.listaMaterialPetreo.push(response.data);
+
+
+            }, function errorCallback(response) {
+
+
+            }));
+
+        return q.promise
+    }
+
     $scope.modificarBaseMaterialPetreo = function (pos) {
         console.log($scope.listaMaterialPetreo);
 
@@ -320,23 +354,23 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
     }
 
-    $scope.ingresoMateriales = function (pos) {
+    $scope.ingresoVehiculos = function (pos) {
 
         var q = $q.defer()
         q.resolve(
 
             $http({
                 method: 'POST',
-                url: $scope.urlMatPetreo,
+                url: $scope.urlVehiculo,
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                data: $scope.listaMatPetreoNueva[pos]
+                data: $scope.listaVehiculo[pos]
 
 
             }).then(function successCallback(response) {
 
-                $scope.listaMaterialPetreo.push(response.data);
+                $scope.listaVehi.push(response.data._id.toString());
 
 
             }, function errorCallback(response) {
@@ -374,55 +408,53 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
         return q.promise
     }
 
-    $scope.ingresoVehiculos = function (pos) {
+    $scope.modificarBaseConsumoCombustible = function (pos) {
 
+        var obj = {
+            _id: $scope.listaConsumoCombustible[pos]._id,
+            tipo_combustible: $scope.listaConsumoCombustible[pos].tipo_combustible._id,
+            cantidad_combustible: $scope.listaConsumoCombustible[pos].cantidad_combustible
+        };
+        
         var q = $q.defer()
         q.resolve(
 
-            $http({
-                method: 'POST',
-                url: $scope.urlVehiculo,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                data: $scope.listaVehiculo[pos]
+            $http.post($scope.urlModificarCombustible, obj)
+                .then(function (response) {
 
+                    console.log(response.data);
 
-            }).then(function successCallback(response) {
+                }, function errorCallback(response) {
 
-                $scope.listaVehi.push(response.data._id.toString());
-
-
-            }, function errorCallback(response) {
-
-
-            }));
+                    console.log(response);
+                }));
 
         return q.promise
     }
 
-    $scope.modificarBaseConsumoCombustible = function (pos) {
+    $scope.modificarBaseTransporteCombustible = function (pos) {
 
         var obj = {
-            tipo_combustible: $scope.listaConsumoCombustible[pos].tipo_combustible,
-            cantidad: $scope.listaConsumoCombustible[pos].cantidad
+            _id: $scope.listaCombustibleTransporte[pos]._id,
+            tipo_combustible: $scope.listaCombustibleTransporte[pos].tipo_combustible._id,
+            cantidad_combustible: $scope.listaCombustibleTransporte[pos].cantidad_combustible
         };
 
         console.log(obj);
-        //var q = $q.defer()
-        //q.resolve(
+        var q = $q.defer()
+        q.resolve(
 
-        //    $http.post($scope.urlModificarCombustible, obj)
-        //        .then(function (response) {
+            $http.post($scope.urlModificarCombustible, obj)
+                .then(function (response) {
 
-        //            console.log(response);
+                    console.log(response.data);
 
-        //        }, function errorCallback(response) {
+                }, function errorCallback(response) {
 
-        //            console.log(response);
-        //        }));
+                    console.log(response);
+                }));
 
-        //return q.promise
+        return q.promise
     }
 
     $scope.modificarOrden = function () {
@@ -482,16 +514,14 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
         return q.promise
     }
 
-
     $scope.modificarOrdenServicio = function () {
 
-        var dimBaseMatPetModif = $scope.listaMaterialPetreo.length;
+        //var dimBaseMatPetModif = $scope.listaMaterialPetreo.length;
+        //for (var i = 0; i < dimBaseMatPetModif; i++) {
 
-        for (var i = 0; i < dimBaseMatPetModif; i++) {
+        //    $scope.modificarBaseMaterialPetreo(i);
 
-            $scope.modificarBaseMaterialPetreo(i);
-
-        }
+        //}
 
         //var dimMatPet = $scope.listaMatPetreoNueva.length;
 
@@ -501,32 +531,35 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
         //}
 
-        var dimVeModif = $scope.listaVehiculo.length;
+        //var dimVeModif = $scope.listaVehiculo.length;
+        //for (var i = 0; i < dimVeModif; i++) {
 
-        for (var i = 0; i < dimVeModif; i++) {
+        //    $scope.modificarBaseVehiculos(i);
 
-            $scope.modificarBaseVehiculos(i);
-
-        }
+        //}
 
         //var dimVe = $scope.listaVehiculo.length;
-
         //for (var i = 0; i < dimVe; i++) {
 
         //    $scope.ingresoVehiculos(i);
 
         //}
 
-        var dimeCombusConsModif = $scope.listaConsumoCombustible.length;
+        //var dimeCombusConsModif = $scope.listaConsumoCombustible.length;
+        //for (var i = 0; i < dimeCombusConsModif; i++) {
 
-        for (var i = 0; i < dimeCombusConsModif; i++) {
+        //    $scope.modificarBaseConsumoCombustible(i);
 
-            $scope.modificarBaseConsumoCombustible.push(i);
+        //}
+
+        var dimeCombusTransModif = $scope.listaCombustibleTransporte.length;
+        for (var i = 0; i < dimeCombusTransModif; i++) {
+
+            $scope.modificarBaseTransporteCombustible(i);
 
         }
 
         //var dimeCombusTrans = $scope.listaCombustibleTransporteSelect.length;
-
         //for (var i = 0; i < dimeCombusTrans; i++) {
 
         //    var obj = {
@@ -539,7 +572,6 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
         //}
 
         //var dimeTrip = $scope.listaTripulanteSelect.length;
-
         //for (var i = 0; i < dimeTrip; i++) {
 
         //    $scope.listaTrip.push($scope.listaTripulanteSelect[i]._id.toString());
@@ -573,6 +605,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
         var nVehi = orden.carga_vehiculo.length;
         var listaVehi = orden.carga_vehiculo;
         for (var i = 0; i < nVehi; i++) {
+
             var vehi = { id: listaVehi[i] };
             $http.post($scope.urlVehiculoBuscar, vehi)
                 .then(function (response) {
@@ -587,44 +620,69 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
         var nCombCons = orden.combustible_consumo.length;
         var listaCons = orden.combustible_consumo;
+        var k = 0;
         for (var i = 0; i < nCombCons; i++) {
-            var nTipCombCons = $scope.listaTipoCombustibleConsumo.length;
-            for (var j = 0; j < nTipCombCons; j++) {
-                if (listaCons[i].tipo_combustible == $scope.listaTipoCombustibleConsumo[j]._id) {
 
-                    var obj = {
-                        tipo_combustible: $scope.listaTipoCombustibleConsumo[j],
-                        cantidad_combustible: listaCons[i].cantidad_combustible
+            var combust = { id: listaCons[i] };
+
+            $http.post($scope.urlBuscarCombustibleId, combust)
+                .then(function (response) {
+
+                    $scope.listaConsumoCombustible.push(response.data);
+                    var tipCombus = {
+                        id: response.data.tipo_combustible
                     }
-                    $scope.listaConsumoCombustible.push(obj);
-                    //$scope.listaTipoCombustibleConsumo.splice(j, 1);
-                    //if ($scope.listaTipoCombustibleConsumo.length != 0)
-                    //    $scope.combustibleConsumo = $scope.listaTipoCombustibleConsumo[0]._id;
-                    j = nTipCombCons;
-                    console.log(listaCons);
-                }
-            }
+
+                    $http.post($scope.urlBuscarTipoCombustibleId, tipCombus)
+                        .then(function (response) {
+
+                            $scope.listaConsumoCombustible[k++].tipo_combustible = response.data;
+
+                        }, function errorCallback(response) {
+
+                            console.log(response);
+
+                        });
+
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
+
         }
 
         var nCombTrans = orden.combustible_transporte.length;
-        var listaTrans = orden.combustible_transporte;
+        var listaTransport = orden.combustible_transporte;
+        var x = 0;
         for (var i = 0; i < nCombTrans; i++) {
-            var nTipCombTrans = $scope.listaTipoCombustibleTransporte.length;
-            for (var j = 0; j < nTipCombTrans; j++) {
-                if (listaTrans[i].tipo_combustible == $scope.listaTipoCombustibleTransporte[j]._id) {
 
-                    var obj = {
-                        tipo_combustible: $scope.listaTipoCombustibleTransporte[j],
-                        cantidad_combustible: listaTrans[i].cantidad_combustible
+            var combust = {
+                id: listaTransport[i]
+            };
+
+            $http.post($scope.urlBuscarCombustibleId, combust)
+                .then(function (response) {
+
+                    $scope.listaCombustibleTransporte.push(response.data);
+                    var tipCombus = {
+                        id: response.data.tipo_combustible
                     }
-                    $scope.listaCombustibleTransporte.push(obj);
-                    //$scope.listaTipoCombustibleTransporte.splice(j, 1);
-                    //if ($scope.listaTipoCombustibleTransporte.length != 0)
-                    //    $scope.combustibleTransporte = $scope.listaTipoCombustibleTransporte[0]._id;
-                    j = nTipCombTrans;
 
-                }
-            }
+                    $http.post($scope.urlBuscarTipoCombustibleId, tipCombus)
+                        .then(function (response) {
+
+                            $scope.listaCombustibleTransporte[x++].tipo_combustible = response.data;
+
+                        }, function errorCallback(response) {
+
+                            console.log(response);
+
+                        });
+
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
         }
 
         var nTrip = orden.tripulacion.length;
@@ -646,6 +704,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
     $scope.buscarSeleccionListaOrdenServicio = function () {
 
+        $scope.iniciar();
         if ($scope.seleccionOrdenServicioLista != '' && $scope.seleccionOrdenServicioLista != undefined) {
 
             $scope.selecOrdenServ = JSON.parse($scope.seleccionOrdenServicioLista);
@@ -779,6 +838,39 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
             $scope.listaMatPetreoNueva.push(obj);
         }
+        $scope.tipoMaterial = "";
+        $scope.numVolquetas = "";
+        $scope.cantTotalM3 = "";
+    }
+
+    $scope.modificarListaMatPetreo = function () {
+
+        if ($scope.seleccionMatPetreo != undefined && $scope.seleccionMatPetreo != "" &&
+            $scope.tipoMaterial != "" && $scope.numVolquetas != "" && $scope.cantTotalM3 != "" &&
+            $scope.tipoMaterial != undefined && $scope.numVolquetas != undefined && $scope.cantTotalM3 != undefined) {
+
+            $scope.seleccionMatPetreoJS = JSON.parse($scope.seleccionMatPetreo);
+            $scope.seleccionMatPetreoJS.tipo_material = $scope.tipoMaterial;
+            $scope.seleccionMatPetreoJS.num_volquetas = $scope.numVolquetas;
+            $scope.seleccionMatPetreoJS.cant_total_m3 = $scope.cantTotalM3;
+
+            var n = $scope.listaMaterialPetreo.length;
+            for (var i = 0; i < n; i++) {
+                if ($scope.listaMaterialPetreo[i]._id == $scope.seleccionMatPetreoJS._id) {
+
+                    $scope.listaMaterialPetreo[i] = $scope.seleccionMatPetreoJS;
+                    break;
+
+                }
+            }
+
+            $scope.seleccionMatPetreo = {};
+            $scope.tipoMaterial = "";
+            $scope.numVolquetas = "";
+            $scope.cantTotalM3 = "";
+
+        }
+
     }
 
     $scope.quitarSeleccionMaterialPetreo = function () {
@@ -810,6 +902,9 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             }
 
             $scope.seleccionMatPetreo = {};
+            $scope.tipoMaterial = "";
+            $scope.numVolquetas = "";
+            $scope.cantTotalM3 = "";
 
         }
 
@@ -826,6 +921,38 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
             $scope.listaVehiNueva.push(obj);
         }
+
+        $scope.descripcionVehiculo = "";
+        $scope.cantidadVehiculo = "";
+
+    }
+
+    $scope.modificarListaVehiculo = function () {
+
+        if ($scope.seleccionVehiculo != undefined && $scope.seleccionVehiculo != "" &&
+            $scope.cantidadVehiculo != "" && $scope.descripcionVehiculo != "" &&
+            $scope.cantidadVehiculo != undefined && $scope.descripcionVehiculo != undefined) {
+
+            $scope.seleccionVehiculoJS = JSON.parse($scope.seleccionVehiculo);
+            $scope.seleccionVehiculoJS.descripcion_vehiculos = $scope.descripcionVehiculo;
+            $scope.seleccionVehiculoJS.cantidad_vehiculos = $scope.cantidadVehiculo;
+
+            var n = $scope.listaVehiculo.length;
+            for (var i = 0; i < n; i++) {
+                if ($scope.listaVehiculo[i]._id == $scope.seleccionVehiculoJS._id) {
+
+                    $scope.listaVehiculo[i] = $scope.seleccionVehiculoJS;
+                    break;
+
+                }
+            }
+
+            $scope.seleccionMatPetreo = {};
+            $scope.descripcionVehiculo = "";
+            $scope.cantidadVehiculo = "";
+
+        }
+
     }
 
     $scope.quitarSeleccionVehiculo = function () {
@@ -857,6 +984,8 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             }
 
             $scope.seleccionVehiculo = {};
+            $scope.descripcionVehiculo = "";
+            $scope.cantidadVehiculo = "";
 
         }
 
@@ -868,24 +997,82 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             $scope.cantidadConsumoCombustible != undefined && $scope.cantidadConsumoCombustible != "") {
 
             var n = $scope.listaTipoCombustibleConsumo.length;
-            var pos = "";
+
             for (var i = 0; i < n; i++) {
 
                 if ($scope.listaTipoCombustibleConsumo[i]._id == $scope.combustibleConsumo) {
-                    pos = i;
+
+                    var obj = {
+                        tipo_combustible: $scope.listaTipoCombustibleConsumo[i],
+                        cantidad_combustible: $scope.cantidadConsumoCombustible
+                    }
+
+                    $scope.listaCombustibleConsumoIngresar.push(obj);
                     break;
                 }
             }
 
-            var obj = {
-                tipo_combustible: $scope.listaTipoCombustibleConsumo[pos],
-                cantidad_combustible: $scope.cantidadConsumoCombustible
+
+            // $scope.combustibleConsumo = {};
+            $scope.cantidadConsumoCombustible = "";
+
+        }
+
+    }
+
+    $scope.modificarListaConsumoCombustible = function () {
+
+        if ($scope.seleccionConsumoCombustible != undefined && $scope.seleccionConsumoCombustible != "" &&
+            $scope.combustibleConsumo != undefined && $scope.combustibleConsumo != "" &&
+            $scope.cantidadConsumoCombustible != "" && $scope.cantidadConsumoCombustible != undefined) {
+
+            $scope.seleccionCombustibleJS = JSON.parse($scope.seleccionConsumoCombustible);
+
+            var n = $scope.listaConsumoCombustible.length;
+            for (var i = 0; i < n; i++) {
+
+                if ($scope.listaConsumoCombustible[i]._id == $scope.seleccionCombustibleJS._id) {
+
+                    var n1 = $scope.listaTipoCombustibleConsumo.length;
+                    for (var j = 0; j < n1; j++) {
+
+                        if ($scope.listaTipoCombustibleConsumo[j]._id == $scope.combustibleConsumo) {
+
+                            $scope.listaConsumoCombustible[i].tipo_combustible = $scope.listaTipoCombustibleConsumo[j];
+                            $scope.listaConsumoCombustible[i].cantidad_combustible = $scope.cantidadConsumoCombustible;
+                            break;
+
+                        }
+
+                    }
+
+                }
+
             }
 
-            $scope.listaCombustibleConsumoSelect.push(obj);
+            var nDim = $scope.listaCombustibleConsumoIngresar.length;
+            for (var i = 0; i < nDim; i++) {
 
-            $scope.listaTipoCombustibleConsumo.splice(pos, 1);
-            $scope.combustibleConsumo = {};
+                if ($scope.listaCombustibleConsumoIngresar[i].tipo_combustible._id == $scope.seleccionCombustibleJS.tipo_combustible._id) {
+
+                    var n1 = $scope.listaTipoCombustibleConsumo.length;
+                    for (var j = 0; j < n1; j++) {
+
+                        if ($scope.listaTipoCombustibleConsumo[j]._id == $scope.combustibleConsumo) {
+
+                            $scope.listaCombustibleConsumoIngresar[i].tipo_combustible = $scope.listaTipoCombustibleConsumo[j];
+                            $scope.listaCombustibleConsumoIngresar[i].cantidad_combustible = $scope.cantidadConsumoCombustible;
+                            break;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            //$scope.seleccionConsumoCombustible = {};
             $scope.cantidadConsumoCombustible = "";
 
         }
@@ -897,31 +1084,32 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
         if ($scope.seleccionConsumoCombustible != undefined && $scope.seleccionConsumoCombustible != "") {
 
             $scope.seleccionConsumoCombustibleJS = JSON.parse($scope.seleccionConsumoCombustible);
-            $scope.listaTipoCombustibleConsumo.push($scope.seleccionConsumoCombustibleJS.tipo_combustible);
+            //$scope.listaTipoCombustibleConsumo.push($scope.seleccionConsumoCombustibleJS.tipo_combustible);
 
-            var n = $scope.listaCombustibleConsumoSelect.length;
+            var n = $scope.listaCombustibleConsumoIngresar.length;
             for (var i = 0; i < n; i++) {
 
-                if ($scope.listaCombustibleConsumoSelect[i].tipo_combustible._id == $scope.seleccionConsumoCombustibleJS.tipo_combustible._id) {
+                if ($scope.listaCombustibleConsumoIngresar[i].tipo_combustible._id == $scope.seleccionConsumoCombustibleJS.tipo_combustible._id) {
 
-                    $scope.listaCombustibleConsumoSelect.splice(i, 1);
+                    $scope.listaCombustibleConsumoIngresar.splice(i, 1);
                     break;
 
                 }
             }
 
-            var n = $scope.listaCombustibleConsumoSelect.length;
+            var n = $scope.listaConsumoCombustible.length;
             for (var i = 0; i < n; i++) {
 
-                if ($scope.listaCombustibleConsumoSelect[i].tipo_combustible._id == $scope.seleccionConsumoCombustibleJS.tipo_combustible._id) {
+                if ($scope.listaConsumoCombustible[i]._id == $scope.seleccionConsumoCombustibleJS._id) {
 
-                    $scope.listaCombustibleConsumoSelect.splice(i, 1);
+                    $scope.listaConsumoCombustible.splice(i, 1);
                     break;
 
                 }
             }
 
             $scope.seleccionConsumoCombustible = {};
+            $scope.cantidadConsumoCombustible = "";
 
         }
 
@@ -932,26 +1120,81 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
         if ($scope.combustibleTransporte != undefined && $scope.combustibleTransporte != "" &&
             $scope.cantidadTransporteCombustible != undefined && $scope.cantidadTransporteCombustible != "") {
 
-            console.log($scope.combustibleTransporte);
             var n = $scope.listaTipoCombustibleTransporte.length;
-            var pos = "";
+
             for (var i = 0; i < n; i++) {
 
                 if ($scope.listaTipoCombustibleTransporte[i]._id == $scope.combustibleTransporte) {
-                    pos = i;
+                    var obj = {
+                        tipo_combustible: $scope.listaTipoCombustibleTransporte[i],
+                        cantidad_combustible: $scope.cantidadTransporteCombustible
+                    }
+
+                    $scope.listaCombustibleTransporteIngresar.push(obj);
                     break;
                 }
             }
 
-            var obj = {
-                tipo_combustible: $scope.listaTipoCombustibleTransporte[pos],
-                cantidad_combustible: $scope.cantidadTransporteCombustible
+            //$scope.combustibleTransporte = {};
+            $scope.cantidadTransporteCombustible = "";
+
+        }
+
+    }
+
+    $scope.modificarListaTransporteCombustible = function () {
+
+        if ($scope.seleccionTransporteCombustible != undefined && $scope.seleccionTransporteCombustible != "" &&
+            $scope.combustibleTransporte != undefined && $scope.combustibleTransporte != "" &&
+            $scope.cantidadTransporteCombustible != "" && $scope.cantidadTransporteCombustible != undefined) {
+
+            $scope.seleccionCombustibleJS = JSON.parse($scope.seleccionTransporteCombustible);
+
+            var n = $scope.listaCombustibleTransporte.length;
+            for (var i = 0; i < n; i++) {
+
+                if ($scope.listaCombustibleTransporte[i]._id == $scope.seleccionCombustibleJS._id) {
+
+                    var n1 = $scope.listaTipoCombustibleTransporte.length;
+                    for (var j = 0; j < n1; j++) {
+
+                        if ($scope.listaTipoCombustibleTransporte[j]._id == $scope.combustibleTransporte) {
+
+                            $scope.listaCombustibleTransporte[i].tipo_combustible = $scope.listaTipoCombustibleTransporte[j];
+                            $scope.listaCombustibleTransporte[i].cantidad_combustible = $scope.cantidadTransporteCombustible;
+                            break;
+
+                        }
+
+                    }
+
+                }
+
             }
 
-            $scope.listaCombustibleTransporteSelect.push(obj);
+            var nDim = $scope.listaCombustibleTransporteIngresar.length;
+            for (var i = 0; i < nDim; i++) {
 
-            $scope.listaTipoCombustibleTransporte.splice(pos, 1);
-            $scope.combustibleTransporte = {};
+                if ($scope.listaCombustibleTransporteIngresar[i].tipo_combustible._id == $scope.seleccionCombustibleJS.tipo_combustible._id) {
+
+                    var n1 = $scope.listaTipoCombustibleConsumo.length;
+                    for (var j = 0; j < n1; j++) {
+
+                        if ($scope.listaTipoCombustibleTransporte[j]._id == $scope.combustibleTransporte) {
+
+                            $scope.listaCombustibleTransporteIngresar[i].tipo_combustible = $scope.listaTipoCombustibleTransporte[j];
+                            $scope.listaCombustibleTransporteIngresar[i].cantidad_combustible = $scope.cantidadTransporteCombustible;
+                            break;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            //$scope.seleccionConsumoCombustible = {};
             $scope.cantidadTransporteCombustible = "";
 
         }
@@ -963,102 +1206,31 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
         if ($scope.seleccionTransporteCombustible != undefined && $scope.seleccionTransporteCombustible != "") {
 
             $scope.seleccionTransporteCombustibleJS = JSON.parse($scope.seleccionTransporteCombustible);
-            $scope.listaTipoCombustibleTransporte.push($scope.seleccionTransporteCombustibleJS.tipo_combustible);
 
-            var n = $scope.listaCombustibleTransporteSelect.length;
+            var n = $scope.listaCombustibleTransporteIngresar.length;
             var pos = "";
             for (var i = 0; i < n; i++) {
 
-                if ($scope.listaCombustibleTransporteSelect[i].tipo_combustible._id == $scope.seleccionTransporteCombustibleJS.tipo_combustible._id) {
-                    pos = i;
+                if ($scope.listaCombustibleTransporteIngresar[i].tipo_combustible._id == $scope.seleccionTransporteCombustibleJS.tipo_combustible._id) {
+
+                    $scope.listaCombustibleTransporteIngresar.splice(i, 1);
                     break;
                 }
             }
 
-            $scope.listaCombustibleTransporteSelect.splice(pos, 1);
+            var n = $scope.listaCombustibleTransporte.length;
+            for (var i = 0; i < n; i++) {
+
+                if ($scope.listaCombustibleTransporte[i]._id == $scope.seleccionTransporteCombustibleJS._id) {
+
+                    $scope.listaCombustibleTransporte.splice(i, 1);
+                    break;
+
+                }
+            }
+
             $scope.seleccionTransporteCombustible = {};
-
-        }
-
-    }
-
-    $scope.modificarListaMatPetreo = function () {
-
-        if ($scope.seleccionMatPetreo != undefined && $scope.seleccionMatPetreo != "" &&
-            $scope.tipoMaterial != "" && $scope.numVolquetas != "" && $scope.cantTotalM3 != "" &&
-            $scope.tipoMaterial != undefined && $scope.numVolquetas != undefined && $scope.cantTotalM3 != undefined) {
-
-            $scope.seleccionMatPetreoJS = JSON.parse($scope.seleccionMatPetreo);
-            $scope.seleccionMatPetreoJS.tipo_material = $scope.tipoMaterial;
-            $scope.seleccionMatPetreoJS.num_volquetas = $scope.numVolquetas;
-            $scope.seleccionMatPetreoJS.cant_total_m3 = $scope.cantTotalM3;
-
-            var n = $scope.listaMaterialPetreo.length;
-            for (var i = 0; i < n; i++) {
-                if ($scope.listaMaterialPetreo[i]._id == $scope.seleccionMatPetreoJS._id) {
-
-                    $scope.listaMaterialPetreo[i] = $scope.seleccionMatPetreoJS;
-                    break;
-
-                }
-            }
-
-            $scope.seleccionMatPetreo = {};
-
-        }
-
-    }
-
-    $scope.modificarListaVehiculo = function () {
-
-        if ($scope.seleccionVehiculo != undefined && $scope.seleccionVehiculo != "" &&
-            $scope.cantidadVehiculo != "" && $scope.descripcionVehiculo != "" &&
-            $scope.cantidadVehiculo != undefined && $scope.descripcionVehiculo != undefined) {
-
-            $scope.seleccionVehiculoJS = JSON.parse($scope.seleccionVehiculo);
-            $scope.seleccionVehiculoJS.descripcion_vehiculos = $scope.descripcionVehiculo;
-            $scope.seleccionVehiculoJS.cantidad_vehiculos = $scope.cantidadVehiculo;
-
-            var n = $scope.listaVehiculo.length;
-            for (var i = 0; i < n; i++) {
-                if ($scope.listaVehiculo[i]._id == $scope.seleccionVehiculoJS._id) {
-
-                    $scope.listaVehiculo[i] = $scope.seleccionVehiculoJS;
-                    break;
-
-                }
-            }
-
-            $scope.seleccionMatPetreo = {};
-
-        }
-
-    }
-
-    $scope.modificarListaConsumoCombustible = function () {
-
-        if ($scope.seleccionConsumoCombustible != undefined && $scope.seleccionConsumoCombustible != "" &&
-            $scope.cantidadConsumoCombustible != "" && $scope.cantidadConsumoCombustible != undefined) {
-
-            $scope.seleccionCombustibleJS = JSON.parse($scope.seleccionConsumoCombustible);
-            $scope.combustibleConsumo = $scope.seleccionCombustibleJS.tipo_combustible;
-            $scope.cantidadConsumoCombustible = $scope.seleccionCombustibleJS.cantidad_combustible;
-
-            console.log($scope.listaConsumoCombustible);
-
-            var n = $scope.listaConsumoCombustible.length;
-            for (var i = 0; i < n; i++) {
-                if ($scope.listaConsumoCombustible[i]._id == $scope.seleccionCombustibleJS._id) {
-
-                    $scope.listaConsumoCombustible[i].tipo_combustible = $scope.combustibleConsumo;
-                    $scope.listaConsumoCombustible[i].cantidad = $scope.cantidadConsumoCombustible;
-                    break;
-
-                }
-            }
-
-            $scope.seleccionConsumoCombustible = {};
-            $scope.cantidadConsumoCombustible = "";
+            $scope.cantidadTransporteCombustible = "";
 
         }
 

@@ -205,6 +205,11 @@ function ApiUrl() {
         return (url + 'updateTipoCombustible');
     }
 
+    // Buscar Tipo Combustible
+    this.getUrlBuscarTipoCombustible = function () {
+        return (url + 'getByIdTipoCombustible');
+    }
+
     // Buscar todos los Tipo Combustible
     this.getUrlAllTipoCombustible = function () {
         return (url + 'getAllTipoCombustible');
@@ -358,6 +363,11 @@ function ApiUrl() {
     // Modificar Combustible
     this.getUrlModificarCombustible = function () {
         return (url + 'updateCombustible');
+    }
+
+    // Buscar Combustible
+    this.getUrlBuscarCombustible = function () {
+        return (url + 'getByIdCombustible');
     }
 
     // Buscar todos los Combustible

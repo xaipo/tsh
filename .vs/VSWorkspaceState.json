@@ -6,6 +6,6 @@
     "\\HttpService",
     "\\HttpService\\Routers"
   ],
-  "SelectedNode": "\\HttpService\\Routers\\apiCombustible.js",
+  "SelectedNode": "\\client\\controllers\\controllerCombustible.js",
   "PreviewInSolutionExplorer": false
 }

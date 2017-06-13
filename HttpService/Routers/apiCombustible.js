@@ -30,7 +30,7 @@ router.post('/updateCombustible', function (req, res) {
         console.log(req.body);
         var item = {
             tipo_combustible: req.body.tipo_combustible,
-            cantidad: req.body.cantidad
+            cantidad_combustible: req.body.cantidad_combustible
         };
 
 

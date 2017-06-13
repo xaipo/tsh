@@ -148,7 +148,7 @@
                                 <select name="Puertos" ng-model="seleccionCombustible" multiple class="form-control" style="height: 150px;" ng-click="buscarSeleccionCombustible()">
                                     <option value={{aux}}
                                             ng-repeat="aux in listaCombustible | filter:busqueda| orderBy:aux.tipo_combustible.descripcion_tipo_combustible">
-                                        {{aux.tipo_combustible.descripcion_tipo_combustible}} {{"--"}} {{aux.cantidad}}
+                                        {{aux.tipo_combustible.descripcion_tipo_combustible}} {{"--"}} {{aux.cantidad_combustible}}
                                     </option>
                                 </select>
                             </div>
