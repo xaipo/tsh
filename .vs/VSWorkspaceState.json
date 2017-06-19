@@ -2,10 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\client",
-    "\\client\\controllers",
+    "\\client\\Administrador",
     "\\HttpService",
     "\\HttpService\\Routers"
   ],
-  "SelectedNode": "\\client\\controllers\\controllerCombustible.js",
+  "SelectedNode": "\\client\\Administrador\\IngresoCliente.html",
   "PreviewInSolutionExplorer": false
 }

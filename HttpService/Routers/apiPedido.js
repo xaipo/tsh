@@ -34,11 +34,9 @@ router.post('/updatePedido', function (req, res) {
             orden_servicio: req.body.orden_servicio,
             productos: req.body.productos,
             observaciones: req.body.observaciones,
-            utencilios: req.body.utencilios
+            utensilios: req.body.utensilios
         };
-
-
-
+        
         var id = req.body.id;
         db.collection('pedido').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
             assert.equal(null, err);

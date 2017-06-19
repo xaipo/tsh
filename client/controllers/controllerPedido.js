@@ -37,6 +37,28 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
         $scope.urlAllOrdenServicio = myProvider.getUrlAllOrdenServicio();
         $scope.urlAllUtensilios = myProvider.getUrlAllUtensilio();
 
+        $scope.observaciones = "";
+        $scope.ordenServicio = "";
+        $scope.tipoProducto = "";
+        $scope.cantidadProducto = "";
+        $scope.unidades = "";
+
+        $scope.utensilios = "";
+        $scope.cantidadUtensilios = "";
+        $scope.seleccionProducto = "";
+
+        $scope.id = "";
+        $scope.seleccionPedido = "";
+        $scope.seleccionUtensilio = "";
+
+
+        $scope.listaOrdenServicio = [];
+        $scope.listaProductos = [];
+        $scope.listaUtensilios = [];
+        $scope.listaUtensilioSelect = [];
+        $scope.listaUtensiliosArray = [];
+        $scope.listaProductosArray = [];
+
         $http.get($scope.urlAllUtensilios)
             .then(function (response) {
 
@@ -112,9 +134,7 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
             productos: $scope.listaProductosArray,
             utensilios: $scope.listaUtensiliosArray,
             observaciones: $scope.observaciones
-        };
-
-        console.log(obj);
+        };        
 
         var q = $q.defer()
         q.resolve(
@@ -123,7 +143,7 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
                 .then(function successCallback(response) {
 
                     $scope.iniciar();
-                    console.log(response);
+                    //console.log(response);
 
                 }, function errorCallback(response) {
 
@@ -155,10 +175,9 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
 
             $scope.ingresoPesidoBase();
 
-        }, 3000, false)
+        }, 1000, false)
 
     }
-
 
     $scope.agregarListaUtensilios = function () {
 

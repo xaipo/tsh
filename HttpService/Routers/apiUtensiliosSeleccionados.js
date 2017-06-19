@@ -29,7 +29,7 @@ router.post('/updateUtensiliosSeleccionados', function (req, res) {
         assert.equal(null, err);
         console.log(req.body);
         var item = {
-            utensilios: req.body.utensilios,
+            utensilio: req.body.utensilio,
             cantidad_utensilios: req.body.cantidad_utensilios
         };
 

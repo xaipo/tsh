@@ -22,11 +22,6 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', functi
     $scope.capacidadCarga;
     $scope.tipoEmbarcacion;
 
-
-
-    //$scope.seleccion;
-    //$scope.seleccionEmbarcacion;
-
     $scope.busqueda;
     $scope.listaTipoEmbarcacion;
     $scope.listaTipoCombustible;
@@ -63,11 +58,19 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', functi
     $scope.ingresoEmbarcacion = function () {
 
         var obj = {
-            nombre_embarcacion: $scope.nombreEmbarcacion, num_matricula: $scope.numeroMatricula,
-            eslora_total: $scope.esloraTotal, manga: $scope.manga, puntual: $scope.puntual,
-            calado: $scope.calado, fecha_construccion: $scope.fechaConstruccion, propietario: $scope.propietario,
-            propulsion: $scope.propulsion, tipo_combustible: $scope.tipoCombustible, tonelaje_bruto: $scope.tonelajeBruto,
-            capacidad_carga: $scope.capacidadCarga, tipo_embarcaion: $scope.tipoEmbarcacion
+            nombre_embarcacion: $scope.nombreEmbarcacion,
+            num_matricula: $scope.numeroMatricula,
+            eslora_total: $scope.esloraTotal,
+            manga: $scope.manga,
+            puntual: $scope.puntual,
+            calado: $scope.calado,
+            fecha_construccion: $scope.fechaConstruccion,
+            propietario: $scope.propietario,
+            propulsion: $scope.propulsion,
+            tipo_combustible: $scope.tipoCombustible,
+            tonelaje_bruto: $scope.tonelajeBruto,
+            capacidad_carga: $scope.capacidadCarga,
+            tipo_embarcacion: $scope.tipoEmbarcacion
         };
         $http.post($scope.url, obj)
             .then(function (response) {
@@ -80,40 +83,6 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', functi
                 console.log(response);
             });
 
-    }
-
-    $scope.modificarEmbarcacion = function () {
-
-        var obj = {
-            id: $scope.id, nombre_embarcacion: $scope.nombreEmbarcacion, num_matricula: $scope.numeroMatricula,
-            eslora_total: $scope.esloraTotal, manga: $scope.manga, puntual: $scope.puntual,
-            calado: $scope.calado, fecha_construccion: $scope.fechaConstruccion, propietario: $scope.propietario,
-            propulsion: $scope.propulsion, tipo_combustible: $scope.tipoCombustible, tonelaje_bruto: $scope.tonelajeBruto,
-            capacidad_carga: $scope.capacidadCarga, tipo_embarcaion: $scope.tipoEmbarcacion
-        };
-        $http.post($scope.urlModificar, obj)
-            .then(function (response) {
-
-                $scope.iniciar();
-                console.log(response);
-
-            }, function errorCallback(response) {
-
-                console.log(response);
-            });
-
-    }
-
-    //$scope.buscarSeleccionEmbarcacion = function () {
-
-    //    if ($scope.seleccionTipoUsuario != '' && $scope.seleccionTipoUsuario != undefined) {
-
-    //        $scope.selecTipUsu = JSON.parse($scope.seleccionTipoUsuario);
-
-    //        $scope.id = $scope.selecTipUsu._id;
-    //        $scope.descripcionTipoUsuario = $scope.selecTipUsu.descripcion_tipo_usuario;
-
-    //    }
-    //}
+    }   
 
 }]);

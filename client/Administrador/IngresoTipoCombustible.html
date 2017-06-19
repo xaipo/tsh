@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+    <link type="text/css" href="/bootstrap/dist/css/bootstrap.css" id="pagesheet" rel="stylesheet" media="screen" />
+    <link type="text/css" href="/css/OverrideComponents.css" id="pagesheet2" rel="stylesheet" media="screen" />
+
+    <!-----angular-->
+
+    <script src="/jquery/dist/jquery.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/angular/angular.js"></script>
+    <script src="/app.js"></script>
+    <script src="/controllers/controllerTipoCombustible.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="ControllerTipoCombustible" ng-init="iniciar()">
+
+    <!-- inicio de menu-->
+    <header>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" style="color: white" href="index.html">TSH</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active" style="background-color: #006294; color: white"><a href="index.html">Inicio</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Administrar<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="IngresoCliente.html">Cliente</a></li>
+                                <li><a href="IngresoCombustible.html">Combustible</a></li>
+                                <li><a href="IngresoContratoRecepcion.html">Contrato Recepcion</a></li>
+                                <li><a href="IngresoDetalleMantenimiento.html">Detalle Mantenimiento</a></li>
+                                <li><a href="IngresoEmbarcacion.html">Embarcacion</a></li>
+                                <li><a href="IngresoMantenimiento.html">Mantenimiento</a></li>
+                                <!--<li><a href="IngresoMaterialPetreo.html">Matereal Petreo</a></li>
+                                <li><a href="IngresoProducto.html">Productos</a></li>-->
+                                <li><a href="IngresoPropietario.html">Propietario</a></li>
+                                <li><a href="IngresoPuerto.html">Puerto</a></li>
+                                <li><a href="IngresoTipoCombustible.html">Tipo Combustible</a></li>
+                                <li><a href="IngresoTipoEmbarcacion.html">Tipo Embarcacion</a></li>
+                                <li><a href="IngresoTipoMantenimiento.html">Tipo Mantenimiento</a></li>
+                                <li><a href="IngresoTipoTripulante.html">Tipo Tripulante</a></li>
+                                <li><a href="IngresoTipoUsuario.html">Tipo Usuario</a></li>
+                                <li><a href="IngresoTripulante.html">Tripulante</a></li>
+                                <li><a href="IngresoUsuario.html">Usuario</a></li>
+                                <li><a href="IngresoUtensilios.html">Utensillos</a></li>
+                                <li><a href="IngresoVehiculo.html">Vehiculo</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Viajes<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="IngresoEmbarcacion.html">Embarcacion</a></li>
+                                <li><a href="IngresoMantenimiento.html">Mantimiento</a></li>
+                                <li><a href="IngresoOrdenServicio.html">Orden Servicio</a></li>
+                                <li><a href="IngresoPedido.html">Pedido</a></li>
+                                <!--<li><a href="ModificarEmbarcacion.html">Modificar Embarcacion</a></li>
+                                <li><a href="ModificarMantenimiento.html">Modificar Mantimiento</a></li>
+                                <li><a href="ModificarOrdenServicio.html">Modificar Orden Servicio</a></li>
+                                <li><a href="ModificarPedido.html">Modificar Pedido</a></li>-->
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actualizar Viajes<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="ModificarEmbarcacion.html">Embarcacion</a></li>
+                                <li><a href="ModificarMantenimiento.html">Mantimiento</a></li>
+                                <li><a href="ModificarOrdenServicio.html">Orden Servicio</a></li>
+                                <li><a href="ModificarPedido.html">Pedido</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#"><span class="glyphicon glyphicon-log-out" style="color: white"></span> LogOut</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- final menu-->
+
+    <div class="jumbotron">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><center><h3 class="panel-title">Ingreso Tipo Combustible</h3></center></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h4>Nombre Tipo Combustible: </h4>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="descripcionTipoCombustible" class="form-control" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-2">
+                                
+                            </div>
+
+                            <div class="col-md-4">
+                                <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoTipoCombustible()"/>
+                            </div>
+
+                            <div class="col-md-6">
+                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarTipoCombustible()"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><center><h3 class="panel-title">Lista de Tipos Combustibles</h3></center></div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-5">
+                                <h4>Filtrar: </h4>
+                            </div>
+
+                            <div class="col-md-7">
+                                <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
+                            </div>
+
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <select name="Puertos" ng-model="seleccionTipoCombustible" multiple class="form-control" style="height: 150px;" ng-click="buscarSeleccionTipoCombustible()">
+                                    <option value={{aux}}
+                                            ng-repeat="aux in listaTipoCombustible | filter:busqueda| orderBy:aux.descripcion_tipo_combustible">
+                                        {{aux.descripcion_tipo_combustible}} 
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

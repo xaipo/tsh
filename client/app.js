@@ -258,6 +258,11 @@ function ApiUrl() {
         return (url + 'updateUtensilios');
     }
 
+    // Buscar Utensilio
+    this.getUrlBuscarUtensilio = function () {
+        return (url + 'getByIdUtensilios');
+    }
+
     // Buscar todos Utensilio
     this.getUrlAllUtensilio = function () {
         return (url + 'getAllUtensilios');
@@ -288,6 +293,11 @@ function ApiUrl() {
     // Modificar Producto
     this.getUrlModificarProducto = function () {
         return (url + 'updateProductos');
+    }
+
+    // Buscar Producto
+    this.getUrlBuscarProducto = function () {
+        return (url + 'getByIdProductos');
     }
 
     // Buscar todos los Producto
@@ -385,6 +395,16 @@ function ApiUrl() {
     // Modificar Utensilios Seleccionados
     this.getUrlModificarUtensiliosSeleccionados = function () {
         return (url + 'updateUtensiliosSeleccionados');
+    }
+
+    // Buscar Utensilios Seleccionados
+    this.getUrlBuscarUtensiliosSeleccionados = function () {
+        return (url + 'getByIdUtensiliosSeleccionados');
+    }
+
+    // Buscar todos Utensilios Seleccionados
+    this.getUrlAllUtensiliosSeleccionados = function () {
+        return (url + 'getAllUtensiliosSeleccionados');
     }
 
     ////////////////////////////////////////////////////////////////////////
