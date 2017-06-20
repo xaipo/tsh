@@ -5,7 +5,7 @@ app.controller('ControllerUtensilio', ['$scope', '$http', 'myProvider', function
     $scope.urlAllUtensilio;
     console.log($scope.url);
     $scope.descripcionUtensilio;
-    $scope.stock;
+    $scope.stock = 1;
     $scope.estado;
 
     $scope.id;
@@ -19,6 +19,18 @@ app.controller('ControllerUtensilio', ['$scope', '$http', 'myProvider', function
         $scope.url = myProvider.getUrlIngresoUtensilio();
         $scope.urlModificar = myProvider.getUrlModificarUtensilio();
         $scope.urlAllUtensilio = myProvider.getUrlAllUtensilio();
+
+        $scope.descripcionUtensilio;
+        $scope.stock = 1;
+        $scope.estado;
+
+        $scope.id;
+        $scope.seleccion;
+
+        $scope.busqueda;
+        $scope.listaUtensilio;
+        $scope.listaEstado;
+
         $http.get($scope.urlAllUtensilio)
             .then(function (response) {
 

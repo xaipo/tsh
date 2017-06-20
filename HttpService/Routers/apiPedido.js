@@ -32,9 +32,9 @@ router.post('/updatePedido', function (req, res) {
         console.log(req.body);
         var item = {
             orden_servicio: req.body.orden_servicio,
-            productos: req.body.productos,
+            alimentos: req.body.alimentos,
             observaciones: req.body.observaciones,
-            utensilios: req.body.utensilios
+            materiales: req.body.materiales
         };
         
         var id = req.body.id;

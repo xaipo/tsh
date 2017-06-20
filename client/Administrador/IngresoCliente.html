@@ -1,18 +1,18 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Inicio</title>
-    <link type="text/css" href="/bootstrap/dist/css/bootstrap.css" id="pagesheet" rel="stylesheet" media="screen" />
-    <link type="text/css" href="/css/OverrideComponents.css" id="pagesheet2" rel="stylesheet" media="screen" />
+    <link type="text/css" href="../bootstrap/dist/css/bootstrap.css" id="pagesheet" rel="stylesheet" media="screen" />
+    <link type="text/css" href="../css/OverrideComponents.css" id="pagesheet2" rel="stylesheet" media="screen" />
 
     <!-----angular-->
 
-    <script src="/jquery/dist/jquery.min.js"></script>
-    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/angular/angular.js"></script>
-    <script src="/app.js"></script>
-    <script src="/controllers/controllerCliente.js"></script>
+    <script src="../jquery/dist/jquery.min.js"></script>
+    <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../angular/angular.js"></script>
+    <script src="../app.js"></script>
+    <script src="../controllers/controllerCliente.js"></script>
 </head>
 <body ng-app="myApp" ng-controller="ControllerCliente" ng-init="iniciar()">
 
@@ -46,7 +46,6 @@
                                 <li><a href="IngresoTripulante.html">Tripulante</a></li>
                                 <li><a href="IngresoUsuario.html">Usuario</a></li>
                                 <li><a href="IngresoUtensilios.html">Utensillos</a></li>
-                                <li><a href="IngresoVehiculo.html">Vehiculo</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -99,7 +98,6 @@
                                 <input type="text" ng-model="nombreCliente" class="form-control" placeholder="Apellidos Nombres" />
                             </div>
                         </div>
-                        <br />
 
                         <div class="row">
                             <div class="col-md-1">
@@ -109,7 +107,6 @@
                                 <h4>Ruc: </h4>
                             </div>
                             <div class="col-md-7">
-
                                 <script>
                                     function valida(e) {
                                         tecla = (document.all) ? e.keyCode : e.which;
@@ -129,7 +126,6 @@
                                 <input type="text" onkeypress="return valida(event)" ng-model="rucCliente" class="form-control" placeholder="1234567890001" maxlength="13" />
                             </div>
                         </div>
-                        <br />
 
                         <div class="row">
                             <div class="col-md-1">
@@ -142,20 +138,18 @@
                                 <input type="text" placeholder="guayaquil y españa" ng-model="direccionCliente" class="form-control" />
                             </div>
                         </div>
-                        <br />
 
                         <div class="row">
                             <div class="col-md-1">
 
                             </div>
                             <div class="col-md-3">
-                                <h4>Teléfono: </h4>
+                                <h4>Telfono: </h4>
                             </div>
                             <div class="col-md-7">
                                 <input type="text" placeholder="0990123456" onkeypress="return valida(event)" ng-model="telefonoCliente" class="form-control" />
                             </div>
                         </div>
-                        <br />
 
                         <div class="row">
                             <div class="col-md-1">
@@ -168,7 +162,6 @@
                                 <input type="email" ng-model="correoCliente" placeholder="email@example.com" class="form-control" />
                             </div>
                         </div>
-                        <br />
 
                         <div class="row">
                             <div class="col-md-1">
@@ -181,7 +174,6 @@
                                 <select class="form-control" ng-model="tipoCliente" ng-options="item.id as item.nombre for item in listaTipoClientes"></select>
                             </div>
                         </div>
-                        <br>
 
                         <div class="row">
                             <div class="col-md-2">
@@ -221,7 +213,7 @@
                             </div>
 
                             <div class="col-md-12">
-                                <select name="Clientes" ng-model="seleccionCliente" multiple class="form-control" style="height: 150px;" ng-click="buscarSeleccionListaCliente()">
+                                <select name="Clientes" ng-model="seleccionCliente" multiple class="form-control" style="height: 240px;" ng-click="buscarSeleccionListaCliente()">
                                     <option value={{aux}}
                                             ng-repeat="aux in listaClientes | filter:busqueda| orderBy:aux.nombre_cliente">
                                         {{aux.ruc_cliente}} {{" -- "}} {{aux.nombre_cliente}}

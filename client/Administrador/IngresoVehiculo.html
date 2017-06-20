@@ -1,18 +1,18 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Inicio</title>
-    <link type="text/css" href="/bootstrap/dist/css/bootstrap.css" id="pagesheet" rel="stylesheet" media="screen" />
-    <link type="text/css" href="/css/OverrideComponents.css" id="pagesheet2" rel="stylesheet" media="screen" />
+    <link type="text/css" href="../bootstrap/dist/css/bootstrap.css" id="pagesheet" rel="stylesheet" media="screen" />
+    <link type="text/css" href="../css/OverrideComponents.css" id="pagesheet2" rel="stylesheet" media="screen" />
 
     <!-----angular-->
 
-    <script src="/jquery/dist/jquery.min.js"></script>
-    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/angular/angular.js"></script>
-    <script src="/app.js"></script>
-    <script src="/controllers/controllerVehiculo.js"></script>
+    <script src="../jquery/dist/jquery.min.js"></script>
+    <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../angular/angular.js"></script>
+    <script src="../app.js"></script>
+    <script src="../controllers/controllerVehiculo.js"></script>
 </head>
 <body ng-app="myApp" ng-controller="ControllerVehiculo" ng-init="iniciar()">
 
@@ -107,7 +107,7 @@
                                     <h4>Descripcion: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text" ng-model="descripcionVehiculo" class="form-control" />
+                                    <input type="text" ng-model="descripcionVehiculo" placeholder="Descripción vehículo" class="form-control" />
                                 </div>
                             </div>
                             <div class="row">
@@ -118,10 +118,20 @@
                                     <h4>Cantidad: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text" ng-model="cantidadVehiculo" class="form-control" />
+                                    <input type="number" ng-model="cantidadVehiculo" min="1" max="500" class="form-control" />
                                 </div>
                             </div>
-                            <br>
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Matrícula: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="matricula" class="form-control" />
+                                </div>
+                            </div>
                         </div>
                         <br />
                         <div class="row">

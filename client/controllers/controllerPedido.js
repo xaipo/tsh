@@ -1,69 +1,69 @@
 app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$timeout", function ($scope, $http, myProvider, $q, $timeout) {
 
     $scope.url;
-    $scope.urlProductos;
-    $scope.urlUtensiliosSeleccionados;
+    $scope.urlAlimentos;
+    $scope.urlMaterialesSeleccionados;
     $scope.urlAllOrdenServicio;
-    $scope.urlAllUtensilios;
+    $scope.urlAllMateriales;
 
-    // Variables Producto y Pedido
+    // Variables Alimentos y Pedido
     $scope.observaciones;
     $scope.ordenServicio;
-    $scope.tipoProducto;
-    $scope.cantidadProducto;
+    $scope.nombreAlimento;
+    $scope.cantidadAlimento;
     $scope.unidades;
 
     // Variables Utencilios
-    $scope.utensilios;
-    $scope.cantidadUtensilios;
-    $scope.seleccionProducto;
+    $scope.material;
+    $scope.cantidadMaterial;
+    $scope.seleccionAlimento;
 
     $scope.id;
     $scope.seleccionPedido;
-    $scope.seleccionUtensilio;
+    $scope.seleccionMaterial;
 
 
     $scope.listaOrdenServicio;
-    $scope.listaProductos = [];
-    $scope.listaUtensilios = [];
-    $scope.listaUtensilioSelect = [];
-    $scope.listaUtensiliosArray = [];
-    $scope.listaProductosArray = [];
+    $scope.listaAlimentos = [];
+    $scope.listaMateriales = [];
+    $scope.listaMaterialSelect = [];
+    $scope.listaMaterialesArray = [];
+    $scope.listaAlimentosArray = [];
 
     $scope.iniciar = function () {
         $scope.url = myProvider.getUrlIngresoPedido();
-        $scope.urlProductos = myProvider.getUrlIngresoProducto();
-        $scope.urlUtensiliosSeleccionados = myProvider.getUrlIngresoUtensiliosSeleccionados();
+        $scope.urlAlimentos = myProvider.getUrlIngresoAlimentos();
+        $scope.urlMaterialesSeleccionados = myProvider.getUrlIngresoMaterialesSeleccionados();
         $scope.urlAllOrdenServicio = myProvider.getUrlAllOrdenServicio();
-        $scope.urlAllUtensilios = myProvider.getUrlAllUtensilio();
+        $scope.urlAllMateriales = myProvider.getUrlAllMateriales();
 
         $scope.observaciones = "";
         $scope.ordenServicio = "";
-        $scope.tipoProducto = "";
-        $scope.cantidadProducto = "";
+        $scope.nombreAlimento = "";
+        $scope.cantidadAlimento = "";
         $scope.unidades = "";
 
-        $scope.utensilios = "";
-        $scope.cantidadUtensilios = "";
-        $scope.seleccionProducto = "";
+        $scope.materiales = "";
+        $scope.cantidadMateriales = "";
+        $scope.seleccionAlimento = "";
 
         $scope.id = "";
         $scope.seleccionPedido = "";
-        $scope.seleccionUtensilio = "";
+        $scope.seleccionMaterial = "";
 
 
         $scope.listaOrdenServicio = [];
-        $scope.listaProductos = [];
-        $scope.listaUtensilios = [];
-        $scope.listaUtensilioSelect = [];
-        $scope.listaUtensiliosArray = [];
-        $scope.listaProductosArray = [];
+        $scope.listaAlimentos = [];
+        $scope.listaMateriales = [];
+        $scope.listaMaterialSelect = [];
+        $scope.listaMaterialesArray = [];
+        $scope.listaAlimentosArray = [];
 
-        $http.get($scope.urlAllUtensilios)
+        $http.get($scope.urlAllMateriales)
             .then(function (response) {
 
-                $scope.listaUtensilios = response.data;
-                $scope.utensilios = $scope.listaUtensilios[0]._id;
+                $scope.listaMateriales = response.data;
+                $scope.material = $scope.listaMateriales[0]._id;
 
             }, function errorCallback(response) {
 
@@ -83,16 +83,16 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
             });
     }
 
-    $scope.ingresoProductos = function (pos) {
+    $scope.ingresoAlimentos = function (pos) {
 
-        var obj = $scope.listaProductos[pos];
+        var obj = $scope.listaAlimentos[pos];
         var q = $q.defer()
         q.resolve(
 
-            $http.post($scope.urlProductos, obj)
+            $http.post($scope.urlAlimentos, obj)
                 .then(function successCallback(response) {
 
-                    $scope.listaProductosArray.push(response.data._id.toString());
+                    $scope.listaAlimentosArray.push(response.data._id.toString());
 
                 }, function errorCallback(response) {
 
@@ -102,22 +102,22 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
         return q.promise
     }
 
-    $scope.ingresoUtensiliosSeleccionados = function (pos) {
+    $scope.ingresoMaterialesSeleccionados = function (pos) {
 
-        var aux = $scope.listaUtensilioSelect[pos];
+        var aux = $scope.listaMaterialSelect[pos];
 
         var obj = {
-            utensilio: aux.utensilios._id,
-            cantidad_utensilios: aux.cantidad_utensilios
+            material: aux.materiales._id,
+            cantidad_material: aux.cantidad_material
         }
 
         var q = $q.defer()
         q.resolve(
 
-            $http.post($scope.urlUtensiliosSeleccionados, obj)
+            $http.post($scope.urlMaterialesSeleccionados, obj)
                 .then(function successCallback(response) {
 
-                    $scope.listaUtensiliosArray.push(response.data._id.toString());
+                    $scope.listaMaterialesArray.push(response.data._id.toString());
 
                 }, function errorCallback(response) {
 
@@ -131,8 +131,8 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
 
         var obj = {
             orden_servicio: $scope.ordenServicio,
-            productos: $scope.listaProductosArray,
-            utensilios: $scope.listaUtensiliosArray,
+            Alimentos: $scope.listaAlimentosArray,
+            materiales: $scope.listaMaterialesArray,
             observaciones: $scope.observaciones
         };        
 
@@ -155,19 +155,19 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
 
     $scope.ingresoPedido = function () {
 
-        var dimProduc = $scope.listaProductos.length;
+        var dimProduc = $scope.listaAlimentos.length;
 
         for (var i = 0; i < dimProduc; i++) {
 
-            $scope.ingresoProductos(i);
+            $scope.ingresoAlimentos(i);
 
         }
 
-        var dimUtenSelect = $scope.listaUtensilioSelect.length;
+        var dimUtenSelect = $scope.listaMaterialSelect.length;
 
         for (var i = 0; i < dimUtenSelect; i++) {
 
-            $scope.ingresoUtensiliosSeleccionados(i);
+            $scope.ingresoMaterialesSeleccionados(i);
 
         }       
 
@@ -179,96 +179,97 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
 
     }
 
-    $scope.agregarListaUtensilios = function () {
+    $scope.agregarListaMateriales = function () {
 
-        if ($scope.utensilios != undefined && $scope.utensilios != "" &&
-            $scope.cantidadUtensilios != "" && $scope.cantidadUtensilios != undefined) {
+        if ($scope.Materiales != undefined && $scope.Materiales != "" &&
+            $scope.cantidadMateriales != "" && $scope.cantidadMateriales != undefined) {
 
-            var n = $scope.listaUtensilios.length;
+            var n = $scope.listaMateriales.length;
             var pos = "";
             for (var i = 0; i < n; i++) {
 
-                if ($scope.listaUtensilios[i]._id == $scope.utensilios) {
-                    pos = i;
+                if ($scope.listaMateriales[i]._id == $scope.Materiales) {
+
+                    var obj = {
+                        material: $scope.listaMateriales[i],
+                        cantidad_material: $scope.cantidadMaterial
+                    }
                     break;
                 }
             }
 
-            var obj = {
-                utensilios: $scope.listaUtensilios[pos],
-                cantidad_utensilios: $scope.cantidadUtensilios
-            }
+            
 
-            $scope.listaUtensilioSelect.push(obj);
+            $scope.listaMaterialSelect.push(obj);
 
-            $scope.listaUtensilios.splice(pos, 1);
-            $scope.utensilios = {};
-            $scope.cantidadUtensilios = "";
+            $scope.listaMateriales.splice(pos, 1);
+            $scope.Materiales = {};
+            $scope.cantidadMaterial = "";
 
         }
 
     }
 
-    $scope.quitarSeleccionUtensilio = function () {
+    $scope.quitarSeleccionMaterial = function () {
 
-        if ($scope.seleccionUtensilio != undefined && $scope.seleccionUtensilio != "") {
+        if ($scope.seleccionMaterial != undefined && $scope.seleccionMaterial != "") {
 
-            $scope.seleccionUtensilioJS = JSON.parse($scope.seleccionUtensilio);
-            $scope.listaUtensilios.push($scope.seleccionUtensilioJS.utensilios);
+            $scope.seleccionMaterialJS = JSON.parse($scope.seleccionMaterial);
+            $scope.listaMateriales.push($scope.seleccionMaterialJS.materiales);
 
-            var n = $scope.listaUtensilioSelect.length;
+            var n = $scope.listaMaterialSelect.length;
             var pos = "";
             for (var i = 0; i < n; i++) {
 
-                if ($scope.listaUtensilioSelect[i].utensilios._id == $scope.seleccionUtensilioJS.utensilios._id) {
+                if ($scope.listaMaterialSelect[i].material._id == $scope.seleccionMaterialJS.Material._id) {
                     pos = i;
                     break;
                 }
             }
 
-            $scope.listaUtensilioSelect.splice(pos, 1);
-            $scope.seleccionUtensilio = {};
+            $scope.listaMaterialesSelect.splice(pos, 1);
+            $scope.seleccionMaterial = {};
 
         }
 
     }
 
-    $scope.agregarListaProductos = function () {
+    $scope.agregarListaAlimentos = function () {
 
-        if ($scope.tipoProducto != "" && $scope.cantidadProducto != "" && $scope.unidades != "" &&
-            $scope.tipoProducto != undefined && $scope.cantidadProducto != undefined && $scope.unidades != undefined) {
+        if ($scope.nombreAlimento != "" && $scope.cantidadAlimento != "" && $scope.unidades != "" &&
+            $scope.nombreAlimento != undefined && $scope.cantidadAlimento != undefined && $scope.unidades != undefined) {
             var obj = {
-                tipo_producto: $scope.tipoProducto,
-                cantidad_producto: $scope.cantidadProducto,
-                unidades_producto: $scope.unidades
+                nombre_alimento: $scope.nombreAlimento,
+                cantidad_alimento: $scope.cantidadAlimento,
+                unidades_alimento: $scope.unidades
             }
 
-            $scope.listaProductos.push(obj);
+            $scope.listaAlimentos.push(obj);
 
-            $scope.tipoProducto = "";
-            $scope.cantidadProducto = "";
+            $scope.nombreAlimento = "";
+            $scope.cantidadAlimento = "";
             $scope.unidades = "";
         }
     }
 
-    $scope.quitarSeleccionProductos = function () {
+    $scope.quitarSeleccionAlimentos = function () {
 
-        if ($scope.seleccionProducto != undefined && $scope.seleccionProducto != "") {
+        if ($scope.seleccionAlimento != undefined && $scope.seleccionAlimento != "") {
 
-            $scope.seleccionProductoJS = JSON.parse($scope.seleccionProducto);
+            $scope.seleccionAlimentoJS = JSON.parse($scope.seleccionAlimento);
 
-            var n = $scope.listaProductos.length;
+            var n = $scope.listaAlimentos.length;
             var pos = "";
             for (var i = 0; i < n; i++) {
 
-                if ($scope.listaProductos[i].tipo_producto == $scope.seleccionProductoJS.tipo_producto) {
+                if ($scope.listaAlimentos[i].nombre_alimento == $scope.seleccionAlimentoJS.nombre_alimento) {
                     pos = i;
                     break;
                 }
             }
 
-            $scope.listaProductos.splice(pos, 1);
-            $scope.seleccionProducto = {};
+            $scope.listaAlimentos.splice(pos, 1);
+            $scope.seleccionAlimento = {};
 
         }
 

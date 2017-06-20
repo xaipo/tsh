@@ -5,13 +5,13 @@ var assert = require('assert');
 var url = 'mongodb://localhost:27017/tsh';
 var objectId = require('mongodb').ObjectID;
 
-router.post('/saveUtensiliosSeleccionados', function (req, res) {
+router.post('/saveMaterialessSeleccionados', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
 
         console.log(req.body);
-        var collection = db.collection('utensilios_seleccionados');
+        var collection = db.collection('materiales_seleccionados');
         collection.insert(req.body, function (err, result) {
             res.send(result.ops[0]);
         });        
@@ -22,7 +22,7 @@ router.post('/saveUtensiliosSeleccionados', function (req, res) {
 });
 
 
-router.post('/updateUtensiliosSeleccionados', function (req, res) {
+router.post('/updateMaterialesSeleccionados', function (req, res) {
 
 
     MongoClient.connect(url, function (err, db) {
@@ -30,13 +30,13 @@ router.post('/updateUtensiliosSeleccionados', function (req, res) {
         console.log(req.body);
         var item = {
             utensilio: req.body.utensilio,
-            cantidad_utensilios: req.body.cantidad_utensilios
+            cantidad_materiales: req.body.cantidad_materiales
         };
 
 
 
         var id = req.body.id;
-        db.collection('utensilios_seleccionados').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
+        db.collection('materiales_seleccionados').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
             assert.equal(null, err);
             console.log('Item updated');
 
@@ -47,14 +47,14 @@ router.post('/updateUtensiliosSeleccionados', function (req, res) {
     });
 });
 
-router.post('/getByIdUtensiliosSeleccionados', function (req, res) {
+router.post('/getByIdMaterialesSeleccionados', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
         console.log(req.body);
 
         var id = req.body.id;
-        db.collection('utensilios_seleccionados').findOne({ "_id": objectId(id) }, function (err, result) {
+        db.collection('materiales_seleccionados').findOne({ "_id": objectId(id) }, function (err, result) {
             assert.equal(null, err);
             console.log(result);
             console.log('Item loaded');
@@ -66,13 +66,13 @@ router.post('/getByIdUtensiliosSeleccionados', function (req, res) {
 });
 
 
-router.get('/getAllUtensiliosSeleccionados', function (req, res) {
+router.get('/getAllMaterialesSeleccionados', function (req, res) {
 
     var resultArray = [];
     MongoClient.connect(url, function (err, db) {
 
         assert.equal(null, err);
-        var cursor = db.collection('utensilios_seleccionados').find();
+        var cursor = db.collection('materialess_seleccionados').find();
         cursor.forEach(function (doc, err) {
             assert.equal(null, err);
             resultArray.push(doc);

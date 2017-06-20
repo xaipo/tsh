@@ -5,38 +5,41 @@ var assert = require('assert');
 var url = 'mongodb://localhost:27017/tsh';
 var objectId = require('mongodb').ObjectID;
 
-router.post('/saveProductos', function (req, res) {
+router.post('/saveMateriales', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
 
         console.log(req.body);
-        var collection = db.collection('productos');
-        collection.insert(req.body, function (err, result) {
-            res.send(result.ops[0]);
+        var collection = db.collection('materiales');
+        collection.insert(req.body, {
+
         });
-        
+
+        res.send('Info ingresada');
+
         db.close();
 
     });
 });
 
 
-router.post('/updateProductos', function (req, res) {
+router.post('/updateMateriales', function (req, res) {
 
 
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
         console.log(req.body);
         var item = {
-            tipo_producto: req.body.tipo_producto,
-            cantidad_producto: req.body.cantidad_producto,
-            unidades_producto: req.body.unidades_producto
+            descripcion_material: req.body.descripcion_material,
+            stock: req.body.stock,
+            estado: req.body.estado
         };
 
 
+
         var id = req.body.id;
-        db.collection('productos').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
+        db.collection('materiales').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
             assert.equal(null, err);
             console.log('Item updated');
 
@@ -47,14 +50,14 @@ router.post('/updateProductos', function (req, res) {
     });
 });
 
-router.post('/getByIdProductos', function (req, res) {
+router.post('/getByIdMateriales', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
         console.log(req.body);
 
         var id = req.body.id;
-        db.collection('productos').findOne({ "_id": objectId(id) }, function (err, result) {
+        db.collection('materiales').findOne({ "_id": objectId(id) }, function (err, result) {
             assert.equal(null, err);
             console.log(result);
             console.log('Item loaded');
@@ -66,13 +69,13 @@ router.post('/getByIdProductos', function (req, res) {
 });
 
 
-router.get('/getAllProductos', function (req, res) {
+router.get('/getAllMateriales', function (req, res) {
 
     var resultArray = [];
     MongoClient.connect(url, function (err, db) {
 
         assert.equal(null, err);
-        var cursor = db.collection('productos').find();
+        var cursor = db.collection('materiales').find();
         cursor.forEach(function (doc, err) {
             assert.equal(null, err);
             resultArray.push(doc);

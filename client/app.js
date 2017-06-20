@@ -248,24 +248,24 @@ function ApiUrl() {
     }
     ///////////////////////////////////////////////////////////////
 
-    // Ingreso Utensilio
-    this.getUrlIngresoUtensilio = function () {
-        return (url + 'saveUtensilios');
+    // Ingreso Materiales
+    this.getUrlIngresoMateriales = function () {
+        return (url + 'saveMateriales');
     }
 
-    // Modificar Utensilio
-    this.getUrlModificarUtensilio = function () {
-        return (url + 'updateUtensilios');
+    // Modificar Materiales
+    this.getUrlModificarMateriales = function () {
+        return (url + 'updateMateriales');
     }
 
-    // Buscar Utensilio
-    this.getUrlBuscarUtensilio = function () {
-        return (url + 'getByIdUtensilios');
+    // Buscar Materiales
+    this.getUrlBuscarMateriales = function () {
+        return (url + 'getByIdMateriales');
     }
 
-    // Buscar todos Utensilio
-    this.getUrlAllUtensilio = function () {
-        return (url + 'getAllUtensilios');
+    // Buscar todos Materiales
+    this.getUrlAllMateriales = function () {
+        return (url + 'getAllMateriales');
     }
     /////////////////////////////////////////////////////////
 
@@ -285,24 +285,24 @@ function ApiUrl() {
     }
     //////////////////////////////////////////////////////////
 
-    // Ingreso Producto
-    this.getUrlIngresoProducto = function () {
-        return (url + 'saveProductos');
+    // Ingreso Alimentos
+    this.getUrlIngresoAlimentos = function () {
+        return (url + 'saveAlimentos');
     }
 
-    // Modificar Producto
-    this.getUrlModificarProducto = function () {
-        return (url + 'updateProductos');
+    // Modificar Alimentos
+    this.getUrlModificarAlimentos = function () {
+        return (url + 'updateAlimentos');
     }
 
-    // Buscar Producto
-    this.getUrlBuscarProducto = function () {
-        return (url + 'getByIdProductos');
+    // Buscar Alimentos
+    this.getUrlBuscarAlimentos = function () {
+        return (url + 'getByIdAlimentos');
     }
 
-    // Buscar todos los Producto
-    this.getUrlALLProducto = function () {
-        return (url + 'getAllProductos');
+    // Buscar todos los Alimentos
+    this.getUrlALLAlimentos = function () {
+        return (url + 'getAllAlimentos');
     }
     /////////////////////////////////////////////////////////
 
@@ -387,24 +387,24 @@ function ApiUrl() {
 
     ///////////////////////////////////////////////////////////
 
-    // Ingreso Utensilios Seleccionados
-    this.getUrlIngresoUtensiliosSeleccionados = function () {
-        return (url + 'saveUtensiliosSeleccionados');
+    // Ingreso Materiales Seleccionados
+    this.getUrlIngresoMaterialesSeleccionados = function () {
+        return (url + 'saveMaterialesSeleccionados');
     }
 
-    // Modificar Utensilios Seleccionados
-    this.getUrlModificarUtensiliosSeleccionados = function () {
-        return (url + 'updateUtensiliosSeleccionados');
+    // Modificar Materiales Seleccionados
+    this.getUrlModificarMaterialesSeleccionados = function () {
+        return (url + 'updateMaterialesSeleccionados');
     }
 
-    // Buscar Utensilios Seleccionados
-    this.getUrlBuscarUtensiliosSeleccionados = function () {
-        return (url + 'getByIdUtensiliosSeleccionados');
+    // Buscar Materiales Seleccionados
+    this.getUrlBuscarMaterialesSeleccionados = function () {
+        return (url + 'getByIdMaterialesSeleccionados');
     }
 
-    // Buscar todos Utensilios Seleccionados
-    this.getUrlAllUtensiliosSeleccionados = function () {
-        return (url + 'getAllUtensiliosSeleccionados');
+    // Buscar todos Materiales Seleccionados
+    this.getUrlAllMaterialesSeleccionados = function () {
+        return (url + 'getAllMaterialesSeleccionados');
     }
 
     ////////////////////////////////////////////////////////////////////////
