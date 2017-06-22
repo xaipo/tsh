@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\client",
-    "\\HttpService",
-    "\\HttpService\\Routers"
+    "\\HttpService"
   ],
-  "SelectedNode": "\\client\\menu.html",
+  "SelectedNode": "\\client\\app.js",
   "PreviewInSolutionExplorer": false
 }

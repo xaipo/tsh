@@ -43,7 +43,9 @@ router.post('/updateEmbarcacion', function (req, res) {
             tipo_combustible: req.body.tipo_combustible,
             tonelaje_bruto: req.body.tonelaje_bruto,
             capacidad_carga: req.body.capacidad_carga,
-            tipo_embarcacion: req.body.tipo_embarcacion
+            tipo_embarcacion: req.body.tipo_embarcacion,
+            capitan_embarcacion: req.body.capitan_embarcacion,
+            tripulantes: req.body.tripulantes
         };
 
 

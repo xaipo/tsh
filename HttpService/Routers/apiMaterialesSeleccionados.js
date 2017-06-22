@@ -5,7 +5,7 @@ var assert = require('assert');
 var url = 'mongodb://localhost:27017/tsh';
 var objectId = require('mongodb').ObjectID;
 
-router.post('/saveMaterialessSeleccionados', function (req, res) {
+router.post('/saveMaterialesSeleccionados', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
@@ -29,8 +29,8 @@ router.post('/updateMaterialesSeleccionados', function (req, res) {
         assert.equal(null, err);
         console.log(req.body);
         var item = {
-            utensilio: req.body.utensilio,
-            cantidad_materiales: req.body.cantidad_materiales
+            material: req.body.material,
+            cantidad_material: req.body.cantidad_material
         };
 
 

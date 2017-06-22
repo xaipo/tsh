@@ -1,10 +1,14 @@
-app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', function ($scope, $http, myProvider) {
+app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$timeout", function ($scope, $http, myProvider, $timeout) {
 
     $scope.url;
     $scope.urlModificar;
+    $scope.urlAllPropietarios;
     $scope.urlAllTipoUsuario;
     $scope.urlAllTipoCombustible;
     $scope.urlAllTipoEmbarcacion;
+    $scope.urlAllTripulantes;
+    $scope.urlAllTripulantesCapitan;
+
 
     //atributos
     $scope.id;
@@ -21,21 +25,68 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', functi
     $scope.tonelajeBruto;
     $scope.capacidadCarga;
     $scope.tipoEmbarcacion;
+    $scope.capitan = "";
 
     $scope.busqueda;
     $scope.listaTipoEmbarcacion;
     $scope.listaTipoCombustible;
+    $scope.listaPropietarios;
+    $scope.listaTripulante;
+    $scope.listaTripulanteSelect = [];
+    $scope.listaTripulanteIngresar = [];
+    $scope.listaTripulantesCapitanes;
+    $scope.seleccionTripulante;
 
     $scope.iniciar = function () {
         $scope.url = myProvider.getUrlIngresoEmbarcacion();
         $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
+        $scope.urlAllPropietarios = myProvider.getUrlAllPropietario();
+        $scope.urlAllTripulantesCapitan = myProvider.getUrlAllTripulanteCapitan();
+        $scope.urlAllTripulantes = myProvider.getUrlAllTripulante();
         $scope.urlAllTipoEmbarcacion = myProvider.getUrlAllTipoEmbarcacion();
+
+        $scope.id;
+        $scope.nombreEmbarcacion = "";
+        $scope.numeroMatricula = "";
+        $scope.esloraTotal = 0;
+        $scope.manga = 0;
+        $scope.puntual = 0;
+        $scope.calado = 0;
+        $scope.fechaConstruccion = "";
+        $scope.propietario = "";
+        $scope.propulsion = "";
+        $scope.tipoCombustible;
+        $scope.tonelajeBruto = 0;
+        $scope.capacidadCarga = 0;
+        $scope.tipoEmbarcacion = "";
+        $scope.capitan = "";
+
+        $scope.busqueda;
+        $scope.seleccionTripulante = "";
+        $scope.listaTipoEmbarcacion;
+        $scope.listaTipoCombustible;
+        $scope.listaPropietarios;
+        $scope.listaTripulantes;
+        $scope.listaTripulanteIngresar = [];
+        $scope.listaTripulanteSelect = [];
+        $scope.listaTripulantesCapitanes;
 
         $http.get($scope.urlAllTipoCombustible)
             .then(function (response) {
 
                 $scope.listaTipoCombustible = response.data;
                 $scope.tipoCombustible = $scope.listaTipoCombustible[0]._id;
+
+            }, function errorCallback(response) {
+
+                console.log(response);
+            });
+
+        $http.get($scope.urlAllPropietarios)
+            .then(function (response) {
+
+                $scope.listaPropietarios = response.data;
+                $scope.propietario = $scope.listaPropietarios[0]._id;
 
             }, function errorCallback(response) {
 
@@ -52,10 +103,39 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', functi
 
                 console.log(response);
             });
-        
+
+        $http.get($scope.urlAllTripulantesCapitan)
+            .then(function (response) {
+
+                $scope.listaTripulantesCapitanes = response.data;
+                $scope.capitan = $scope.listaTripulantesCapitanes[0]._id;
+
+            }, function errorCallback(response) {
+
+                console.log(response);
+            });
+
+        $http.get($scope.urlAllTripulantes)
+            .then(function (response) {
+
+                $scope.listaTripulante = response.data;
+
+            }, function errorCallback(response) {
+
+                console.log(response);
+            });
+
     }
 
     $scope.ingresoEmbarcacion = function () {
+
+        var dimeTrip = $scope.listaTripulanteSelect.length;
+
+        for (var i = 0; i < dimeTrip; i++) {
+
+            $scope.listaTripulanteIngresar.push($scope.listaTripulanteSelect[i]._id.toString());
+
+        }
 
         var obj = {
             nombre_embarcacion: $scope.nombreEmbarcacion,
@@ -70,19 +150,63 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', functi
             tipo_combustible: $scope.tipoCombustible,
             tonelaje_bruto: $scope.tonelajeBruto,
             capacidad_carga: $scope.capacidadCarga,
-            tipo_embarcacion: $scope.tipoEmbarcacion
+            tipo_embarcacion: $scope.tipoEmbarcacion,
+            capitan_embarcacion: $scope.capitan,
+            tripulantes: $scope.listaTripulanteIngresar
         };
         $http.post($scope.url, obj)
             .then(function (response) {
 
                 $scope.iniciar();
-                console.log(response);
 
             }, function errorCallback(response) {
 
                 console.log(response);
             });
 
-    }   
+    }
+
+    $scope.agregarSeleccionListaTripulante = function () {
+
+        if ($scope.seleccionTripulante != undefined && $scope.seleccionTripulante != "") {
+
+            $scope.seleccionTripulanteJS = JSON.parse($scope.seleccionTripulante);
+
+            var n = $scope.listaTripulante.length;
+            for (var i = 0; i < n; i++) {
+
+                if ($scope.listaTripulante[i]._id == $scope.seleccionTripulanteJS._id) {
+                    $scope.listaTripulanteSelect.push($scope.seleccionTripulanteJS);
+                    $scope.listaTripulante.splice(i, 1);
+                    $scope.seleccionTripulante = {};
+                    break;
+                }
+            }
+
+
+        }
+
+    }
+
+    $scope.quitarSeleccionListaTripulante = function () {
+
+        if ($scope.seleccionTripulante != undefined && $scope.seleccionTripulante != "") {
+
+            $scope.seleccionTripulanteJS = JSON.parse($scope.seleccionTripulante);
+
+            var n = $scope.listaTripulanteSelect.length;
+            for (var i = 0; i < n; i++) {
+
+                if ($scope.listaTripulanteSelect[i]._id == $scope.seleccionTripulanteJS._id) {
+                    $scope.listaTripulante.push($scope.seleccionTripulanteJS);
+                    $scope.listaTripulanteSelect.splice(i, 1);
+                    $scope.seleccionTripulante = {};
+                    break;
+                }
+            }
+
+        }
+
+    }
 
 }]);

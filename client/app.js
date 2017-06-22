@@ -12,6 +12,38 @@ function ApiUrl() {
 
     /////////////////////////////////////////////////////////////////////////
 
+    // Ingreso Estado Orden Servicio
+    this.getUrlIngresoEstadoOrden = function () {
+        return (url + 'saveEstadoOrden');
+    }
+
+    // Modificar Estado Orden Servicio
+    this.getUrlModificarEstadoOrden = function () {
+        return (url + 'updateEstadoOrden');
+    }
+
+    // Buscar todos los Estado Orden Servicio
+    this.getUrlAllEstadoOrden = function () {
+        return (url + 'getAllEstadoOrden');
+    }
+    //////////////////////////////////////////////////////
+
+    // Ingreso Tipo Material
+    this.getUrlIngresoTipoMaterial = function () {
+        return (url + 'saveTipoMaterial');
+    }
+
+    // Modificar Tipo Material
+    this.getUrlModificarTipoMaterial = function () {
+        return (url + 'updateTipoMaterial');
+    }
+
+    // Buscar todos los Tipo Material
+    this.getUrlAllTipoMaterial = function () {
+        return (url + 'getAllTipoMaterial');
+    }
+    //////////////////////////////////////////////////////
+
     //Ingreso Pedido
     this.getUrlIngresoPedido = function () {
         return (url + 'savePedido');
@@ -143,6 +175,11 @@ function ApiUrl() {
     // Busacar por ID Tripulante
     this.getUrlBuscarTripulante = function () {
         return (url + 'getByIdTripulante');
+    }
+
+    // Busacar Tripulantes de tipo capitan y timonel
+    this.getUrlAllTripulanteCapitan = function () {
+        return (url + 'getAllTripulanteCapitanes');
     }
 
     // Buscar todos los Tripulante
@@ -431,4 +468,3 @@ app.factory("myProvider", function () {
     return new ApiUrl();
 
 });
-
