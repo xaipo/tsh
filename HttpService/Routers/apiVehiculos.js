@@ -31,7 +31,8 @@ router.post('/updateVehiculos', function (req, res) {
         console.log(req.body);
         var item = {
             cantidad_vehiculos: req.body.cantidad_vehiculos,
-            descripcion_vehiculos: req.body.descripcion_vehiculos
+            descripcion_vehiculos: req.body.descripcion_vehiculos,
+            matricula: req.body.matricula
         };
 
 
