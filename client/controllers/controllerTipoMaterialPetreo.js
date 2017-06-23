@@ -1,9 +1,8 @@
-app.controller('ControllerTipoMaterial', ['$scope', '$http', 'myProvider', function ($scope, $http, myProvider) {
+app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider', function ($scope, $http, myProvider) {
 
     $scope.url;
     $scope.urlModificar;
     $scope.urlAllTipoMaterial;
-    console.log($scope.url);
     $scope.descripcionTipoMaterial;
 
     $scope.id;
@@ -14,9 +13,9 @@ app.controller('ControllerTipoMaterial', ['$scope', '$http', 'myProvider', funct
     $scope.listaTipoMaterial;
 
     $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoTipoMaterial();
-        $scope.urlModificar = myProvider.getUrlModificarTipoMaterial();
-        $scope.urlAllTipoMaterial = myProvider.getUrlAllTipoMaterial();
+        $scope.url = myProvider.getUrlIngresoTipoMaterialPetreo();
+        $scope.urlModificar = myProvider.getUrlModificarTipoMaterialPetreo();
+        $scope.urlAllTipoMaterial = myProvider.getUrlAllTipoMaterialPetreo();
 
         $scope.id = "";
         $scope.seleccion = "";

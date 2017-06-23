@@ -25,7 +25,7 @@ app.controller('ControllerMaterialPetreo', ['$scope', '$http', 'myProvider', fun
             .then(function (response) {
 
                 $scope.listaMaterialPetreo = response.data;
-                
+
             }), function errorCallback(response) {
 
                 console.log(response);
@@ -49,7 +49,7 @@ app.controller('ControllerMaterialPetreo', ['$scope', '$http', 'myProvider', fun
         //                    }
         //                }
         //            }
-                    
+
         //        }
         //    }), function errorCallback(response) {
 
@@ -63,7 +63,7 @@ app.controller('ControllerMaterialPetreo', ['$scope', '$http', 'myProvider', fun
     }
 
     $scope.ingresoMaterialPetreo = function () {
-        
+
         var obj = {
             tipo_material: $scope.tipoMaterial, num_volquetas: $scope.numVolquetas,
             cant_total_m3: $scope.cantTotalM3
@@ -84,7 +84,8 @@ app.controller('ControllerMaterialPetreo', ['$scope', '$http', 'myProvider', fun
     $scope.modificarMaterialPetreo = function () {
 
         var obj = {
-            _id: $scope.id, tipo_material: $scope.tipoMaterial, num_volquetas: $scope.numVolquetas,
+            _id: $scope.id, tipo_material: $scope.tipoMaterial,
+            num_volquetas: $scope.numVolquetas,
             cant_total_m3: $scope.cantTotalM3
         };
         $http.post($scope.urlModificar, obj)

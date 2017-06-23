@@ -35,7 +35,8 @@ router.post('/updateOrdenServicio', function (req, res) {
             detalle: req.body.detalle,
             embarcacion: req.body.embarcacion,
             estado: req.body.estado,
-            fecha: req.body.fecha,
+            fecha_emision: req.body.fecha_emision,
+            fecha_entrega: req.body.fecha_entrega,
             puerto_embarque: req.body.puerto_embarque,
             puerto_desembarque: req.body.puerto_desembarque,
             orometro_inicial_m1: req.body.orometro_inicial_m1,
@@ -50,8 +51,7 @@ router.post('/updateOrdenServicio', function (req, res) {
             combustible_transporte: req.body.combustible_transporte,
             observacion_maquinista: req.body.observacion_maquinista,
             contacto_recepcion: req.body.contacto_recepcion,
-            nombre_capitan: req.body.nombre_capitan,
-            tripulacion: req.body.tripulacion
+            capitan_embarcacion: req.body.capitan_embarcacion
         };
 
 

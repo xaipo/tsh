@@ -23,7 +23,7 @@ app.use('/api', require('./Routers/apiTipoMantenimiento'));
 app.use('/api', require('./Routers/apiPropietario'));
 app.use('/api', require('./Routers/apiPuerto'));
 app.use('/api', require('./Routers/apiEstadoOrdenServicio'));
-app.use('/api', require('./Routers/apiTipoMaterial'));
+app.use('/api', require('./Routers/apiTipoMaterialPetreo'));
 app.use('/api', require('./Routers/apiClientes'));
 app.use('/api', require('./Routers/apiCombustible'));
 app.use('/api', require('./Routers/apiMaterialPetreo'));

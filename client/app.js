@@ -28,19 +28,19 @@ function ApiUrl() {
     }
     //////////////////////////////////////////////////////
 
-    // Ingreso Tipo Material
-    this.getUrlIngresoTipoMaterial = function () {
-        return (url + 'saveTipoMaterial');
+    // Ingreso Tipo Material Petreo
+    this.getUrlIngresoTipoMaterialPetreo = function () {
+        return (url + 'saveTipoMaterialPetreo');
     }
 
-    // Modificar Tipo Material
-    this.getUrlModificarTipoMaterial = function () {
-        return (url + 'updateTipoMaterial');
+    // Modificar Tipo Material Petreo
+    this.getUrlModificarTipoMaterialPetreo = function () {
+        return (url + 'updateTipoMaterialPetreo');
     }
 
-    // Buscar todos los Tipo Material
-    this.getUrlAllTipoMaterial = function () {
-        return (url + 'getAllTipoMaterial');
+    // Buscar todos los Tipo Material Petreo
+    this.getUrlAllTipoMaterialPetreo = function () {
+        return (url + 'getAllTipoMaterialPetreo');
     }
     //////////////////////////////////////////////////////
 

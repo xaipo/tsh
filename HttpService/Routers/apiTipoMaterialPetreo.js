@@ -5,13 +5,13 @@ var assert = require('assert');
 var url = 'mongodb://localhost:27017/tsh';
 var objectId = require('mongodb').ObjectID;
 
-router.post('/saveTipoMaterial', function (req, res) {
+router.post('/saveTipoMaterialPetreo', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
 
         console.log(req.body);
-        var collection = db.collection('tipo_material');
+        var collection = db.collection('tipo_material_petreo');
         collection.insert(req.body, {
 
         });
@@ -24,7 +24,7 @@ router.post('/saveTipoMaterial', function (req, res) {
 });
 
 
-router.post('/updateTipoMaterial', function (req, res) {
+router.post('/updateTipoMaterialPetreo', function (req, res) {
 
 
     MongoClient.connect(url, function (err, db) {
@@ -37,7 +37,7 @@ router.post('/updateTipoMaterial', function (req, res) {
 
 
         var id = req.body.id;
-        db.collection('tipo_material').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
+        db.collection('tipo_material_petreo').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
             assert.equal(null, err);
             console.log('Item updated');
 
@@ -48,14 +48,14 @@ router.post('/updateTipoMaterial', function (req, res) {
     });
 });
 
-router.post('/getByIdTipoMaterial', function (req, res) {
+router.post('/getByIdTipoMaterialPetreo', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
         console.log(req.body);
 
         var id = req.body.id;
-        db.collection('tipo_material').findOne({ "_id": objectId(id) }, function (err, result) {
+        db.collection('tipo_material_petreo').findOne({ "_id": objectId(id) }, function (err, result) {
             assert.equal(null, err);
             console.log(result);
             console.log('Item loaded');
@@ -67,13 +67,13 @@ router.post('/getByIdTipoMaterial', function (req, res) {
 });
 
 
-router.get('/getAllTipoMaterial', function (req, res) {
+router.get('/getAllTipoMaterialPetreo', function (req, res) {
 
     var resultArray = [];
     MongoClient.connect(url, function (err, db) {
 
         assert.equal(null, err);
-        var cursor = db.collection('tipo_material').find();
+        var cursor = db.collection('tipo_material_petreo').find();
         cursor.forEach(function (doc, err) {
             assert.equal(null, err);
             resultArray.push(doc);
