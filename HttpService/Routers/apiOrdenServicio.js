@@ -45,12 +45,13 @@ router.post('/updateOrdenServicio', function (req, res) {
             orometro_final_m2: req.body.orometro_final_m2,
             hora_salida: req.body.hora_salida,
             hora_arribo: req.body.hora_arribo,
-            detalle_carga: req.body.detalle_carga,
+            carga_material_petreo: req.body.carga_material_petreo,
+            carga_vehiculo: req.body.carga_vehiculo,
             observaciones: req.body.observaciones,
             combustible_consumo: req.body.combustible_consumo,
             combustible_transporte: req.body.combustible_transporte,
             observacion_maquinista: req.body.observacion_maquinista,
-            contacto_recepcion: req.body.contacto_recepcion,
+            contrato_recepcion: req.body.contacto_recepcion,
             capitan_embarcacion: req.body.capitan_embarcacion
         };
 

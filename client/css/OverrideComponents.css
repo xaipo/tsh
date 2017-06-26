@@ -29,3 +29,8 @@ a.active{
 body {
     background: #cccccc;
 }
+
+.selector_cat{
+    width: 100px; 
+    overflow: auto;
+}

@@ -38,6 +38,11 @@ function ApiUrl() {
         return (url + 'updateTipoMaterialPetreo');
     }
 
+    // Buscar Tipo Material Petreo
+    this.getUrlBuscarTipoMaterialPetreo = function () {
+        return (url + 'getByIdTipoMaterialPetreo');
+    }
+
     // Buscar todos los Tipo Material Petreo
     this.getUrlAllTipoMaterialPetreo = function () {
         return (url + 'getAllTipoMaterialPetreo');
@@ -321,6 +326,27 @@ function ApiUrl() {
         return (url + 'getAllPropietario');
     }
     //////////////////////////////////////////////////////////
+
+    // Ingreso Tipo Alimentos
+    this.getUrlIngresoTipoAlimentos = function () {
+        return (url + 'saveTipoAlimentos');
+    }
+
+    // Modificar Tipo Alimentos
+    this.getUrlModificarTipoAlimentos = function () {
+        return (url + 'updateTipoAlimentos');
+    }
+
+    // Buscar Tipo Alimentos
+    this.getUrlBuscarTipoAlimentos = function () {
+        return (url + 'getByIdTipoAlimentos');
+    }
+
+    // Buscar todos los Tipo Alimentos
+    this.getUrlALLTipoAlimentos = function () {
+        return (url + 'getAllTipoAlimentos');
+    }
+    /////////////////////////////////////////////////////////
 
     // Ingreso Alimentos
     this.getUrlIngresoAlimentos = function () {

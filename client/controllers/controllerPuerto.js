@@ -3,7 +3,6 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
     $scope.url;
     $scope.urlModificar;
     $scope.urlAllPuertos;
-    console.log($scope.url);
     $scope.descripcionPuerto;
 
     $scope.id;
@@ -30,7 +29,7 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
     }
 
     $scope.ingresoPuerto = function () {
-        console.log($scope.descripcionPuerto);
+        
         var obj = { descripcion_puerto: $scope.descripcionPuerto };
         $http.post($scope.url, obj)
             .then(function (response) {

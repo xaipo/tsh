@@ -42,6 +42,12 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
     $scope.contratoRecepcion = "";
     $scope.capitan = "";
 
+    // Variables horas
+    $scope.horasSalida = "";
+    $scope.minutosSalida = "";
+    $scope.horasArribo = "";
+    $scope.minutosArribo = "";
+
     // Variable de combustible
     $scope.cantidadConsumoCombustible = "";
     $scope.cantidadTransporteCombustible = "";
@@ -94,7 +100,6 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
         $scope.url = myProvider.getUrlIngresoOrdenServicio();
         $scope.urlAllEmbarcacion = myProvider.getUrlAllEmbarcacion();
         $scope.urlAllCliente = myProvider.getUrlAllClientes();
-        $scope.urlAllTipoMaterialPetreo = myProvider.getUrlAllTipoMaterialPetreo();
         $scope.urlAllVehiculo = myProvider.getUrlAllVehiculo();
         $scope.urlAllPuerto = myProvider.getUrlAllPuerto();
         $scope.urlAllCombustible = myProvider.getUrlAllCombustible();
@@ -106,6 +111,7 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
         $scope.urlVehiculo = myProvider.getUrlIngresoVehiculo();
         $scope.urlCombustible = myProvider.getUrlIngresoCombustible();
         $scope.urlAllEstadosOrden = myProvider.getUrlAllEstadoOrden();
+        $scope.urlAllTipoMaterialPetreo = myProvider.getUrlAllTipoMaterialPetreo();
 
         //atributos
         $scope.id = "";
@@ -131,6 +137,12 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
         $scope.observacionMaquinista = "";
         $scope.contratoRecepcion = "";
         $scope.capitan = "";
+
+        // Variables horas
+        $scope.horasSalida = "";
+        $scope.minutosSalida = "";
+        $scope.horasArribo = "";
+        $scope.minutosArribo = "";
 
         // Variable de combustible
         $scope.cantidadConsumoCombustible = "";
@@ -469,6 +481,52 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
     }
 
     $scope.ingresoOrdenServicio = function () {
+
+        if ($scope.horasSalida < 9) {
+            var h = "0" + $scope.horasSalida.toString();
+            if ($scope.minutosSalida < 9) {
+                var min = "0" + $scope.minutosSalida.toString();
+                $scope.horaSalida = h.toString() + ":" + min.toString();
+            }
+            if ($scope.minutosSalida > 9) {
+                var min = $scope.minutosSalida.toString();
+                $scope.horaSalida = h.toString() + ":" + min.toString();
+            }
+        }
+        if ($scope.horasSalida > 9) {
+            var h = $scope.horasSalida;
+            if ($scope.minutosSalida < 9) {
+                var min = "0" + $scope.minutosSalida.toString();
+                $scope.horaSalida = h.toString() + ":" + min.toString();
+            }
+            if ($scope.minutosSalida > 9) {
+                var min = $scope.minutosSalida.toString();
+                $scope.horaSalida = h.toString() + ":" + min.toString();
+            }
+        }
+
+        if ($scope.horasArribo < 9) {
+            var h = "0" + $scope.horasArribo.toString();
+            if ($scope.minutosArribo < 9) {
+                var min = "0" + $scope.minutosArribo.toString();
+                $scope.horaArribo = h.toString() + ":" + min.toString();
+            }
+            if ($scope.minutosArribo > 9) {
+                var min = $scope.minutosArribo.toString();
+                $scope.horaArribo = h.toString() + ":" + min.toString();
+            }
+        }
+        if ($scope.horasArribo > 9) {
+            var h = $scope.horasArribo.toString();
+            if ($scope.minutosArribo < 9) {
+                var min = "0" + $scope.minutosArribo.toString();
+                $scope.horaArribo = h.toString() + ":" + min.toString();
+            }
+            if ($scope.minutosArribo > 9) {
+                var min = $scope.minutosArribo.toString();
+                $scope.horaArribo = h.toString() + ":" + min.toString();
+            }
+        }
 
         var dimMatPet = $scope.listaMaterialPetreo.length;
 
