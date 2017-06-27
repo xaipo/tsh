@@ -2,43 +2,40 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
 
     $scope.urlModificar;
     $scope.urlAllPedidos;
-    $scope.urlProductos;
-    $scope.urlProductosBuscar;
-    $scope.urlProductosModificar;
-    $scope.urlUtensiliosSeleccionados;
-    $scope.urlUtensiliosSeleccionadosBuscar;
-    $scope.urlUtensiliosSeleccionadosModificar;
     $scope.urlAllOrdenServicio;
-    $scope.urlAllUtensilios;
-    $scope.urlUtensiliosBuscar;
+    $scope.urlAlimentos;
+    $scope.urlMateriales;
+    $scope.urlAllTipoAlimentos;
+    $scope.urlAllTipoMateriales;
 
     // Variables Producto y Pedido
+    $scope.id;
     $scope.ordenServicio;
     $scope.observaciones;
-    $scope.tipoProducto;
-    $scope.cantidadProducto;
-    $scope.unidades;
+    $scope.alimento;
+    $scope.cantidadAlimento;
+    $scope.unidadesAlimento;
 
-    // Variables Utencilios
-    $scope.utensilios;
-    $scope.cantidadUtensilios;
-    $scope.seleccionProducto;
+    // Variables Materiales
+    $scope.material;
+    $scope.cantidadMaterial;
 
-    $scope.id;
+    //Selecciones
+    $scope.seleccionMaterial;
+    $scope.seleccionAlimento;
     $scope.seleccionPedido;
-    $scope.seleccionUtensilio;
 
     //Listas
     $scope.listaPedidos = [];
     $scope.listaOrdenServicio = [];
-    $scope.listaProductos = [];
-    $scope.listaProductosNueva = [];
-    $scope.listaUtensilios = [];
-    $scope.listaUtensiliosSelecciondos = [];
-    $scope.listaUtensiliosSelecciondosNueva = [];
-    $scope.listaUtensilioSelect = [];
-    $scope.listaUtensiliosArray = [];
-    $scope.listaProductosArray = [];
+    $scope.listaAlimentos = [];
+    $scope.listaAlimentosNueva = [];
+    $scope.listaMateriales = [];
+    $scope.listaMaterialesSelecciondos = [];
+    $scope.listaMaterialesSelecciondosNueva = [];
+    $scope.listaMaterialesSelect = [];
+    $scope.listaMaterialesArray = [];
+    $scope.listaAlimentosArray = [];
 
     $scope.iniciar = function () {
         $scope.urlModificar = myProvider.getUrlModificarPedido();
@@ -53,31 +50,34 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
         $scope.urlAllUtensilios = myProvider.getUrlAllUtensilio();
         $scope.urlUtensiliosBuscar = myProvider.getUrlBuscarUtensilio();
 
-        $scope.observaciones = "";
-        $scope.ordenServicio = "";
-        $scope.tipoProducto = "";
-        $scope.cantidadProducto = "";
-        $scope.unidades = "";
-
-        $scope.utensilios = "";
-        $scope.cantidadUtensilios = "";
-        $scope.seleccionProducto = "";
-
+        // Variables Producto y Pedido
         $scope.id = "";
+        $scope.ordenServicio = "";
+        $scope.observaciones = "";
+        $scope.alimento = "";
+        $scope.cantidadAlimento = "";
+        $scope.unidadesAlimento = "";
+
+        // Variables Materiales
+        $scope.material = "";
+        $scope.cantidadMaterial = "";
+
+        //Selecciones
+        $scope.seleccionMaterial = "";
+        $scope.seleccionAlimento = "";
         $scope.seleccionPedido = "";
-        $scope.seleccionUtensilio = "";
 
-
+        //Listas
         $scope.listaPedidos = [];
         $scope.listaOrdenServicio = [];
-        $scope.listaProductos = [];
-        $scope.listaProductosNueva = [];
-        $scope.listaUtensilios = [];
-        $scope.listaUtensiliosSelecciondos = [];
-        $scope.listaUtensiliosSelecciondosNueva = [];
-        $scope.listaUtensilioSelect = [];
-        $scope.listaUtensiliosArray = [];
-        $scope.listaProductosArray = [];
+        $scope.listaAlimentos = [];
+        $scope.listaAlimentosNueva = [];
+        $scope.listaMateriales = [];
+        $scope.listaMaterialesSelecciondos = [];
+        $scope.listaMaterialesSelecciondosNueva = [];
+        $scope.listaMaterialesSelect = [];
+        $scope.listaMaterialesArray = [];
+        $scope.listaAlimentosArray = [];
 
         $http.get($scope.urlAllPedidos)
             .then(function (response) {
@@ -201,7 +201,7 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
             productos: $scope.listaProductosArray,
             utensilios: $scope.listaUtensiliosArray,
             observaciones: $scope.observaciones
-        };        
+        };
 
         var q = $q.defer()
         q.resolve(

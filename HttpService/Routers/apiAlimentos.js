@@ -29,7 +29,7 @@ router.post('/updateAlimentos', function (req, res) {
         assert.equal(null, err);
         console.log(req.body);
         var item = {
-            nombre_alimento: req.body.nombre_alimento,
+            tipo_alimento: req.body.nombre_alimento,
             cantidad_alimento: req.body.cantidad_alimento,
             unidades_alimento: req.body.unidades_alimento
         };

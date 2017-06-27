@@ -88,10 +88,10 @@
                 <div class="panel-body">
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-1">
 
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="panel panel-default">
                                 <div class="panel-heading"><center><h3 class="panel-title">Lista de Pedidos</h3></center></div>
                                 <div class="panel-body">
@@ -125,176 +125,170 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-4">
-
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>ORDEN DE SERVICIO: </h3>
+                                </div>
                             </div>
-                            <div class="col-md-5">
-                                <h3>ORDEN DE SERVICIO: </h3>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-2">
 
                                     </div>
-                                    <div class="col-md-4">
-                                        <input type="text" ng-model="ordenServicio" class="form-control" />
+                                    <div class="col-md-8">
+                                        <input type="text" ng-model="ordenServicio" class="form-control" disabled/>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="row">
+                        <div class="col-md-1">
 
-                    </div>
-
-
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h3>Productos: </h3>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h3>Alimentos: </h3>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-6">
-                            <select name="Puertos" ng-model="seleccionProducto" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosSeleccionProductos()">
-                                <option value={{aux}}
-                                        ng-repeat="aux in listaProductosNueva | orderBy:aux.tipo_producto">
-                                    {{aux.tipo_producto}} {{" -- "}} {{aux.cantidad_producto}} {{" -- "}} {{aux.unidades_producto}}
-                                </option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-6">
-                            <select name="Puertos" ng-model="seleccionProducto" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosSeleccionProductos()">
-                                <option value={{aux}}
-                                        ng-repeat="aux in listaProductos | orderBy:aux.tipo_producto">
-                                    {{aux.tipo_producto}} {{" -- "}} {{aux.cantidad_producto}} {{" -- "}} {{aux.unidades_producto}}
-                                </option>
-                            </select>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-1">
-
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h4>Nombre: </h4>
-                                    </div>
-                                    <div class="col-md-6">
-
-                                        <input type="text" ng-model="tipoProducto" class="form-control" />
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-1">
-
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h4>Cantidad: </h4>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" ng-model="cantidadProducto" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-1">
-
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h4>Unidades: </h4>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" ng-model="unidades" class="form-control" />
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-4">
-                                    <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaProductos()" />
-                                </div>
-                                <div class="col-md-4">
-                                    <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaProductos()" />
-                                </div>
-                                <div class="col-md-4">
-                                    <input class="form-control btn-primary" type="submit" value="Eliminar" ng-click="eliminarListaProductos()" />
-                                </div>
-
+                            <div class="col-md-6">
+                                <select name="Puertos" ng-model="seleccionProducto" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosSeleccionProductos()">
+                                    <option value={{aux}}
+                                            ng-repeat="aux in listaProductosNueva | orderBy:aux.tipo_producto">
+                                        {{aux.tipo_producto}} {{" -- "}} {{aux.cantidad_producto}} {{" -- "}} {{aux.unidades_producto}}
+                                    </option>
+                                </select>
                             </div>
-                        </div>
 
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h3>Utensilios: </h3>
+                            <div class="col-md-6">
+                                <select name="Puertos" ng-model="seleccionProducto" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosSeleccionProductos()">
+                                    <option value={{aux}}
+                                            ng-repeat="aux in listaProductos | orderBy:aux.tipo_producto">
+                                        {{aux.tipo_producto}} {{" -- "}} {{aux.cantidad_producto}} {{" -- "}} {{aux.unidades_producto}}
+                                    </option>
+                                </select>
                             </div>
-                        </div>
 
-                        <div class="col-md-6">
-                            <select name="Puertos" ng-model="seleccionUtensilio" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosSeleccionUtensilios()">
-                                <option value={{aux}}
-                                        ng-repeat="aux in listaUtensiliosSelecciondosNueva">
-                                    {{aux.utensilio.descripcion_utensilio}} {{" -- "}} {{aux.cantidad_utensilios}}
-                                </option>
-                            </select>
-                        </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-1">
 
-                        <div class="col-md-6">
-                            <select name="Puertos" ng-model="seleccionUtensilio" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosSeleccionUtensilios()">
-                                <option value={{aux}}
-                                        ng-repeat="aux in listaUtensiliosSelecciondos">
-                                    {{aux.utensilio.descripcion_utensilio}} {{" -- "}} {{aux.cantidad_utensilios}}
-                                </option>
-                            </select>
-                        </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>Nombre: </h4>
+                                        </div>
+                                        <div class="col-md-6">
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-1">
+                                            <input type="text" ng-model="tipoProducto" class="form-control" />
 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>Cantidad: </h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" ng-model="cantidadProducto" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>Unidades: </h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" ng-model="unidades" class="form-control" />
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaProductos()" />
                                     </div>
                                     <div class="col-md-4">
-                                        <h4>Utensilio: </h4>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <select class="form-control" ng-model="utensilios" ng-options="item._id as item.descripcion_utensilio for item in listaUtensilios"></select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-1">
-
+                                        <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaProductos()" />
                                     </div>
                                     <div class="col-md-4">
-                                        <h4>Cantidad Utensilio: </h4>
+                                        <input class="form-control btn-primary" type="submit" value="Eliminar" ng-click="eliminarListaProductos()" />
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" ng-model="cantidadUtensilios" class="form-control" />
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h3>Materiales: </h3>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <select name="Puertos" ng-model="seleccionUtensilio" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosSeleccionUtensilios()">
+                                    <option value={{aux}}
+                                            ng-repeat="aux in listaUtensiliosSelecciondosNueva">
+                                        {{aux.utensilio.descripcion_utensilio}} {{" -- "}} {{aux.cantidad_utensilios}}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <select name="Puertos" ng-model="seleccionUtensilio" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosSeleccionUtensilios()">
+                                    <option value={{aux}}
+                                            ng-repeat="aux in listaUtensiliosSelecciondos">
+                                        {{aux.utensilio.descripcion_utensilio}} {{" -- "}} {{aux.cantidad_utensilios}}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-1">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>Utensilio: </h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <select class="form-control" ng-model="utensilios" ng-options="item._id as item.descripcion_utensilio for item in listaUtensilios"></select>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="row">
+                                        <div class="col-md-1">
 
-                                <div class="col-md-4">
-                                    <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaUtensilios()" />
-                                </div>
-                                <div class="col-md-4">
-                                    <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaUtensilios()" />
-                                </div>
-                                <div class="col-md-4">
-                                    <input class="form-control btn-primary" type="submit" value="Eliminar" ng-click="eliminarListaUtensilios()" />
-                                </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>Cantidad Utensilio: </h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" ng-model="cantidadUtensilios" class="form-control" />
+                                        </div>
+                                    </div>
 
+                                    <div class="col-md-4">
+                                        <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaUtensilios()" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaUtensilios()" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input class="form-control btn-primary" type="submit" value="Eliminar" ng-click="eliminarListaUtensilios()" />
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
