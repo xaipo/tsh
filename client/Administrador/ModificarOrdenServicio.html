@@ -222,7 +222,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-4">
@@ -372,7 +372,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <select name="MaterialPetreoNuevo" ng-model="seleccionMatPetreo" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosMaterialPetreo()">
+                                <select ng-model="seleccionMatPetreo" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosMaterialPetreo()">
                                     <option value={{aux}}
                                             ng-repeat="aux in listaMatPetreoNueva | orderBy:aux.tipo_material">
                                         {{aux.tipo_material.descripcion_tipo_material}} {{" -- "}} {{aux.num_volquetas}} {{" -- "}} {{aux.cant_total_m3}}
@@ -381,7 +381,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <select name="MaterialPetreo" ng-model="seleccionMatPetreo" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosMaterialPetreo()">
+                                <select ng-model="seleccionMatPetreo" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosMaterialPetreo()">
                                     <option value={{aux}}
                                             ng-repeat="aux in listaMaterialPetreo">
                                         {{aux.tipo_material.descripcion_tipo_material}} {{" -- "}} {{aux.num_volquetas}} {{" -- "}} {{aux.cant_total_m3}}
@@ -399,7 +399,7 @@
                                             <h4>Tipo Material: </h4>
                                         </div>
                                         <div class="col-md-7">
-                                            <select name="Puertos" ng-model="seleccionTipoMatPetreo" class="form-control">
+                                            <select ng-model="seleccionTipoMatPetreo" class="form-control">
                                                 <option value={{aux}}
                                                         ng-repeat="aux in listaTipoMaterialPetreo">
                                                     {{aux.descripcion_tipo_material}}
@@ -443,8 +443,6 @@
 
                                 </div>
                             </div>
-
-
 
                         </div>
 

@@ -59,7 +59,6 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     $scope.minutosArribo = "";
 
     //$scope.seleccion;
-    $scope.seleccionTripulante = {};
     $scope.seleccionMatPetreo = {};
     $scope.seleccionTipoMatPetreo = {};
     $scope.seleccionMatPetreoNueva = {};
@@ -379,6 +378,66 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
                 console.log(response);
             });
 
+    }
+
+    $scope.iniciarListas = function () {
+
+        //atributos
+        $scope.id = "";
+        $scope.cliente = "";
+        $scope.detalle = "";
+        //$scope.embarcacion = "";
+        //$scope.estado = "";
+        $scope.fechaEmision = "";
+        $scope.fechaEntrega = "";
+        $scope.puertoEmbarque = "";
+        //$scope.puertoDesembarque = "";
+        $scope.orometroInicialM1 = "";
+        $scope.orometroInicialM2 = "";
+        $scope.orometroFinalM1 = "";
+        $scope.orometroFinalM2 = "";
+        $scope.horaSalida = "";
+        $scope.horaArribo = "";
+        $scope.cargaMaterialPetreo = "";
+        $scope.cargaVehiculo = "";
+        $scope.observaciones = "";
+        //$scope.combustibleConsumo = "";
+        //$scope.combustibleTransporte = "";
+        $scope.observacionMaquinista = "";
+        //$scope.contratoRecepcion = "";
+        //$scope.capitan = "";
+
+        // Variables horas
+        $scope.horasSalida = "";
+        $scope.minutosSalida = "";
+        $scope.horasArribo = "";
+        $scope.minutosArribo = "";
+
+        //$scope.busqueda;
+        $scope.listaMaterialPetreo = [];
+        $scope.listaVehiculo = [];
+        $scope.listaCombustibleConsumoSelect = [];
+        $scope.listaCombustibleConsumoIngresar = [];
+        $scope.listaCombustibleTransporteSelect = [];
+        $scope.listaCombustibleTransporteIngresar = [];
+        $scope.listaTransporteCombutible = [];
+        $scope.listaConsumoCombustible = [];
+
+        // Lista de Antes
+
+        $scope.listMatPetreo = [];
+        $scope.listaVehi = [];
+        $scope.listaCombustibleConsumo = [];
+        $scope.listaCombustibleTransporte = [];
+        $scope.listaTrip = [];
+        $scope.objMat = {};
+        $scope.objVehi = {};
+
+        // Listas para modificar
+        $scope.listaMatPetreoNueva = [];
+        $scope.listaVehiNueva = [];
+        $scope.listaCombustibleConsumoNueva = [];
+        $scope.listaCombustibleTransporteNueva = [];
     }
 
     $scope.ingresoMateriales = function (pos) {
@@ -908,7 +967,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
     $scope.buscarSeleccionListaOrdenServicio = function () {
 
-        //$scope.iniciar();
+        $scope.iniciarListas();
         if ($scope.seleccionOrdenServicioLista != '' && $scope.seleccionOrdenServicioLista != undefined) {
 
             $scope.selecOrdenServ = JSON.parse($scope.seleccionOrdenServicioLista);
@@ -928,8 +987,9 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             $scope.observaciones = $scope.selecOrdenServ.observaciones;
             $scope.observacionMaquinista = $scope.selecOrdenServ.observacion_maquinaria;
             $scope.contratoRecepcion = $scope.selecOrdenServ.contrato_recepcion;
-            $scope.nombreCapitan = $scope.selecOrdenServ.capitan;
+            $scope.capitan = $scope.selecOrdenServ.capitan_embarcacion;
             $scope.detalle = $scope.selecOrdenServ.detalle;
+            $scope.estado = $scope.selecOrdenServ.estado;
             $scope.cargarListasSeleccionOrdenServicio($scope.selecOrdenServ);
 
         }
