@@ -1,7 +1,6 @@
 app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$timeout", function ($scope, $http, myProvider, $timeout) {
 
     $scope.url;
-    $scope.urlModificar;
     $scope.urlAllPropietarios;
     $scope.urlAllTipoUsuario;
     $scope.urlAllTipoCombustible;
@@ -48,16 +47,16 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
         $scope.id;
         $scope.nombreEmbarcacion = "";
         $scope.numeroMatricula = "";
-        $scope.esloraTotal = 0;
-        $scope.manga = 0;
-        $scope.puntual = 0;
-        $scope.calado = 0;
+        $scope.esloraTotal = "";
+        $scope.manga = "";
+        $scope.puntual = "";
+        $scope.calado = "";
         $scope.fechaConstruccion = "";
         $scope.propietario = "";
         $scope.propulsion = "";
         $scope.tipoCombustible;
-        $scope.tonelajeBruto = 0;
-        $scope.capacidadCarga = 0;
+        $scope.tonelajeBruto = "";
+        $scope.capacidadCarga = "";
         $scope.tipoEmbarcacion = "";
         $scope.capitan = "";
 
