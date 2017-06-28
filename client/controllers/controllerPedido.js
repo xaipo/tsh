@@ -333,23 +333,31 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
     $scope.modificarListaAlimentos = function () {
 
         if ($scope.seleccionAlimento != undefined && $scope.seleccionAlimento != "" &&
-            $scope.nombreAlimento != "" && $scope.cantidadAlimento != "" && $scope.unidades != "" &&
-            $scope.nombreAlimento != undefined && $scope.cantidadAlimento != undefined && $scope.unidades != undefined) {
+            $scope.alimento != "" && $scope.cantidadAlimento != "" && $scope.unidades != "" &&
+            $scope.alimento != undefined && $scope.cantidadAlimento != undefined && $scope.unidades != undefined) {
 
             $scope.seleccionAlimentoJS = JSON.parse($scope.seleccionAlimento);
             var n = $scope.listaAlimentos.length;
+            
             for (var i = 0; i < n; i++) {
-
+                console.log("hola");
                 if ($scope.listaAlimentos[i].id == $scope.seleccionAlimentoJS.id) {
+                    
+                    var n1 = $scope.listaTipoAlimentos.length;
+                    for (var j = 0; j < n1; j++) {
+                        if ($scope.listaTipoAlimentos[j]._id == $scope.alimento) {
 
-                    $scope.listaAlimentos[i].nombre_alimento = $scope.nombreAlimento;
-                    $scope.listaAlimentos[i].cantidad_alimento = $scope.cantidadAlimento;
-                    $scope.listaAlimentos[i].unidades_alimento = $scope.unidades;
-                    $scope.seleccionAlimento = {};
-                    $scope.nombreAlimento = "";
-                    $scope.cantidadAlimento = "";
-                    $scope.unidades = "";
-                    break;
+                            $scope.listaAlimentos[i].tipo_alimento = $scope.listaTipoAlimentos[j];
+                            $scope.listaAlimentos[i].cantidad_alimento = $scope.cantidadAlimento;
+                            $scope.listaAlimentos[i].unidades_alimento = $scope.unidades;
+
+                            $scope.seleccionAlimento = {};
+                            $scope.cantidadAlimento = "";
+                            $scope.unidades = "";
+                            break;
+
+                        }
+                    }
                 }
             }
 

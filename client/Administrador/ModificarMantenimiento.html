@@ -5,10 +5,12 @@
     <title>Inicio</title>
     <link type="text/css" href="../bootstrap/dist/css/bootstrap.css" id="pagesheet" rel="stylesheet" media="screen" />
     <link type="text/css" href="../css/OverrideComponents.css" id="pagesheet2" rel="stylesheet" media="screen" />
+    <link type="text/css" href="../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" media="screen" />
 
     <!-----angular-->
 
     <script src="../jquery/dist/jquery.min.js"></script>
+    <script src="../bootstrap-datepicker/js/bootstrap-datepicker.min.js" charset="utf-8"></script>
     <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../angular/angular.js"></script>
     <script src="../app.js"></script>
@@ -114,10 +116,10 @@
                                         </div>
 
                                         <div class="col-md-12">
-                                            <select name="Clientes" ng-model="seleccionOrdenServicio" multiple class="form-control" style="height: 75px;" ng-click="buscarSeleccionListaOrdenServicio()">
+                                            <select name="Clientes" ng-model="seleccionMantenimiento" multiple class="form-control" style="height: 75px;" ng-click="buscarSeleccionMantenimiento()">
                                                 <option value={{aux}}
-                                                        ng-repeat="aux in listaOrdenServicio | filter:busqueda| orderBy:aux.nombre_cliente">
-                                                    {{aux.ruc_cliente}} {{" -- "}} {{aux.nombre_cliente}}
+                                                        ng-repeat="aux in listaMantenimiento | filter:busqueda">
+                                                    {{aux.embarcacion.nombre_embarcacion}}{{"--"}}{{aux.tipo_mantenimiento.descripcion_tipo_mantenimiento}}
                                                 </option>
                                             </select>
                                         </div>
@@ -128,35 +130,73 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-4">
 
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4>Tipo Mantenimiento: </h4>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-control" ng-model="tipoMantenimiento" ng-options="item._id as item.descripcion_tipo_mantenimiento for item in listaTipoMantenimiento"></select>
+                                    </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <h4>Tipo Mantenimiento: </h4>
-                                </div>
-                                <div class="col-md-4">
-                                    <select class="form-control" ng-model="tipoMantenimiento" ng-options="item._id as item.descripcion_tipo_mantenimiento for item in listaTipoMantenimiento"></select>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-1">
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4>Embarcacion: </h4>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-control" ng-model="embarcacion" ng-options="item._id as item.nombre_embarcacion for item in listaEmbarcacion"></select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-4">
 
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-1">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4>Fecha mantenimiento: </h4>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-group date juan-date">
+                                            <input type="text" ng-model="fechaMantenimiento" placeholder="Fecha Entrega" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                        </div>
+                                        <script type="text/javascript">
+                                            $('.juan-date').datepicker({
+                                                format: "dd/mm/yyyy",
+                                                language: "es",
+                                                autoclose: true
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-1">
 
-                                </div>
-                                <div class="col-md-3">
-                                    <h4>Embarcacion: </h4>
-                                </div>
-                                <div class="col-md-4">
-                                    <select class="form-control" ng-model="embarcacion" ng-options="item._id as item.nombre_embarcacion for item in listaEmbarcacion"></select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4>Nombre mecánico: </h4>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" ng-model="mecanico" placeholder="Nombre mecánico" class="form-control" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="row">
                         <div class="col-md-">
                             <div class="row">
@@ -173,41 +213,42 @@
                             </div>
                             <div class="row">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
 
                                     </div>
                                     <div class="col-md-2">
                                         <h4>Orometro: </h4>
                                     </div>
-                                    <div class="col-md-3">
-                                        <input type="text" ng-model="orometro" class="form-control" />
+                                    <div class="col-md-2">
+                                        <div class="col-md-10">
+                                            <input type="number" ng-model="orometro" placeholder="0" min="0" class="form-control" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">
 
-                                    </div>
                                     <div class="col-md-2">
                                         <h4>Proximo Orometro: </h4>
                                     </div>
-                                    <div class="col-md-3">
-                                        <input type="text" ng-model="proximoOrometro" class="form-control" />
+                                    <div class="col-md-2">
+                                        <div class="col-md-10">
+                                            <input type="number" ng-model="proximoOrometro" placeholder="0" min="0" class="form-control" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
 
                                     </div>
                                     <div class="col-md-2">
                                         <h4>Observacion: </h4>
                                     </div>
-                                    <div class="col-md-3">
-                                        <input type="text" ng-model="piezasCambiadasObservaciones" class="form-control" />
+                                    <div class="col-md-6">
+                                        <input type="text" ng-model="piezasCambiadasObservaciones" placeholder="Describir los cambios realizados" class="form-control" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <br />
                 <div class="row">
@@ -216,11 +257,11 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoMantenimiento()" />
+                        <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarMantenimiento()" />
                     </div>
 
                     <div class="col-md-2">
-                        <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarProducto()" />
+                        <input class="form-control btn-primary" type="submit" value="Cancelar" />
                     </div>
                     <br />
                     <br />

@@ -13,6 +13,8 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
     $scope.urlBuscarTipoAlimentos;
     $scope.urlAllMateriales;
     $scope.urlBuscarTipoMateriales;
+    $scope.urlBuscarOrdenServicio;
+    $scope.urlBuscarEmbarcacion;
 
     // Variables Producto y Pedido
     $scope.id;
@@ -21,6 +23,7 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
     $scope.alimento;
     $scope.cantidadAlimento;
     $scope.unidadesAlimento;
+    $scope.embarcacion;
 
     // Variables Materiales
     $scope.material;
@@ -67,6 +70,9 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
 
         $scope.urlAllMateriales = myProvider.getUrlAllMateriales();;
         $scope.urlBuscarMateriales = myProvider.getUrlBuscarMateriales();
+
+        $scope.urlBuscarOrdenServicio = myProvider.getUrlBuscarOrdenServicio();
+        $scope.urlBuscarEmbarcacion = myProvider.getUrlBuscarEmbarcacion();
 
 
         // Variables Producto y Pedido
@@ -363,7 +369,35 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
             $scope.id = $scope.selecPedJS._id;
             $scope.ordenServicio = $scope.selecPedJS.orden_servicio;
             $scope.observaciones = $scope.selecPedJS.observaciones;
+            $scope.embarcacion = $scope.selecPedJS.embarcacion;
             $scope.cargarListasSeleccion($scope.selecPedJS);
+
+            var orden = {
+                id: $scope.selecPedJS.orden_servicio
+            }
+
+            $http.post($scope.urlBuscarOrdenServicio, orden)
+                .then(function (response) {
+
+                    $scope.ordenServicioObj = response.data;
+
+                    var emb = {
+                        id: $scope.ordenServicioObj.embarcacion
+                    }
+                    $http.post($scope.urlBuscarEmbarcacion, emb)
+                        .then(function (response) {
+
+                            $scope.embarcacion = response.data.nombre_embarcacion;
+
+                        }, function errorCallback(response) {
+
+                            console.log(response);
+                        });
+
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
 
         }
     }

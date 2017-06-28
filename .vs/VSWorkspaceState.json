@@ -2,10 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\client",
-    "\\client\\Administrador",
-    "\\client\\controllers",
-    "\\HttpService"
+    "\\HttpService",
+    "\\HttpService\\Routers"
   ],
-  "SelectedNode": "\\client\\Administrador\\ModificarPedido.html",
+  "SelectedNode": "\\HttpService\\Routers\\apiTripulante.js",
   "PreviewInSolutionExplorer": false
 }

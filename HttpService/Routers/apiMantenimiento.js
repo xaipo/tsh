@@ -33,7 +33,9 @@ router.post('/updateMantenimiento', function (req, res) {
         var item = {
             tipo_mantenimiento: req.body.tipo_mantenimiento,
             embarcacion: req.body.embarcacion,
-            detalle_mantenimiento: req.body.detalle_mantenimiento
+            detalle_mantenimiento: req.body.detalle_mantenimiento,
+            fecha_matenimiento: req.body.fecha_matenimiento,
+            mecanico: req.body.mecanico
         };
 
 

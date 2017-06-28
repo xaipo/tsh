@@ -75,6 +75,11 @@ function ApiUrl() {
         return (url + 'updateOrdenServicio');
     }
 
+    // Buscar Orden de Servicio
+    this.getUrlBuscarOrdenServicio = function () {
+        return (url + 'getByIdOrdenServicio');
+    }
+
     // Buscar todos los Orden de Servicio
     this.getUrlAllOrdenServicio = function () {
         return (url + 'getAllOrdenServicio');
@@ -105,6 +110,11 @@ function ApiUrl() {
     // Modificar Embarcacion
     this.getUrlModificarEmbarcacion = function () {
         return (url + 'updateEmbarcacion');
+    }
+
+    // Buscar Embarcacion
+    this.getUrlBuscarEmbarcacion = function () {
+        return (url + 'getByIdEmbarcacion');
     }
 
     // Buscar todos los Embarcacion
@@ -282,6 +292,11 @@ function ApiUrl() {
     // Modificar Tipo Mantenimiento
     this.getUrlModificarTipoMantenimiento = function () {
         return (url + 'updateTipoMantenimiento');
+    }
+
+    // Buscar Tipo Mantenimiento
+    this.getBuscarTipoMantenimiento = function () {
+        return (url + 'getByIdTipoMantenimiento');
     }
 
     // Buscar Todos los Tipo Mantenimiento
@@ -480,6 +495,11 @@ function ApiUrl() {
     // Modificar Detalle Mantenimiento
     this.getUrlModificarDetalleMantenimiento = function () {
         return (url + 'updateDetalleMantenimiento');
+    }
+
+    // buscar todos los Detalle Mantenimiento
+    this.getUrlBuscarDetalleMantenimiento = function () {
+        return (url + 'getByIdDetalleMantenimiento');
     }
 
     // buscar todos los Detalle Mantenimiento
