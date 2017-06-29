@@ -2,9 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\client",
-    "\\HttpService",
-    "\\HttpService\\Routers"
+    "\\client\\Administrador",
+    "\\HttpService"
   ],
-  "SelectedNode": "\\HttpService\\Routers\\apiTripulante.js",
+  "SelectedNode": "\\client\\Administrador\\ModificarEmbarcacion.html",
   "PreviewInSolutionExplorer": false
 }

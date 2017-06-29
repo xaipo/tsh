@@ -31,6 +31,7 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
     $scope.ingresoPuerto = function () {
         
         var obj = { descripcion_puerto: $scope.descripcionPuerto };
+
         $http.post($scope.url, obj)
             .then(function (response) {
 

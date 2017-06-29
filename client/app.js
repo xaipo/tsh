@@ -436,6 +436,11 @@ function ApiUrl() {
         return (url + 'updateUsuario');
     }
 
+    // Buscar Usuario
+    this.getUrlBuscarUsuario = function () {
+        return (url + 'getByIdUsuario');
+    }
+
     // Buscar todos los Usuario
     this.getUrlAllUsuario = function () {
         return (url + 'getAllUsuario');

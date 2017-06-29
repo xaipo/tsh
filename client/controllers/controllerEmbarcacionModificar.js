@@ -1,4 +1,4 @@
-app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider', function ($scope, $http, myProvider) {
+app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider', "$timeout", function ($scope, $http, myProvider, $timeout) {
 
 
     $scope.urlModificar;
@@ -38,6 +38,7 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
     $scope.listaTripulanteIngresar = [];
     $scope.listaTripulantesCapitanes;
     $scope.seleccionTripulante;
+    $scope.seleccionTripulanteAux;
 
 
     //Selecciones
@@ -82,6 +83,7 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
         $scope.listaTripulanteIngresar = [];
         $scope.listaTripulantesCapitanes;
         $scope.seleccionTripulante;
+        $scope.seleccionTripulanteAux;
 
         $http.get($scope.urlAllEmbarcacion)
             .then(function (response) {
@@ -141,11 +143,24 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
             .then(function (response) {
 
                 $scope.listaTripulante = response.data;
+                $scope.seleccionTripulanteAux = response.data;
 
             }, function errorCallback(response) {
 
                 console.log(response);
             });
+
+
+    }
+
+    $scope.iniciarLista = function () {
+
+        $scope.listaTripulante = [];
+        $scope.listaTripulanteSelect = [];
+        var n = $scope.seleccionTripulanteAux.length;
+        for (var i = 0; i < n; i++) {
+            $scope.listaTripulante.push($scope.seleccionTripulanteAux[i]);
+        }
 
     }
 
@@ -191,34 +206,27 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
 
     $scope.cargarTripulantes = function () {
 
+        //console.log($scope.seleccionTripulanteAux);
+        //console.log($scope.seleccionTripulante);
         var n = $scope.selecEmbarJS.tripulantes.length;
         var listTrip = $scope.selecEmbarJS.tripulantes;
         for (var i = 0; i < n; i++) {
-            var n = $scope.listaTripulante.length;
-            for (var j = 0; j < n; j++) {
+            var n1 = $scope.listaTripulante.length;
+            for (var j = 0; j < n1; j++) {
 
                 if ($scope.listaTripulante[j]._id == listTrip[i]) {
                     $scope.listaTripulanteSelect.push($scope.listaTripulante[j]);
-                    $scope.listaTripulante.splice(i, 1);
+                    $scope.listaTripulante.splice(j, 1);
                     break;
                 }
 
             }
         }
-
     }
 
     $scope.buscarSeleccionListaEmbarcacion = function () {
 
-        var n = $scope.listaTripulanteSelect.length;
-        var listTrip = $scope.listaTripulanteSelect;
-        for (var i = 0; i < n; i++) {
-
-            $scope.listaTripulante.push($scope.listaTripulanteSelect[i]);
-            $scope.listaTripulanteSelect.splice(i, 1);
-            
-        }
-
+        $scope.iniciarLista();
         if ($scope.seleccionEmbarcacion != '' && $scope.seleccionEmbarcacion != undefined) {
 
             $scope.selecEmbarJS = JSON.parse($scope.seleccionEmbarcacion);

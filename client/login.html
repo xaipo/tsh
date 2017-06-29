@@ -11,9 +11,10 @@
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="angular/angular.js"></script>
     <script src="app.js"></script>
+    <script src="../controllers/controllerLogin.js"></script>
 </head>
-<body ng-app="myApp" style="background-color: white">
-    <br><br><br><br><br><br>
+<body ng-app="myApp" style="background-color: white"  ng-controller="ControllerLogin" ng-init="iniciar()">
+    <br><br>
 
     <div class="jumbotron" style="background-color: white; ">
         <div class="container" style="height: 200%">
@@ -34,10 +35,10 @@
                                 </div>
                                 <div class="col-md-6 col-xs-12">
                                     <h4 class="panel-title" style="color:white">Nombre de Usuario:</h4>
-                                    <input class="form-control" type="text" placeholder="Nombre de Usuario"><br>
+                                    <input class="form-control" ng-model="nombreUsuario" type="text"  placeholder="Nombre de Usuario"><br>
                                     <h4 class="panel-title" style="color:white">Contraseña:</h4>
-                                    <input class="form-control" type="password" placeholder="Contraseña"><br>
-                                    <input type="submit" class="btn-primary form-control" value="Ingresar">
+                                    <input class="form-control" ng-model="password" type="password" placeholder="Contraseña"><br>
+                                    <input type="submit" class="btn-primary form-control" value="Ingresar" >
                                 </div>
                                 <div class="col-md-3 col-xs-0">
 
