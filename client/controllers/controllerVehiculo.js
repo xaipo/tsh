@@ -13,22 +13,26 @@ app.controller('ControllerVehiculo', ['$scope', '$http', 'myProvider', function 
     $scope.busqueda;
     $scope.listaVehiculo;
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoVehiculo();
-        $scope.urlModificar = myProvider.getUrlModificarVehiculo();
-        $scope.urlAllVehiculo = myProvider.getUrlAllVehiculo();
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoVehiculo();
+            $scope.urlModificar = myProvider.getUrlModificarVehiculo();
+            $scope.urlAllVehiculo = myProvider.getUrlAllVehiculo();
 
-        $http.get($scope.urlAllVehiculo)
-            .then(function (response) {
+            $http.get($scope.urlAllVehiculo)
+                .then(function (response) {
 
-                $scope.listaVehiculo = response.data;
+                    $scope.listaVehiculo = response.data;
 
-            }, function errorCallback(response) {
+                }, function errorCallback(response) {
 
-                console.log(response);
-            });
+                    console.log(response);
+                });
+        }
+    } else {
+        window.location = "/login.html"
     }
-
     $scope.ingresoVehiculo = function () {
 
         //for (var i = 0; i < 500; i++) {
@@ -54,10 +58,10 @@ app.controller('ControllerVehiculo', ['$scope', '$http', 'myProvider', function 
 
         var obj = {
             _id: $scope.id,
-            cantidad_vehiculos: $scope.cantidadVehiculo, 
+            cantidad_vehiculos: $scope.cantidadVehiculo,
             descripcion_vehiculos: $scope.descripcionVehiculo
         };
-        
+
         $http.post($scope.urlModificar, obj)
             .then(function (response) {
 
@@ -82,6 +86,13 @@ app.controller('ControllerVehiculo', ['$scope', '$http', 'myProvider', function 
             $scope.cantidadVehiculo = $scope.selecVehi.cantidad_vehiculos;
 
         }
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
     }
 
 }]);

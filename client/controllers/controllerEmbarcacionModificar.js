@@ -47,110 +47,117 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
 
     //ver como filtrar la lista de tripulantes....
 
-    $scope.iniciar = function () {
-        $scope.urlModificar = myProvider.getUrlModificarEmbarcacion();
-        $scope.urlAllEmbarcacion = myProvider.getUrlAllEmbarcacion();
-        $scope.urlAllTipoEmbarcacion = myProvider.getUrlAllTipoEmbarcacion();
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
 
-        $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
-        $scope.urlAllPropietarios = myProvider.getUrlAllPropietario();
-        $scope.urlAllTripulantes = myProvider.getUrlAllTripulante();
-        $scope.urlAllTripulantesCapitan = myProvider.getUrlAllTripulanteCapitan();
+        $scope.iniciar = function () {
+            $scope.urlModificar = myProvider.getUrlModificarEmbarcacion();
+            $scope.urlAllEmbarcacion = myProvider.getUrlAllEmbarcacion();
+            $scope.urlAllTipoEmbarcacion = myProvider.getUrlAllTipoEmbarcacion();
 
-        $scope.id = "";
-        $scope.nombreEmbarcacion = "";
-        $scope.numeroMatricula = "";
-        $scope.esloraTotal = "";
-        $scope.manga = "";
-        $scope.puntual = "";
-        $scope.calado = "";
-        $scope.fechaConstruccion = "";
-        $scope.propietario = "";
-        $scope.propulsion = "";
-        $scope.tipoCombustible = "";
-        $scope.tonelajeBruto = "";
-        $scope.capacidadCarga = "";
-        $scope.tipoEmbarcacion = "";
+            $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
+            $scope.urlAllPropietarios = myProvider.getUrlAllPropietario();
+            $scope.urlAllTripulantes = myProvider.getUrlAllTripulante();
+            $scope.urlAllTripulantesCapitan = myProvider.getUrlAllTripulanteCapitan();
 
-        //Listas
-        $scope.busqueda;
-        $scope.listaEmbarcacion;
-        $scope.listaTipoEmbarcacion;
-        $scope.listaTipoCombustible;
-        $scope.listaPropietarios;
-        $scope.listaTripulante;
-        $scope.listaTripulanteSelect = [];
-        $scope.listaTripulanteIngresar = [];
-        $scope.listaTripulantesCapitanes;
-        $scope.seleccionTripulante;
-        $scope.seleccionTripulanteAux;
+            $scope.id = "";
+            $scope.nombreEmbarcacion = "";
+            $scope.numeroMatricula = "";
+            $scope.esloraTotal = "";
+            $scope.manga = "";
+            $scope.puntual = "";
+            $scope.calado = "";
+            $scope.fechaConstruccion = "";
+            $scope.propietario = "";
+            $scope.propulsion = "";
+            $scope.tipoCombustible = "";
+            $scope.tonelajeBruto = "";
+            $scope.capacidadCarga = "";
+            $scope.tipoEmbarcacion = "";
 
-        $http.get($scope.urlAllEmbarcacion)
-            .then(function (response) {
+            //Listas
+            $scope.busqueda;
+            $scope.listaEmbarcacion;
+            $scope.listaTipoEmbarcacion;
+            $scope.listaTipoCombustible;
+            $scope.listaPropietarios;
+            $scope.listaTripulante;
+            $scope.listaTripulanteSelect = [];
+            $scope.listaTripulanteIngresar = [];
+            $scope.listaTripulantesCapitanes;
+            $scope.seleccionTripulante;
+            $scope.seleccionTripulanteAux;
 
-                $scope.listaEmbarcacion = response.data;
+            $http.get($scope.urlAllEmbarcacion)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.listaEmbarcacion = response.data;
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
-        $http.get($scope.urlAllPropietarios)
-            .then(function (response) {
+                    console.log(response);
+                });
 
-                $scope.listaPropietarios = response.data;
-                $scope.propietario = $scope.listaPropietarios[0]._id;
+            $http.get($scope.urlAllPropietarios)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.listaPropietarios = response.data;
+                    $scope.propietario = $scope.listaPropietarios[0]._id;
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
-        $http.get($scope.urlAllTipoCombustible)
-            .then(function (response) {
+                    console.log(response);
+                });
 
-                $scope.listaTipoCombustible = response.data;
-                $scope.tipoCombustible = $scope.listaTipoCombustible[0]._id;
+            $http.get($scope.urlAllTipoCombustible)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.listaTipoCombustible = response.data;
+                    $scope.tipoCombustible = $scope.listaTipoCombustible[0]._id;
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
-        $http.get($scope.urlAllTipoEmbarcacion)
-            .then(function (response) {
+                    console.log(response);
+                });
 
-                $scope.listaTipoEmbarcacion = response.data;
-                $scope.tipoEmbarcacion = $scope.listaTipoEmbarcacion[0]._id;
+            $http.get($scope.urlAllTipoEmbarcacion)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.listaTipoEmbarcacion = response.data;
+                    $scope.tipoEmbarcacion = $scope.listaTipoEmbarcacion[0]._id;
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
-        $http.get($scope.urlAllTripulantesCapitan)
-            .then(function (response) {
+                    console.log(response);
+                });
 
-                $scope.listaTripulantesCapitanes = response.data;
-                $scope.capitan = $scope.listaTripulantesCapitanes[0]._id;
+            $http.get($scope.urlAllTripulantesCapitan)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.listaTripulantesCapitanes = response.data;
+                    $scope.capitan = $scope.listaTripulantesCapitanes[0]._id;
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
-        $http.get($scope.urlAllTripulantes)
-            .then(function (response) {
+                    console.log(response);
+                });
 
-                $scope.listaTripulante = response.data;
-                $scope.seleccionTripulanteAux = response.data;
+            $http.get($scope.urlAllTripulantes)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.listaTripulante = response.data;
+                    $scope.seleccionTripulanteAux = response.data;
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
 
 
+        }
+
+    } else {
+        window.location = "/login.html"
     }
 
     $scope.iniciarLista = function () {
@@ -293,6 +300,13 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
             }
 
         }
+
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
 
     }
 

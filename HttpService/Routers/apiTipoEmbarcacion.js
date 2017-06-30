@@ -4,6 +4,8 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var url = 'mongodb://localhost:27017/tsh';
 var objectId = require('mongodb').ObjectID;
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
 
 router.post('/saveTipoEmbarcacion', function (req, res) {
 
@@ -84,6 +86,10 @@ router.get('/getAllTipoEmbarcacion', function (req, res) {
         });
     });
 
+});
+
+router.get('/IngresoTipoEmbarcacion.html', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    res.json({ user: req.user });
 });
 
 

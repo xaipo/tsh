@@ -4,7 +4,10 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
     $scope.urlModificar;
     $scope.urlAllUsuario;
     $scope.urlAllTipoUsuario;
+
+
     $scope.nombreUsuario;
+    $scope.nombresCompletos;
     $scope.cedulaUsuario;
     $scope.contrasenaUsuario;
     $scope.telefonoUsuario;
@@ -20,63 +23,107 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
     $scope.listaUsuario;
     $scope.listaTipoUsuario;
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoUsuario();
-        $scope.urlModificar = myProvider.getUrlModificarUsuario();
-        $scope.urlAllUsuario = myProvider.getUrlAllUsuario();
-        $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoUsuario();
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
+        $scope.iniciar = function () {
 
-        $http.get($scope.urlAllUsuario)
-            .then(function (response) {
+            $scope.nombreUsuario = "";
+            $scope.correoUsuario = "";
+            $scope.nombresCompletos = "";
+            $scope.contrasenaUsuario = "";
+            $scope.telefonoUsuario = "";
+            $scope.tipoUsuario = "";
+            $scope.cedulaUsuario = "";
 
-                $scope.listaUsuario = response.data;
+            $scope.url = myProvider.getUrlIngresoUsuario();
+            $scope.urlModificar = myProvider.getUrlModificarUsuario();
+            $scope.urlAllUsuario = myProvider.getUrlAllUsuario();
+            $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoUsuario();
 
-            }, function errorCallback(response) {
+            $http.get($scope.urlAllUsuario)
+                .then(function (response) {
 
-                console.log(response);
-            });
+                    $scope.listaUsuario = response.data;
+
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
 
 
-        $http.get($scope.urlAllTipoUsuario)
-            .then(function (response) {
+            $http.get($scope.urlAllTipoUsuario)
+                .then(function (response) {
 
-                $scope.listaTipoUsuario = response.data;
-                $scope.tipoUsuario = $scope.listaTipoUsuario[0]._id;
-                console.log($scope.listaTipoUsuario);
+                    $scope.listaTipoUsuario = response.data;
+                    $scope.tipoUsuario = $scope.listaTipoUsuario[0]._id;
+                    console.log($scope.listaTipoUsuario);
 
-            }, function errorCallback(response) {
+                }, function errorCallback(response) {
 
-                console.log(response);
-            });
-        
+                    console.log(response);
+                });
+
+        }
+    } else {
+        window.location = "/login.html"
     }
-
     $scope.ingresoUsuario = function () {
-        console.log($scope.nombreUsuario);
-        var obj = {
-            nombre_usuario: $scope.nombreUsuario, cedula_usuario: $scope.cedulaUsuario,
-            contrasena_usuario: $scope.contrasenaUsuario, telefono_usuario: $scope.telefonoUsuario,
-            correo_usuario: $scope.correoUsuario, tipo_usuario: $scope.tipoUsuario
-        };
-        $http.post($scope.url, obj)
-            .then(function (response) {
+        //console.log($scope.nombreUsuario);
+        const user = {
+            nombres_completos: $scope.nombresCompletos,
+            nombre_usuario: $scope.nombreUsuario,
+            cedula_usuario: $scope.cedulaUsuario,
+            contrasena_usuario: $scope.contrasenaUsuario,
+            telefono_usuario: $scope.telefonoUsuario,
+            correo_usuario: $scope.correoUsuario,
+            tipo_usuario: $scope.tipoUsuario
+        }
+        console.log(JSON.stringify(user));
+        if (!validarCamposVacios(user)) {
+            alert("existen campos vacios");
+        } else {
+            if (!validateEmail(user.correoUsuario)) {
+                alert("correo invalido");
+            } else {
 
-                $scope.iniciar();
-                console.log(response);
+                var obj = {
+                    nombres_completos: $scope.nombresCompletos,
+                    nombre_usuario: $scope.nombreUsuario,
+                    cedula_usuario: $scope.cedulaUsuario,
+                    contrasena_usuario: $scope.contrasenaUsuario,
+                    telefono_usuario: $scope.telefonoUsuario,
+                    correo_usuario: $scope.correoUsuario,
+                    tipo_usuario: $scope.tipoUsuario
+                };
+                $http.post($scope.url, obj)
+                    .then(function (response) {
 
-            }, function errorCallback(response) {
+                        $scope.iniciar();
+                        console.log(response);
 
-                console.log(response);
-            });
+                    }, function errorCallback(response) {
+
+                        console.log(response);
+                    });
+
+            }
+        }
+        //
+
+
     }
 
-
-    $scope.modificarUsuario = function () {        
+    $scope.modificarUsuario = function () {
 
         var obj = {
-            id: $scope.id, nombre_usuario: $scope.nombreUsuario, cedula_usuario: $scope.cedulaUsuario,
-            contrasena_usuario: $scope.contrasenaUsuario, telefono_usuario: $scope.telefonoUsuario,
-            correo_usuario: $scope.correoUsuario, tipo_usuario: $scope.tipoUsuario
+            id: $scope.id,
+            nombres_completos: $scope.nombresCompletos,
+            nombre_usuario: $scope.nombreUsuario,
+            cedula_usuario: $scope.cedulaUsuario,
+            contrasena_usuario: $scope.contrasenaUsuario,
+            telefono_usuario: $scope.telefonoUsuario,
+            correo_usuario: $scope.correoUsuario,
+            tipo_usuario: $scope.tipoUsuario
         };
         $http.post($scope.urlModificar, obj)
             .then(function (response) {
@@ -89,7 +136,7 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
                 console.log(response);
             });
 
-    }    
+    }
 
     $scope.buscarSeleccionListaUsuario = function () {
 
@@ -99,6 +146,7 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
 
             $scope.id = $scope.selecUsu._id;
             $scope.nombreUsuario = $scope.selecUsu.nombre_usuario;
+            $scope.nombresCompletos = $scope.selecUsu.nombres_completos;
             $scope.cedulaUsuario = $scope.selecUsu.cedula_usuario;
             $scope.contrasenaUsuario = $scope.selecUsu.contrasena_usuario;
             $scope.telefonoUsuario = $scope.selecUsu.telefono_usuario;
@@ -108,4 +156,30 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
         }
     }
 
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
+    }
+
 }]);
+
+
+function validarCamposVacios(user) {
+
+    if (user.nombreUsuario == "" || user.correoUsuario == "" || user.nombresCompletos == "" ||
+        user.contrasenaUsuario == "" || user.cedulaUsuario == "" || user.telefonoUsuario == "" || user.tipoUsuario == "") {
+
+        return false;
+
+    } else {
+        return true;
+    }
+
+}
+
+function validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}

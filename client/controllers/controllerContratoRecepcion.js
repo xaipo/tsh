@@ -14,22 +14,28 @@ app.controller('ControllerContratoRecepcion', ['$scope', '$http', 'myProvider', 
     $scope.busqueda;
     $scope.listaContratoRecepcion;
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoContratoRecepcion();
-        $scope.urlModificar = myProvider.getUrlModificarContratoRecepcion();
-        $scope.urlAllContratoRecepcion = myProvider.getUrlAllContratoRecepcion();
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
 
-        $http.get($scope.urlAllContratoRecepcion)
-            .then(function (response) {
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoContratoRecepcion();
+            $scope.urlModificar = myProvider.getUrlModificarContratoRecepcion();
+            $scope.urlAllContratoRecepcion = myProvider.getUrlAllContratoRecepcion();
 
-                $scope.listaContratoRecepcion = response.data;
+            $http.get($scope.urlAllContratoRecepcion)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.listaContratoRecepcion = response.data;
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
+        }
+
+    } else {
+        window.location = "/login.html"
     }
-
     $scope.ingresoContratoRecepcion = function () {
         var obj = { descripcion_contrato_recepcion: $scope.descripcionContratoRecepcion };
         $http.post($scope.url, obj)
@@ -71,6 +77,13 @@ app.controller('ControllerContratoRecepcion', ['$scope', '$http', 'myProvider', 
             $scope.descripcionContratoRecepcion = $scope.selecContRecep.descripcion_contrato_recepcion;
 
         }
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
     }
 
 }]);

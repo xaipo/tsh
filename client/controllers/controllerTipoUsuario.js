@@ -12,21 +12,25 @@ app.controller('ControllerTipoUsuario', ['$scope', '$http', 'myProvider', functi
     $scope.busqueda;
     $scope.listaTipoUsuario;
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoTipoUsuario();
-        $scope.urlModificar = myProvider.getUrlModificarTipoUsuario();
-        $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoUsuario();
-        $http.get($scope.urlAllTipoUsuario)
-            .then(function (response) {
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoTipoUsuario();
+            $scope.urlModificar = myProvider.getUrlModificarTipoUsuario();
+            $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoUsuario();
+            $http.get($scope.urlAllTipoUsuario)
+                .then(function (response) {
 
-                $scope.listaTipoUsuario = response.data;
+                    $scope.listaTipoUsuario = response.data;
 
-            }, function errorCallback(response) {
+                }, function errorCallback(response) {
 
-                console.log(response);
-            });
+                    console.log(response);
+                });
+        }
+    } else {
+        window.location = "/login.html"
     }
-
     $scope.ingresoTipoUsuario = function () {
         console.log($scope.descripcionTipoUsuario);
         var obj = { descripcion_tipo_usuario: $scope.descripcionTipoUsuario };
@@ -69,6 +73,13 @@ app.controller('ControllerTipoUsuario', ['$scope', '$http', 'myProvider', functi
             $scope.descripcionTipoUsuario = $scope.selecTipUsu.descripcion_tipo_usuario;
 
         }
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
     }
 
 }]);

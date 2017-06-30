@@ -163,6 +163,7 @@ function ApiUrl() {
 
     // Ingreso Puerto
     this.getUrlIngresoPuerto = function () {
+
         return (url + 'savePuerto');
     }
 
@@ -172,9 +173,15 @@ function ApiUrl() {
     }
 
     // Buscar todos los Puertos
-    this.getUrlAllPuerto = function () {
-        return (url + 'getAllPuerto');
+
+    var aux = localStorage.getItem("id_token");
+    if (aux == null) {
+    } else {
+        this.getUrlAllPuerto = function () {
+            return (url + 'getAllPuerto');
+        }
     }
+
     //////////////////////////////////////////////////////
 
     // Ingreso Tripulante
@@ -515,7 +522,9 @@ function ApiUrl() {
 }
 
 app.factory("myProvider", function () {
-    // console.log("factory function");
+
     return new ApiUrl();
+
+
 
 });

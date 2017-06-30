@@ -34,72 +34,78 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
     $scope.listaAlimentosArray = [];
     $scope.listaTipoAlimentos = [];
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoPedido();
-        $scope.urlAlimentos = myProvider.getUrlIngresoAlimentos();
-        $scope.urlMaterialesSeleccionados = myProvider.getUrlIngresoMaterialesSeleccionados();
-        $scope.urlAllOrdenServicio = myProvider.getUrlAllOrdenServicio();
-        $scope.urlAllMateriales = myProvider.getUrlAllMateriales();
-        $scope.urlAllTipoAlimentos = myProvider.getUrlALLTipoAlimentos();
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
 
-        $scope.observaciones = "";
-        $scope.ordenServicio = "";
-        $scope.alimento = "";
-        $scope.cantidadAlimento = "";
-        $scope.unidades = "";
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoPedido();
+            $scope.urlAlimentos = myProvider.getUrlIngresoAlimentos();
+            $scope.urlMaterialesSeleccionados = myProvider.getUrlIngresoMaterialesSeleccionados();
+            $scope.urlAllOrdenServicio = myProvider.getUrlAllOrdenServicio();
+            $scope.urlAllMateriales = myProvider.getUrlAllMateriales();
+            $scope.urlAllTipoAlimentos = myProvider.getUrlALLTipoAlimentos();
 
-        $scope.material = "";
-        $scope.cantidadMaterial = "";
-        $scope.seleccionAlimento = "";
+            $scope.observaciones = "";
+            $scope.ordenServicio = "";
+            $scope.alimento = "";
+            $scope.cantidadAlimento = "";
+            $scope.unidades = "";
 
-        $scope.id = "";
-        $scope.inc = 0;
-        $scope.seleccionPedido = "";
-        $scope.seleccionMaterial = "";
-        $scope.seleccionTipoAlimento = "";
+            $scope.material = "";
+            $scope.cantidadMaterial = "";
+            $scope.seleccionAlimento = "";
 
-
-        $scope.listaOrdenServicio = [];
-        $scope.listaAlimentos = [];
-        $scope.listaMateriales = [];
-        $scope.listaMaterialSelect = [];
-        $scope.listaMaterialesArray = [];
-        $scope.listaAlimentosArray = [];
-        $scope.listaTipoAlimentos = [];
-
-        $http.get($scope.urlAllTipoAlimentos)
-            .then(function (response) {
-
-                $scope.listaTipoAlimentos = response.data;
-                $scope.alimento = $scope.listaTipoAlimentos[0]._id;
-
-            }, function errorCallback(response) {
-
-                console.log(response);
-            });
-
-        $http.get($scope.urlAllMateriales)
-            .then(function (response) {
-
-                $scope.listaMateriales = response.data;
-                $scope.material = $scope.listaMateriales[0]._id;
-
-            }, function errorCallback(response) {
-
-                console.log(response);
-            });
+            $scope.id = "";
+            $scope.inc = 0;
+            $scope.seleccionPedido = "";
+            $scope.seleccionMaterial = "";
+            $scope.seleccionTipoAlimento = "";
 
 
-        $http.get($scope.urlAllOrdenServicio)
-            .then(function (response) {
+            $scope.listaOrdenServicio = [];
+            $scope.listaAlimentos = [];
+            $scope.listaMateriales = [];
+            $scope.listaMaterialSelect = [];
+            $scope.listaMaterialesArray = [];
+            $scope.listaAlimentosArray = [];
+            $scope.listaTipoAlimentos = [];
 
-                $scope.listaOrdenServicio = response.data;
-                $scope.ordenServicio = $scope.listaOrdenServicio[0]._id;
+            $http.get($scope.urlAllTipoAlimentos)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.listaTipoAlimentos = response.data;
+                    $scope.alimento = $scope.listaTipoAlimentos[0]._id;
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
+
+            $http.get($scope.urlAllMateriales)
+                .then(function (response) {
+
+                    $scope.listaMateriales = response.data;
+                    $scope.material = $scope.listaMateriales[0]._id;
+
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
+
+
+            $http.get($scope.urlAllOrdenServicio)
+                .then(function (response) {
+
+                    $scope.listaOrdenServicio = response.data;
+                    $scope.ordenServicio = $scope.listaOrdenServicio[0]._id;
+
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
+        }
+    } else {
+        window.location = "/login.html"
     }
 
     $scope.ingresoAlimentos = function (pos) {
@@ -338,11 +344,11 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
 
             $scope.seleccionAlimentoJS = JSON.parse($scope.seleccionAlimento);
             var n = $scope.listaAlimentos.length;
-            
+
             for (var i = 0; i < n; i++) {
                 console.log("hola");
                 if ($scope.listaAlimentos[i].id == $scope.seleccionAlimentoJS.id) {
-                    
+
                     var n1 = $scope.listaTipoAlimentos.length;
                     for (var j = 0; j < n1; j++) {
                         if ($scope.listaTipoAlimentos[j]._id == $scope.alimento) {
@@ -382,6 +388,13 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
             $scope.cantidadAlimento = "";
             $scope.unidades = "";
         }
+
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
 
     }
 

@@ -16,50 +16,57 @@ app.controller('ControllerMaterialPetreo', ['$scope', '$http', 'myProvider', fun
     $scope.listaMaterialPetreo;
     $scope.listaTipoMaterialPetreo;
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoMaterialPetreo();
-        $scope.urlModificar = myProvider.getUrlModificarMaterialPetreo();
-        $scope.urlAllMaterialPetreo = myProvider.getUrlAllMaterialPetreo();
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
 
-        $http.get($scope.urlAllMaterialPetreo)
-            .then(function (response) {
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoMaterialPetreo();
+            $scope.urlModificar = myProvider.getUrlModificarMaterialPetreo();
+            $scope.urlAllMaterialPetreo = myProvider.getUrlAllMaterialPetreo();
 
-                $scope.listaMaterialPetreo = response.data;
+            $http.get($scope.urlAllMaterialPetreo)
+                .then(function (response) {
 
-            }), function errorCallback(response) {
+                    $scope.listaMaterialPetreo = response.data;
 
-                console.log(response);
-            }
+                }), function errorCallback(response) {
 
-        //$http.get($scope.urlAllMaterialPetreo)
-        //    .then(function (response) {
+                    console.log(response);
+                }
 
-        //        $scope.listaMaterialPetreo = response.data;
+            //$http.get($scope.urlAllMaterialPetreo)
+            //    .then(function (response) {
 
-        //        var n = $scope.listaMaterialPetreo.length;
-        //        if (n == 0) {
-        //            alert('no se encontro informacion');
-        //        } else {
-        //            for (var i = 0; i < n; i++) {
-        //                for (var j = 0; j < 3; j++) {
-        //                    if ($scope.listaMaterialPetreo[i].tipo_material == $scope.listaTipoMaterialPetreo[j].id) {
-        //                        console.log("entro");
-        //                        $scope.aux = $scope.listaTipoMaterialPetreo[j];
-        //                        $scope.listaMaterialPetreo[i].tipo_material = $scope.aux;
-        //                    }
-        //                }
-        //            }
+            //        $scope.listaMaterialPetreo = response.data;
 
-        //        }
-        //    }), function errorCallback(response) {
+            //        var n = $scope.listaMaterialPetreo.length;
+            //        if (n == 0) {
+            //            alert('no se encontro informacion');
+            //        } else {
+            //            for (var i = 0; i < n; i++) {
+            //                for (var j = 0; j < 3; j++) {
+            //                    if ($scope.listaMaterialPetreo[i].tipo_material == $scope.listaTipoMaterialPetreo[j].id) {
+            //                        console.log("entro");
+            //                        $scope.aux = $scope.listaTipoMaterialPetreo[j];
+            //                        $scope.listaMaterialPetreo[i].tipo_material = $scope.aux;
+            //                    }
+            //                }
+            //            }
 
-        //        console.log(response);
-        //    }
+            //        }
+            //    }), function errorCallback(response) {
 
-        //$scope.listaTipoMaterialPetreo = [{ id: '1', tipo_material: 'Piedra' }, { id: '2', tipo_material: "Arena" },
-        //{ id: '3', tipo_material: "Tierra" }];
-        //$scope.tipoMaterial = "1";
+            //        console.log(response);
+            //    }
 
+            //$scope.listaTipoMaterialPetreo = [{ id: '1', tipo_material: 'Piedra' }, { id: '2', tipo_material: "Arena" },
+            //{ id: '3', tipo_material: "Tierra" }];
+            //$scope.tipoMaterial = "1";
+
+        }
+
+    } else {
+        window.location = "/login.html"
     }
 
     $scope.ingresoMaterialPetreo = function () {
@@ -113,6 +120,13 @@ app.controller('ControllerMaterialPetreo', ['$scope', '$http', 'myProvider', fun
             $scope.cantTotalM3 = $scope.selecMatPetreo.cant_total_m3;
 
         }
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
     }
 
 }]);

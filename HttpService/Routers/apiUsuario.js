@@ -4,35 +4,8 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var url = 'mongodb://localhost:27017/tsh';
 var objectId = require('mongodb').ObjectID;
-
-
-
-router.post('/login', function (req, res) {
-
-
-    MongoClient.connect(url, function (err, db) {
-        assert.equal(null, err);
-        console.log(req.body);
-
-        var name = req.body.name;
-        var password = req.body.password;
-        var token = suid(200);
-        var item = {
-            name: name,
-            password: password,
-            tk: token
-
-        }
-        db.collection('usuarios').findOneAndUpdate({ "name": name, "password": password }, { $set: item }, function (err, result) {
-            assert.equal(null, err);
-            console.log(result);
-            res.send(result);
-
-        });
-
-        db.close();
-    });
-});
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
 
 
 router.post('/saveUsuario', function (req, res) {
@@ -61,12 +34,13 @@ router.post('/updateUsuario', function (req, res) {
         assert.equal(null, err);
         console.log(req.body);
         var item = {
+            nombres_completos: req.body.nombres_completos,
+            correo_usuario: req.body.correo_usuario,
             nombre_usuario: req.body.nombre_usuario,
-            cedula_usuario: req.body.cedula_usuario,
             contrasena_usuario: req.body.contrasena_usuario,
             telefono_usuario: req.body.telefono_usuario,
-            correo_usuario: req.body.contrasena_usuario,
-            tipo_usuario: req.body.tipo_usuario
+            tipo_usuario: req.body.tipo_usuario,
+            cedula_usuario: req.body.cedula_usuario
         };
 
 
@@ -122,6 +96,9 @@ router.get('/getAllUsuario', function (req, res) {
 });
 
 
+router.get('/IngresoUsuario.html', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    res.json({ user: req.user });
+});
 
 
 module.exports = router;

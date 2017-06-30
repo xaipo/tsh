@@ -71,7 +71,7 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-log-out" style="color: white"></span> LogOut</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-log-out" style="color: white" ng-click="logout()"></span> LogOut</a></li>
                     </ul>
                 </div>
             </div>
@@ -100,6 +100,17 @@
                                 </div>
                                 <div class="col-md-7">
                                     <input type="text" ng-model="nombreUsuario" placeholder="Nombre de Usuario" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Nombres completos: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="nombresCompletos" placeholder="Nombres Completos" class="form-control" />
                                 </div>
                             </div>
                             <div class="row">

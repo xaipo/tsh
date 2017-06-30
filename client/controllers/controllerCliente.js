@@ -19,29 +19,35 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
     $scope.listaTipoClientes;
 
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoCliente();
-        $scope.urlModificar = myProvider.getUrlModificarCliente();
-        $scope.urlAllClientes = myProvider.getUrlAllClientes();
-        
-        
-        $http.get($scope.urlAllClientes)
-            .then(function (response) {
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
 
-                $scope.listaClientes = response.data;
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoCliente();
+            $scope.urlModificar = myProvider.getUrlModificarCliente();
+            $scope.urlAllClientes = myProvider.getUrlAllClientes();
 
-            }, function errorCallback(response) {
 
-                console.log(response);
-            });
+            $http.get($scope.urlAllClientes)
+                .then(function (response) {
 
-        $scope.listaTipoClientes = [{ id: '1', nombre: 'Preferencial' }, { id: '2', nombre: "normal" },
+                    $scope.listaClientes = response.data;
+
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
+
+            $scope.listaTipoClientes = [{ id: '1', nombre: 'Preferencial' }, { id: '2', nombre: "normal" },
             { id: '3', nombre: "moroso" }];
-        $scope.tipoCliente = "1";
-    }
+            $scope.tipoCliente = "1";
+        }
 
+    } else {
+        window.location = "/login.html"
+    }
     $scope.ingresoCliente = function () {
-        
+
         var obj = {
             nombre_cliente: $scope.nombreCliente, ruc_cliente: $scope.rucCliente,
             direccion_cliente: $scope.direccionCliente, telefono_cliente: $scope.telefonoCliente,
@@ -82,11 +88,11 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
     }
 
     $scope.buscarTipoCliente = function () {
-        
-        for (var i = 0; i < $scope.listaTipoClientes.length; i++){
+
+        for (var i = 0; i < $scope.listaTipoClientes.length; i++) {
             if ($scope.tipoCliente != '' && $scope.tipoCliente != undefined) {
-                
-                if ($scope.tipoCliente == $scope.listaTipoClientes[i].id) {                    
+
+                if ($scope.tipoCliente == $scope.listaTipoClientes[i].id) {
                     $scope.seleccionTipoCliente = $scope.listaTipoClientes[i];
                 }
 
@@ -114,5 +120,11 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
         }
     }
 
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
+    }
 
 }]);

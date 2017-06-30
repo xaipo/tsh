@@ -12,19 +12,24 @@ app.controller('ControllerTipoTripulante', ['$scope', '$http', 'myProvider', fun
     $scope.busqueda;
     $scope.listaTipoUsuario;
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoTipoTripulante();
-        $scope.urlModificar = myProvider.getUrlModificarTipoTripulante();
-        $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoTripulante();
-        $http.get($scope.urlAllTipoUsuario)
-            .then(function (response) {
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoTipoTripulante();
+            $scope.urlModificar = myProvider.getUrlModificarTipoTripulante();
+            $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoTripulante();
+            $http.get($scope.urlAllTipoUsuario)
+                .then(function (response) {
 
-                $scope.listaTipoTripulante = response.data;
+                    $scope.listaTipoTripulante = response.data;
 
-            }, function errorCallback(response) {
+                }, function errorCallback(response) {
 
-                console.log(response);
-            });
+                    console.log(response);
+                });
+        }
+    } else {
+        window.location = "/login.html"
     }
 
     $scope.ingresoTipoTripulante = function () {
@@ -69,6 +74,13 @@ app.controller('ControllerTipoTripulante', ['$scope', '$http', 'myProvider', fun
             $scope.descripcionTipoTripulante = $scope.selecTipTrip.descripcion_tipo_tripulante;
 
         }
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
     }
 
 }]);

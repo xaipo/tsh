@@ -4,6 +4,8 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var url = 'mongodb://localhost:27017/tsh';
 var objectId = require('mongodb').ObjectID;
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
 
 router.post('/savePuerto', function (req, res) {
 
@@ -86,5 +88,8 @@ router.get('/getAllPuerto', function (req, res) {
 
 });
 
+router.get('/IngresoPuerto.html', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    res.json({ user: req.user });
+});
 
 module.exports = router;

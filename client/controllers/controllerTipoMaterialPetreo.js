@@ -12,27 +12,32 @@ app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider',
     $scope.busqueda;
     $scope.listaTipoMaterial;
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoTipoMaterialPetreo();
-        $scope.urlModificar = myProvider.getUrlModificarTipoMaterialPetreo();
-        $scope.urlAllTipoMaterial = myProvider.getUrlAllTipoMaterialPetreo();
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoTipoMaterialPetreo();
+            $scope.urlModificar = myProvider.getUrlModificarTipoMaterialPetreo();
+            $scope.urlAllTipoMaterial = myProvider.getUrlAllTipoMaterialPetreo();
 
-        $scope.id = "";
-        $scope.seleccion = "";
-        $scope.seleccionTipoMaterial = "";
+            $scope.id = "";
+            $scope.seleccion = "";
+            $scope.seleccionTipoMaterial = "";
 
-        $scope.busqueda = "";
-        $scope.listaTipoMaterial;
+            $scope.busqueda = "";
+            $scope.listaTipoMaterial;
 
-        $http.get($scope.urlAllTipoMaterial)
-            .then(function (response) {
+            $http.get($scope.urlAllTipoMaterial)
+                .then(function (response) {
 
-                $scope.listaTipoMaterial = response.data;
+                    $scope.listaTipoMaterial = response.data;
 
-            }, function errorCallback(response) {
+                }, function errorCallback(response) {
 
-                console.log(response);
-            });
+                    console.log(response);
+                });
+        }
+    } else {
+        window.location = "/login.html"
     }
 
     $scope.ingresoTipoMaterial = function () {
@@ -81,6 +86,13 @@ app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider',
             $scope.descripcionTipoMaterial = $scope.selecTipoMaterial.descripcion_tipo_material;
 
         }
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
     }
 
 }]);

@@ -20,36 +20,40 @@ app.controller('ControllerTripulante', ['$scope', '$http', 'myProvider', functio
     $scope.listaTripulante;
     $scope.listaTipoTripulante;
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoTripulante();
-        $scope.urlModificar = myProvider.getUrlModificarTripulante();
-        $scope.urlAllTripulante = myProvider.getUrlAllTripulante();
-        $scope.urlAllTipoTripulante = myProvider.getUrlAllTipoTripulante();
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoTripulante();
+            $scope.urlModificar = myProvider.getUrlModificarTripulante();
+            $scope.urlAllTripulante = myProvider.getUrlAllTripulante();
+            $scope.urlAllTipoTripulante = myProvider.getUrlAllTipoTripulante();
 
-        $http.get($scope.urlAllTripulante)
-            .then(function (response) {
+            $http.get($scope.urlAllTripulante)
+                .then(function (response) {
 
-                $scope.listaTripulante = response.data;
+                    $scope.listaTripulante = response.data;
 
-            }, function errorCallback(response) {
+                }, function errorCallback(response) {
 
-                console.log(response);
-            });
+                    console.log(response);
+                });
 
 
-        $http.get($scope.urlAllTipoTripulante)
-            .then(function (response) {
+            $http.get($scope.urlAllTipoTripulante)
+                .then(function (response) {
 
-                $scope.listaTipoTripulante = response.data;
-                $scope.tipoTripulante = $scope.listaTipoTripulante[0]._id;
+                    $scope.listaTipoTripulante = response.data;
+                    $scope.tipoTripulante = $scope.listaTipoTripulante[0]._id;
 
-            }, function errorCallback(response) {
+                }, function errorCallback(response) {
 
-                console.log(response);
-            });
+                    console.log(response);
+                });
 
+        }
+    } else {
+        window.location = "/login.html"
     }
-
     $scope.ingresoTripulante = function () {
         console.log($scope.nombreUsuario);
         var obj = {
@@ -105,6 +109,13 @@ app.controller('ControllerTripulante', ['$scope', '$http', 'myProvider', functio
             $scope.tipoTripulante = $scope.selecTrip.tipo_tripulante;
 
         }
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
     }
 
 }]);

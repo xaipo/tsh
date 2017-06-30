@@ -13,28 +13,34 @@ app.controller('ControllerTipoAlimentos', ['$scope', '$http', 'myProvider', func
     $scope.busqueda;
     $scope.listaTipoAlimentos;
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoTipoAlimentos();
-        $scope.urlModificar = myProvider.getUrlModificarTipoAlimentos();
-        $scope.urlAllTipoAlimentos = myProvider.getUrlALLTipoAlimentos();
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
 
-        $scope.id = "";
-        $scope.descripcionTipoAlimento = "";
-        $scope.seleccion = "";
-        $scope.seleccionTipoAlimento = "";
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoTipoAlimentos();
+            $scope.urlModificar = myProvider.getUrlModificarTipoAlimentos();
+            $scope.urlAllTipoAlimentos = myProvider.getUrlALLTipoAlimentos();
 
-        $scope.busqueda;
-        $scope.listaTipoAlimentos;
+            $scope.id = "";
+            $scope.descripcionTipoAlimento = "";
+            $scope.seleccion = "";
+            $scope.seleccionTipoAlimento = "";
 
-        $http.get($scope.urlAllTipoAlimentos)
-            .then(function (response) {
+            $scope.busqueda;
+            $scope.listaTipoAlimentos;
 
-                $scope.listaTipoAlimentos = response.data;
+            $http.get($scope.urlAllTipoAlimentos)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.listaTipoAlimentos = response.data;
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
+        }
+    } else {
+        window.location = "/login.html"
     }
 
     $scope.ingresoTipoAlimentos = function () {
@@ -81,6 +87,13 @@ app.controller('ControllerTipoAlimentos', ['$scope', '$http', 'myProvider', func
             $scope.descripcionTipoAlimento = $scope.selecTipAlim.descripcion_tipo_alimento;
 
         }
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
     }
 
 }]);

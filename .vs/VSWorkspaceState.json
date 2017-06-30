@@ -2,9 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\client",
-    "\\client\\Administrador",
-    "\\HttpService"
+    "\\HttpService",
+    "\\HttpService\\config",
+    "\\HttpService\\models",
+    "\\HttpService\\Public",
+    "\\HttpService\\Routers"
   ],
-  "SelectedNode": "\\client\\Administrador\\ModificarEmbarcacion.html",
+  "SelectedNode": "\\HttpService\\server.js",
   "PreviewInSolutionExplorer": false
 }

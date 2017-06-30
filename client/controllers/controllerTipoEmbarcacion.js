@@ -12,19 +12,24 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
     $scope.busqueda;
     $scope.listaTipoEmbarcacion;
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoTipoEmbarcacion();
-        $scope.urlModificar = myProvider.getUrlModificarTipoEmbarcacion();
-        $scope.urlAllTipoEmbarcacion = myProvider.getUrlAllTipoEmbarcacion();
-        $http.get($scope.urlAllTipoEmbarcacion)
-            .then(function (response) {
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoTipoEmbarcacion();
+            $scope.urlModificar = myProvider.getUrlModificarTipoEmbarcacion();
+            $scope.urlAllTipoEmbarcacion = myProvider.getUrlAllTipoEmbarcacion();
+            $http.get($scope.urlAllTipoEmbarcacion)
+                .then(function (response) {
 
-                $scope.listaTipoEmbarcacion = response.data;
+                    $scope.listaTipoEmbarcacion = response.data;
 
-            }, function errorCallback(response) {
+                }, function errorCallback(response) {
 
-                console.log(response);
-            });
+                    console.log(response);
+                });
+        }
+    } else {
+        window.location = "/login.html"
     }
 
     $scope.ingresoTipoEmbarcacion = function () {
@@ -69,6 +74,13 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
             $scope.descripcionTipoEmbarcacion = $scope.selecTipEmb.descripcion_tipo_embarcacion;
 
         }
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
     }
 
 }]);

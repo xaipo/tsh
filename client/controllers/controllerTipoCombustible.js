@@ -13,19 +13,25 @@ app.controller('ControllerTipoCombustible', ['$scope', '$http', 'myProvider', fu
     $scope.busqueda;
     $scope.listaTipoCombustible;
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoTipoCombustible();
-        $scope.urlModificar = myProvider.getUrlModificarTipoCombustible();
-        $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
-        $http.get($scope.urlAllTipoCombustible)
-            .then(function (response) {
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoTipoCombustible();
+            $scope.urlModificar = myProvider.getUrlModificarTipoCombustible();
+            $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
+            $http.get($scope.urlAllTipoCombustible)
+                .then(function (response) {
 
-                $scope.listaTipoCombustible = response.data;
+                    $scope.listaTipoCombustible = response.data;
 
-            }, function errorCallback(response) {
+                }, function errorCallback(response) {
 
-                console.log(response);
-            });
+                    console.log(response);
+                });
+        }
+
+    } else {
+        window.location = "/login.html"
     }
 
     $scope.ingresoTipoCombustible = function () {
@@ -69,6 +75,13 @@ app.controller('ControllerTipoCombustible', ['$scope', '$http', 'myProvider', fu
             $scope.descripcionTipoCombustible = $scope.selecTipComb.descripcion_tipo_combustible;
 
         }
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
     }
 
 }]);

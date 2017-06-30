@@ -13,19 +13,24 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
     $scope.busqueda;
     $scope.listaTipoMantenimiento;
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoTipoMantenimiento();
-        $scope.urlModificar = myProvider.getUrlModificarTipoMantenimiento();
-        $scope.urlAllTipoMantenimiento = myProvider.getAllTipoMantenimiento();
-        $http.get($scope.urlAllTipoMantenimiento)
-            .then(function (response) {
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoTipoMantenimiento();
+            $scope.urlModificar = myProvider.getUrlModificarTipoMantenimiento();
+            $scope.urlAllTipoMantenimiento = myProvider.getAllTipoMantenimiento();
+            $http.get($scope.urlAllTipoMantenimiento)
+                .then(function (response) {
 
-                $scope.listaTipoMantenimiento = response.data;
+                    $scope.listaTipoMantenimiento = response.data;
 
-            }, function errorCallback(response) {
+                }, function errorCallback(response) {
 
-                console.log(response);
-            });
+                    console.log(response);
+                });
+        }
+    } else {
+        window.location = "/login.html"
     }
 
     $scope.ingresoTipoMantenimiento = function () {
@@ -70,6 +75,13 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
             $scope.descripcionTipoMantenimiento = $scope.selecTipMant.descripcion_tipo_mantenimiento;
 
         }
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
     }
 
 }]);

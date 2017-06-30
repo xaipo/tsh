@@ -10,25 +10,31 @@ app.controller('ControllerPropietario', ['$scope', '$http', 'myProvider', functi
     $scope.correoPropietario;
 
     $scope.id;
-    $scope.seleccion; 
+    $scope.seleccion;
     $scope.seleccionPropietario;
 
     $scope.busqueda;
     $scope.listaPropietario;
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoPropietario();
-        $scope.urlModificar = myProvider.getUrlModificarPropietario();
-        $scope.urlAllPropietario = myProvider.getUrlAllPropietario();
-        $http.get($scope.urlAllPropietario)
-            .then(function (response) {
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
 
-                $scope.listaPropietario = response.data;
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoPropietario();
+            $scope.urlModificar = myProvider.getUrlModificarPropietario();
+            $scope.urlAllPropietario = myProvider.getUrlAllPropietario();
+            $http.get($scope.urlAllPropietario)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.listaPropietario = response.data;
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
+        }
+    } else {
+        window.location = "/login.html"
     }
 
     $scope.ingresoPropietario = function () {
@@ -86,6 +92,13 @@ app.controller('ControllerPropietario', ['$scope', '$http', 'myProvider', functi
             $scope.correoPropietario = $scope.selecProp.correo_propietario;
 
         }
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
     }
 
 

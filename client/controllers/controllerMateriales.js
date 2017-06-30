@@ -14,35 +14,42 @@ app.controller('ControllerMaterial', ['$scope', '$http', 'myProvider', function 
     $scope.listaMaterial;
     $scope.listaEstado;
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoMateriales();
-        $scope.urlModificar = myProvider.getUrlModificarMateriales();
-        $scope.urlAllMateriales = myProvider.getUrlAllMateriales();
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
 
-        $scope.descripcionMaterial = "";
-        $scope.stock = 0;
-        $scope.estado;
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoMateriales();
+            $scope.urlModificar = myProvider.getUrlModificarMateriales();
+            $scope.urlAllMateriales = myProvider.getUrlAllMateriales();
 
-        $scope.id;
-        $scope.seleccion;
+            $scope.descripcionMaterial = "";
+            $scope.stock = 0;
+            $scope.estado;
 
-        $scope.busqueda;
-        $scope.listaMaterial;
-        $scope.listaEstado;
+            $scope.id;
+            $scope.seleccion;
 
-        $http.get($scope.urlAllMateriales)
-            .then(function (response) {
+            $scope.busqueda;
+            $scope.listaMaterial;
+            $scope.listaEstado;
 
-                $scope.listaMaterial = response.data;
+            $http.get($scope.urlAllMateriales)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.listaMaterial = response.data;
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
-        $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Desactivado" }];
-        $scope.estado = "1";
+                    console.log(response);
+                });
 
+            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Desactivado" }];
+            $scope.estado = "1";
+
+        }
+
+    } else {
+        window.location = "/login.html"
     }
 
     $scope.ingresoMaterial = function () {
@@ -91,6 +98,13 @@ app.controller('ControllerMaterial', ['$scope', '$http', 'myProvider', function 
             $scope.estado = $scope.selecMat.estado;
 
         }
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
     }
 
 }]);

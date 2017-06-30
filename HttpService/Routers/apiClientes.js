@@ -4,6 +4,8 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var url = 'mongodb://localhost:27017/tsh';
 var objectId = require('mongodb').ObjectID;
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
 
 router.post('/saveClientes', function (req, res) {
 
@@ -22,7 +24,6 @@ router.post('/saveClientes', function (req, res) {
 
     });
 });
-
 
 router.post('/updateClientes', function (req, res) {
 
@@ -71,8 +72,6 @@ router.post('/getByIdClientes', function (req, res) {
     });
 });
 
-
-
 router.get('/getAllClientes', function (req, res) {
 
     var resultArray = [];
@@ -90,6 +89,10 @@ router.get('/getAllClientes', function (req, res) {
         });
     });
 
+});
+
+router.get('/Ingresocliente.html', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    res.json({ user: req.user });
 });
 
 

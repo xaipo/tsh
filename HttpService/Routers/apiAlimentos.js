@@ -4,6 +4,8 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var url = 'mongodb://localhost:27017/tsh';
 var objectId = require('mongodb').ObjectID;
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
 
 router.post('/saveAlimentos', function (req, res) {
 
@@ -20,7 +22,6 @@ router.post('/saveAlimentos', function (req, res) {
 
     });
 });
-
 
 router.post('/updateAlimentos', function (req, res) {
 
@@ -65,7 +66,6 @@ router.post('/getByIdAlimentos', function (req, res) {
     });
 });
 
-
 router.get('/getAllAlimentos', function (req, res) {
 
     var resultArray = [];
@@ -85,5 +85,8 @@ router.get('/getAllAlimentos', function (req, res) {
 
 });
 
+router.get('', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    res.json({ user: req.user });
+});
 
 module.exports = router;

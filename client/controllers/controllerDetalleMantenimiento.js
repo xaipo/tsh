@@ -13,19 +13,26 @@ app.controller('ControllerDetalleMantenimiento', ['$scope', '$http', 'myProvider
     $scope.seleccionMantenimiento;
     $scope.listaDetalleMantenimiento;
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoDetalleMantenimiento();
-        $scope.urlModificar = myProvider.getUrlModificarDetalleMantenimiento();
-        $scope.urlAllDetalleMantenimiento = myProvider.getUrlAllDetalleMantenimiento();
-        $http.get($scope.urlAllDetalleMantenimiento)
-            .then(function (response) {
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
 
-                $scope.listaDetalleMantenimiento = response.data;
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoDetalleMantenimiento();
+            $scope.urlModificar = myProvider.getUrlModificarDetalleMantenimiento();
+            $scope.urlAllDetalleMantenimiento = myProvider.getUrlAllDetalleMantenimiento();
+            $http.get($scope.urlAllDetalleMantenimiento)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.listaDetalleMantenimiento = response.data;
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
+        }
+
+    } else {
+        window.location = "/login.html"
     }
 
     $scope.ingresoDetalleMantenimiento = function () {
@@ -68,7 +75,7 @@ app.controller('ControllerDetalleMantenimiento', ['$scope', '$http', 'myProvider
     }
 
     $scope.busquedaDetalleMantenimiento = function () {
-        
+
         if ($scope.seleccionMantenimiento != '' && $scope.seleccionMantenimiento != undefined) {
 
             $scope.selecMante = JSON.parse($scope.seleccionMantenimiento);
@@ -79,6 +86,13 @@ app.controller('ControllerDetalleMantenimiento', ['$scope', '$http', 'myProvider
             $scope.piezasCambiadasObservaciones = $scope.selecMante.piezas_cambiadas_observaciones;
 
         }
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
     }
 
 }]);

@@ -15,49 +15,55 @@ app.controller('ControllerCombustible', ['$scope', '$http', 'myProvider', functi
     $scope.listaTipoCombustible;
     $scope.listaCombustible;
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoCombustible();
-        $scope.urlModificar = myProvider.getUrlModificarCombustible();
-        $scope.urlAllCombustible = myProvider.getUrlAllCombustible();
-        $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
 
-        $http.get($scope.urlAllTipoCombustible)
-            .then(function (response) {
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoCombustible();
+            $scope.urlModificar = myProvider.getUrlModificarCombustible();
+            $scope.urlAllCombustible = myProvider.getUrlAllCombustible();
+            $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
 
-                $scope.listaTipoCombustible = response.data;
-                $scope.tipoCombustible = $scope.listaTipoCombustible[0]._id;
+            $http.get($scope.urlAllTipoCombustible)
+                .then(function (response) {
 
-                $http.get($scope.urlAllCombustible)
-                    .then(function (response) {
+                    $scope.listaTipoCombustible = response.data;
+                    $scope.tipoCombustible = $scope.listaTipoCombustible[0]._id;
 
-                        $scope.listaCombustible = response.data;
+                    $http.get($scope.urlAllCombustible)
+                        .then(function (response) {
 
-                        var n = $scope.listaCombustible.length;
-                        var n1 = $scope.listaTipoCombustible.length;
-                        for (var i = 0; i < n; i++) {
-                            for (var j = 0; j < n1; j++) {
-                                if ($scope.listaCombustible[i].tipo_combustible == $scope.listaTipoCombustible[j]._id) {
-                                    $scope.aux = $scope.listaTipoCombustible[j];
-                                    $scope.listaCombustible[i].tipo_combustible = $scope.aux;
+                            $scope.listaCombustible = response.data;
+
+                            var n = $scope.listaCombustible.length;
+                            var n1 = $scope.listaTipoCombustible.length;
+                            for (var i = 0; i < n; i++) {
+                                for (var j = 0; j < n1; j++) {
+                                    if ($scope.listaCombustible[i].tipo_combustible == $scope.listaTipoCombustible[j]._id) {
+                                        $scope.aux = $scope.listaTipoCombustible[j];
+                                        $scope.listaCombustible[i].tipo_combustible = $scope.aux;
+                                    }
                                 }
                             }
-                        }
 
-                    }, function errorCallback(response) {
+                        }, function errorCallback(response) {
 
-                        console.log(response);
-                    });
+                            console.log(response);
+                        });
 
-            }, function errorCallback(response) {
+                }, function errorCallback(response) {
 
-                console.log(response);
-            });
-
+                    console.log(response);
+                });
 
 
 
+
+        }
+
+    } else {
+        window.location = "/login.html"
     }
-
     $scope.ingresoCombustible = function () {
         console.log($scope.tipoCombustible);
         var obj = {
@@ -106,6 +112,13 @@ app.controller('ControllerCombustible', ['$scope', '$http', 'myProvider', functi
             $scope.cantidad = $scope.selecComb.cantidad_combustible;
 
         }
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
     }
 
 }]);

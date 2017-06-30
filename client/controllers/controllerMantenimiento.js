@@ -37,99 +37,106 @@ app.controller('ControllerMantenimiento', ['$scope', '$http', 'myProvider', "$ti
     $scope.listaDetalleMantenimiento;
     $scope.listaEmbarcacion;
 
-    $scope.iniciar = function () {
-        $scope.url = myProvider.getUrlIngresoMantenimiento();
-        $scope.urlModificar = myProvider.getUrlModificarMantenimiento();
-        $scope.urlAllMantenimiento = myProvider.getUrlAllMantenimiento();
+    var aux = localStorage.getItem("id_token");
+    if (aux != null) {
 
-        $scope.urlDetalleMantenimiento = myProvider.getUrlIngresoDetalleMantenimiento();
-        $scope.urlDetalleMantenimientoModificar = myProvider.getUrlModificarDetalleMantenimiento();
-        $scope.urlBuscarDetalleMantenimiento = myProvider.getUrlBuscarDetalleMantenimiento();
+        $scope.iniciar = function () {
+            $scope.url = myProvider.getUrlIngresoMantenimiento();
+            $scope.urlModificar = myProvider.getUrlModificarMantenimiento();
+            $scope.urlAllMantenimiento = myProvider.getUrlAllMantenimiento();
 
-        $scope.urlAllTipoMantenimiento = myProvider.getAllTipoMantenimiento();
-        $scope.urlBuscarTipoMantenimiento = myProvider.getBuscarTipoMantenimiento();
+            $scope.urlDetalleMantenimiento = myProvider.getUrlIngresoDetalleMantenimiento();
+            $scope.urlDetalleMantenimientoModificar = myProvider.getUrlModificarDetalleMantenimiento();
+            $scope.urlBuscarDetalleMantenimiento = myProvider.getUrlBuscarDetalleMantenimiento();
 
-        $scope.urlAllEmbarcacion = myProvider.getUrlAllEmbarcacion();
-        $scope.urlBuscarEmbarcacion = myProvider.getUrlBuscarEmbarcacion();
+            $scope.urlAllTipoMantenimiento = myProvider.getAllTipoMantenimiento();
+            $scope.urlBuscarTipoMantenimiento = myProvider.getBuscarTipoMantenimiento();
 
-        //atributos
-        $scope.id;
-        $scope.detalleMantenimiento = "";
-        $scope.fechaMantenimiento = "";
-        $scope.mecanico = "";
+            $scope.urlAllEmbarcacion = myProvider.getUrlAllEmbarcacion();
+            $scope.urlBuscarEmbarcacion = myProvider.getUrlBuscarEmbarcacion();
 
-        // atributos para el detalle
-        $scope.orometro = "";
-        $scope.proximoOrometro = "";
-        $scope.piezasCambiadasObservaciones = "";
+            //atributos
+            $scope.id;
+            $scope.detalleMantenimiento = "";
+            $scope.fechaMantenimiento = "";
+            $scope.mecanico = "";
 
-        $http.get($scope.urlAllMantenimiento)
-            .then(function (response) {
+            // atributos para el detalle
+            $scope.orometro = "";
+            $scope.proximoOrometro = "";
+            $scope.piezasCambiadasObservaciones = "";
 
-                $scope.listaMantenimiento = response.data;
+            $http.get($scope.urlAllMantenimiento)
+                .then(function (response) {
 
-                var n = $scope.listaMantenimiento.length;
-                var k = 0;
-                var h = 0;
-                for (var i = 0; i < n; i++) {
+                    $scope.listaMantenimiento = response.data;
 
-                    var embar = {
-                        id: $scope.listaMantenimiento[i].embarcacion
+                    var n = $scope.listaMantenimiento.length;
+                    var k = 0;
+                    var h = 0;
+                    for (var i = 0; i < n; i++) {
+
+                        var embar = {
+                            id: $scope.listaMantenimiento[i].embarcacion
+                        }
+
+                        $http.post($scope.urlBuscarEmbarcacion, embar)
+                            .then(function (response) {
+
+                                $scope.listaMantenimiento[k++].embarcacion = response.data;
+
+                            }, function errorCallback(response) {
+
+                                console.log(response);
+                            });
+
+                        var tipoMant = {
+                            id: $scope.listaMantenimiento[i].tipo_mantenimiento
+                        }
+
+                        $http.post($scope.urlBuscarTipoMantenimiento, tipoMant)
+                            .then(function (response) {
+
+                                $scope.listaMantenimiento[h++].tipo_mantenimiento = response.data;
+
+                            }, function errorCallback(response) {
+
+                                console.log(response);
+                            });
+
                     }
 
-                    $http.post($scope.urlBuscarEmbarcacion, embar)
-                        .then(function (response) {
+                }, function errorCallback(response) {
 
-                            $scope.listaMantenimiento[k++].embarcacion = response.data;
+                    console.log(response);
+                });
 
-                        }, function errorCallback(response) {
+            $http.get($scope.urlAllTipoMantenimiento)
+                .then(function (response) {
 
-                            console.log(response);
-                        });
+                    $scope.listaTipoMantenimiento = response.data;
+                    $scope.tipoMantenimiento = $scope.listaTipoMantenimiento[0]._id;
 
-                    var tipoMant = {
-                        id: $scope.listaMantenimiento[i].tipo_mantenimiento
-                    }
+                }, function errorCallback(response) {
 
-                    $http.post($scope.urlBuscarTipoMantenimiento, tipoMant)
-                        .then(function (response) {
+                    console.log(response);
+                });
 
-                            $scope.listaMantenimiento[h++].tipo_mantenimiento = response.data;
+            $http.get($scope.urlAllEmbarcacion)
+                .then(function (response) {
 
-                        }, function errorCallback(response) {
+                    $scope.listaEmbarcacion = response.data;
+                    $scope.embarcacion = $scope.listaEmbarcacion[0]._id;
 
-                            console.log(response);
-                        });
+                }, function errorCallback(response) {
 
-                }
+                    console.log(response);
+                });
 
-            }, function errorCallback(response) {
+        }
 
-                console.log(response);
-            });
-
-        $http.get($scope.urlAllTipoMantenimiento)
-            .then(function (response) {
-
-                $scope.listaTipoMantenimiento = response.data;
-                $scope.tipoMantenimiento = $scope.listaTipoMantenimiento[0]._id;
-
-            }, function errorCallback(response) {
-
-                console.log(response);
-            });
-
-        $http.get($scope.urlAllEmbarcacion)
-            .then(function (response) {
-
-                $scope.listaEmbarcacion = response.data;
-                $scope.embarcacion = $scope.listaEmbarcacion[0]._id;
-
-            }, function errorCallback(response) {
-
-                console.log(response);
-            });
-
+    } else {
+        window.location = "/login.html"
     }
 
     $scope.ingresoDetalleMantenimiento = function () {
@@ -254,6 +261,13 @@ app.controller('ControllerMantenimiento', ['$scope', '$http', 'myProvider', "$ti
                 });
 
         }
+    }
+
+    $scope.logout = function () {
+
+        localStorage.clear();
+        window.location = "/login.html"
+
     }
 
 }]);
