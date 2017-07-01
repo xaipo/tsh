@@ -384,7 +384,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
         }
 
     } else {
-        window.location = "/login.html"
+        window.location = "../login.html"
     }
 
     $scope.iniciarListas = function () {
@@ -1497,7 +1497,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     $scope.logout = function () {
 
         localStorage.clear();
-        window.location = "/login.html"
+        window.location = "../login.html"
 
     }
 

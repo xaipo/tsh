@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 //var MongoClient = require('mongodb').MongoClient;
 const path = require('path');
-const config = require('./config/dataBase');
+const config = require('./config/database');
 const passport = require('passport');
 
 // </editor-fold>
@@ -33,10 +33,6 @@ app.use(passport.session());
 
 require('./config/passport')(passport);
 
-
-//app.get('/', function (req, res) {
-//    res.send('Hello World!');
-//});
 app.use('/api', require('./Routers/apiUsuario'));
 app.use('/api', require('./Routers/apiTipoUsuario'));
 app.use('/api', require('./Routers/apiTipoTripulante'));

@@ -130,7 +130,7 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
         }
 
     } else {
-        window.location = "/login.html"
+        window.location = "../login.html"
     }
 
     $scope.ingresoEmbarcacion = function () {
@@ -218,7 +218,7 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
     $scope.logout = function () {
 
         localStorage.clear();
-        window.location = "/login.html"
+        window.location = "../login.html"
 
     }
 

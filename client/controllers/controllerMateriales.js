@@ -49,7 +49,7 @@ app.controller('ControllerMaterial', ['$scope', '$http', 'myProvider', function 
         }
 
     } else {
-        window.location = "/login.html"
+        window.location = "../login.html"
     }
 
     $scope.ingresoMaterial = function () {
@@ -103,7 +103,7 @@ app.controller('ControllerMaterial', ['$scope', '$http', 'myProvider', function 
     $scope.logout = function () {
 
         localStorage.clear();
-        window.location = "/login.html"
+        window.location = "../login.html"
 
     }
 

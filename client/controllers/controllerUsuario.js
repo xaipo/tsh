@@ -65,7 +65,7 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
 
         }
     } else {
-        window.location = "/login.html"
+        window.location = "../login.html"
     }
     $scope.ingresoUsuario = function () {
         //console.log($scope.nombreUsuario);
@@ -159,7 +159,7 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
     $scope.logout = function () {
 
         localStorage.clear();
-        window.location = "/login.html"
+        window.location = "../login.html"
 
     }
 

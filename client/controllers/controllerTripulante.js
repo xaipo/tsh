@@ -52,7 +52,7 @@ app.controller('ControllerTripulante', ['$scope', '$http', 'myProvider', functio
 
         }
     } else {
-        window.location = "/login.html"
+        window.location = "../login.html"
     }
     $scope.ingresoTripulante = function () {
         console.log($scope.nombreUsuario);
@@ -114,7 +114,7 @@ app.controller('ControllerTripulante', ['$scope', '$http', 'myProvider', functio
     $scope.logout = function () {
 
         localStorage.clear();
-        window.location = "/login.html"
+        window.location = "../login.html"
 
     }
 

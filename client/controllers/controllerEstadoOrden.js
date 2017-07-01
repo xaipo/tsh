@@ -40,7 +40,7 @@ app.controller('ControllerEstadoOrden', ['$scope', '$http', 'myProvider', functi
         }
 
     } else {
-        window.location = "/login.html"
+        window.location = "../login.html"
     }
 
     $scope.ingresoEstadoOrden = function () {
@@ -91,7 +91,7 @@ app.controller('ControllerEstadoOrden', ['$scope', '$http', 'myProvider', functi
     $scope.logout = function () {
 
         localStorage.clear();
-        window.location = "/login.html"
+        window.location = "../login.html"
 
     }
 

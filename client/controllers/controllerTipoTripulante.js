@@ -29,7 +29,7 @@ app.controller('ControllerTipoTripulante', ['$scope', '$http', 'myProvider', fun
                 });
         }
     } else {
-        window.location = "/login.html"
+        window.location = "../login.html"
     }
 
     $scope.ingresoTipoTripulante = function () {
@@ -79,7 +79,7 @@ app.controller('ControllerTipoTripulante', ['$scope', '$http', 'myProvider', fun
     $scope.logout = function () {
 
         localStorage.clear();
-        window.location = "/login.html"
+        window.location = "../login.html"
 
     }
 

@@ -31,7 +31,7 @@ app.controller('ControllerTipoCombustible', ['$scope', '$http', 'myProvider', fu
         }
 
     } else {
-        window.location = "/login.html"
+        window.location = "../login.html"
     }
 
     $scope.ingresoTipoCombustible = function () {
@@ -80,7 +80,7 @@ app.controller('ControllerTipoCombustible', ['$scope', '$http', 'myProvider', fu
     $scope.logout = function () {
 
         localStorage.clear();
-        window.location = "/login.html"
+        window.location = "../login.html"
 
     }
 

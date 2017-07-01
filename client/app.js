@@ -4,6 +4,7 @@ function ApiUrl() {
     var url;
     //url = "http://13.67.221.169:3001/api/";
     url = "http://localhost:3000/api/";
+    urlUser = "http://localhost:3000/users/";
 
     ////ejemplo a seguir
     //this.getUser = function () {
@@ -11,6 +12,20 @@ function ApiUrl() {
     //}
 
     /////////////////////////////////////////////////////////////////////////
+
+    //Autenticacion
+
+    // Autenticacion 
+    this.getUrlAutenticar = function () {
+        return (urlUser + 'autenticacion');
+    }
+
+    // Autenticacion Perfil
+    this.getUrlPerfil = function () {
+        return (urlUser + 'perfil');
+    }
+
+    /////////////////////////////////////////////
 
     // Ingreso Estado Orden Servicio
     this.getUrlIngresoEstadoOrden = function () {

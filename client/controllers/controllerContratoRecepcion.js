@@ -34,7 +34,7 @@ app.controller('ControllerContratoRecepcion', ['$scope', '$http', 'myProvider', 
         }
 
     } else {
-        window.location = "/login.html"
+        window.location = "../login.html"
     }
     $scope.ingresoContratoRecepcion = function () {
         var obj = { descripcion_contrato_recepcion: $scope.descripcionContratoRecepcion };
@@ -82,7 +82,7 @@ app.controller('ControllerContratoRecepcion', ['$scope', '$http', 'myProvider', 
     $scope.logout = function () {
 
         localStorage.clear();
-        window.location = "/login.html"
+        window.location = "../login.html"
 
     }
 

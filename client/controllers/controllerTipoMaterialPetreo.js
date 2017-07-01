@@ -37,7 +37,7 @@ app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider',
                 });
         }
     } else {
-        window.location = "/login.html"
+        window.location = "../login.html"
     }
 
     $scope.ingresoTipoMaterial = function () {
@@ -91,7 +91,7 @@ app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider',
     $scope.logout = function () {
 
         localStorage.clear();
-        window.location = "/login.html"
+        window.location = "../login.html"
 
     }
 

@@ -39,8 +39,9 @@ app.controller('ControllerTipoAlimentos', ['$scope', '$http', 'myProvider', func
                     console.log(response);
                 });
         }
+
     } else {
-        window.location = "/login.html"
+        window.location = "../login.html"
     }
 
     $scope.ingresoTipoAlimentos = function () {
@@ -92,7 +93,7 @@ app.controller('ControllerTipoAlimentos', ['$scope', '$http', 'myProvider', func
     $scope.logout = function () {
 
         localStorage.clear();
-        window.location = "/login.html"
+        window.location = "../login.html"
 
     }
 

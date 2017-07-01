@@ -31,7 +31,7 @@ app.controller('ControllerVehiculo', ['$scope', '$http', 'myProvider', function 
                 });
         }
     } else {
-        window.location = "/login.html"
+        window.location = "../login.html"
     }
     $scope.ingresoVehiculo = function () {
 
@@ -91,7 +91,7 @@ app.controller('ControllerVehiculo', ['$scope', '$http', 'myProvider', function 
     $scope.logout = function () {
 
         localStorage.clear();
-        window.location = "/login.html"
+        window.location = "../login.html"
 
     }
 

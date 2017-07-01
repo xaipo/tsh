@@ -144,7 +144,7 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
 
         }
     } else {
-        window.location = "/login.html"
+        window.location = "../login.html"
     }
 
     $scope.iniciarListas = function () {
@@ -745,7 +745,7 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
     $scope.logout = function () {
 
         localStorage.clear();
-        window.location = "/login.html"
+        window.location = "../login.html"
 
     }
 

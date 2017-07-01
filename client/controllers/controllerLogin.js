@@ -2,6 +2,7 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
 
     $scope.urlBuscarUsuario;
     $scope.urlBuscarTipoUsuario;
+    $scope.urlAutenticacion;
 
     $scope.nombreUsuario;
     $scope.password;
@@ -13,6 +14,9 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
 
         $scope.url = myProvider.getUrlBuscarUsuario();
         $scope.urlBuscarTipoUsuario = myProvider.getUrlBuscarTipoUsuario();
+        $scope.urlAutenticacion = myProvider.getUrlAutenticar();
+        $scope.urlPerfil = myProvider.getUrlPerfil();
+
 
     }
 
@@ -27,12 +31,12 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
             password: $scope.password
 
         }
-
+        
         if (validarVacios(user)) {
 
             $http({
                 method: 'POST',
-                url: 'http://localhost:3000/users/autenticacion',
+                url: $scope.urlAutenticacion,
                 data: {
                     username: user.nombreUsuario,
                     password: user.password
@@ -48,7 +52,7 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
 
                 $http({
                     method: 'GET',
-                    url: 'http://localhost:3000/users/perfil',
+                    url: $scope.urlPerfil,
                     headers: {
                         'Authorization': localStorage.getItem("id_token"),
                         'Content-Type': 'application/json'
@@ -56,7 +60,7 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
 
                 }).then(function successCallback(response) {
                     console.log("autorizacion aceptada")
-                    window.location = "/menu.html";
+                    window.location = "menu.html";
                     //window.location = "users/perfil";
                 }, function errorCallback(response) {
 
@@ -76,10 +80,9 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
     }
 
     $scope.logout = function () {
-
-        console.log("hola");
+        
         localStorage.clear();
-        window.location = "/login.html";
+        window.location = "login.html";
 
     }
 

@@ -136,7 +136,7 @@ app.controller('ControllerMantenimiento', ['$scope', '$http', 'myProvider', "$ti
         }
 
     } else {
-        window.location = "/login.html"
+        window.location = "../login.html"
     }
 
     $scope.ingresoDetalleMantenimiento = function () {
@@ -266,7 +266,7 @@ app.controller('ControllerMantenimiento', ['$scope', '$http', 'myProvider', "$ti
     $scope.logout = function () {
 
         localStorage.clear();
-        window.location = "/login.html"
+        window.location = "../login.html"
 
     }
 
