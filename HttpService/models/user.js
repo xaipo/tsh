@@ -19,7 +19,15 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    tipo_usuario: {
+    type_user: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    identification_card: {
         type: String,
         required: true
     }

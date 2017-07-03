@@ -6,16 +6,26 @@ var url = 'mongodb://localhost:27017/tsh';
 var objectId = require('mongodb').ObjectID;
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 
 router.post('/saveUsuario', function (req, res) {
 
+    var newUser = {
+        name: req.body.name,
+        email: req.body.email,
+        username: req.body.username,
+        password: psswd,
+        phone: req.body.phone,
+        identification_card: req.body.identification_card,
+        type_user: req.body.type_user
+    }
+
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
 
-        console.log(req.body);
-        var collection = db.collection('usuarios');
-        collection.insert(req.body, {
+        var collection = db.collection('users');
+        collection.insert(newUser, {
 
         });
 
@@ -24,6 +34,7 @@ router.post('/saveUsuario', function (req, res) {
         db.close();
 
     });
+
 });
 
 
@@ -34,19 +45,19 @@ router.post('/updateUsuario', function (req, res) {
         assert.equal(null, err);
         console.log(req.body);
         var item = {
-            nombres_completos: req.body.nombres_completos,
-            correo_usuario: req.body.correo_usuario,
-            nombre_usuario: req.body.nombre_usuario,
-            contrasena_usuario: req.body.contrasena_usuario,
-            telefono_usuario: req.body.telefono_usuario,
-            tipo_usuario: req.body.tipo_usuario,
-            cedula_usuario: req.body.cedula_usuario
+            name: req.body.name,
+            email: req.body.email,
+            username: req.body.username,
+            password: req.body.password,
+            phone: req.body.phone,
+            type_user: req.body.type_user,
+            identification_card: req.body.identification_card
         };
 
 
 
         var id = req.body.id;
-        db.collection('usuarios').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
+        db.collection('users').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
             assert.equal(null, err);
             console.log('Item updated');
 
@@ -64,7 +75,7 @@ router.post('/getByIdUsuario', function (req, res) {
         console.log(req.body);
 
         var id = req.body.id;
-        db.collection('usuarios').findOne({ "_id": objectId(id) }, function (err, result) {
+        db.collection('users').findOne({ "_id": objectId(id) }, function (err, result) {
             assert.equal(null, err);
             console.log(result);
             console.log('Item loaded');
@@ -82,7 +93,7 @@ router.get('/getAllUsuario', function (req, res) {
     MongoClient.connect(url, function (err, db) {
 
         assert.equal(null, err);
-        var cursor = db.collection('usuarios').find();
+        var cursor = db.collection('users').find();
         cursor.forEach(function (doc, err) {
             assert.equal(null, err);
             resultArray.push(doc);

@@ -22,16 +22,13 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
 
     $scope.login = function () {
 
-        //window.location = "menu.html";
-        //this.$http.post('http://localhost:3000/users/autenticacion');
-
         var user = {
 
             nombreUsuario: $scope.nombreUsuario,
             password: $scope.password
 
         }
-        
+
         if (validarVacios(user)) {
 
             $http({
@@ -80,7 +77,7 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
     }
 
     $scope.logout = function () {
-        
+
         localStorage.clear();
         window.location = "login.html";
 

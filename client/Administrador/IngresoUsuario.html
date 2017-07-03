@@ -231,8 +231,8 @@
                             <div class="col-md-12">
                                 <select name="Usuarios" ng-model="seleccionUsuario" multiple class="form-control" style="height: 270px;" ng-click="buscarSeleccionListaUsuario()">
                                     <option value={{aux}}
-                                            ng-repeat="aux in listaUsuario | filter:busqueda| orderBy:aux.nombre_usuario">
-                                        {{aux.nombre_usuario}}
+                                            ng-repeat="aux in listaUsuario | filter:busqueda| orderBy:aux.name">
+                                        {{aux.name}}{{"--"}}{{aux.username}}
                                     </option>
                                 </select>
                             </div>

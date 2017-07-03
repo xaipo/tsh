@@ -4,14 +4,17 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
-// Registro
 
+// Registro
 router.post('/register', (req, res, next) => {
     let newUser = new User({
         name: req.body.name,
         email: req.body.email,
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        type_user: req.body.type_user,
+        phone: req.body.phone,
+        identification_card: req.body.identification_card
     });
 
     User.addUser(newUser, (err, user) => {

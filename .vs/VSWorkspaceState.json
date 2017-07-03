@@ -5,9 +5,8 @@
     "\\client\\Administrador",
     "\\HttpService",
     "\\HttpService\\config",
-    "\\HttpService\\models",
-    "\\HttpService\\Public"
+    "\\HttpService\\models"
   ],
-  "SelectedNode": "\\client\\Administrador\\IngresoCliente.html",
+  "SelectedNode": "\\client\\Administrador\\IngresoUsuario.html",
   "PreviewInSolutionExplorer": false
 }

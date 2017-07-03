@@ -13,7 +13,10 @@ function ApiUrl() {
 
     /////////////////////////////////////////////////////////////////////////
 
-    //Autenticacion
+    //Ingreso user
+    this.getUrlRegister = function () {
+        return (urlUser + 'register');
+    }
 
     // Autenticacion 
     this.getUrlAutenticar = function () {

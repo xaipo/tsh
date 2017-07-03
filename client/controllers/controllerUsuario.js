@@ -1,6 +1,7 @@
 app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function ($scope, $http, myProvider) {
 
     $scope.url;
+    $scope.urlRegister;
     $scope.urlModificar;
     $scope.urlAllUsuario;
     $scope.urlAllTipoUsuario;
@@ -36,6 +37,7 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
             $scope.cedulaUsuario = "";
 
             $scope.url = myProvider.getUrlIngresoUsuario();
+            $scope.urlRegister = myProvider.getUrlRegister();
             $scope.urlModificar = myProvider.getUrlModificarUsuario();
             $scope.urlAllUsuario = myProvider.getUrlAllUsuario();
             $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoUsuario();
@@ -56,7 +58,6 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
 
                     $scope.listaTipoUsuario = response.data;
                     $scope.tipoUsuario = $scope.listaTipoUsuario[0]._id;
-                    console.log($scope.listaTipoUsuario);
 
                 }, function errorCallback(response) {
 
@@ -67,35 +68,27 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
     } else {
         window.location = "../login.html"
     }
+
     $scope.ingresoUsuario = function () {
-        //console.log($scope.nombreUsuario);
+
         const user = {
-            nombres_completos: $scope.nombresCompletos,
-            nombre_usuario: $scope.nombreUsuario,
-            cedula_usuario: $scope.cedulaUsuario,
-            contrasena_usuario: $scope.contrasenaUsuario,
-            telefono_usuario: $scope.telefonoUsuario,
-            correo_usuario: $scope.correoUsuario,
-            tipo_usuario: $scope.tipoUsuario
+            name: $scope.nombresCompletos,
+            username: $scope.nombreUsuario,
+            identification_card: $scope.cedulaUsuario,
+            password: $scope.contrasenaUsuario,
+            phone: $scope.telefonoUsuario,
+            email: $scope.correoUsuario,
+            type_user: $scope.tipoUsuario
         }
-        console.log(JSON.stringify(user));
+        //console.log(JSON.stringify(user));
         if (!validarCamposVacios(user)) {
             alert("existen campos vacios");
         } else {
-            if (!validateEmail(user.correoUsuario)) {
+            if (!validateEmail(user.email)) {
                 alert("correo invalido");
             } else {
 
-                var obj = {
-                    nombres_completos: $scope.nombresCompletos,
-                    nombre_usuario: $scope.nombreUsuario,
-                    cedula_usuario: $scope.cedulaUsuario,
-                    contrasena_usuario: $scope.contrasenaUsuario,
-                    telefono_usuario: $scope.telefonoUsuario,
-                    correo_usuario: $scope.correoUsuario,
-                    tipo_usuario: $scope.tipoUsuario
-                };
-                $http.post($scope.url, obj)
+                $http.post($scope.urlRegister, user)
                     .then(function (response) {
 
                         $scope.iniciar();
@@ -108,22 +101,19 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
 
             }
         }
-        //
-
-
     }
 
     $scope.modificarUsuario = function () {
 
         var obj = {
             id: $scope.id,
-            nombres_completos: $scope.nombresCompletos,
-            nombre_usuario: $scope.nombreUsuario,
-            cedula_usuario: $scope.cedulaUsuario,
-            contrasena_usuario: $scope.contrasenaUsuario,
-            telefono_usuario: $scope.telefonoUsuario,
-            correo_usuario: $scope.correoUsuario,
-            tipo_usuario: $scope.tipoUsuario
+            name: $scope.nombresCompletos,
+            username: $scope.nombreUsuario,
+            identification_card: $scope.cedulaUsuario,
+            password: $scope.contrasenaUsuario,
+            phone: $scope.telefonoUsuario,
+            email: $scope.correoUsuario,
+            type_user: $scope.tipoUsuario
         };
         $http.post($scope.urlModificar, obj)
             .then(function (response) {
@@ -145,13 +135,13 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
             $scope.selecUsu = JSON.parse($scope.seleccionUsuario);
 
             $scope.id = $scope.selecUsu._id;
-            $scope.nombreUsuario = $scope.selecUsu.nombre_usuario;
-            $scope.nombresCompletos = $scope.selecUsu.nombres_completos;
-            $scope.cedulaUsuario = $scope.selecUsu.cedula_usuario;
-            $scope.contrasenaUsuario = $scope.selecUsu.contrasena_usuario;
-            $scope.telefonoUsuario = $scope.selecUsu.telefono_usuario;
-            $scope.correoUsuario = $scope.selecUsu.correo_usuario;
-            $scope.tipoUsuario = $scope.selecUsu.tipo_usuario;
+            $scope.nombreUsuario = $scope.selecUsu.username;
+            $scope.nombresCompletos = $scope.selecUsu.name;
+            $scope.cedulaUsuario = $scope.selecUsu.identification_card;
+            $scope.contrasenaUsuario = $scope.selecUsu.password;
+            $scope.telefonoUsuario = $scope.selecUsu.phone;
+            $scope.correoUsuario = $scope.selecUsu.email;
+            $scope.tipoUsuario = $scope.selecUsu.type_user;
             console.log($scope.selecUsu);
         }
     }
