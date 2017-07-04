@@ -37,9 +37,7 @@ router.post('/saveUsuario', function (req, res) {
 
 });
 
-
 router.post('/updateUsuario', function (req, res) {
-
 
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
@@ -53,8 +51,6 @@ router.post('/updateUsuario', function (req, res) {
             type_user: req.body.type_user,
             identification_card: req.body.identification_card
         };
-
-
 
         var id = req.body.id;
         db.collection('users').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
@@ -85,6 +81,25 @@ router.post('/getByIdUsuario', function (req, res) {
         db.close();
     });
 });
+
+router.post('/getByNameUsuario', function (req, res) {
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+
+        var user = req.body.username;
+        db.collection('users').findOne({ "username": user }, function (err, result) {
+            assert.equal(null, err);
+            console.log(result);
+            console.log('Item loaded');
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
 
 
 router.get('/getAllUsuario', function (req, res) {

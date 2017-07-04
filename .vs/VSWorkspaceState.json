@@ -2,11 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\client",
-    "\\client\\Administrador",
+    "\\client\\Maquinista",
     "\\HttpService",
     "\\HttpService\\config",
     "\\HttpService\\models"
   ],
-  "SelectedNode": "\\client\\Administrador\\IngresoUsuario.html",
+  "SelectedNode": "\\client\\menuMaquinista.html",
   "PreviewInSolutionExplorer": false
 }

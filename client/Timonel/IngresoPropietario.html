@@ -26,40 +26,28 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" style="color: white" href="index.html">TSH</a>
+                    <a class="navbar-brand" style="color: white" href="../menuTimonel.html">TSH</a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active" style="background-color: #006294; color: white"><a href="index.html">Inicio</a></li>
+                        <li class="active" style="background-color: #006294; color: white"><a href="../menuTimonel.html">Inicio</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Administrar<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="IngresoCliente.html">Cliente</a></li>
-                                <li><a href="IngresoContratoRecepcion.html">Contrato Recepcion</a></li>
-                                <li><a href="IngresoEstadoOrden.html">Estado Orden Servicio</a></li>
-                                <li><a href="IngresoMateriales.html">Materiales</a></li>
                                 <li><a href="IngresoPropietario.html">Propietario</a></li>
                                 <li><a href="IngresoPuerto.html">Puerto</a></li>
-                                <li><a href="IngresoTipoAlimento.html">Tipo Alimento</a></li>
-                                <li><a href="IngresoTipoCombustible.html">Tipo Combustible</a></li>
-                                <li><a href="IngresoTipoEmbarcacion.html">Tipo Embarcacion</a></li>
-                                <li><a href="IngresoTipoMantenimiento.html">Tipo Mantenimiento</a></li>
-                                <li><a href="IngresoTipoMaterialPetreo.html">Tipo Material Petreo</a></li>
-                                <li><a href="IngresoTipoTripulante.html">Tipo Tripulante</a></li>
-                                <li><a href="IngresoTipoUsuario.html">Tipo Usuario</a></li>
-                                <li><a href="IngresoTripulante.html">Tripulante</a></li>
                                 <li><a href="IngresoUsuario.html">Usuario</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
+                        <!--<li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Viajes<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="IngresoEmbarcacion.html">Embarcacion</a></li>
-                                <li><a href="IngresoMantenimiento.html">Mantimiento</a></li>
-                                <li><a href="IngresoOrdenServicio.html">Orden Servicio</a></li>
-                                <li><a href="IngresoPedido.html">Pedido</a></li>
+                                <li><a href="./Administrador/IngresoEmbarcacion.html">Embarcacion</a></li>
+                                <li><a href="./Administrador/IngresoMantenimiento.html">Mantimiento</a></li>
+                                <li><a href="./Administrador/IngresoOrdenServicio.html">Orden Servicio</a></li>
+                                <li><a href="./Administrador/IngresoPedido.html">Pedido</a></li>
                             </ul>
-                        </li>
+                        </li>-->
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actualizar Viajes<span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -71,7 +59,7 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-log-out" style="color: white"></span> LogOut</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-log-out" style="color: white" ng-click="logout()"></span> LogOut</a></li>
                     </ul>
                 </div>
             </div>
@@ -99,7 +87,7 @@
                                     <h4>Nombre: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text" ng-model="nombrePropietario" placeholder="Apellidos Nombres" class="form-control" />
+                                    <input type="text" ng-model="nombrePropietario" placeholder="Apellidos Nombres" class="form-control" disabled/>
                                 </div>
                             </div>
                             <div class="row">
@@ -125,7 +113,7 @@
                                             return patron.test(tecla_final);
                                         }
                                     </script>
-                                    <input type="text" onkeypress="return valida(event)" placeholder="1234567890" maxlength="10" ng-model="cedulaPropietario"  class="form-control" />
+                                    <input type="text" disabled onkeypress="return valida(event)" placeholder="1234567890" maxlength="10" ng-model="cedulaPropietario"  class="form-control" />
                                 </div>
                             </div>
                             <div class="row">
@@ -136,7 +124,7 @@
                                     <h4>Teléfono: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text" onkeypress="return valida(event)" placeholder="032123456" maxlength="9" ng-model="telefonoPropietario" class="form-control" />
+                                    <input type="text" disabled onkeypress="return valida(event)" placeholder="032123456" maxlength="9" ng-model="telefonoPropietario" class="form-control" />
                                 </div>
                             </div>
                             <div class="row">
@@ -147,7 +135,7 @@
                                     <h4>Celular: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text" ng-model="celularPropietario" onkeypress="return valida(event)" placeholder="0990123456" maxlength="10" class="form-control" />
+                                    <input type="text" disabled ng-model="celularPropietario" onkeypress="return valida(event)" placeholder="0990123456" maxlength="10" class="form-control" />
                                 </div>
                             </div>
                             <div class="row">
@@ -158,7 +146,7 @@
                                     <h4>Correo: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="email" ng-model="correoPropietario" placeholder="email@example.com" class="form-control" />
+                                    <input type="email" disabled ng-model="correoPropietario" placeholder="email@example.com" class="form-control" />
                                 </div>
                             </div>
                             <br>
@@ -169,13 +157,6 @@
 
                             </div>
 
-                            <div class="col-md-4">
-                                <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoPropietario()"/>
-                            </div>
-
-                            <div class="col-md-6">
-                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarPropietario()"/>
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -26,47 +26,25 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" style="color: white" href="index.html">TSH</a>
+                    <a class="navbar-brand" style="color: white" href="../menuMarinero.html">TSH</a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active" style="background-color: #006294; color: white"><a href="index.html">Inicio</a></li>
+                        <li class="active" style="background-color: #006294; color: white"><a href="../menuMarinero.html">Inicio</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Administrar<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="IngresoCliente.html">Cliente</a></li>
-                                <li><a href="IngresoContratoRecepcion.html">Contrato Recepcion</a></li>
-                                <li><a href="IngresoEstadoOrden.html">Estado Orden Servicio</a></li>
                                 <li><a href="IngresoMateriales.html">Materiales</a></li>
-                                <li><a href="IngresoPropietario.html">Propietario</a></li>
-                                <li><a href="IngresoPuerto.html">Puerto</a></li>
-                                <li><a href="IngresoTipoAlimento.html">Tipo Alimento</a></li>
-                                <li><a href="IngresoTipoCombustible.html">Tipo Combustible</a></li>
-                                <li><a href="IngresoTipoEmbarcacion.html">Tipo Embarcacion</a></li>
-                                <li><a href="IngresoTipoMantenimiento.html">Tipo Mantenimiento</a></li>
-                                <li><a href="IngresoTipoMaterialPetreo.html">Tipo Material Petreo</a></li>
-                                <li><a href="IngresoTipoTripulante.html">Tipo Tripulante</a></li>
-                                <li><a href="IngresoTipoUsuario.html">Tipo Usuario</a></li>
-                                <li><a href="IngresoTripulante.html">Tripulante</a></li>
                                 <li><a href="IngresoUsuario.html">Usuario</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Viajes<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="IngresoEmbarcacion.html">Embarcacion</a></li>
-                                <li><a href="IngresoMantenimiento.html">Mantimiento</a></li>
-                                <li><a href="IngresoOrdenServicio.html">Orden Servicio</a></li>
-                                <li><a href="IngresoPedido.html">Pedido</a></li>
-                            </ul>
-                        </li>
+
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actualizar Viajes<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="ModificarEmbarcacion.html">Embarcacion</a></li>
                                 <li><a href="ModificarMantenimiento.html">Mantimiento</a></li>
                                 <li><a href="ModificarOrdenServicio.html">Orden Servicio</a></li>
-                                <li><a href="ModificarPedido.html">Pedido</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -99,7 +77,7 @@
                                     <h4>Usuario: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text" ng-model="nombreUsuario" placeholder="Nombre de Usuario" class="form-control" />
+                                    <input type="text" ng-model="nombreUsuario" placeholder="Nombre de Usuario" class="form-control" disabled />
                                 </div>
                             </div>
                             <div class="row">
@@ -125,7 +103,7 @@
                                             return patron.test(tecla_final);
                                         }
                                     </script>
-                                    <input type="text" ng-model="cedulaUsuario" onkeypress="return valida(event)" placeholder="1234567890" maxlength="10" class="form-control" />
+                                    <input type="text" ng-model="cedulaUsuario" onkeypress="return valida(event)" placeholder="1234567890" maxlength="10" class="form-control" disabled />
                                 </div>
                             </div>
                             <div class="row">
@@ -169,9 +147,7 @@
                                     <h4>Tipo Usuario: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <select class="form-control" ng-model="tipoUsuario" ng-options="item._id as item.descripcion_tipo_usuario for item in listaTipoUsuario">
-                                        
-                                    </select>                                  
+                                    <select class="form-control" ng-model="tipoUsuario" ng-options="item._id as item.descripcion_tipo_usuario for item in listaTipoUsuario" disabled></select>
                                 </div>
                             </div>
                         </div>
@@ -182,12 +158,13 @@
                         </div>
 
                         <div class="col-md-4">
-                            <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoUsuario()"/>
+                            <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarUsuario()" />
                         </div>
 
                         <div class="col-md-4">
-                            <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarUsuario()"/>
+                            <input class="form-control btn-primary" type="submit" value="Cancelar" />
                         </div>
+
                         <div class="row">
                             <div class="col-md-10">
                                 <h1></h1>
@@ -197,38 +174,6 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><center><h3 class="panel-title">Lista de Tipo Usuario</h3></center></div>
-                    <div class="panel-body">
-                        <div class="row">
-
-                            <div class="col-md-5">
-                                <h4>Filtrar: </h4>
-                            </div>
-
-                            <div class="col-md-7">
-                                <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-
-                            </div>
-
-                            <div class="col-md-12">
-                                <select name="Usuarios" ng-model="seleccionUsuario" multiple class="form-control" style="height: 270px;" ng-click="buscarSeleccionListaUsuario()">
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaUsuario | filter:busqueda| orderBy:aux.nombre_usuario">
-                                        {{aux.nombre_usuario}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 

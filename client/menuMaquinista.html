@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+    <link type="text/css" href="bootstrap/dist/css/bootstrap.css" id="pagesheet" rel="stylesheet" media="screen" />
+    <link type="text/css" href="css/OverrideComponents.css" id="pagesheet2" rel="stylesheet" media="screen" />
+    <!-----angular-->
+
+    <script src="jquery/dist/jquery.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="angular/angular.js"></script>
+    <script src="app.js"></script>
+    <script src="./controllers/controllerLogin.js"></script>
+</head>
+<body ng-app="myApp" style="background-color: white" ng-controller="ControllerLogin" ng-init="iniciar()">
+    <!-- inicio de menu-->
+    <header>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" style="color: white" href="menuMaquinista.html">TSH</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active" style="background-color: #006294; color: white"><a href="menuMaquinista.html">Inicio</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Administrar<span class="caret"></span></a>
+                            <ul class="dropdown-menu">      
+                                <li><a href="./Maquinista/IngresoMateriales.html">Materiales</a></li>
+                                <li><a href="./Maquinista/IngresoUsuario.html">Usuario</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actualizar Viajes<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="./Maquinista/ModificarEmbarcacion.html">Embarcacion</a></li>
+                                <li><a href="./Maquinista/ModificarMantenimiento.html">Mantimiento</a></li>
+                                <li><a href="./Maquinista/ModificarOrdenServicio.html">Orden Servicio</a></li>
+                                <li><a href="./Maquinista/ModificarPedido.html">Pedido</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#"><span class="glyphicon glyphicon-log-out" style="color: white" ng-click="logout()"></span> LogOut</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- final menu-->
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="jumbotron">
+        <div class="container" style="height: 200%">
+            <center> <img src="images/LogoModColor.svg" style="max-width: 40% ; text-align: center !important;" /></center>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function ($scope, $http, myProvider) {
 
     $scope.url;
+    $scope.urlBuscarUser;
     $scope.urlRegister;
     $scope.urlModificar;
     $scope.urlAllUsuario;
@@ -37,10 +38,11 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
             $scope.cedulaUsuario = "";
 
             $scope.url = myProvider.getUrlIngresoUsuario();
-            $scope.urlRegister = myProvider.getUrlRegister();
-            $scope.urlModificar = myProvider.getUrlModificarUsuario();
+            $scope.urlBuscarUser = myProvider.getUrlBuscarUsuarioNombre();
+            $scope.urlRegister = myProvider.getUrlRegisterUser();
+            $scope.urlModificar = myProvider.getUrlModificarUser();
             $scope.urlAllUsuario = myProvider.getUrlAllUsuario();
-            $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoUsuario();
+            $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoUsuario();            
 
             $http.get($scope.urlAllUsuario)
                 .then(function (response) {
@@ -71,36 +73,49 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
 
     $scope.ingresoUsuario = function () {
 
-        const user = {
-            name: $scope.nombresCompletos,
-            username: $scope.nombreUsuario,
-            identification_card: $scope.cedulaUsuario,
-            password: $scope.contrasenaUsuario,
-            phone: $scope.telefonoUsuario,
-            email: $scope.correoUsuario,
-            type_user: $scope.tipoUsuario
+        var us = {
+            username: $scope.nombreUsuario
         }
-        //console.log(JSON.stringify(user));
-        if (!validarCamposVacios(user)) {
-            alert("existen campos vacios");
-        } else {
-            if (!validateEmail(user.email)) {
-                alert("correo invalido");
-            } else {
 
-                $http.post($scope.urlRegister, user)
-                    .then(function (response) {
+        $http.post($scope.urlBuscarUser, us)
+            .then(function (response) {
+                if (response.data == null || response.data == "") {
+                    const user = {
+                        name: $scope.nombresCompletos,
+                        username: $scope.nombreUsuario,
+                        identification_card: $scope.cedulaUsuario,
+                        password: $scope.contrasenaUsuario,
+                        phone: $scope.telefonoUsuario,
+                        email: $scope.correoUsuario,
+                        type_user: $scope.tipoUsuario
+                    }
 
-                        $scope.iniciar();
-                        console.log(response);
+                    if (!validarCamposVacios(user)) {
+                        alert("existen campos vacios");
+                    } else {
+                        if (!validateEmail(user.email)) {
+                            alert("correo invalido");
+                        } else {
 
-                    }, function errorCallback(response) {
+                            $http.post($scope.urlRegister, user)
+                                .then(function (response) {
 
-                        console.log(response);
-                    });
+                                    $scope.iniciar();
+                                    console.log(response);
 
-            }
-        }
+                                }, function errorCallback(response) {
+
+                                    console.log(response);
+                                });
+
+                        }
+                    }
+                } else
+                    alert("usuario existe");
+
+            }, function errorCallback(response) {
+                alert(response);
+            });
     }
 
     $scope.modificarUsuario = function () {
@@ -115,17 +130,24 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
             email: $scope.correoUsuario,
             type_user: $scope.tipoUsuario
         };
-        $http.post($scope.urlModificar, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
-                console.log(response);
+        if (!validarCamposVacios(obj)) {
+            alert("existen campos vacios");
+        } else {
+            if (!validateEmail(obj.email)) {
+                alert("correo invalido");
+            } else {
+                $http.post($scope.urlModificar, obj)
+                    .then(function (response) {
 
-            }, function errorCallback(response) {
+                        $scope.iniciar();
+                        console.log(response);
 
-                console.log(response);
-            });
-
+                    }, function errorCallback(response) {
+                        console.log(response);
+                    });
+            }
+        }
     }
 
     $scope.buscarSeleccionListaUsuario = function () {
@@ -142,7 +164,6 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
             $scope.telefonoUsuario = $scope.selecUsu.phone;
             $scope.correoUsuario = $scope.selecUsu.email;
             $scope.tipoUsuario = $scope.selecUsu.type_user;
-            console.log($scope.selecUsu);
         }
     }
 

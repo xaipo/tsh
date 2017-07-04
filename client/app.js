@@ -14,8 +14,13 @@ function ApiUrl() {
     /////////////////////////////////////////////////////////////////////////
 
     //Ingreso user
-    this.getUrlRegister = function () {
+    this.getUrlRegisterUser = function () {
         return (urlUser + 'register');
+    }
+
+    //Modificar user
+    this.getUrlModificarUser = function () {
+        return (urlUser + 'updateUser');
     }
 
     // Autenticacion 
@@ -464,6 +469,11 @@ function ApiUrl() {
     // Buscar Usuario
     this.getUrlBuscarUsuario = function () {
         return (url + 'getByIdUsuario');
+    }
+
+    // Buscar Usuario por nombre
+    this.getUrlBuscarUsuarioNombre = function () {
+        return (url + 'getByNameUsuario');
     }
 
     // Buscar todos los Usuario

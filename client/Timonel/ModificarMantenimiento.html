@@ -28,40 +28,28 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" style="color: white" href="index.html">TSH</a>
+                    <a class="navbar-brand" style="color: white" href="../menuTimonel.html">TSH</a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active" style="background-color: #006294; color: white"><a href="index.html">Inicio</a></li>
+                        <li class="active" style="background-color: #006294; color: white"><a href="../menuTimonel.html">Inicio</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Administrar<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="IngresoCliente.html">Cliente</a></li>
-                                <li><a href="IngresoContratoRecepcion.html">Contrato Recepcion</a></li>
-                                <li><a href="IngresoEstadoOrden.html">Estado Orden Servicio</a></li>
-                                <li><a href="IngresoMateriales.html">Materiales</a></li>
                                 <li><a href="IngresoPropietario.html">Propietario</a></li>
                                 <li><a href="IngresoPuerto.html">Puerto</a></li>
-                                <li><a href="IngresoTipoAlimento.html">Tipo Alimento</a></li>
-                                <li><a href="IngresoTipoCombustible.html">Tipo Combustible</a></li>
-                                <li><a href="IngresoTipoEmbarcacion.html">Tipo Embarcacion</a></li>
-                                <li><a href="IngresoTipoMantenimiento.html">Tipo Mantenimiento</a></li>
-                                <li><a href="IngresoTipoMaterialPetreo.html">Tipo Material Petreo</a></li>
-                                <li><a href="IngresoTipoTripulante.html">Tipo Tripulante</a></li>
-                                <li><a href="IngresoTipoUsuario.html">Tipo Usuario</a></li>
-                                <li><a href="IngresoTripulante.html">Tripulante</a></li>
                                 <li><a href="IngresoUsuario.html">Usuario</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
+                        <!--<li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Viajes<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="IngresoEmbarcacion.html">Embarcacion</a></li>
-                                <li><a href="IngresoMantenimiento.html">Mantimiento</a></li>
-                                <li><a href="IngresoOrdenServicio.html">Orden Servicio</a></li>
-                                <li><a href="IngresoPedido.html">Pedido</a></li>
+                                <li><a href="./Administrador/IngresoEmbarcacion.html">Embarcacion</a></li>
+                                <li><a href="./Administrador/IngresoMantenimiento.html">Mantimiento</a></li>
+                                <li><a href="./Administrador/IngresoOrdenServicio.html">Orden Servicio</a></li>
+                                <li><a href="./Administrador/IngresoPedido.html">Pedido</a></li>
                             </ul>
-                        </li>
+                        </li>-->
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actualizar Viajes<span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -73,7 +61,7 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-log-out" style="color: white"></span> LogOut</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-log-out" style="color: white" ng-click="logout()"></span> LogOut</a></li>
                     </ul>
                 </div>
             </div>
@@ -141,7 +129,7 @@
                                         <h4>Tipo Mantenimiento: </h4>
                                     </div>
                                     <div class="col-md-4">
-                                        <select class="form-control" ng-model="tipoMantenimiento" ng-options="item._id as item.descripcion_tipo_mantenimiento for item in listaTipoMantenimiento"></select>
+                                        <select class="form-control" ng-model="tipoMantenimiento" ng-options="item._id as item.descripcion_tipo_mantenimiento for item in listaTipoMantenimiento"  disabled></select>
                                     </div>
                                 </div>
                             </div>
@@ -154,7 +142,7 @@
                                         <h4>Embarcacion: </h4>
                                     </div>
                                     <div class="col-md-4">
-                                        <select class="form-control" ng-model="embarcacion" ng-options="item._id as item.nombre_embarcacion for item in listaEmbarcacion"></select>
+                                        <select class="form-control" ng-model="embarcacion" ng-options="item._id as item.nombre_embarcacion for item in listaEmbarcacion"  disabled></select>
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +158,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="input-group date juan-date">
-                                            <input type="text" ng-model="fechaMantenimiento" placeholder="Fecha Entrega" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            <input type="text" ng-model="fechaMantenimiento" placeholder="Fecha Entrega" class="form-control"  disabled><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                         </div>
                                         <script type="text/javascript">
                                             $('.juan-date').datepicker({
@@ -191,7 +179,7 @@
                                         <h4>Nombre mecánico: </h4>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" ng-model="mecanico" placeholder="Nombre mecánico" class="form-control" />
+                                        <input type="text" ng-model="mecanico" placeholder="Nombre mecánico" class="form-control"  disabled/>
                                     </div>
                                 </div>
                             </div>
@@ -222,7 +210,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="col-md-10">
-                                            <input type="number" ng-model="orometro" placeholder="0" min="0" class="form-control" />
+                                            <input type="number" ng-model="orometro" placeholder="0" min="0" class="form-control" disabled />
                                         </div>
                                     </div>
 
@@ -231,7 +219,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="col-md-10">
-                                            <input type="number" ng-model="proximoOrometro" placeholder="0" min="0" class="form-control" />
+                                            <input type="number" ng-model="proximoOrometro" placeholder="0" min="0" class="form-control" disabled />
                                         </div>
                                     </div>
                                 </div>
@@ -243,7 +231,7 @@
                                         <h4>Observacion: </h4>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" ng-model="piezasCambiadasObservaciones" placeholder="Describir los cambios realizados" class="form-control" />
+                                        <input type="text" ng-model="piezasCambiadasObservaciones" placeholder="Describir los cambios realizados" class="form-control" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -252,22 +240,7 @@
 
                 </div>
                 <br />
-                <div class="row">
-                    <div class="col-md-4">
-
-                    </div>
-
-                    <div class="col-md-2">
-                        <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarMantenimiento()" />
-                    </div>
-
-                    <div class="col-md-2">
-                        <input class="form-control btn-primary" type="submit" value="Cancelar" />
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                </div>
+                
             </div>
         </div>
     </div>

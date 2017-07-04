@@ -56,9 +56,36 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
                     }
 
                 }).then(function successCallback(response) {
-                    console.log("autorizacion aceptada")
-                    window.location = "menu.html";
-                    //window.location = "users/perfil";
+
+                    var tipUsu = {
+                        id: response.data.user.type_user
+                    }
+
+                    $http.post($scope.urlBuscarTipoUsuario, tipUsu)
+                        .then(function (response) {
+
+                            if (response.data.descripcion_tipo_usuario == "administrador") {
+                                window.location = "menu.html";
+                            }
+
+                            if (response.data.descripcion_tipo_usuario == "timonel") {
+                                window.location = "menuTimonel.html";
+                            }
+
+                            if (response.data.descripcion_tipo_usuario == "maquinista") {
+                                window.location = "menuMaquinista.html";
+                            }
+
+                            if (response.data.descripcion_tipo_usuario == "marinero") {
+                                window.location = "menuMarinero.html";
+                            }
+
+                        }, function errorCallback(response) {
+
+                            console.log(response);
+                        });
+                    
+
                 }, function errorCallback(response) {
 
                     console.log("negada")
