@@ -147,7 +147,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             $scope.urlVehiculoModificar = myProvider.getUrlModificarVehiculo();
             $scope.urlVehiculoBuscar = myProvider.getUrlIdVehiculo();
 
-            $scope.urlAllOrdenServicio = myProvider.getUrlAllOrdenServicio();
+            $scope.urlAllOrdenServicioEstadoProcesoViaje = myProvider.getUrlBuscarOrdenServicioEstadoViajeProceso();
             $scope.urlBuscarClienteId = myProvider.getUrlIdClientes();
 
             $scope.getUrlAllTripulanteCapitan = myProvider.getUrlAllTripulanteCapitan();
@@ -353,7 +353,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
                     $scope.listaCliente = response.data;
                     //$scope.seleccionCliente = $scope.listaCliente[0];
 
-                    $http.get($scope.urlAllOrdenServicio)
+                    $http.get($scope.urlAllOrdenServicioEstadoProcesoViaje)
                         .then(function (response) {
 
                             $scope.listaOrdenServicio = response.data;

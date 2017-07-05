@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
     <link type="text/css" href="../bootstrap/dist/css/bootstrap.css" id="pagesheet" rel="stylesheet" media="screen" />
     <link type="text/css" href="../css/OverrideComponents.css" id="pagesheet2" rel="stylesheet" media="screen" />
@@ -51,7 +52,7 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-log-out" style="color: white"></span> LogOut</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-log-out" style="color: white" ng-click="logout()"></span> LogOut</a></li>
                     </ul>
                 </div>
             </div>
@@ -119,7 +120,7 @@
                                         <h4>Tipo Mantenimiento: </h4>
                                     </div>
                                     <div class="col-md-4">
-                                        <select class="form-control" ng-model="tipoMantenimiento" ng-options="item._id as item.descripcion_tipo_mantenimiento for item in listaTipoMantenimiento"  disabled ></select>
+                                        <select class="form-control" ng-model="tipoMantenimiento" ng-options="item._id as item.descripcion_tipo_mantenimiento for item in listaTipoMantenimiento" disabled></select>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +133,7 @@
                                         <h4>Embarcacion: </h4>
                                     </div>
                                     <div class="col-md-4">
-                                        <select class="form-control" ng-model="embarcacion" ng-options="item._id as item.nombre_embarcacion for item in listaEmbarcacion" disabled ></select>
+                                        <select class="form-control" ng-model="embarcacion" ng-options="item._id as item.nombre_embarcacion for item in listaEmbarcacion" disabled></select>
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +149,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="input-group date juan-date">
-                                            <input type="text" ng-model="fechaMantenimiento" placeholder="Fecha Entrega" class="form-control"  disabled ><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            <input type="text" ng-model="fechaMantenimiento" placeholder="Fecha Entrega" class="form-control" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                         </div>
                                         <script type="text/javascript">
                                             $('.juan-date').datepicker({
@@ -175,7 +176,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-">
                             <div class="row">

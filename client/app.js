@@ -2,7 +2,8 @@ var app = angular.module("myApp", [])
 function ApiUrl() {
 
     var url;
-    //url = "http://13.67.221.169:3001/api/";
+    //url = "http://52.173.139.76:3000/api/";
+    //urlUser = "http://52.173.139.76:3000/users/";
     url = "http://localhost:3000/api/";
     urlUser = "http://localhost:3000/users/";
 
@@ -96,6 +97,11 @@ function ApiUrl() {
     // Modificar Orden de Servicio
     this.getUrlModificarOrdenServicio = function () {
         return (url + 'updateOrdenServicio');
+    }
+
+    // filtrar Orden de Servicio por estados Viaje y Proceso
+    this.getUrlBuscarOrdenServicioEstadoViajeProceso = function () {
+        return (url + 'getOrdenServicioEstadoViajeProceso');
     }
 
     // Buscar Orden de Servicio

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
     <link type="text/css" href="bootstrap/dist/css/bootstrap.css" id="pagesheet" rel="stylesheet" media="screen" />
     <link type="text/css" href="css/OverrideComponents.css" id="pagesheet2" rel="stylesheet" media="screen" />
@@ -16,61 +17,65 @@
 <body ng-app="myApp" style="background-color: white" ng-controller="ControllerLogin" ng-init="iniciar()">
     <!-- inicio de menu-->
     <header>
-        <nav class="navbar navbar-inverse">
+        <nav class="navbar navbar-inverse navbar-static-top " role="navigation">
             <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" style="color: white" href="menu.html">TSH</a>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav">
-                        <li class="active" style="background-color: #006294; color: white"><a href="menu.html">Inicio</a></li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Administrar<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="./Administrador/IngresoCliente.html">Cliente</a></li>
-                                <li><a href="./Administrador/IngresoContratoRecepcion.html">Contrato Recepcion</a></li>
-                                <li><a href="./Administrador/IngresoEstadoOrden.html">Estado Orden Servicio</a></li>
-                                <li><a href="./Administrador/IngresoMateriales.html">Materiales</a></li>
-                                <li><a href="./Administrador/IngresoPropietario.html">Propietario</a></li>
-                                <li><a href="./Administrador/IngresoPuerto.html">Puerto</a></li>
-                                <li><a href="./Administrador/IngresoTipoAlimento.html">Tipo Alimento</a></li>
-                                <li><a href="./Administrador/IngresoTipoCombustible.html">Tipo Combustible</a></li>
-                                <li><a href="./Administrador/IngresoTipoEmbarcacion.html">Tipo Embarcacion</a></li>
-                                <li><a href="./Administrador/IngresoTipoMantenimiento.html">Tipo Mantenimiento</a></li>
-                                <li><a href="./Administrador/IngresoTipoMaterialPetreo.html">Tipo Material Petreo</a></li>
-                                <li><a href="./Administrador/IngresoTipoTripulante.html">Tipo Tripulante</a></li>
-                                <li><a href="./Administrador/IngresoTipoUsuario.html">Tipo Usuario</a></li>
-                                <li><a href="./Administrador/IngresoTripulante.html">Tripulante</a></li>
-                                <li><a href="./Administrador/IngresoUsuario.html">Usuario</a></li>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-xl-12">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" style="color: white" href="menu.html">TSH</a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="myNavbar">
+                            <ul class="nav navbar-nav">
+                                <li class="active" style="background-color: #006294; color: white"><a href="menu.html">Inicio</a></li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Administrar<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="./Administrador/IngresoCliente.html">Cliente</a></li>
+                                        <li><a href="./Administrador/IngresoContratoRecepcion.html">Contrato Recepcion</a></li>
+                                        <li><a href="./Administrador/IngresoEstadoOrden.html">Estado Orden Servicio</a></li>
+                                        <li><a href="./Administrador/IngresoMateriales.html">Materiales</a></li>
+                                        <li><a href="./Administrador/IngresoPropietario.html">Propietario</a></li>
+                                        <li><a href="./Administrador/IngresoPuerto.html">Puerto</a></li>
+                                        <li><a href="./Administrador/IngresoTipoAlimento.html">Tipo Alimento</a></li>
+                                        <li><a href="./Administrador/IngresoTipoCombustible.html">Tipo Combustible</a></li>
+                                        <li><a href="./Administrador/IngresoTipoEmbarcacion.html">Tipo Embarcacion</a></li>
+                                        <li><a href="./Administrador/IngresoTipoMantenimiento.html">Tipo Mantenimiento</a></li>
+                                        <li><a href="./Administrador/IngresoTipoMaterialPetreo.html">Tipo Material Petreo</a></li>
+                                        <li><a href="./Administrador/IngresoTipoTripulante.html">Tipo Tripulante</a></li>
+                                        <li><a href="./Administrador/IngresoTipoUsuario.html">Tipo Usuario</a></li>
+                                        <li><a href="./Administrador/IngresoTripulante.html">Tripulante</a></li>
+                                        <li><a href="./Administrador/IngresoUsuario.html">Usuario</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Viajes<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="./Administrador/IngresoEmbarcacion.html">Embarcacion</a></li>
+                                        <li><a href="./Administrador/IngresoMantenimiento.html">Mantimiento</a></li>
+                                        <li><a href="./Administrador/IngresoOrdenServicio.html">Orden Servicio</a></li>
+                                        <li><a href="./Administrador/IngresoPedido.html">Pedido</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actualizar Viajes<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="./Administrador/ModificarEmbarcacion.html">Embarcacion</a></li>
+                                        <li><a href="./Administrador/ModificarMantenimiento.html">Mantimiento</a></li>
+                                        <li><a href="./Administrador/ModificarOrdenServicio.html">Orden Servicio</a></li>
+                                        <li><a href="./Administrador/ModificarPedido.html">Pedido</a></li>
+                                    </ul>
+                                </li>
                             </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Viajes<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="./Administrador/IngresoEmbarcacion.html">Embarcacion</a></li>
-                                <li><a href="./Administrador/IngresoMantenimiento.html">Mantimiento</a></li>
-                                <li><a href="./Administrador/IngresoOrdenServicio.html">Orden Servicio</a></li>
-                                <li><a href="./Administrador/IngresoPedido.html">Pedido</a></li>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="#"><span class="glyphicon glyphicon-log-out" style="color: white" ng-click="logout()"></span> LogOut</a></li>
                             </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actualizar Viajes<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="./Administrador/ModificarEmbarcacion.html">Embarcacion</a></li>
-                                <li><a href="./Administrador/ModificarMantenimiento.html">Mantimiento</a></li>
-                                <li><a href="./Administrador/ModificarOrdenServicio.html">Orden Servicio</a></li>
-                                <li><a href="./Administrador/ModificarPedido.html">Pedido</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-log-out" style="color: white" ng-click="logout()"></span> LogOut</a></li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>

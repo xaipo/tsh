@@ -3,7 +3,7 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
     $scope.url;
     $scope.urlAlimentos;
     $scope.urlMaterialesSeleccionados;
-    $scope.urlAllOrdenServicio;
+    $scope.urlAllOrdenServicioEstadoViajeProceso;
     $scope.urlAllMateriales;
     $scope.urlAllTipoAlimentos;
 
@@ -41,7 +41,7 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
             $scope.url = myProvider.getUrlIngresoPedido();
             $scope.urlAlimentos = myProvider.getUrlIngresoAlimentos();
             $scope.urlMaterialesSeleccionados = myProvider.getUrlIngresoMaterialesSeleccionados();
-            $scope.urlAllOrdenServicio = myProvider.getUrlAllOrdenServicio();
+            $scope.urlAllOrdenServicioEstadoViajeProceso = myProvider.getUrlBuscarOrdenServicioEstadoViajeProceso();
             $scope.urlAllMateriales = myProvider.getUrlAllMateriales();
             $scope.urlAllTipoAlimentos = myProvider.getUrlALLTipoAlimentos();
 
@@ -93,7 +93,7 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
                 });
 
 
-            $http.get($scope.urlAllOrdenServicio)
+            $http.get($scope.urlAllOrdenServicioEstadoViajeProceso)
                 .then(function (response) {
 
                     $scope.listaOrdenServicio = response.data;

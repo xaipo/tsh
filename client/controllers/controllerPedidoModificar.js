@@ -2,7 +2,7 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
 
     $scope.urlModificar;
     $scope.urlAllPedidos;
-    $scope.urlAllOrdenServicio;
+    $scope.urlAllOrdenServicioEstadoViajeProceso;
     $scope.urlAlimentos;
     $scope.urlBuscarAlimentos;
     $scope.urlAlimentosModificar;
@@ -58,7 +58,7 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
             $scope.urlModificar = myProvider.getUrlModificarPedido();
 
             $scope.urlAllPedidos = myProvider.getUrlAllPedido();
-            $scope.urlAllOrdenServicio = myProvider.getUrlAllOrdenServicio();
+            $scope.urlAllOrdenServicioEstadoViajeProceso = myProvider.getUrlBuscarOrdenServicioEstadoViajeProceso();
 
             $scope.urlAlimentos = myProvider.getUrlIngresoAlimentos();
             $scope.urlAlimentosModificar = myProvider.getUrlModificarAlimentos();

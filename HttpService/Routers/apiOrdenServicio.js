@@ -89,6 +89,24 @@ router.post('/getByIdOrdenServicio', function (req, res) {
     });
 });
 
+router.get('/getOrdenServicioEstadoViajeProceso', function (req, res) {
+    var resultArray = [];
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+
+        var cursor = db.collection('orden_servicio').find({ "estado": { $in: ["594be6b980b7e1645404787d", "594be6ca80b7e1645404787e"] } });
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function () {
+            db.close();
+            res.send(resultArray);
+
+        });
+    });
+
+});
 
 router.get('/getAllOrdenServicio', function (req, res) {
 

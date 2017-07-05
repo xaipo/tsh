@@ -2,11 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\client",
-    "\\client\\Maquinista",
     "\\HttpService",
     "\\HttpService\\config",
     "\\HttpService\\models"
   ],
-  "SelectedNode": "\\client\\menuMaquinista.html",
+  "SelectedNode": "\\HttpService\\server.js",
   "PreviewInSolutionExplorer": false
 }
