@@ -3,20 +3,21 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
     $scope.url;
     $scope.urlModificar;
     $scope.urlAllClientes;
-    $scope.nombreCliente;
-    $scope.rucCliente;
-    $scope.direccionCliente;
-    $scope.telefonoCliente;
-    $scope.correoCliente;
-    $scope.tipoCliente;
 
-    $scope.id;
-    $scope.seleccionCliente;
-    $scope.seleccionTipoCliente;
+    $scope.nombreCliente = "";
+    $scope.rucCliente = "";
+    $scope.direccionCliente = "";
+    $scope.telefonoCliente = "";
+    $scope.correoCliente = "";
+    $scope.tipoCliente = "";
 
-    $scope.busqueda;
-    $scope.listaClientes;
-    $scope.listaTipoClientes;
+    $scope.id = "";
+    $scope.seleccionCliente = "";
+    $scope.seleccionTipoCliente = "";
+
+    $scope.busqueda = "";
+    $scope.listaClientes = [];
+    $scope.listaTipoClientes = [];
 
 
     var aux = localStorage.getItem("id_token");
@@ -27,6 +28,20 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
             $scope.urlModificar = myProvider.getUrlModificarCliente();
             $scope.urlAllClientes = myProvider.getUrlAllClientes();
 
+            $scope.nombreCliente = "";
+            $scope.rucCliente = "";
+            $scope.direccionCliente = "";
+            $scope.telefonoCliente = "";
+            $scope.correoCliente = "";
+            $scope.tipoCliente = "";
+
+            $scope.id = "";
+            $scope.seleccionCliente = "";
+            $scope.seleccionTipoCliente = "";
+
+            $scope.busqueda = "";
+            $scope.listaClientes = [];
+            $scope.listaTipoClientes = [];
 
             $http.get($scope.urlAllClientes)
                 .then(function (response) {
@@ -49,21 +64,27 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
     $scope.ingresoCliente = function () {
 
         var obj = {
-            nombre_cliente: $scope.nombreCliente, ruc_cliente: $scope.rucCliente,
-            direccion_cliente: $scope.direccionCliente, telefono_cliente: $scope.telefonoCliente,
-            correo_cliente: $scope.correoCliente, tipo_cliente: $scope.tipoCliente
+            nombre_cliente: $scope.nombreCliente,
+            ruc_cliente: $scope.rucCliente,
+            direccion_cliente: $scope.direccionCliente,
+            telefono_cliente: $scope.telefonoCliente,
+            correo_cliente: $scope.correoCliente,
+            tipo_cliente: $scope.tipoCliente
         };
-        $http.post($scope.url, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
-                console.log(response);
+        if (!validarCamposVacios(obj)) {
+            
+            $http.post($scope.url, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.iniciar();
+                    console.log(response);
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
+                    console.log(response);
+                });
+        }
     }
 
 
@@ -105,7 +126,7 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
 
         if ($scope.seleccionCliente != '' && $scope.seleccionCliente != undefined) {
 
-            $scope.selecCli = JSON.parse($scope.seleccionCliente);
+            $scope.selecCli = $scope.seleccionCliente;
 
             $scope.id = $scope.selecCli._id;
             $scope.nombreCliente = $scope.selecCli.nombre_cliente;
@@ -127,4 +148,31 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
 
     }
 
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.seleccionCliente = item;
+        $scope.selectedRow = index;
+
+        $scope.buscarSeleccionListaCliente();
+
+    }
+
 }]);
+
+function validarCamposVacios(user) {
+
+    if (user.nombreCliente == "" || user.correoCliente == "" || user.rucCliente == "" ||
+        user.direccionCliente == "" || user.telefonoCliente == "" || user.tipoCliente == "") {
+
+        return false;
+
+    } else {
+        return true;
+    }
+
+}
+
+function validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}

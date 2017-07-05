@@ -1,4 +1,6 @@
-var app = angular.module("myApp", [])
+
+var app = angular.module("myApp", ['angularUtils.directives.dirPagination'])
+
 function ApiUrl() {
 
     var url;

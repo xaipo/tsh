@@ -34,3 +34,9 @@ body {
     width: 100px; 
     overflow: auto;
 }
+
+.selected {
+    background-color: #808080;
+    color: black;
+    font-weight: bold;
+}

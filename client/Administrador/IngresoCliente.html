@@ -12,6 +12,7 @@
     <script src="../jquery/dist/jquery.min.js"></script>
     <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../angular/angular.js"></script>
+    <script src="../node_modules/angular-utils-pagination/dirPagination.js"></script>
     <script src="../app.js"></script>
     <script src="../controllers/controllerCliente.js"></script>
 </head>
@@ -72,7 +73,7 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#" ng-click="logout()" ><span class="glyphicon glyphicon-log-out" style="color: white"></span> LogOut</a></li>
+                        <li><a href="#" ng-click="logout()"><span class="glyphicon glyphicon-log-out" style="color: white"></span> LogOut</a></li>
                     </ul>
                 </div>
             </div>
@@ -91,17 +92,6 @@
                 <div class="panel panel-default">
                     <div class="panel-heading"><center><h3 class="panel-title">Cliente</h3></center></div>
                     <di class="panel-body">
-                        <div class="row">
-                            <div class="col-md-1">
-
-                            </div>
-                            <div class="col-md-3">
-                                <h4>Nombres: </h4>
-                            </div>
-                            <div class="col-md-7">
-                                <input type="text" ng-model="nombreCliente" class="form-control" placeholder="Apellidos Nombres" />
-                            </div>
-                        </div>
 
                         <div class="row">
                             <div class="col-md-1">
@@ -128,6 +118,18 @@
                                 </script>
 
                                 <input type="text" onkeypress="return valida(event)" ng-model="rucCliente" class="form-control" placeholder="1234567890001" maxlength="13" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-1">
+
+                            </div>
+                            <div class="col-md-3">
+                                <h4>Nombres: </h4>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="nombreCliente" class="form-control" placeholder="Apellidos Nombres" />
                             </div>
                         </div>
 
@@ -199,30 +201,50 @@
                     <div class="panel-heading"><center><h3 class="panel-title">Lista de Clientes</h3></center></div>
                     <div class="panel-body">
                         <div class="row">
-
-                            <div class="col-md-5">
+                            <div class="col-md-2">
+                                
+                            </div>
+                            <div class="col-md-2">
                                 <h4>Filtrar: </h4>
                             </div>
 
-                            <div class="col-md-7">
+                            <div class="col-md-6">
                                 <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
                             </div>
 
                         </div>
 
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
+                        <div class="col-md-12 col-xs-12">
 
-                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr class="success">
+                                            <th>#</th>
+                                            <th>Ruc</th>
+                                            <th>Nombres</th>
+                                            <th>Dirección</th>
+                                            <th>Teléfono</th>
+                                            <th>Email</th>
+                                        </tr>
 
-                            <div class="col-md-12">
-                                <select name="Clientes" ng-model="seleccionCliente" multiple class="form-control" style="height: 240px;" ng-click="buscarSeleccionListaCliente()">
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaClientes | filter:busqueda| orderBy:aux.nombre_cliente">
-                                        {{aux.ruc_cliente}} {{" -- "}} {{aux.nombre_cliente}}
-                                    </option>
-                                </select>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr dir-paginate="item in listaClientes| filter:busqueda| itemsPerPage:5 track by $index"
+                                            ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="contrato">
+
+                                            <td>{{$index}}</td>
+                                            <td>{{ item.ruc_cliente}}</td>
+                                            <td>{{ item.nombre_cliente}}</td>
+                                            <td>{{ item.direccion_cliente}}</td>
+                                            <td>{{ item.telefono_cliente}}</td>
+                                            <td>{{ item.correo_cliente }}</td>
+
+                                        </tr>
+                                        <dir-pagination-controls pagination-id="contrato"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
