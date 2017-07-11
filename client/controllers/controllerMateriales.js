@@ -24,12 +24,12 @@ app.controller('ControllerMaterial', ['$scope', '$http', 'myProvider', function 
 
             $scope.descripcionMaterial = "";
             $scope.stock = "";
-            $scope.estado;
+            $scope.estado = "";
 
-            $scope.id;
-            $scope.seleccion;
+            $scope.id = "";
+            $scope.seleccion = "";
 
-            $scope.busqueda;
+            $scope.busqueda = "";
             $scope.listaMaterial;
             $scope.listaEstado;
 
@@ -58,32 +58,43 @@ app.controller('ControllerMaterial', ['$scope', '$http', 'myProvider', function 
             stock: $scope.stock,
             estado: $scope.estado
         };
-        $http.post($scope.url, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
-                console.log(response);
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.url, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.iniciar();
+                    $.notify("Ingreso Correcto", "success");
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
+                    console.log(response);
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.modificarMaterial = function () {
 
-        var obj = { id: $scope.id, descripcion_material: $scope.descripcionMaterial, stock: $scope.stock, estado: $scope.estado };
-        $http.post($scope.urlModificar, obj)
-            .then(function (response) {
+        var obj = {
+            id: $scope.id, descripcion_material: $scope.descripcionMaterial, stock: $scope.stock, estado: $scope.estado
+        };
 
-                $scope.iniciar();
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.urlModificar, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.iniciar();
+                    $.notify("Modificacion Exitosa", "success");
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
+                    console.log(response);
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.buscarSeleccionMaterial = function (aux) {
@@ -108,3 +119,15 @@ app.controller('ControllerMaterial', ['$scope', '$http', 'myProvider', function 
     }
 
 }]);
+
+function validarCamposVacios(obj) {
+
+    if (obj.descripcion_material == "" || obj.stock == "") {
+
+        return false;
+
+    } else {
+        return true;
+    }
+
+}

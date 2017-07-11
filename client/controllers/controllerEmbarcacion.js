@@ -160,16 +160,23 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
             capitan_embarcacion: $scope.capitan,
             tripulantes: $scope.listaTripulanteIngresar
         };
-        $http.post($scope.url, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.url, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.iniciar();
+                    $.notify("Ingreso Correcto", "success");
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
+                    $.notify("Error!", "error");
+
+                });
+
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.agregarSeleccionListaTripulante = function () {
@@ -215,6 +222,10 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
 
     }
 
+    $scope.redireccion = function () {
+        window.location = "../menu.html"
+    }
+
     $scope.logout = function () {
 
         localStorage.clear();
@@ -223,3 +234,13 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
     }
 
 }]);
+
+function validarCamposVacios(obj) {
+    if (obj.nombre_embarcacion == "" || obj.num_matricula == "" || obj.eslora_total == "" || obj.manga == "" || obj.puntual == "" ||
+        obj.calado == "" || obj.fecha_construccion == "" || obj.propietario == "" || obj.propulsion == "" || obj.tipo_combustible == "" ||
+        obj.tonelaje_bruto == "" || obj.capacidad_carga == "" || obj.tipo_embarcacion == "" || obj.capitan_embarcacion == "" || obj.tripulantes == "") {
+        return false;
+    } else {
+        return true;
+    }
+}

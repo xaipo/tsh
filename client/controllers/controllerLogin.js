@@ -6,11 +6,21 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
 
     $scope.nombreUsuario;
     $scope.password;
+    $scope.usuario;
+    $scope.tipoUsuario;
 
     $scope.iniciar = function () {
 
         $scope.nombreUsuario = "";
         $scope.password = "";
+
+        if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+
+            $scope.usuario = JSON.parse(localStorage.getItem("user"));
+            $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
+            $.notify("Bienvenido", "success");
+        }
+
 
         $scope.url = myProvider.getUrlBuscarUsuario();
         $scope.urlBuscarTipoUsuario = myProvider.getUrlBuscarTipoUsuario();
@@ -57,6 +67,7 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
 
                 }).then(function successCallback(response) {
 
+                    localStorage.setItem("user", JSON.stringify(response.data.user));
                     var tipUsu = {
                         id: response.data.user.type_user
                     }
@@ -64,8 +75,11 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
                     $http.post($scope.urlBuscarTipoUsuario, tipUsu)
                         .then(function (response) {
 
+                            localStorage.setItem("tipoUser", JSON.stringify(response.data));
+
                             if (response.data.descripcion_tipo_usuario == "administrador") {
                                 window.location = "menu.html";
+
                             }
 
                             if (response.data.descripcion_tipo_usuario == "timonel") {
@@ -83,21 +97,25 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
                         }, function errorCallback(response) {
 
                             console.log(response);
+
                         });
-                    
+
 
                 }, function errorCallback(response) {
 
-                    console.log("negada")
-                });
+                    $.notify("Usuario o Clave Incorrectos!! ");
 
-                /////////////
+                });
 
             }, function errorCallback(response) {
 
-                console.log(response.data);
+                $.notify(" ERROR!! ");
+
             });
 
+        } else {
+
+            $.notify("Revise los Campos!! ");
         }
 
 

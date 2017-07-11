@@ -58,7 +58,9 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     $scope.horasArribo = "";
     $scope.minutosArribo = "";
 
-    //$scope.seleccion;
+
+    $scope.selecCli = "";
+    $scope.seleccionCliente = "";
     $scope.seleccionMatPetreo = {};
     $scope.seleccionTipoMatPetreo = {};
     $scope.seleccionMatPetreoNueva = {};
@@ -66,7 +68,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     $scope.seleccionConsumoCombustible = {};
     $scope.seleccionTransporteCombustible = {};
     $scope.seleccionOrdenServicio;
-    $scope.seleccionOrdenServicioLista = {};
+    $scope.seleccionOrdenServicioLista = "";
 
 
     //$scope.busqueda;
@@ -208,8 +210,19 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             $scope.listaTipoMaterialPetreo = [];
             $scope.listaEstadosOrden = [];
 
-            // Lista de Antes
 
+            $scope.selecCli = "";
+            $scope.seleccionCliente = "";
+            $scope.seleccionMatPetreo = {};
+            $scope.seleccionTipoMatPetreo = {};
+            $scope.seleccionMatPetreoNueva = {};
+            $scope.seleccionVehiculo = {};
+            $scope.seleccionConsumoCombustible = {};
+            $scope.seleccionTransporteCombustible = {};
+            $scope.seleccionOrdenServicio;
+            $scope.seleccionOrdenServicioLista = "";
+
+            // Lista de Antes
             $scope.listMatPetreo = [];
             $scope.listaVehi = [];
             $scope.listaCombustibleConsumo = [];
@@ -660,7 +673,6 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             $http.post($scope.urlModificarCombustible, obj)
                 .then(function (response) {
 
-                    //console.log(response.data);
 
                 }, function errorCallback(response) {
 
@@ -673,178 +685,188 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     $scope.modificarOrden = function () {
 
         $scope.selecCli = JSON.parse($scope.seleccionCliente);
+        var obj = {
+            id: $scope.id,
+            cliente: $scope.selecCli._id,
+            detalle: $scope.detalle,
+            embarcacion: $scope.embarcacion,
+            estado: $scope.estado,
+            fecha_emision: $scope.fechaEmision,
+            fecha_entrega: $scope.fechaEntrega,
+            puerto_embarque: $scope.puertoEmbarque,
+            puerto_desembarque: $scope.puertoDesembarque,
+            orometro_inicial_m1: $scope.orometroInicialM1,
+            orometro_inicial_m2: $scope.orometroInicialM2,
+            orometro_final_m1: $scope.orometroFinalM1,
+            orometro_final_m2: $scope.orometroFinalM2,
+            hora_salida: $scope.horaSalida,
+            hora_arribo: $scope.horaArribo,
+            carga_material_petreo: $scope.listMatPetreo,
+            carga_vehiculo: $scope.listaVehiculos,
+            observaciones: $scope.observaciones,
+            combustible_consumo: $scope.listaCombustibleConsumo,
+            combustible_transporte: $scope.listaTransporteCombutible,
+            observacion_maquinaria: $scope.observacionMaquinista,
+            contrato_recepcion: $scope.contratoRecepcion,
+            capitan_embarcacion: $scope.capitan
+        }
 
-        var q = $q.defer()
+        if (validarCamposVacios(obj)) {
+            var q = $q.defer()
+            q.resolve(
 
-        q.resolve(
-
-            $http({
-                method: 'POST',
-                url: $scope.urlModificar,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                data: {
-                    id: $scope.id,
-                    cliente: $scope.selecCli._id,
-                    detalle: $scope.detalle,
-                    embarcacion: $scope.embarcacion,
-                    estado: $scope.estado,
-                    fecha_emision: $scope.fechaEmision,
-                    fecha_entrega: $scope.fechaEntrega,
-                    puerto_embarque: $scope.puertoEmbarque,
-                    puerto_desembarque: $scope.puertoDesembarque,
-                    orometro_inicial_m1: $scope.orometroInicialM1,
-                    orometro_inicial_m2: $scope.orometroInicialM2,
-                    orometro_final_m1: $scope.orometroFinalM1,
-                    orometro_final_m2: $scope.orometroFinalM2,
-                    hora_salida: $scope.horaSalida,
-                    hora_arribo: $scope.horaArribo,
-                    carga_material_petreo: $scope.listMatPetreo,
-                    carga_vehiculo: $scope.listaVehiculos,
-                    observaciones: $scope.observaciones,
-                    combustible_consumo: $scope.listaCombustibleConsumo,
-                    combustible_transporte: $scope.listaTransporteCombutible,
-                    observacion_maquinaria: $scope.observacionMaquinista,
-                    contrato_recepcion: $scope.contratoRecepcion,
-                    capitan_embarcacion: $scope.capitan
-                }
-
-
-            }).then(function successCallback(response) {
-
-                $scope.iniciar();
-                console.log(response.data)
-
-            }, function errorCallback(response) {
+                $http({
+                    method: 'POST',
+                    url: $scope.urlModificar,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: obj
 
 
-            })
+                }).then(function successCallback(response) {
 
-        );
+                    $scope.iniciar();
+                    $.notify("Modificacion Exitosa", "success");
 
-        console.log("Bien");
+                }, function errorCallback(response) {
 
-        return q.promise
+                    $.notify("Error!", "error");
+                })
+
+            );
+
+            return q.promise
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.modificarOrdenServicio = function () {
+        
+        if ($scope.seleccionOrdenServicioLista != "") {
+            if ($scope.seleccionCliente != "") {
+                
+                if ($scope.horasSalida < 9) {
+                    var h = "0" + $scope.horasSalida.toString();
+                    if ($scope.minutosSalida < 9) {
+                        var min = "0" + $scope.minutosSalida.toString();
+                        $scope.horaSalida = h.toString() + ":" + min.toString();
+                    }
+                    if ($scope.minutosSalida > 9) {
+                        var min = $scope.minutosSalida.toString();
+                        $scope.horaSalida = h.toString() + ":" + min.toString();
+                    }
+                }
+                if ($scope.horasSalida > 9) {
+                    var h = $scope.horasSalida;
+                    if ($scope.minutosSalida < 9) {
+                        var min = "0" + $scope.minutosSalida.toString();
+                        $scope.horaSalida = h.toString() + ":" + min.toString();
+                    }
+                    if ($scope.minutosSalida > 9) {
+                        var min = $scope.minutosSalida.toString();
+                        $scope.horaSalida = h.toString() + ":" + min.toString();
+                    }
+                }
+                if ($scope.horasArribo < 9) {
+                    var h = "0" + $scope.horasArribo.toString();
+                    if ($scope.minutosArribo < 9) {
+                        var min = "0" + $scope.minutosArribo.toString();
+                        $scope.horaArribo = h.toString() + ":" + min.toString();
+                    }
+                    if ($scope.minutosArribo > 9) {
+                        var min = $scope.minutosArribo.toString();
+                        $scope.horaArribo = h.toString() + ":" + min.toString();
+                    }
+                }
+                if ($scope.horasArribo > 9) {
+                    var h = $scope.horasArribo.toString();
+                    if ($scope.minutosArribo < 9) {
+                        var min = "0" + $scope.minutosArribo.toString();
+                        $scope.horaArribo = h.toString() + ":" + min.toString();
+                    }
+                    if ($scope.minutosArribo > 9) {
+                        var min = $scope.minutosArribo.toString();
+                        $scope.horaArribo = h.toString() + ":" + min.toString();
+                    }
+                }
 
-        /// hora 
-        if ($scope.horasSalida < 9) {
-            var h = "0" + $scope.horasSalida.toString();
-            if ($scope.minutosSalida < 9) {
-                var min = "0" + $scope.minutosSalida.toString();
-                $scope.horaSalida = h.toString() + ":" + min.toString();
+                // material petreo
+                var dimBaseMatPetModif = $scope.listaMaterialPetreo.length;
+                for (var i = 0; i < dimBaseMatPetModif; i++) {
+
+                    $scope.modificarBaseMaterialPetreo(i);
+                    $scope.listMatPetreo.push($scope.listaMaterialPetreo[i]._id.toString());
+
+                }
+
+                var dimMatPet = $scope.listaMatPetreoNueva.length;
+                for (var i = 0; i < dimMatPet; i++) {
+
+                    $scope.ingresoMateriales(i);
+
+                }
+
+                // lista vehiculo
+                var dimVeModif = $scope.listaVehiculo.length;
+                for (var i = 0; i < dimVeModif; i++) {
+
+                    $scope.modificarBaseVehiculos(i);
+
+                }
+
+                var dimVe = $scope.listaVehiNueva.length;
+                for (var i = 0; i < dimVe; i++) {
+
+                    $scope.ingresoVehiculos(i);
+
+                }
+
+                // combustible consumo
+                var dimeCombusConsModif = $scope.listaConsumoCombustible.length;
+                for (var i = 0; i < dimeCombusConsModif; i++) {
+
+                    $scope.modificarBaseConsumoCombustible(i);
+                    $scope.listaCombustibleConsumo.push($scope.listaConsumoCombustible[i]._id.toString());
+
+                }
+
+                var dimeCombusCons = $scope.listaCombustibleConsumoIngresar.length;
+                for (var i = 0; i < dimeCombusCons; i++) {
+
+                    $scope.ingresoConsumoCombustible(i);
+
+                }
+
+                // combustible transporte
+                var dimeCombusTransModif = $scope.listaCombustibleTransporte.length;
+                for (var i = 0; i < dimeCombusTransModif; i++) {
+
+                    $scope.modificarBaseTransporteCombustible(i);
+                    $scope.listaTransporteCombutible.push($scope.listaCombustibleTransporte[i]._id.toString());
+
+                }
+
+                var dimeCombusTrans = $scope.listaCombustibleTransporteIngresar.length;
+                for (var i = 0; i < dimeCombusTrans; i++) {
+
+                    $scope.ingresoCombustibleTransporte(i);
+
+                }
+
+                //ingreso orden
+                $timeout(function () {
+
+                    $scope.modificarOrden();
+
+                }, 1500, false)
+            } else {
+                $.notify("Seleccione Cliente", "info");
             }
-            if ($scope.minutosSalida > 9) {
-                var min = $scope.minutosSalida.toString();
-                $scope.horaSalida = h.toString() + ":" + min.toString();
-            }
+        } else {
+            $.notify("Seleccionar una Orden", "info");
         }
-        if ($scope.horasSalida > 9) {
-            var h = $scope.horasSalida;
-            if ($scope.minutosSalida < 9) {
-                var min = "0" + $scope.minutosSalida.toString();
-                $scope.horaSalida = h.toString() + ":" + min.toString();
-            }
-            if ($scope.minutosSalida > 9) {
-                var min = $scope.minutosSalida.toString();
-                $scope.horaSalida = h.toString() + ":" + min.toString();
-            }
-        }
-        if ($scope.horasArribo < 9) {
-            var h = "0" + $scope.horasArribo.toString();
-            if ($scope.minutosArribo < 9) {
-                var min = "0" + $scope.minutosArribo.toString();
-                $scope.horaArribo = h.toString() + ":" + min.toString();
-            }
-            if ($scope.minutosArribo > 9) {
-                var min = $scope.minutosArribo.toString();
-                $scope.horaArribo = h.toString() + ":" + min.toString();
-            }
-        }
-        if ($scope.horasArribo > 9) {
-            var h = $scope.horasArribo.toString();
-            if ($scope.minutosArribo < 9) {
-                var min = "0" + $scope.minutosArribo.toString();
-                $scope.horaArribo = h.toString() + ":" + min.toString();
-            }
-            if ($scope.minutosArribo > 9) {
-                var min = $scope.minutosArribo.toString();
-                $scope.horaArribo = h.toString() + ":" + min.toString();
-            }
-        }
-
-        // material petreo
-        var dimBaseMatPetModif = $scope.listaMaterialPetreo.length;
-        for (var i = 0; i < dimBaseMatPetModif; i++) {
-
-            $scope.modificarBaseMaterialPetreo(i);
-            $scope.listMatPetreo.push($scope.listaMaterialPetreo[i]._id.toString());
-
-        }
-
-        var dimMatPet = $scope.listaMatPetreoNueva.length;
-        for (var i = 0; i < dimMatPet; i++) {
-
-            $scope.ingresoMateriales(i);
-
-        }
-
-        // lista vehiculo
-        var dimVeModif = $scope.listaVehiculo.length;
-        for (var i = 0; i < dimVeModif; i++) {
-
-            $scope.modificarBaseVehiculos(i);
-
-        }
-
-        var dimVe = $scope.listaVehiNueva.length;
-        for (var i = 0; i < dimVe; i++) {
-
-            $scope.ingresoVehiculos(i);
-
-        }
-
-        // combustible consumo
-        var dimeCombusConsModif = $scope.listaConsumoCombustible.length;
-        for (var i = 0; i < dimeCombusConsModif; i++) {
-
-            $scope.modificarBaseConsumoCombustible(i);
-            $scope.listaCombustibleConsumo.push($scope.listaConsumoCombustible[i]._id.toString());
-
-        }
-
-        var dimeCombusCons = $scope.listaCombustibleConsumoIngresar.length;
-        for (var i = 0; i < dimeCombusCons; i++) {
-
-            $scope.ingresoConsumoCombustible(i);
-
-        }
-
-        // combustible transporte
-        var dimeCombusTransModif = $scope.listaCombustibleTransporte.length;
-        for (var i = 0; i < dimeCombusTransModif; i++) {
-
-            $scope.modificarBaseTransporteCombustible(i);
-            $scope.listaTransporteCombutible.push($scope.listaCombustibleTransporte[i]._id.toString());
-
-        }
-
-        var dimeCombusTrans = $scope.listaCombustibleTransporteIngresar.length;
-        for (var i = 0; i < dimeCombusTrans; i++) {
-
-            $scope.ingresoCombustibleTransporte(i);
-
-        }
-
-        //ingreso orden
-        $timeout(function () {
-
-            $scope.modificarOrden();
-
-        }, 1500, false)
     }
 
     $scope.cargarListasSeleccionOrdenServicio = function (orden) {
@@ -975,31 +997,28 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     $scope.buscarSeleccionListaOrdenServicio = function () {
 
         $scope.iniciarListas();
-        if ($scope.seleccionOrdenServicioLista != '' && $scope.seleccionOrdenServicioLista != undefined) {
-
-            $scope.selecOrdenServ = JSON.parse($scope.seleccionOrdenServicioLista);
-            $scope.id = $scope.selecOrdenServ._id;
-            $scope.seleccionCliente = $scope.selecOrdenServ.cliente;
-            $scope.fechaEmision = $scope.selecOrdenServ.fecha_emision;
-            $scope.fechaEntrega = $scope.selecOrdenServ.fecha_entrega;
-            $scope.embarcacion = $scope.selecOrdenServ.embarcacion;
-            $scope.puertoEmbarque = $scope.selecOrdenServ.puerto_embarque;
-            $scope.puertoDesembarque = $scope.selecOrdenServ.puerto_desembarque;
-            $scope.orometroInicialM1 = $scope.selecOrdenServ.orometro_inicial_m1;
-            $scope.orometroInicialM2 = $scope.selecOrdenServ.orometro_inicial_m2;
-            $scope.orometroFinalM1 = $scope.selecOrdenServ.orometro_final_m1;
-            $scope.orometroFinalM2 = $scope.selecOrdenServ.orometro_final_m2;
-            $scope.horaSalida = $scope.selecOrdenServ.hora_salida;
-            $scope.horaArribo = $scope.selecOrdenServ.hora_arribo;
-            $scope.observaciones = $scope.selecOrdenServ.observaciones;
-            $scope.observacionMaquinista = $scope.selecOrdenServ.observacion_maquinaria;
-            $scope.contratoRecepcion = $scope.selecOrdenServ.contrato_recepcion;
-            $scope.capitan = $scope.selecOrdenServ.capitan_embarcacion;
-            $scope.detalle = $scope.selecOrdenServ.detalle;
-            $scope.estado = $scope.selecOrdenServ.estado;
-            $scope.cargarListasSeleccionOrdenServicio($scope.selecOrdenServ);
-
-        }
+        $scope.selecOrdenServ = JSON.parse($scope.seleccionOrdenServicioLista);
+        
+        $scope.id = $scope.selecOrdenServ._id;
+        $scope.seleccionCliente = JSON.stringify($scope.selecOrdenServ.cliente);
+        $scope.fechaEmision = $scope.selecOrdenServ.fecha_emision;
+        $scope.fechaEntrega = $scope.selecOrdenServ.fecha_entrega;
+        $scope.embarcacion = $scope.selecOrdenServ.embarcacion;
+        $scope.puertoEmbarque = $scope.selecOrdenServ.puerto_embarque;
+        $scope.puertoDesembarque = $scope.selecOrdenServ.puerto_desembarque;
+        $scope.orometroInicialM1 = $scope.selecOrdenServ.orometro_inicial_m1;
+        $scope.orometroInicialM2 = $scope.selecOrdenServ.orometro_inicial_m2;
+        $scope.orometroFinalM1 = $scope.selecOrdenServ.orometro_final_m1;
+        $scope.orometroFinalM2 = $scope.selecOrdenServ.orometro_final_m2;
+        $scope.horaSalida = $scope.selecOrdenServ.hora_salida;
+        $scope.horaArribo = $scope.selecOrdenServ.hora_arribo;
+        $scope.observaciones = $scope.selecOrdenServ.observaciones;
+        $scope.observacionMaquinista = $scope.selecOrdenServ.observacion_maquinaria;
+        $scope.contratoRecepcion = $scope.selecOrdenServ.contrato_recepcion;
+        $scope.capitan = $scope.selecOrdenServ.capitan_embarcacion;
+        $scope.detalle = $scope.selecOrdenServ.detalle;
+        $scope.estado = $scope.selecOrdenServ.estado;
+        $scope.cargarListasSeleccionOrdenServicio($scope.selecOrdenServ);
     }
 
     $scope.cargarDatosMaterialPetreo = function () {
@@ -1494,6 +1513,10 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
     }
 
+    $scope.redireccion = function () {
+        window.location = "../menu.html"
+    }
+
     $scope.logout = function () {
 
         localStorage.clear();
@@ -1502,3 +1525,15 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     }
 
 }]);
+
+
+function validarCamposVacios(obj) {
+    if (obj.seleccionCliente == "" || obj.detalle == "" || obj.embarcacion == "" || obj.estado == "" || obj.fecha_emision == "" ||
+        obj.puerto_embarque == "" || obj.puerto_desembarque == "" || obj.orometro_inicial_m1 == "" || obj.orometro_inicial_m2 == "" ||
+        obj.orometro_final_m1 == "" || obj.orometro_final_m2 == "" || obj.hora_salida == "" || obj.hora_arribo == "" ||
+        obj.combustible_consumo == "" || obj.contrato_recepcion == "" || obj.capitan_embarcacion == "") {
+        return false;
+    } else {
+        return true;
+    }
+}

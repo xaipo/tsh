@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +11,8 @@
 
     <script src="jquery/dist/jquery.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="alertas/sweetalert.min.js"></script>    
+    <script src="notificaciones/notify.js"></script>
     <script src="angular/angular.js"></script>
     <script src="node_modules/angular-utils-pagination/dirPagination.js"></script>
     <script src="app.js"></script>
@@ -74,8 +76,14 @@
                                     </ul>
                                 </li>
                             </ul>
+                            
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="#" ng-click="logout()"><span class="glyphicon glyphicon-log-out" style="color: white"></span> LogOut</a></li>
+                            </ul><ul class="nav navbar-nav navbar-right">
+                                <li><a href="#"><span class="glyphicon glyphicon-info-sign" style="color: white"></span> {{tipoUsuario.descripcion_tipo_usuario}} </a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="#"><span class="glyphicon glyphicon-user" style="color: white"></span> {{usuario.username}}</a></li>
                             </ul>
                         </div>
                     </div>

@@ -4,7 +4,7 @@ app.controller('ControllerTripulante', ['$scope', '$http', 'myProvider', functio
     $scope.urlModificar;
     $scope.urlAllTripulante;
     $scope.urlAllTipoTripulante;
-    $scope.urlAllTipoTipoTripulante;
+    $scope.urlBuscarTipoTripulante;
 
     $scope.nombreTripulante;
     $scope.cedulaTripulante;
@@ -27,12 +27,44 @@ app.controller('ControllerTripulante', ['$scope', '$http', 'myProvider', functio
             $scope.urlModificar = myProvider.getUrlModificarTripulante();
             $scope.urlAllTripulante = myProvider.getUrlAllTripulante();
             $scope.urlAllTipoTripulante = myProvider.getUrlAllTipoTripulante();
+            $scope.urlBuscarTipoTripulante = myProvider.getUrlBuscarTipoTripulante();
+
+            $scope.nombreTripulante = "";
+            $scope.cedulaTripulante = "";
+            $scope.telefonoTripulante = "";
+            $scope.tipoTripulante = "";
+
+            $scope.id = "";
+            $scope.seleccionTripulante = "";
+            $scope.seleccionTipoTripulante = "";
+
+
+            $scope.busqueda = "";
+            $scope.listaTripulante;
+            $scope.listaTipoTripulante;
 
             $http.get($scope.urlAllTripulante)
                 .then(function (response) {
 
                     $scope.listaTripulante = response.data;
 
+                    var n = $scope.listaTripulante.length;
+                    var k = 0;
+                    for (var i = 0; i < n; i++) {
+                        var tpTrip = {
+                            id: $scope.listaTripulante[i].tipo_tripulante
+                        }
+                        
+                        $http.post($scope.urlBuscarTipoTripulante, tpTrip)
+                            .then(function (response) {
+
+                                $scope.listaTripulante[k++].tipo_tripulante = response.data;
+
+                            }, function errorCallback(response) {
+
+                                console.log(response);
+                            });
+                    }
                 }, function errorCallback(response) {
 
                     console.log(response);
@@ -55,23 +87,28 @@ app.controller('ControllerTripulante', ['$scope', '$http', 'myProvider', functio
         window.location = "../login.html"
     }
     $scope.ingresoTripulante = function () {
-        console.log($scope.nombreUsuario);
+
         var obj = {
             nombre_tripulante: $scope.nombreTripulante,
             cedula_tripulante: $scope.cedulaTripulante,
             telefono_tripulante: $scope.telefonoTripulante,
             tipo_tripulante: $scope.tipoTripulante
         };
-        $http.post($scope.url, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
-                console.log(response);
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.url, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.iniciar();
+                    $.notify("Ingreso Correcto", "success");
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
+
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
 
@@ -83,30 +120,34 @@ app.controller('ControllerTripulante', ['$scope', '$http', 'myProvider', functio
             telefono_tripulante: $scope.telefonoTripulante,
             tipo_tripulante: $scope.tipoTripulante
         };
-        $http.post($scope.urlModificar, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
-                console.log(response);
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.urlModificar, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.iniciar();
+                    $.notify("Modificacion Exitosa", "success");
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.buscarSeleccionListaTripulante = function () {
 
         if ($scope.seleccionTripulante != '' && $scope.seleccionTripulante != undefined) {
 
-            $scope.selecTrip = JSON.parse($scope.seleccionTripulante);
+            $scope.selecTrip = $scope.seleccionTripulante;
 
             $scope.id = $scope.selecTrip._id;
             $scope.nombreTripulante = $scope.selecTrip.nombre_tripulante;
             $scope.cedulaTripulante = $scope.selecTrip.cedula_tripulante;
             $scope.telefonoTripulante = $scope.selecTrip.telefono_tripulante;
-            $scope.tipoTripulante = $scope.selecTrip.tipo_tripulante;
+            $scope.tipoTripulante = $scope.selecTrip.tipo_tripulante._id;
 
         }
     }
@@ -118,4 +159,26 @@ app.controller('ControllerTripulante', ['$scope', '$http', 'myProvider', functio
 
     }
 
+
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.seleccionTripulante = item;
+        $scope.selectedRow = index;
+
+        $scope.buscarSeleccionListaTripulante();
+
+    }
+
 }]);
+
+function validarCamposVacios(obj) {
+
+    if (obj.nombre_tripulante == "" || obj.cedula_tripulante == "" ||
+        obj.telefono_tripulante == "" || obj.tipo_tripulante == "") {
+
+        return false;
+
+    } else {
+        return true;
+    }
+}

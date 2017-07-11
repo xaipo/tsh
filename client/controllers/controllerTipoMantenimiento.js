@@ -3,7 +3,7 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
     $scope.url;
     $scope.urlModificar;
     $scope.urlAllTipoMantenimiento;
-    console.log($scope.url);
+
     $scope.descripcionTipoMantenimiento;
 
     $scope.id;
@@ -19,6 +19,16 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
             $scope.url = myProvider.getUrlIngresoTipoMantenimiento();
             $scope.urlModificar = myProvider.getUrlModificarTipoMantenimiento();
             $scope.urlAllTipoMantenimiento = myProvider.getAllTipoMantenimiento();
+
+            $scope.descripcionTipoMantenimiento = "";
+
+            $scope.id = "";
+            $scope.seleccion = "";
+            $scope.seleccionTipoMantenimiento = "";
+
+            $scope.busqueda = "";
+            $scope.listaTipoMantenimiento;
+
             $http.get($scope.urlAllTipoMantenimiento)
                 .then(function (response) {
 
@@ -34,35 +44,47 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
     }
 
     $scope.ingresoTipoMantenimiento = function () {
-        console.log($scope.descripcionTipoMantenimiento);
-        var obj = { descripcion_tipo_mantenimiento: $scope.descripcionTipoMantenimiento };
-        $http.post($scope.url, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
-                console.log(response);
+        var obj = {
+            descripcion_tipo_mantenimiento: $scope.descripcionTipoMantenimiento
+        };
 
-            }, function errorCallback(response) {
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.url, obj)
+                .then(function (response) {
 
-                console.log(response);
-            });
+                    $scope.iniciar();
+                    $.notify("Ingreso Correcto", "success");
 
+                }, function errorCallback(response) {
+
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.modificarTipoMantenimiento = function () {
 
-        var obj = { id: $scope.id, descripcion_tipo_mantenimiento: $scope.descripcionTipoMantenimiento };
-        $http.post($scope.urlModificar, obj)
-            .then(function (response) {
+        var obj = {
+            id: $scope.id, descripcion_tipo_mantenimiento: $scope.descripcionTipoMantenimiento
+        };
 
-                $scope.iniciar();
-                console.log(response);
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.urlModificar, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.iniciar();
+                    $.notify("Modificacion Exitosa", "success");
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.buscarSeleccionTipoMantenimiento = function () {
@@ -85,3 +107,13 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
     }
 
 }]);
+
+function validarCamposVacios(obj) {
+    if (obj.descripcion_tipo_mantenimiento == "") {
+
+        return false;
+
+    } else {
+        return true;
+    }
+}

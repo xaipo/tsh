@@ -17,22 +17,22 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
     $scope.urlBuscarEmbarcacion;
 
     // Variables Producto y Pedido
-    $scope.id;
-    $scope.ordenServicio;
-    $scope.observaciones;
-    $scope.alimento;
-    $scope.cantidadAlimento;
-    $scope.unidadesAlimento;
-    $scope.embarcacion;
+    $scope.id = "";
+    $scope.ordenServicio = "";
+    $scope.observaciones = "";
+    $scope.alimento = "";
+    $scope.cantidadAlimento = "";
+    $scope.unidadesAlimento = "";
+    $scope.embarcacion = "";
 
     // Variables Materiales
-    $scope.material;
-    $scope.cantidadMaterial;
+    $scope.material = "";
+    $scope.cantidadMaterial = "";
 
     //Selecciones
-    $scope.seleccionMaterial;
-    $scope.seleccionAlimento;
-    $scope.seleccionPedido;
+    $scope.seleccionMaterial = "";
+    $scope.seleccionAlimento = "";
+    $scope.seleccionPedido="";
 
     // Incremento
     $scope.inc = 0;
@@ -281,66 +281,68 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
             materiales: $scope.listaMaterialesArray,
             observaciones: $scope.observaciones
         };
+        if (validarCamposVacios(obj)) {
+            var q = $q.defer()
+            q.resolve(
+                $http.post($scope.urlModificar, obj)
+                    .then(function successCallback(response) {
 
-        var q = $q.defer()
-        q.resolve(
+                        $scope.iniciar();
+                        $.notify("Modificacion Exitosa", "success");
 
-            $http.post($scope.urlModificar, obj)
-                .then(function successCallback(response) {
-
-                    $scope.iniciar();
-                    console.log(response);
-
-                }, function errorCallback(response) {
-
-                    console.log(response);
-                }));
-
-        return q.promise
+                    }, function errorCallback(response) {
+                        $.notify("Error!", "error");
+                    }));
+            return q.promise
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.modificarPedido = function () {
+        if ($scope.seleccionPedido != "") {
+            var dimAlimMod = $scope.listaAlimentos.length;
 
-        var dimAlimMod = $scope.listaAlimentos.length;
+            for (var i = 0; i < dimAlimMod; i++) {
 
-        for (var i = 0; i < dimAlimMod; i++) {
+                $scope.modificarAlimentos(i);
+                $scope.listaAlimentosArray.push($scope.listaAlimentos[i]._id.toString());
+                console.log($scope.listaAlimentos);
+                console.log($scope.listaAlimentosArray);
+            }
 
-            $scope.modificarAlimentos(i);
-            $scope.listaAlimentosArray.push($scope.listaAlimentos[i]._id.toString());
-            console.log($scope.listaAlimentos);
-            console.log($scope.listaAlimentosArray);
+            var dimMatMod = $scope.listaMaterialesSeleccionados.length;
+
+            for (var i = 0; i < dimMatMod; i++) {
+
+                $scope.modificarMaterialesSeleccionados(i);
+                $scope.listaMaterialesArray.push($scope.listaMaterialesSeleccionados[i]._id.toString());
+            }
+
+            var dimAlim = $scope.listaAlimentosNueva.length;
+
+            for (var i = 0; i < dimAlim; i++) {
+
+                $scope.ingresoAlimentos(i);
+
+            }
+
+            var dimMat = $scope.listaMaterialesSeleccionadosNueva.length;
+
+            for (var i = 0; i < dimMat; i++) {
+
+                $scope.ingresoMaterialesSeleccionados(i);
+
+            }
+
+            $timeout(function () {
+
+                $scope.modificarPedidoBase();
+
+            }, 500, false)
+        } else {
+            $.notify("Seleccione un Pedido", "info");
         }
-
-        var dimMatMod = $scope.listaMaterialesSeleccionados.length;
-
-        for (var i = 0; i < dimMatMod; i++) {
-
-            $scope.modificarMaterialesSeleccionados(i);
-            $scope.listaMaterialesArray.push($scope.listaMaterialesSeleccionados[i]._id.toString());
-        }
-
-        var dimAlim = $scope.listaAlimentosNueva.length;
-
-        for (var i = 0; i < dimAlim; i++) {
-
-            $scope.ingresoAlimentos(i);
-
-        }
-
-        var dimMat = $scope.listaMaterialesSeleccionadosNueva.length;
-
-        for (var i = 0; i < dimMat; i++) {
-
-            $scope.ingresoMaterialesSeleccionados(i);
-
-        }
-
-        $timeout(function () {
-
-            $scope.modificarPedidoBase();
-
-        }, 1000, false)
-
     }
 
     $scope.quitarSeleccionUtensilio = function () {
@@ -742,6 +744,10 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
 
     }
 
+    $scope.redireccion = function () {
+        window.location = "../menu.html"
+    }
+
     $scope.logout = function () {
 
         localStorage.clear();
@@ -750,3 +756,12 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
     }
 
 }]);
+
+
+function validarCamposVacios(obj) {
+    if (obj.alimentos == "") {
+        return false;
+    } else {
+        return true;
+    }
+}

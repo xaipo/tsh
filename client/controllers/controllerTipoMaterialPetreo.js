@@ -3,6 +3,7 @@ app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider',
     $scope.url;
     $scope.urlModificar;
     $scope.urlAllTipoMaterial;
+
     $scope.descripcionTipoMaterial;
 
     $scope.id;
@@ -18,6 +19,8 @@ app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider',
             $scope.url = myProvider.getUrlIngresoTipoMaterialPetreo();
             $scope.urlModificar = myProvider.getUrlModificarTipoMaterialPetreo();
             $scope.urlAllTipoMaterial = myProvider.getUrlAllTipoMaterialPetreo();
+
+            $scope.descripcionTipoMaterial = "";
 
             $scope.id = "";
             $scope.seleccion = "";
@@ -45,17 +48,21 @@ app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider',
         var obj = {
             descripcion_tipo_material: $scope.descripcionTipoMaterial
         };
-        $http.post($scope.url, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
-                console.log(response);
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.url, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.iniciar();
+                    $.notify("Ingreso Correcto", "success");
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.modificarTipoMaterial = function () {
@@ -64,17 +71,21 @@ app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider',
             id: $scope.id,
             descripcion_tipo_material: $scope.descripcionTipoMaterial
         };
-        $http.post($scope.urlModificar, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
-                console.log(response);
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.urlModificar, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.iniciar();
+                    $.notify("Modificacion Exitosa", "success");
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.buscarSeleccionTipoMaterial = function () {
@@ -96,3 +107,13 @@ app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider',
     }
 
 }]);
+
+function validarCamposVacios(obj) {
+    if (obj.descripcion_tipo_material == "") {
+
+        return false;
+
+    } else {
+        return true;
+    }
+}

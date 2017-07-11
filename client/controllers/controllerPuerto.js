@@ -20,6 +20,15 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
             $scope.urlModificar = myProvider.getUrlModificarPuerto();
             $scope.urlAllPuertos = myProvider.getUrlAllPuerto();
 
+            $scope.descripcionPuerto = "";
+
+            $scope.id = "";
+            $scope.seleccion = "";
+            $scope.seleccionPuerto = "";
+
+            $scope.busqueda = "";
+            $scope.listaPuertos = "";
+
             $http.get($scope.urlAllPuertos)
                 .then(function (response) {
 
@@ -37,35 +46,46 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
     }
     $scope.ingresoPuerto = function () {
 
-        var obj = { descripcion_puerto: $scope.descripcionPuerto };
+        var obj = {
+            descripcion_puerto: $scope.descripcionPuerto
+        };
 
-        $http.post($scope.url, obj)
-            .then(function (response) {
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.url, obj)
+                .then(function (response) {
 
-                $scope.iniciar();
-                console.log(response);
+                    $scope.iniciar();
+                    $.notify("Ingreso Correcto", "success");
 
-            }, function errorCallback(response) {
+                }, function errorCallback(response) {
 
-                console.log(response);
-            });
-
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.modificarPuerto = function () {
 
-        var obj = { id: $scope.id, descripcion_puerto: $scope.descripcionPuerto };
-        $http.post($scope.urlModificar, obj)
-            .then(function (response) {
+        var obj = {
+            id: $scope.id, descripcion_puerto: $scope.descripcionPuerto
+        };
 
-                $scope.iniciar();
-                console.log(response);
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.urlModificar, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.iniciar();
+                    $.notify("Modificacion Exitosa", "success");
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.buscarSeleccionPuerto = function () {
@@ -86,3 +106,13 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
 
     }
 }]);
+
+function validarCamposVacios(obj) {
+    if (obj.descripcion_puerto == "") {
+
+        return false;
+
+    } else {
+        return true;
+    }
+}

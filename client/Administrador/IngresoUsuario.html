@@ -6,12 +6,16 @@
     <title>Inicio</title>
     <link type="text/css" href="../bootstrap/dist/css/bootstrap.css" id="pagesheet" rel="stylesheet" media="screen" />
     <link type="text/css" href="../css/OverrideComponents.css" id="pagesheet2" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../alertas/sweetalert.css">
 
     <!-----angular-->
 
     <script src="../jquery/dist/jquery.min.js"></script>
     <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../alertas/sweetalert.min.js"></script>
+    <script src="../notificaciones/notify.js"></script>
     <script src="../angular/angular.js"></script>
+    <script src="../node_modules/angular-utils-pagination/dirPagination.js"></script>
     <script src="../app.js"></script>
     <script src="../controllers/controllerUsuario.js"></script>
 </head>
@@ -103,17 +107,19 @@
                                     <input type="text" ng-model="nombreUsuario" placeholder="Nombre de Usuario" class="form-control" />
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-1">
 
                                 </div>
                                 <div class="col-md-3">
-                                    <h4>Nombres completos: </h4>
+                                    <h4>Contraseña: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text" ng-model="nombresCompletos" placeholder="Nombres Completos" class="form-control" />
+                                    <input type="password" ng-model="contrasenaUsuario" placeholder="Password" class="form-control" />
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-1">
 
@@ -145,10 +151,10 @@
 
                                 </div>
                                 <div class="col-md-3">
-                                    <h4>Contraseña: </h4>
+                                    <h4>Nombres: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="password" ng-model="contrasenaUsuario" placeholder="Password" class="form-control" />
+                                    <input type="text" ng-model="nombresCompletos" placeholder="Nombres Completos" class="form-control" />
                                 </div>
                             </div>
                             <div class="row">
@@ -167,7 +173,7 @@
 
                                 </div>
                                 <div class="col-md-3">
-                                    <h4>Correo: </h4>
+                                    <h4>Email: </h4>
                                 </div>
                                 <div class="col-md-7">
                                     <input type="email" ng-model="correoUsuario" placeholder="email@example.com" class="form-control" />
@@ -181,9 +187,7 @@
                                     <h4>Tipo Usuario: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <select class="form-control" ng-model="tipoUsuario" ng-options="item._id as item.descripcion_tipo_usuario for item in listaTipoUsuario">
-                                        
-                                    </select>                                  
+                                    <select class="form-control" ng-model="tipoUsuario" ng-options="item._id as item.descripcion_tipo_usuario for item in listaTipoUsuario"></select>
                                 </div>
                             </div>
                         </div>
@@ -194,11 +198,11 @@
                         </div>
 
                         <div class="col-md-4">
-                            <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoUsuario()"/>
+                            <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoUsuario()" />
                         </div>
 
                         <div class="col-md-4">
-                            <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarUsuario()"/>
+                            <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarUsuario()" />
                         </div>
                         <div class="row">
                             <div class="col-md-10">
@@ -229,14 +233,42 @@
 
                             </div>
 
-                            <div class="col-md-12">
-                                <select name="Usuarios" ng-model="seleccionUsuario" multiple class="form-control" style="height: 270px;" ng-click="buscarSeleccionListaUsuario()">
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaUsuario | filter:busqueda| orderBy:aux.name">
-                                        {{aux.name}}{{"--"}}{{aux.username}}
-                                    </option>
-                                </select>
+                            <div class="col-md-12 col-xs-12">
+
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr class="success">
+                                                <th>#</th>
+                                                <th>Nombre Usuario</th>
+                                                <th>Cédula</th>
+                                                <th>Nombres</th>
+                                                <th>Teléfono</th>
+                                                <th>Email</th>
+                                                <th>Tipo Usuario</th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+
+                                            <tr dir-paginate="item in listaUsuario| filter:busqueda| itemsPerPage:5 track by $index"
+                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="cliente">
+
+                                                <td>{{$index}}</td>
+                                                <td>{{ item.username}}</td>
+                                                <td>{{ item.identification_card}}</td>
+                                                <td>{{ item.name}}</td>
+                                                <td>{{ item.phone}}</td>
+                                                <td>{{ item.email }}</td>
+                                                <td>{{ item.type_user.descripcion_tipo_usuario }}</td>
+
+                                            </tr>
+                                            <dir-pagination-controls pagination-id="cliente"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

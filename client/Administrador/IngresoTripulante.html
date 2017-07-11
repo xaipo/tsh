@@ -6,12 +6,16 @@
     <title>Inicio</title>
     <link type="text/css" href="../bootstrap/dist/css/bootstrap.css" id="pagesheet" rel="stylesheet" media="screen" />
     <link type="text/css" href="../css/OverrideComponents.css" id="pagesheet2" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../alertas/sweetalert.css">
 
     <!-----angular-->
 
     <script src="../jquery/dist/jquery.min.js"></script>
     <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../alertas/sweetalert.min.js"></script>
+    <script src="../notificaciones/notify.js"></script>
     <script src="../angular/angular.js"></script>
+    <script src="../node_modules/angular-utils-pagination/dirPagination.js"></script>
     <script src="../app.js"></script>
     <script src="../controllers/controllerTripulante.js"></script>
 </head>
@@ -97,17 +101,6 @@
 
                                 </div>
                                 <div class="col-md-3">
-                                    <h4>Nombre: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <input type="text" ng-model="nombreTripulante" placeholder="Apellidos Nombres" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-1">
-
-                                </div>
-                                <div class="col-md-3">
                                     <h4>Cedula: </h4>
                                 </div>
                                 <div class="col-md-7">
@@ -127,6 +120,18 @@
                                         }
                                     </script>
                                     <input type="text" ng-model="cedulaTripulante" onkeypress="return valida(event)" placeholder="1234567890" maxlength="10" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Nombre: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="nombreTripulante" placeholder="Apellidos Nombres" class="form-control" />
                                 </div>
                             </div>
 
@@ -192,18 +197,39 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
 
+                            <div class="col-md-12 col-xs-12">
+
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr class="success">
+                                                <th>#</th>
+                                                <th>Cédula</th>
+                                                <th>Nombres</th>
+                                                <th>teléfono</th>
+                                                <th>Tipo Tripulante</th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+
+                                            <tr dir-paginate="item in listaTripulante| filter:busqueda| itemsPerPage:5 track by $index"
+                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="propietario">
+
+                                                <td>{{$index}}</td>
+                                                <td>{{ item.cedula_tripulante}}</td>
+                                                <td>{{ item.nombre_tripulante}}</td>
+                                                <td>{{ item.telefono_tripulante}}</td>
+                                                <td>{{ item.tipo_tripulante.descripcion_tipo_tripulante }}</td>
+
+                                            </tr>
+                                            <dir-pagination-controls pagination-id="propietario"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
 
-                            <div class="col-md-12">
-                                <select name="Usuarios" ng-model="seleccionTripulante" multiple class="form-control" style="height: 190px;" ng-click="buscarSeleccionListaTripulante()">
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaTripulante | filter:busqueda| orderBy:aux.nombre_tripulante">
-                                        {{aux.nombre_tripulante}}
-                                    </option>
-                                </select>
-                            </div>
                         </div>
                     </div>
                 </div>

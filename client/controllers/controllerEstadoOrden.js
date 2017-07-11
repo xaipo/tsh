@@ -44,19 +44,25 @@ app.controller('ControllerEstadoOrden', ['$scope', '$http', 'myProvider', functi
     }
 
     $scope.ingresoEstadoOrden = function () {
+
         var obj = {
             descripcion_estado: $scope.descripcionEstado
         };
-        $http.post($scope.url, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.url, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.iniciar();
+                    $.notify("Ingreso Correcto", "success");
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.modificarEstadoOrden = function () {
@@ -65,16 +71,21 @@ app.controller('ControllerEstadoOrden', ['$scope', '$http', 'myProvider', functi
             id: $scope.id,
             descripcion_estado: $scope.descripcionEstado
         };
-        $http.post($scope.urlModificar, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.urlModificar, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.iniciar();
+                    $.notify("Modificacion Exitosa", "success");
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.buscarSeleccionEstadoOrden = function () {
@@ -96,3 +107,15 @@ app.controller('ControllerEstadoOrden', ['$scope', '$http', 'myProvider', functi
     }
 
 }]);
+
+function validarCamposVacios(obj) {
+
+    if (obj.descripcion_estado == "") {
+
+        return false;
+
+    } else {
+        return true;
+    }
+
+}

@@ -36,7 +36,6 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
 
     var aux = localStorage.getItem("id_token");
     if (aux != null) {
-
         $scope.iniciar = function () {
             $scope.url = myProvider.getUrlIngresoPedido();
             $scope.urlAlimentos = myProvider.getUrlIngresoAlimentos();
@@ -164,22 +163,25 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
             materiales: $scope.listaMaterialesArray,
             observaciones: $scope.observaciones
         };
+        if (validarCamposVacios(obj)) {
+            var q = $q.defer()
+            q.resolve(
 
-        var q = $q.defer()
-        q.resolve(
+                $http.post($scope.url, obj)
+                    .then(function successCallback(response) {
 
-            $http.post($scope.url, obj)
-                .then(function successCallback(response) {
+                        $scope.iniciar();
+                        $.notify("Ingreso Correcto", "success");
 
-                    $scope.iniciar();
-                    //console.log(response);
+                    }, function errorCallback(response) {
 
-                }, function errorCallback(response) {
+                        $.notify("Error!", "error");
+                    }));
 
-                    console.log(response);
-                }));
-
-        return q.promise
+            return q.promise
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.ingresoPedido = function () {
@@ -204,7 +206,7 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
 
             $scope.ingresoPesidoBase();
 
-        }, 1000, false)
+        }, 500, false)
 
     }
 
@@ -391,6 +393,10 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
 
     }
 
+    $scope.redireccion = function () {
+        window.location = "../menu.html"
+    }
+
     $scope.logout = function () {
 
         localStorage.clear();
@@ -399,3 +405,11 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
     }
 
 }]);
+
+function validarCamposVacios(obj) {
+    if (obj.alimentos == "") {
+        return false;
+    } else {
+        return true;
+    }
+}

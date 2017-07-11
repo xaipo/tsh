@@ -3,6 +3,7 @@ app.controller('ControllerTipoUsuario', ['$scope', '$http', 'myProvider', functi
     $scope.url;
     $scope.urlModificar;
     $scope.urlAllTipoUsuario;
+
     $scope.descripcionTipoUsuario;
 
     $scope.id;
@@ -18,6 +19,16 @@ app.controller('ControllerTipoUsuario', ['$scope', '$http', 'myProvider', functi
             $scope.url = myProvider.getUrlIngresoTipoUsuario();
             $scope.urlModificar = myProvider.getUrlModificarTipoUsuario();
             $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoUsuario();
+
+            $scope.descripcionTipoUsuario = "";
+
+            $scope.id = "";
+            $scope.seleccion = "";
+            $scope.seleccionTipoUsuario = "";
+
+            $scope.busqueda = "";
+            $scope.listaTipoUsuario;
+
             $http.get($scope.urlAllTipoUsuario)
                 .then(function (response) {
 
@@ -32,35 +43,47 @@ app.controller('ControllerTipoUsuario', ['$scope', '$http', 'myProvider', functi
         window.location = "../login.html"
     }
     $scope.ingresoTipoUsuario = function () {
-        console.log($scope.descripcionTipoUsuario);
-        var obj = { descripcion_tipo_usuario: $scope.descripcionTipoUsuario };
-        $http.post($scope.url, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
-                console.log(response);
+        var obj = {
+            descripcion_tipo_usuario: $scope.descripcionTipoUsuario
+        };
 
-            }, function errorCallback(response) {
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.url, obj)
+                .then(function (response) {
 
-                console.log(response);
-            });
+                    $scope.iniciar();
+                    $.notify("Ingreso Correcto", "success");
 
+                }, function errorCallback(response) {
+
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.modificarTipoUsuario = function () {
 
-        var obj = { id: $scope.id, descripcion_tipo_usuario: $scope.descripcionTipoUsuario };
-        $http.post($scope.urlModificar, obj)
-            .then(function (response) {
+        var obj = {
+            id: $scope.id, descripcion_tipo_usuario: $scope.descripcionTipoUsuario
+        };
 
-                $scope.iniciar();
-                console.log(response);
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.urlModificar, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.iniciar();
+                    $.notify("Modificacion Exitosa", "success");
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.buscarSeleccionTipoUsuario = function () {
@@ -83,3 +106,14 @@ app.controller('ControllerTipoUsuario', ['$scope', '$http', 'myProvider', functi
     }
 
 }]);
+
+
+function validarCamposVacios(obj) {
+    if (obj.descripcion_tipo_usuario == "") {
+
+        return false;
+
+    } else {
+        return true;
+    }
+}

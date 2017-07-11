@@ -3,7 +3,6 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
     $scope.url;
     $scope.urlModificar;
     $scope.urlAllTipoEmbarcacion;
-    console.log($scope.url);
 
     $scope.id;
     $scope.seleccionTipoEmbarcacion;
@@ -18,6 +17,14 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
             $scope.url = myProvider.getUrlIngresoTipoEmbarcacion();
             $scope.urlModificar = myProvider.getUrlModificarTipoEmbarcacion();
             $scope.urlAllTipoEmbarcacion = myProvider.getUrlAllTipoEmbarcacion();
+
+            $scope.id = "";
+            $scope.seleccionTipoEmbarcacion = "";
+            $scope.descripcionTipoEmbarcacion = "";
+
+            $scope.busqueda = "";
+            $scope.listaTipoEmbarcacion;
+
             $http.get($scope.urlAllTipoEmbarcacion)
                 .then(function (response) {
 
@@ -33,35 +40,47 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
     }
 
     $scope.ingresoTipoEmbarcacion = function () {
-        console.log($scope.descripcionTipoEmbarcacion);
-        var obj = { descripcion_tipo_embarcacion: $scope.descripcionTipoEmbarcacion };
-        $http.post($scope.url, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
-                console.log(response);
+        var obj = {
+            descripcion_tipo_embarcacion: $scope.descripcionTipoEmbarcacion
+        };
 
-            }, function errorCallback(response) {
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.url, obj)
+                .then(function (response) {
 
-                console.log(response);
-            });
+                    $scope.iniciar();
+                    $.notify("Ingreso Correcto", "success");
 
+                }, function errorCallback(response) {
+
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.modificarTipoEmbarcacion = function () {
 
-        var obj = { id: $scope.id, descripcion_tipo_embarcacion: $scope.descripcionTipoEmbarcacion };
-        $http.post($scope.urlModificar, obj)
-            .then(function (response) {
+        var obj = {
+            id: $scope.id, descripcion_tipo_embarcacion: $scope.descripcionTipoEmbarcacion
+        };
 
-                $scope.iniciar();
-                console.log(response);
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.urlModificar, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.iniciar();
+                    $.notify("Modificacion Exitosa", "success");
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.buscarSeleccionTipoEmbarcacion = function (aux) {
@@ -84,3 +103,13 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
     }
 
 }]);
+
+function validarCamposVacios(obj) {
+    if (obj.descripcion_tipo_embarcacion == "") {
+
+        return false;
+
+    } else {
+        return true;
+    }
+}

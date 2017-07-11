@@ -42,8 +42,8 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
 
 
     //Selecciones
-    $scope.seleccion;
-    $scope.seleccionEmbarcacion;
+    $scope.seleccion = "";
+    $scope.seleccionEmbarcacion = "";
 
     //ver como filtrar la lista de tripulantes....
 
@@ -87,6 +87,10 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
             $scope.listaTripulantesCapitanes;
             $scope.seleccionTripulante;
             $scope.seleccionTripulanteAux;
+
+            //Selecciones
+            $scope.seleccion = "";
+            $scope.seleccionEmbarcacion = "";
 
             $http.get($scope.urlAllEmbarcacion)
                 .then(function (response) {
@@ -173,42 +177,51 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
 
     $scope.modificarEmbarcacion = function () {
 
-        var dimeTrip = $scope.listaTripulanteSelect.length;
-        for (var i = 0; i < dimeTrip; i++) {
+        if ($scope.seleccionEmbarcacion != "") {
+            var dimeTrip = $scope.listaTripulanteSelect.length;
+            for (var i = 0; i < dimeTrip; i++) {
 
-            $scope.listaTripulanteIngresar.push($scope.listaTripulanteSelect[i]._id.toString());
+                $scope.listaTripulanteIngresar.push($scope.listaTripulanteSelect[i]._id.toString());
 
-        }
+            }
 
-        var obj = {
-            id: $scope.id,
-            nombre_embarcacion: $scope.nombreEmbarcacion,
-            num_matricula: $scope.numeroMatricula,
-            eslora_total: $scope.esloraTotal,
-            manga: $scope.manga,
-            puntual: $scope.puntual,
-            calado: $scope.calado,
-            fecha_construccion: $scope.fechaConstruccion,
-            propietario: $scope.propietario,
-            propulsion: $scope.propulsion,
-            tipo_combustible: $scope.tipoCombustible,
-            tonelaje_bruto: $scope.tonelajeBruto,
-            capacidad_carga: $scope.capacidadCarga,
-            tipo_embarcacion: $scope.tipoEmbarcacion,
-            capitan_embarcacion: $scope.capitan,
-            tripulantes: $scope.listaTripulanteIngresar
-        };
-        $http.post($scope.urlModificar, obj)
-            .then(function (response) {
+            var obj = {
+                id: $scope.id,
+                nombre_embarcacion: $scope.nombreEmbarcacion,
+                num_matricula: $scope.numeroMatricula,
+                eslora_total: $scope.esloraTotal,
+                manga: $scope.manga,
+                puntual: $scope.puntual,
+                calado: $scope.calado,
+                fecha_construccion: $scope.fechaConstruccion,
+                propietario: $scope.propietario,
+                propulsion: $scope.propulsion,
+                tipo_combustible: $scope.tipoCombustible,
+                tonelaje_bruto: $scope.tonelajeBruto,
+                capacidad_carga: $scope.capacidadCarga,
+                tipo_embarcacion: $scope.tipoEmbarcacion,
+                capitan_embarcacion: $scope.capitan,
+                tripulantes: $scope.listaTripulanteIngresar
+            };
 
-                $scope.iniciar();
-                console.log(response);
+            if (validarCamposVacios(obj)) {
+                $http.post($scope.urlModificar, obj)
+                    .then(function (response) {
 
-            }, function errorCallback(response) {
+                        $scope.iniciar();
+                        $.notify("Modificacion Exitosa", "success");
 
-                console.log(response);
-            });
+                    }, function errorCallback(response) {
 
+                        $.notify("Error!", "error");
+
+                    });
+
+            } else {
+                $.notify("Revise los Campos", "info");
+            }
+        } else
+            $.notify("Seleccione una Embacacion", "info");
     }
 
     $scope.cargarTripulantes = function () {
@@ -303,6 +316,10 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
 
     }
 
+    $scope.redireccion = function () {
+        window.location = "../menu.html"
+    }
+
     $scope.logout = function () {
 
         localStorage.clear();
@@ -311,3 +328,13 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
     }
 
 }]);
+
+function validarCamposVacios(obj) {
+    if (obj.nombre_embarcacion == "" || obj.num_matricula == "" || obj.eslora_total == "" || obj.manga == "" || obj.puntual == "" ||
+        obj.calado == "" || obj.fecha_construccion == "" || obj.propietario == "" || obj.propulsion == "" || obj.tipo_combustible == "" ||
+        obj.tonelaje_bruto == "" || obj.capacidad_carga == "" || obj.tipo_embarcacion == "" || obj.capitan_embarcacion == "" || obj.tripulantes == "") {
+        return false;
+    } else {
+        return true;
+    }
+}

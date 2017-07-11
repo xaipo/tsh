@@ -52,7 +52,8 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
     $scope.cantidadConsumoCombustible = "";
     $scope.cantidadTransporteCombustible = "";
 
-    //$scope.seleccion;
+    $scope.selecCli = "";
+    $scope.seleccionCliente = "";
     $scope.seleccionMatPetreo = {};
     $scope.seleccionTipoMatPetreo = {};
     $scope.seleccionVehiculo = {};
@@ -151,7 +152,8 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
             $scope.cantidadConsumoCombustible = "";
             $scope.cantidadTransporteCombustible = "";
 
-            //$scope.seleccion;
+            $scope.selecCli = "";
+            $scope.seleccionCliente = "";
             $scope.seleccionMatPetreo = {};
             $scope.seleccionTipoMatPetreo = {};
             $scope.seleccionVehiculo = {};
@@ -302,7 +304,7 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
                 .then(function (response) {
 
                     $scope.listaCliente = response.data;
-                    $scope.seleccionCliente = $scope.listaCliente[0];
+                    //$scope.seleccionCliente = JSON.stringify($scope.listaCliente[0]);
 
                 }, function errorCallback(response) {
 
@@ -437,141 +439,161 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
 
         $scope.selecCli = JSON.parse($scope.seleccionCliente);
 
-        var q = $q.defer()
+        var obj = {
+            cliente: $scope.selecCli._id,
+            detalle: $scope.detalle,
+            embarcacion: $scope.embarcacion,
+            estado: $scope.estado,
+            fecha_emision: $scope.fechaEmision,
+            fecha_entrega: $scope.fechaEntrega,
+            puerto_embarque: $scope.puertoEmbarque,
+            puerto_desembarque: $scope.puertoDesembarque,
+            orometro_inicial_m1: $scope.orometroInicialM1,
+            orometro_inicial_m2: $scope.orometroInicialM2,
+            orometro_final_m1: $scope.orometroFinalM1,
+            orometro_final_m2: $scope.orometroFinalM2,
+            hora_salida: $scope.horaSalida,
+            hora_arribo: $scope.horaArribo,
+            carga_material_petreo: $scope.listMatPetreo,
+            carga_vehiculo: $scope.listaVehi,
+            observaciones: $scope.observaciones,
+            combustible_consumo: $scope.listaCombustConsumo,
+            combustible_transporte: $scope.listaCombustTransporte,
+            observacion_maquinaria: $scope.observacionMaquinista,
+            contrato_recepcion: $scope.contratoRecepcion,
+            capitan_embarcacion: $scope.capitan
+        }
+        if (validarCamposVacios(obj)) {
+            var q = $q.defer()
 
-        q.resolve(
+            q.resolve(
 
-            $http({
-                method: 'POST',
-                url: $scope.url,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                data: {
-                    cliente: $scope.selecCli._id,
-                    detalle: $scope.detalle,
-                    embarcacion: $scope.embarcacion,
-                    estado: $scope.estado,
-                    fecha_emision: $scope.fechaEmision,
-                    fecha_entrega: $scope.fechaEntrega,
-                    puerto_embarque: $scope.puertoEmbarque,
-                    puerto_desembarque: $scope.puertoDesembarque,
-                    orometro_inicial_m1: $scope.orometroInicialM1,
-                    orometro_inicial_m2: $scope.orometroInicialM2,
-                    orometro_final_m1: $scope.orometroFinalM1,
-                    orometro_final_m2: $scope.orometroFinalM2,
-                    hora_salida: $scope.horaSalida,
-                    hora_arribo: $scope.horaArribo,
-                    carga_material_petreo: $scope.listMatPetreo,
-                    carga_vehiculo: $scope.listaVehi,
-                    observaciones: $scope.observaciones,
-                    combustible_consumo: $scope.listaCombustConsumo,
-                    combustible_transporte: $scope.listaCombustTransporte,
-                    observacion_maquinaria: $scope.observacionMaquinista,
-                    contrato_recepcion: $scope.contratoRecepcion,
-                    capitan_embarcacion: $scope.capitan
-                }
-
-
-            }).then(function successCallback(response) {
-
-                $scope.iniciar();
-
-            }, function errorCallback(response) {
+                $http({
+                    method: 'POST',
+                    url: $scope.url,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: obj
 
 
-            })
+                }).then(function successCallback(response) {
 
-        );
+                    $scope.iniciar();
+                    $.notify("Ingreso Correcto", "success");
 
-        return q.promise
+                }, function errorCallback(response) {
+
+                    $.notify("Error!", "error");
+                })
+
+            );
+
+            return q.promise
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.ingresoOrdenServicio = function () {
-
-        if ($scope.horasSalida < 9) {
-            var h = "0" + $scope.horasSalida.toString();
-            if ($scope.minutosSalida < 9) {
-                var min = "0" + $scope.minutosSalida.toString();
-                $scope.horaSalida = h.toString() + ":" + min.toString();
+        console.log($scope.selecCli);
+        if ($scope.selecCli != "" && $scope.selecCli != undefined) {
+            if ($scope.horasSalida < 9) {
+                var h = "0" + $scope.horasSalida.toString();
+                if ($scope.minutosSalida < 9) {
+                    var min = "0" + $scope.minutosSalida.toString();
+                    $scope.horaSalida = h.toString() + ":" + min.toString();
+                }
+                if ($scope.minutosSalida > 9) {
+                    var min = $scope.minutosSalida.toString();
+                    $scope.horaSalida = h.toString() + ":" + min.toString();
+                }
             }
-            if ($scope.minutosSalida > 9) {
-                var min = $scope.minutosSalida.toString();
-                $scope.horaSalida = h.toString() + ":" + min.toString();
+            if ($scope.horasSalida > 9) {
+                var h = $scope.horasSalida;
+                if ($scope.minutosSalida < 9) {
+                    var min = "0" + $scope.minutosSalida.toString();
+                    $scope.horaSalida = h.toString() + ":" + min.toString();
+                }
+                if ($scope.minutosSalida > 9) {
+                    var min = $scope.minutosSalida.toString();
+                    $scope.horaSalida = h.toString() + ":" + min.toString();
+                }
             }
-        }
-        if ($scope.horasSalida > 9) {
-            var h = $scope.horasSalida;
-            if ($scope.minutosSalida < 9) {
-                var min = "0" + $scope.minutosSalida.toString();
-                $scope.horaSalida = h.toString() + ":" + min.toString();
+
+            if ($scope.horasArribo < 9) {
+                var h = "0" + $scope.horasArribo.toString();
+                if ($scope.minutosArribo < 9) {
+                    var min = "0" + $scope.minutosArribo.toString();
+                    $scope.horaArribo = h.toString() + ":" + min.toString();
+                }
+                if ($scope.minutosArribo > 9) {
+                    var min = $scope.minutosArribo.toString();
+                    $scope.horaArribo = h.toString() + ":" + min.toString();
+                }
             }
-            if ($scope.minutosSalida > 9) {
-                var min = $scope.minutosSalida.toString();
-                $scope.horaSalida = h.toString() + ":" + min.toString();
+            if ($scope.horasArribo > 9) {
+                var h = $scope.horasArribo.toString();
+                if ($scope.minutosArribo < 9) {
+                    var min = "0" + $scope.minutosArribo.toString();
+                    $scope.horaArribo = h.toString() + ":" + min.toString();
+                }
+                if ($scope.minutosArribo > 9) {
+                    var min = $scope.minutosArribo.toString();
+                    $scope.horaArribo = h.toString() + ":" + min.toString();
+                }
             }
-        }
 
-        if ($scope.horasArribo < 9) {
-            var h = "0" + $scope.horasArribo.toString();
-            if ($scope.minutosArribo < 9) {
-                var min = "0" + $scope.minutosArribo.toString();
-                $scope.horaArribo = h.toString() + ":" + min.toString();
+            var dimMatPet = $scope.listaMaterialPetreo.length;
+
+            for (var i = 0; i < dimMatPet; i++) {
+
+                $scope.ingresoMateriales(i);
+
             }
-            if ($scope.minutosArribo > 9) {
-                var min = $scope.minutosArribo.toString();
-                $scope.horaArribo = h.toString() + ":" + min.toString();
+
+            var dimVe = $scope.listaVehiculo.length;
+
+            for (var i = 0; i < dimVe; i++) {
+
+                $scope.ingresoVehiculos(i);
+
             }
-        }
-        if ($scope.horasArribo > 9) {
-            var h = $scope.horasArribo.toString();
-            if ($scope.minutosArribo < 9) {
-                var min = "0" + $scope.minutosArribo.toString();
-                $scope.horaArribo = h.toString() + ":" + min.toString();
+
+            var dimeCombusCons = $scope.listaCombustibleConsumoSelect.length;
+
+            for (var i = 0; i < dimeCombusCons; i++) {
+
+                $scope.ingresoCombustibleComsumo(i);
+
             }
-            if ($scope.minutosArribo > 9) {
-                var min = $scope.minutosArribo.toString();
-                $scope.horaArribo = h.toString() + ":" + min.toString();
+
+            var dimeCombusTrans = $scope.listaCombustibleTransporteSelect.length;
+
+            for (var i = 0; i < dimeCombusTrans; i++) {
+
+                $scope.ingresoCombustibleTransporte(i);
+
             }
+
+            $timeout(function () {
+
+                $scope.ingresoOrden();
+
+            }, 1500, false)
+        } else {
+            $.notify("Seleccione un Cliente", "info");
         }
+    }
 
-        var dimMatPet = $scope.listaMaterialPetreo.length;
+    $scope.buscarSeleccionListaCliente = function () {
 
-        for (var i = 0; i < dimMatPet; i++) {
+        if ($scope.seleccionCliente != undefined && $scope.seleccionCliente != "" && $scope.seleccionCliente != {}) {
 
-            $scope.ingresoMateriales(i);
+            $scope.selecCli = JSON.parse($scope.seleccionCliente);
 
-        }
-
-        var dimVe = $scope.listaVehiculo.length;
-
-        for (var i = 0; i < dimVe; i++) {
-
-            $scope.ingresoVehiculos(i);
-
-        }
-
-        var dimeCombusCons = $scope.listaCombustibleConsumoSelect.length;
-
-        for (var i = 0; i < dimeCombusCons; i++) {
-
-            $scope.ingresoCombustibleComsumo(i);
 
         }
-
-        var dimeCombusTrans = $scope.listaCombustibleTransporteSelect.length;
-
-        for (var i = 0; i < dimeCombusTrans; i++) {
-
-            $scope.ingresoCombustibleTransporte(i);
-
-        }
-
-        $timeout(function () {
-
-            $scope.ingresoOrden();
-
-        }, 1500, false)
     }
 
     $scope.buscarCapitan = function () {
@@ -889,6 +911,10 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
 
     }
 
+    $scope.redireccion = function () {
+        window.location = "../menu.html"
+    }
+
     $scope.logout = function () {
 
         localStorage.clear();
@@ -897,3 +923,14 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
     }
 
 }]);
+
+function validarCamposVacios(obj) {
+    if (obj.seleccionCliente == "" || obj.detalle == "" || obj.embarcacion == "" || obj.estado == "" || obj.fecha_emision == "" ||
+        obj.puerto_embarque == "" || obj.puerto_desembarque == "" || obj.orometro_inicial_m1 == "" || obj.orometro_inicial_m2 == "" ||
+        obj.orometro_final_m1 == "" || obj.orometro_final_m2 == "" || obj.hora_salida == "" || obj.hora_arribo == "" ||
+        obj.combustible_consumo == "" || obj.contrato_recepcion == "" || obj.capitan_embarcacion == "") {
+        return false;
+    } else {
+        return true;
+    }
+}

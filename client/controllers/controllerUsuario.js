@@ -6,6 +6,7 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
     $scope.urlModificar;
     $scope.urlAllUsuario;
     $scope.urlAllTipoUsuario;
+    $scope.urlBuscarTipoUsuario;
 
 
     $scope.nombreUsuario;
@@ -42,12 +43,31 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
             $scope.urlRegister = myProvider.getUrlRegisterUser();
             $scope.urlModificar = myProvider.getUrlModificarUser();
             $scope.urlAllUsuario = myProvider.getUrlAllUsuario();
-            $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoUsuario();            
+            $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoUsuario();
+            $scope.urlBuscarTipoUsuario = myProvider.getUrlBuscarTipoUsuario();
 
             $http.get($scope.urlAllUsuario)
                 .then(function (response) {
 
                     $scope.listaUsuario = response.data;
+
+                    var n = $scope.listaUsuario.length;
+                    var k = 0;
+                    for (var i = 0; i < n; i++) {
+                        var tpUsu = {
+                            id: $scope.listaUsuario[i].type_user
+                        }
+
+                        $http.post($scope.urlBuscarTipoUsuario, tpUsu)
+                            .then(function (response) {
+
+                                $scope.listaUsuario[k++].type_user = response.data;
+
+                            }, function errorCallback(response) {
+
+                                console.log(response);
+                            });
+                    }
 
                 }, function errorCallback(response) {
 
@@ -90,28 +110,26 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
                         type_user: $scope.tipoUsuario
                     }
 
-                    if (!validarCamposVacios(user)) {
-                        alert("existen campos vacios");
-                    } else {
-                        if (!validateEmail(user.email)) {
-                            alert("correo invalido");
-                        } else {
-
+                    if (validarCamposVacios(user)) {
+                        if (validateEmail(user.email)) {
                             $http.post($scope.urlRegister, user)
                                 .then(function (response) {
 
                                     $scope.iniciar();
-                                    console.log(response);
+                                    $.notify("Ingreso Correcto", "success");
 
                                 }, function errorCallback(response) {
 
-                                    console.log(response);
+                                    $.notify("Error!", "error");
                                 });
-
+                        } else {
+                            $.notify("Correo Invalido!", "error");
                         }
+                    } else {
+                        $.notify("Revise los Campos", "info");
                     }
                 } else
-                    alert("usuario existe");
+                    $.notify("Usuario ya Existe", "info");
 
             }, function errorCallback(response) {
                 alert(response);
@@ -131,22 +149,22 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
             type_user: $scope.tipoUsuario
         };
 
-        if (!validarCamposVacios(obj)) {
-            alert("existen campos vacios");
-        } else {
-            if (!validateEmail(obj.email)) {
-                alert("correo invalido");
-            } else {
+        if (validarCamposVacios(obj)) {
+            if (validateEmail(obj.email)) {
                 $http.post($scope.urlModificar, obj)
                     .then(function (response) {
 
                         $scope.iniciar();
-                        console.log(response);
+                        $.notify("Modificacion Exitosa", "success");
 
                     }, function errorCallback(response) {
-                        console.log(response);
+                        $.notify("Error!", "error");
                     });
+            } else {
+                $.notify("Correo Invalido!", "error");
             }
+        } else {
+            $.notify("Revise los Campos", "info");
         }
     }
 
@@ -154,7 +172,7 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
 
         if ($scope.seleccionUsuario != '' && $scope.seleccionUsuario != undefined) {
 
-            $scope.selecUsu = JSON.parse($scope.seleccionUsuario);
+            $scope.selecUsu = $scope.seleccionUsuario;
 
             $scope.id = $scope.selecUsu._id;
             $scope.nombreUsuario = $scope.selecUsu.username;
@@ -163,7 +181,7 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
             $scope.contrasenaUsuario = $scope.selecUsu.password;
             $scope.telefonoUsuario = $scope.selecUsu.phone;
             $scope.correoUsuario = $scope.selecUsu.email;
-            $scope.tipoUsuario = $scope.selecUsu.type_user;
+            $scope.tipoUsuario = $scope.selecUsu.type_user._id;
         }
     }
 
@@ -174,13 +192,22 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
 
     }
 
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.seleccionUsuario = item;
+        $scope.selectedRow = index;
+
+        $scope.buscarSeleccionListaUsuario();
+
+    }
+
 }]);
 
 
 function validarCamposVacios(user) {
 
-    if (user.nombreUsuario == "" || user.correoUsuario == "" || user.nombresCompletos == "" ||
-        user.contrasenaUsuario == "" || user.cedulaUsuario == "" || user.telefonoUsuario == "" || user.tipoUsuario == "") {
+    if (user.username == "" || user.name == "" || user.email == "" || user.phone == "" ||
+        user.password == "" || user.identification_card == "" || user.type_user == "") {
 
         return false;
 

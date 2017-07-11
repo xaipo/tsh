@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,11 +6,14 @@
     <title>Inicio</title>
     <link type="text/css" href="../bootstrap/dist/css/bootstrap.css" id="pagesheet" rel="stylesheet" media="screen" />
     <link type="text/css" href="../css/OverrideComponents.css" id="pagesheet2" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../alertas/sweetalert.css">
 
     <!-----angular-->
 
     <script src="../jquery/dist/jquery.min.js"></script>
     <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../alertas/sweetalert.min.js"></script>    
+    <script src="../notificaciones/notify.js"></script>
     <script src="../angular/angular.js"></script>
     <script src="../node_modules/angular-utils-pagination/dirPagination.js"></script>
     <script src="../app.js"></script>
@@ -190,7 +193,7 @@
                             </div>
 
                             <div class="col-md-5">
-                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="ingresoCliente()" />
+                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarCliente()" />
                             </div>
                         </div>
                 </div>
@@ -232,7 +235,7 @@
                                     <tbody>
 
                                         <tr dir-paginate="item in listaClientes| filter:busqueda| itemsPerPage:5 track by $index"
-                                            ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="contrato">
+                                            ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="cliente">
 
                                             <td>{{$index}}</td>
                                             <td>{{ item.ruc_cliente}}</td>
@@ -242,7 +245,7 @@
                                             <td>{{ item.correo_cliente }}</td>
 
                                         </tr>
-                                        <dir-pagination-controls pagination-id="contrato"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                        <dir-pagination-controls pagination-id="cliente"></dir-pagination-controls> <!--agregar botones paginacion-->
                                     </tbody>
                                 </table>
                             </div>

@@ -3,6 +3,7 @@ app.controller('ControllerTipoTripulante', ['$scope', '$http', 'myProvider', fun
     $scope.url;
     $scope.urlModificar;
     $scope.urlAllTipoTripulante;
+
     $scope.descripcionTipoTripulante;
 
     $scope.id;
@@ -18,6 +19,16 @@ app.controller('ControllerTipoTripulante', ['$scope', '$http', 'myProvider', fun
             $scope.url = myProvider.getUrlIngresoTipoTripulante();
             $scope.urlModificar = myProvider.getUrlModificarTipoTripulante();
             $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoTripulante();
+
+            $scope.descripcionTipoTripulante = "";
+
+            $scope.id = "";
+            $scope.seleccion = "";
+            $scope.seleccionTipoTripulante = "";
+
+            $scope.busqueda = "";
+            $scope.listaTipoUsuario;
+
             $http.get($scope.urlAllTipoUsuario)
                 .then(function (response) {
 
@@ -33,35 +44,47 @@ app.controller('ControllerTipoTripulante', ['$scope', '$http', 'myProvider', fun
     }
 
     $scope.ingresoTipoTripulante = function () {
-        console.log($scope.descripcionTipoTripulante);
-        var obj = { descripcion_tipo_tripulante: $scope.descripcionTipoTripulante };
-        $http.post($scope.url, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
-                console.log(response);
+        var obj = {
+            descripcion_tipo_tripulante: $scope.descripcionTipoTripulante
+        };
 
-            }, function errorCallback(response) {
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.url, obj)
+                .then(function (response) {
 
-                console.log(response);
-            });
+                    $scope.iniciar();
+                    $.notify("Ingreso Correcto", "success");
 
+                }, function errorCallback(response) {
+
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.modificarTipoTripulante = function () {
 
-        var obj = { id: $scope.id, descripcion_tipo_tripulante: $scope.descripcionTipoTripulante };
-        $http.post($scope.urlModificar, obj)
-            .then(function (response) {
+        var obj = {
+            id: $scope.id, descripcion_tipo_tripulante: $scope.descripcionTipoTripulante
+        };
 
-                $scope.iniciar();
-                console.log(response);
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.urlModificar, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.iniciar();
+                    $.notify("Modificacion Exitosa", "success");
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.buscarSeleccionTipoTripulante = function () {
@@ -84,3 +107,14 @@ app.controller('ControllerTipoTripulante', ['$scope', '$http', 'myProvider', fun
     }
 
 }]);
+
+
+function validarCamposVacios(obj) {
+    if (obj.descripcion_tipo_tripulante == "") {
+
+        return false;
+
+    } else {
+        return true;
+    }
+}

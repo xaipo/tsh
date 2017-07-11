@@ -45,19 +45,25 @@ app.controller('ControllerTipoAlimentos', ['$scope', '$http', 'myProvider', func
     }
 
     $scope.ingresoTipoAlimentos = function () {
-        console.log($scope.seleccionTipoAlimento);
-        var obj = { descripcion_tipo_alimento: $scope.descripcionTipoAlimento };
-        $http.post($scope.url, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
-                console.log(response);
+        var obj = {
+            descripcion_tipo_alimento: $scope.descripcionTipoAlimento
+        };
 
-            }, function errorCallback(response) {
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.url, obj)
+                .then(function (response) {
 
-                console.log(response);
-            });
+                    $scope.iniciar();
+                    $.notify("Ingreso Correcto", "success");
 
+                }, function errorCallback(response) {
+
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.modificarTipoAlimentos = function () {
@@ -66,17 +72,21 @@ app.controller('ControllerTipoAlimentos', ['$scope', '$http', 'myProvider', func
             id: $scope.id,
             descripcion_tipo_alimento: $scope.descripcionTipoAlimento
         };
-        $http.post($scope.urlModificar, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
-                console.log(response);
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.urlModificar, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.iniciar();
+                    $.notify("Modificacion Exitosa", "success");
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.buscarseleccionTipoAlimento = function () {
@@ -98,3 +108,13 @@ app.controller('ControllerTipoAlimentos', ['$scope', '$http', 'myProvider', func
     }
 
 }]);
+
+function validarCamposVacios(obj) {
+    if (obj.descripcion_tipo_alimento == "") {
+
+        return false;
+
+    } else {
+        return true;
+    }
+}

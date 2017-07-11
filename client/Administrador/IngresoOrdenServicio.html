@@ -7,13 +7,17 @@
     <link type="text/css" href="../bootstrap/dist/css/bootstrap.css" id="pagesheet" rel="stylesheet" media="screen" />
     <link type="text/css" href="../css/OverrideComponents.css" id="pagesheet2" rel="stylesheet" media="screen" />
     <link type="text/css" href="../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../alertas/sweetalert.css">
 
     <!-----angular-->
 
     <script src="../jquery/dist/jquery.min.js"></script>
     <script src="../bootstrap-datepicker/js/bootstrap-datepicker.min.js" charset="utf-8"></script>
     <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../alertas/sweetalert.min.js"></script>
+    <script src="../notificaciones/notify.js"></script>
     <script src="../angular/angular.js"></script>
+    <script src="../node_modules/angular-utils-pagination/dirPagination.js"></script>
     <script src="../app.js"></script>
     <script src="../controllers/controllerOrdenServicio.js"></script>
 </head>
@@ -91,10 +95,9 @@
                 <div class="panel-heading"><center><h2 class="panel-title">INGRESO ORDEN SERVICIO</h2></center></div>
                 <div class="panel-body">
                     <div class="row">
-
                         <div class="col-md-4">
                             <div class="col-md-12">
-                                <center><h4>Seleccion de Cliente</h4></center>
+                                <h4>Seleccion de Cliente</h4>
                             </div>
                             <div class="row">
                                 <div class="col-md-8">
@@ -114,7 +117,8 @@
                                             </div>
 
                                             <div class="col-md-12">
-                                                <select name="Clientes" multiple ng-model="seleccionCliente" class="form-control" style="height: 60px;" ng-click="buscarSeleccionListaCliente()">
+                                                <select name="Clientes" ng-model="seleccionCliente" class="form-control" ng-click="buscarSeleccionListaCliente()">
+                                                    
                                                     <option value={{aux}}
                                                             ng-repeat="aux in listaCliente | filter:busquedaCliente| orderBy:aux.nombre_cliente">
                                                         {{aux.nombre_cliente}}
@@ -611,11 +615,10 @@
                             </div>
 
                             <div class="col-md-2">
-                                <input class="form-control btn-primary" type="submit" value="Cancelar" ng-click="" />
+                                <input class="form-control btn-primary" type="submit" value="Cancelar" ng-click="redireccion()" />
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

@@ -22,6 +22,15 @@ app.controller('ControllerContratoRecepcion', ['$scope', '$http', 'myProvider', 
             $scope.urlModificar = myProvider.getUrlModificarContratoRecepcion();
             $scope.urlAllContratoRecepcion = myProvider.getUrlAllContratoRecepcion();
 
+            $scope.descripcionContratoRecepcion = "";
+
+            $scope.id = "";
+            $scope.seleccion = "";
+            $scope.seleccionContratoRecepcion = "";
+
+            $scope.busqueda = "";
+            $scope.listaContratoRecepcion = [];
+
             $http.get($scope.urlAllContratoRecepcion)
                 .then(function (response) {
 
@@ -37,34 +46,49 @@ app.controller('ControllerContratoRecepcion', ['$scope', '$http', 'myProvider', 
         window.location = "../login.html"
     }
     $scope.ingresoContratoRecepcion = function () {
-        var obj = { descripcion_contrato_recepcion: $scope.descripcionContratoRecepcion };
-        $http.post($scope.url, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
-                console.log(response);
+        var obj = {
+            descripcion_contrato_recepcion: $scope.descripcionContratoRecepcion
+        };
 
-            }, function errorCallback(response) {
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.url, obj)
+                .then(function (response) {
 
-                console.log(response);
-            });
+                    $scope.iniciar();
+                    $.notify("Ingreso Correcto", "success");
 
+                }, function errorCallback(response) {
+
+                    $.notify("Error!", "error");
+
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.modificarContratoRecepcion = function () {
 
-        var obj = { id: $scope.id, descripcion_contrato_recepcion: $scope.descripcionContratoRecepcion };
-        $http.post($scope.urlModificar, obj)
-            .then(function (response) {
+        var obj = {
+            id: $scope.id, descripcion_contrato_recepcion: $scope.descripcionContratoRecepcion
+        };
 
-                $scope.iniciar();
-                console.log(response);
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.urlModificar, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                    $scope.iniciar();
+                    $.notify("Modificacion Exitosa", "success");
 
-                console.log(response);
-            });
+                }, function errorCallback(response) {
 
+                    $.notify("Error!", "error");
+
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.buscarSeleccionContratoRecepcion = function () {
@@ -87,3 +111,15 @@ app.controller('ControllerContratoRecepcion', ['$scope', '$http', 'myProvider', 
     }
 
 }]);
+
+function validarCamposVacios(obj) {
+
+    if (obj.descripcion_contrato_recepcion == "") {
+
+        return false;
+
+    } else {
+        return true;
+    }
+
+}

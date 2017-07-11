@@ -72,18 +72,24 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
             tipo_cliente: $scope.tipoCliente
         };
 
-        if (!validarCamposVacios(obj)) {
-            
-            $http.post($scope.url, obj)
-                .then(function (response) {
+        if (validarCamposVacios(obj)) {
+            if (validateEmail(obj.correo_cliente)) {
+                $http.post($scope.url, obj)
+                    .then(function (response) {
 
-                    $scope.iniciar();
-                    console.log(response);
+                        $scope.iniciar();
+                        $.notify("Ingreso Correcto", "success");
 
-                }, function errorCallback(response) {
+                    }, function errorCallback(response) {
 
-                    console.log(response);
-                });
+                        $.notify("Error!", "error");
+
+                    });
+            } else {
+                $.notify("Correo Invalido!", "error");
+            }
+        } else {
+            $.notify("Revise los Campos", "info");
         }
     }
 
@@ -91,21 +97,33 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
     $scope.modificarCliente = function () {
 
         var obj = {
-            id: $scope.id, nombre_cliente: $scope.nombreCliente, ruc_cliente: $scope.rucCliente,
-            direccion_cliente: $scope.direccionCliente, telefono_cliente: $scope.telefonoCliente,
-            correo_cliente: $scope.correoCliente, tipo_cliente: $scope.tipoCliente
+            id: $scope.id,
+            nombre_cliente: $scope.nombreCliente,
+            ruc_cliente: $scope.rucCliente,
+            direccion_cliente: $scope.direccionCliente,
+            telefono_cliente: $scope.telefonoCliente,
+            correo_cliente: $scope.correoCliente,
+            tipo_cliente: $scope.tipoCliente
         };
-        $http.post($scope.urlModificar, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
-                console.log(response);
+        if (validarCamposVacios(obj)) {
+            if (validateEmail(obj.correo_cliente)) {
+                $http.post($scope.urlModificar, obj)
+                    .then(function (response) {
 
-            }, function errorCallback(response) {
+                        $scope.iniciar();
+                        $.notify("Modificacion Exitosa", "success");
 
-                console.log(response);
-            });
+                    }, function errorCallback(response) {
 
+                        $.notify("Error!", "error");
+                    });
+            } else {
+                $.notify("Correo Invalido!", "error");
+            }
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.buscarTipoCliente = function () {
@@ -159,17 +177,13 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
 
 }]);
 
-function validarCamposVacios(user) {
-
-    if (user.nombreCliente == "" || user.correoCliente == "" || user.rucCliente == "" ||
-        user.direccionCliente == "" || user.telefonoCliente == "" || user.tipoCliente == "") {
-
+function validarCamposVacios(obj) {
+    if (obj.nombre_cliente == "" || obj.correo_cliente == "" || obj.ruc_cliente == "" ||
+        obj.direccion_cliente == "" || obj.telefono_cliente == "" || obj.tipo_cliente == "") {
         return false;
-
     } else {
         return true;
     }
-
 }
 
 function validateEmail(email) {

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,13 +7,17 @@
     <link type="text/css" href="../bootstrap/dist/css/bootstrap.css" id="pagesheet" rel="stylesheet" media="screen" />
     <link type="text/css" href="../css/OverrideComponents.css" id="pagesheet2" rel="stylesheet" media="screen" />
     <link type="text/css" href="../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../alertas/sweetalert.css">
 
     <!-----angular-->
 
     <script src="../jquery/dist/jquery.min.js"></script>
     <script src="../bootstrap-datepicker/js/bootstrap-datepicker.min.js" charset="utf-8"></script>
     <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../alertas/sweetalert.min.js"></script>
+    <script src="../notificaciones/notify.js"></script>
     <script src="../angular/angular.js"></script>
+    <script src="../node_modules/angular-utils-pagination/dirPagination.js"></script>
     <script src="../app.js"></script>
     <script src="../controllers/controllerOrdenServicioModificar.js"></script>
 </head>
@@ -157,7 +161,7 @@
                                             </div>
 
                                             <div class="col-md-12">
-                                                <select name="Clientes" ng-model="seleccionCliente" multiple class="form-control" style="height: 60px;" ng-click="buscarSeleccionListaCliente()">
+                                                <select name="Clientes" ng-model="seleccionCliente" class="form-control" ng-click="buscarSeleccionListaCliente()">
                                                     <option value={{aux}}
                                                             ng-repeat="aux in listaCliente | filter:busquedaCliente| orderBy:aux.nombre_cliente">
                                                         {{aux.nombre_cliente}}
@@ -374,6 +378,7 @@
                             </div>
 
                             <div class="col-md-6">
+                                <p>Nueva:</p>
                                 <select ng-model="seleccionMatPetreo" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosMaterialPetreo()">
                                     <option value={{aux}}
                                             ng-repeat="aux in listaMatPetreoNueva | orderBy:aux.tipo_material">
@@ -383,6 +388,7 @@
                             </div>
 
                             <div class="col-md-6">
+                                <p>Anterior:</p>
                                 <select ng-model="seleccionMatPetreo" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosMaterialPetreo()">
                                     <option value={{aux}}
                                             ng-repeat="aux in listaMaterialPetreo">
@@ -397,7 +403,7 @@
                                         <div class="col-md-1">
 
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3">                                            
                                             <h4>Tipo Material: </h4>
                                         </div>
                                         <div class="col-md-7">
@@ -457,6 +463,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="col-md-6">
+                                        <p>Nueva:</p>
                                         <select name="VehiculosNuevos" ng-model="seleccionVehiculo" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosVehiculo()">
                                             <option value={{aux}}
                                                     ng-repeat="aux in listaVehiNueva | orderBy:aux.descripcion_vehiculos">
@@ -465,6 +472,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-6">
+                                        <p>Anterior:</p>
                                         <select name="Vehiculos" ng-model="seleccionVehiculo" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosVehiculo()">
                                             <option value={{aux}}
                                                     ng-repeat="aux in listaVehiculo | orderBy:aux.descripcion_vehiculos">
@@ -530,6 +538,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
+                                    <p>Nueva:</p>
                                     <select name="CombustibleConsumo" ng-model="seleccionConsumoCombustible" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosCombustibleComsumo()">
                                         <option value={{aux}}
                                                 ng-repeat="aux in listaCombustibleConsumoIngresar">
@@ -539,6 +548,7 @@
                                 </div>
 
                                 <div class="col-md-6">
+                                    <p>Anterior:</p>
                                     <select name="CombustibleConsumo" ng-model="seleccionConsumoCombustible" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosCombustibleComsumo()">
                                         <option value={{aux}}
                                                 ng-repeat="aux in listaConsumoCombustible">
@@ -593,6 +603,7 @@
 
                             <div class="row">
                                 <div class="col-md-6">
+                                    <p>Nueva:</p>
                                     <select name="CombustibleTransporte" ng-model="seleccionTransporteCombustible" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosCombustibleTransporte()">
                                         <option value={{aux}}
                                                 ng-repeat="aux in listaCombustibleTransporteIngresar">
@@ -602,6 +613,7 @@
                                 </div>
 
                                 <div class="col-md-6">
+                                    <p>Anterior:</p>
                                     <select name="CombustibleTransporte" ng-model="seleccionTransporteCombustible" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosCombustibleTransporte()">
                                         <option value={{aux}}
                                                 ng-repeat="aux in listaCombustibleTransporte">
@@ -702,7 +714,7 @@
                             </div>
 
                             <div class="col-md-2">
-                                <input class="form-control btn-primary" type="submit" value="Cancelar" ng-click="" />
+                                <input class="form-control btn-primary" type="submit" value="Cancelar"  ng-click="redireccion()" />
                             </div>
                         </div>
                     </div>

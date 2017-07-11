@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,11 +6,14 @@
     <title>Inicio</title>
     <link type="text/css" href="../bootstrap/dist/css/bootstrap.css" id="pagesheet" rel="stylesheet" media="screen" />
     <link type="text/css" href="../css/OverrideComponents.css" id="pagesheet2" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../alertas/sweetalert.css">
 
     <!-----angular-->
 
     <script src="../jquery/dist/jquery.min.js"></script>
     <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../alertas/sweetalert.min.js"></script>    
+    <script src="../notificaciones/notify.js"></script>
     <script src="../angular/angular.js"></script>
     <script src="../node_modules/angular-utils-pagination/dirPagination.js"></script>
     <script src="../app.js"></script>
@@ -152,7 +155,7 @@
                             </div>
 
                             <div class="col-md-12">
-                                <select name="Puertos" ng-model="seleccionEstadoOrden" multiple class="form-control" style="height: 150px;" ng-click="buscarSeleccionEstadoOrden()">
+                                <select name="Puertos" ng-model="seleccionEstado" multiple class="form-control" style="height: 150px;" ng-click="buscarSeleccionEstadoOrden()">
                                     <option value={{aux}}
                                             ng-repeat="aux in listaEstadoOrden | filter:busqueda| orderBy:aux.descripcion_estado">
                                         {{aux.descripcion_estado}}

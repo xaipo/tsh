@@ -54,7 +54,7 @@ router.post('/updateUser', (req, res, next) => {
 router.post('/autenticacion', (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
-    //console.log("xxxx " + username);
+
     User.getUserByUsername(username, (err, user) => {
 
         if (err) throw err;
@@ -64,8 +64,7 @@ router.post('/autenticacion', (req, res, next) => {
         }
 
         User.comparePass(password, user.password, (err, isMatch) => {
-            //console.log(isMatch);
-            //console.log(user);
+            
             if (err) throw err;
             if (isMatch) {
                 const token = jwt.sign(user, config.secret, {
@@ -95,8 +94,9 @@ router.post('/autenticacion', (req, res, next) => {
 });*/
 
 router.get('/perfil', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    console.log("entro en el get perfil")
+    
     res.json({ user: req.user });
+
 });
 
 module.exports = router;

@@ -3,7 +3,7 @@ app.controller('ControllerTipoCombustible', ['$scope', '$http', 'myProvider', fu
     $scope.url;
     $scope.urlModificar;
     $scope.urlAllTipoCombustible;
-    console.log($scope.url);
+
     $scope.descripcionTipoCombustible;
 
     $scope.id;
@@ -19,6 +19,17 @@ app.controller('ControllerTipoCombustible', ['$scope', '$http', 'myProvider', fu
             $scope.url = myProvider.getUrlIngresoTipoCombustible();
             $scope.urlModificar = myProvider.getUrlModificarTipoCombustible();
             $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
+
+
+            $scope.descripcionTipoCombustible = "";
+
+            $scope.id = "";
+            $scope.seleccion = "";
+            $scope.seleccionTipoCombustible = "";
+
+            $scope.busqueda = "";
+            $scope.listaTipoCombustible;
+
             $http.get($scope.urlAllTipoCombustible)
                 .then(function (response) {
 
@@ -35,34 +46,47 @@ app.controller('ControllerTipoCombustible', ['$scope', '$http', 'myProvider', fu
     }
 
     $scope.ingresoTipoCombustible = function () {
-        console.log($scope.descripcionPuerto);
-        var obj = { descripcion_tipo_combustible: $scope.descripcionTipoCombustible };
-        $http.post($scope.url, obj)
-            .then(function (response) {
 
-                $scope.iniciar();
-                console.log(response);
+        var obj = {
+            descripcion_tipo_combustible: $scope.descripcionTipoCombustible
+        };
 
-            }, function errorCallback(response) {
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.url, obj)
+                .then(function (response) {
 
-                console.log(response);
-            });
+                    $scope.iniciar();
+                    $.notify("Ingreso Correcto", "success");
 
+                }, function errorCallback(response) {
+
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.modificarTipoCombustible = function () {
 
-        var obj = { _id: $scope.id, descripcion_tipo_combustible: $scope.descripcionTipoCombustible };
-        $http.post($scope.urlModificar, obj)
-            .then(function (response) {
-                $scope.iniciar();
-                console.log(response);
+        var obj = {
+            _id: $scope.id, descripcion_tipo_combustible: $scope.descripcionTipoCombustible
+        };
 
-            }, function errorCallback(response) {
+        if (validarCamposVacios(obj)) {
+            $http.post($scope.urlModificar, obj)
+                .then(function (response) {
 
-                console.log(response);
-            });
+                    $scope.iniciar();
+                    $.notify("Modificacion Exitosa", "success");
 
+                }, function errorCallback(response) {
+
+                    $.notify("Error!", "error");
+                });
+        } else {
+            $.notify("Revise los Campos", "info");
+        }
     }
 
     $scope.buscarSeleccionTipoCombustible = function () {
@@ -85,3 +109,13 @@ app.controller('ControllerTipoCombustible', ['$scope', '$http', 'myProvider', fu
     }
 
 }]);
+
+function validarCamposVacios(obj) {
+    if (obj.descripcion_tipo_combustible == "") {
+
+        return false;
+
+    } else {
+        return true;
+    }
+}
