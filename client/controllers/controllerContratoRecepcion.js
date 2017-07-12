@@ -22,6 +22,11 @@ app.controller('ControllerContratoRecepcion', ['$scope', '$http', 'myProvider', 
             $scope.urlModificar = myProvider.getUrlModificarContratoRecepcion();
             $scope.urlAllContratoRecepcion = myProvider.getUrlAllContratoRecepcion();
 
+            if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+                $scope.usuario = JSON.parse(localStorage.getItem("user"));
+                $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
+            }
+
             $scope.descripcionContratoRecepcion = "";
 
             $scope.id = "";

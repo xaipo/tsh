@@ -29,6 +29,11 @@ app.controller('ControllerTripulante', ['$scope', '$http', 'myProvider', functio
             $scope.urlAllTipoTripulante = myProvider.getUrlAllTipoTripulante();
             $scope.urlBuscarTipoTripulante = myProvider.getUrlBuscarTipoTripulante();
 
+            if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+                $scope.usuario = JSON.parse(localStorage.getItem("user"));
+                $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
+            }
+
             $scope.nombreTripulante = "";
             $scope.cedulaTripulante = "";
             $scope.telefonoTripulante = "";

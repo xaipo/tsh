@@ -2,9 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\client",
-    "\\client\\controllers",
+    "\\client\\Marinero",
     "\\HttpService"
   ],
-  "SelectedNode": "\\client\\controllers\\controllerOrdenServicioModificar.js",
+  "SelectedNode": "\\client\\controllers",
   "PreviewInSolutionExplorer": false
 }

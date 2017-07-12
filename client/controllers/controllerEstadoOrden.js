@@ -20,6 +20,11 @@ app.controller('ControllerEstadoOrden', ['$scope', '$http', 'myProvider', functi
             $scope.urlModificar = myProvider.getUrlModificarEstadoOrden();
             $scope.urlAllEstadoOrden = myProvider.getUrlAllEstadoOrden();
 
+            if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+                $scope.usuario = JSON.parse(localStorage.getItem("user"));
+                $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
+            }
+
             $scope.id = "";
             $scope.descripcionEstado = "";
             $scope.seleccion = "";

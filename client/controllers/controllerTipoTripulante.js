@@ -20,6 +20,11 @@ app.controller('ControllerTipoTripulante', ['$scope', '$http', 'myProvider', fun
             $scope.urlModificar = myProvider.getUrlModificarTipoTripulante();
             $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoTripulante();
 
+            if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+                $scope.usuario = JSON.parse(localStorage.getItem("user"));
+                $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
+            }
+
             $scope.descripcionTipoTripulante = "";
 
             $scope.id = "";

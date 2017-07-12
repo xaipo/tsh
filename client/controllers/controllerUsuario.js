@@ -29,6 +29,19 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
     var aux = localStorage.getItem("id_token");
     if (aux != null) {
         $scope.iniciar = function () {
+           
+            $scope.url = myProvider.getUrlIngresoUsuario();
+            $scope.urlBuscarUser = myProvider.getUrlBuscarUsuarioNombre();
+            $scope.urlRegister = myProvider.getUrlRegisterUser();
+            $scope.urlModificar = myProvider.getUrlModificarUser();
+            $scope.urlAllUsuario = myProvider.getUrlAllUsuario();
+            $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoUsuario();
+            $scope.urlBuscarTipoUsuario = myProvider.getUrlBuscarTipoUsuario();
+
+            if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+                $scope.usuario = JSON.parse(localStorage.getItem("user"));
+                $scope.tipoUsuarioLogin = JSON.parse(localStorage.getItem("tipoUser"));
+            }
 
             $scope.nombreUsuario = "";
             $scope.correoUsuario = "";
@@ -38,13 +51,6 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
             $scope.tipoUsuario = "";
             $scope.cedulaUsuario = "";
 
-            $scope.url = myProvider.getUrlIngresoUsuario();
-            $scope.urlBuscarUser = myProvider.getUrlBuscarUsuarioNombre();
-            $scope.urlRegister = myProvider.getUrlRegisterUser();
-            $scope.urlModificar = myProvider.getUrlModificarUser();
-            $scope.urlAllUsuario = myProvider.getUrlAllUsuario();
-            $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoUsuario();
-            $scope.urlBuscarTipoUsuario = myProvider.getUrlBuscarTipoUsuario();
 
             $http.get($scope.urlAllUsuario)
                 .then(function (response) {

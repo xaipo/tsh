@@ -18,6 +18,11 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
             $scope.urlModificar = myProvider.getUrlModificarTipoEmbarcacion();
             $scope.urlAllTipoEmbarcacion = myProvider.getUrlAllTipoEmbarcacion();
 
+            if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+                $scope.usuario = JSON.parse(localStorage.getItem("user"));
+                $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
+            }
+
             $scope.id = "";
             $scope.seleccionTipoEmbarcacion = "";
             $scope.descripcionTipoEmbarcacion = "";

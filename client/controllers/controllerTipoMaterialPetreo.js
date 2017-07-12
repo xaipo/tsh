@@ -20,6 +20,11 @@ app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider',
             $scope.urlModificar = myProvider.getUrlModificarTipoMaterialPetreo();
             $scope.urlAllTipoMaterial = myProvider.getUrlAllTipoMaterialPetreo();
 
+            if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+                $scope.usuario = JSON.parse(localStorage.getItem("user"));
+                $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
+            }
+
             $scope.descripcionTipoMaterial = "";
 
             $scope.id = "";

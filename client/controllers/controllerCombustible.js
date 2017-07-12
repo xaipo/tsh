@@ -5,12 +5,12 @@ app.controller('ControllerCombustible', ['$scope', '$http', 'myProvider', functi
     $scope.urlAllCombustible;
     $scope.urlAllTipoCombustible;
 
-    $scope.tipoCombustible;
+    $scope.tipoCombustible = "";
     $scope.cantidad;
 
-    $scope.id
-    $scope.busqueda;
-    $scope.seleccionCombustible;
+    $scope.id = "";
+    $scope.busqueda = "";
+    $scope.seleccionCombustible = "";
 
     $scope.listaTipoCombustible;
     $scope.listaCombustible;
@@ -23,6 +23,21 @@ app.controller('ControllerCombustible', ['$scope', '$http', 'myProvider', functi
             $scope.urlModificar = myProvider.getUrlModificarCombustible();
             $scope.urlAllCombustible = myProvider.getUrlAllCombustible();
             $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
+
+            if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+                $scope.usuario = JSON.parse(localStorage.getItem("user"));
+                $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
+            }
+
+            $scope.tipoCombustible = "";
+            $scope.cantidad;
+
+            $scope.id = "";
+            $scope.busqueda = "";
+            $scope.seleccionCombustible = "";
+
+            $scope.listaTipoCombustible;
+            $scope.listaCombustible;
 
             $http.get($scope.urlAllTipoCombustible)
                 .then(function (response) {

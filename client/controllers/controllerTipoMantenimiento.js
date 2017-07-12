@@ -20,6 +20,11 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
             $scope.urlModificar = myProvider.getUrlModificarTipoMantenimiento();
             $scope.urlAllTipoMantenimiento = myProvider.getAllTipoMantenimiento();
 
+            if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+                $scope.usuario = JSON.parse(localStorage.getItem("user"));
+                $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
+            }
+
             $scope.descripcionTipoMantenimiento = "";
 
             $scope.id = "";

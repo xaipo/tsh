@@ -122,8 +122,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             $scope.urlAllEmbarcacion = myProvider.getUrlAllEmbarcacion();
             $scope.urlAllCliente = myProvider.getUrlAllClientes();
             $scope.urlAllMaterialPetreo = myProvider.getUrlAllMaterialPetreo()
-
-
+            
             $scope.urlAllPuerto = myProvider.getUrlAllPuerto();
 
             $scope.urlAllCombustible = myProvider.getUrlAllCombustible();
@@ -157,6 +156,11 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
             $scope.urlBuscarTipoMaterialPetreoId = myProvider.getUrlBuscarTipoMaterialPetreo();
             $scope.urlAllTipoMaterialPetreo = myProvider.getUrlAllTipoMaterialPetreo();
+
+            if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+                $scope.usuario = JSON.parse(localStorage.getItem("user"));
+                $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
+            }
 
             //atributos
             $scope.id = "";

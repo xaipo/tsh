@@ -117,6 +117,11 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
             $scope.urlAllEstadosOrden = myProvider.getUrlAllEstadoOrden();
             $scope.urlAllTipoMaterialPetreo = myProvider.getUrlAllTipoMaterialPetreo();
 
+            if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+                $scope.usuario = JSON.parse(localStorage.getItem("user"));
+                $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
+            }
+
             //atributos
             $scope.id = "";
             $scope.cliente = "";

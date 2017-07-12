@@ -23,6 +23,11 @@ app.controller('ControllerProducto', ['$scope', '$http', 'myProvider', function 
         $scope.urlModificar = myProvider.getUrlModificarProducto();
         $scope.urlAllProducto = myProvider.getUrlALLProducto();
 
+        if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+            $scope.usuario = JSON.parse(localStorage.getItem("user"));
+            $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
+        }
+
         $http.get($scope.urlAllProducto)
             .then(function (response) {
 

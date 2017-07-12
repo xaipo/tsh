@@ -20,6 +20,11 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
             $scope.urlModificar = myProvider.getUrlModificarPuerto();
             $scope.urlAllPuertos = myProvider.getUrlAllPuerto();
 
+            if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+                $scope.usuario = JSON.parse(localStorage.getItem("user"));
+                $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
+            }
+
             $scope.descripcionPuerto = "";
 
             $scope.id = "";

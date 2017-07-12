@@ -47,6 +47,11 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
             $scope.urlAllTripulantes = myProvider.getUrlAllTripulante();
             $scope.urlAllTipoEmbarcacion = myProvider.getUrlAllTipoEmbarcacion();
 
+            if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+                $scope.usuario = JSON.parse(localStorage.getItem("user"));
+                $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
+            }
+
             $scope.id;
             $scope.nombreEmbarcacion = "";
             $scope.numeroMatricula = "";

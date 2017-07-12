@@ -24,6 +24,11 @@ app.controller('ControllerMaterialPetreo', ['$scope', '$http', 'myProvider', fun
             $scope.urlModificar = myProvider.getUrlModificarMaterialPetreo();
             $scope.urlAllMaterialPetreo = myProvider.getUrlAllMaterialPetreo();
 
+            if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+                $scope.usuario = JSON.parse(localStorage.getItem("user"));
+                $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
+            }
+
             $http.get($scope.urlAllMaterialPetreo)
                 .then(function (response) {
 

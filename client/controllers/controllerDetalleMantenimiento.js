@@ -20,6 +20,7 @@ app.controller('ControllerDetalleMantenimiento', ['$scope', '$http', 'myProvider
             $scope.url = myProvider.getUrlIngresoDetalleMantenimiento();
             $scope.urlModificar = myProvider.getUrlModificarDetalleMantenimiento();
             $scope.urlAllDetalleMantenimiento = myProvider.getUrlAllDetalleMantenimiento();
+
             $http.get($scope.urlAllDetalleMantenimiento)
                 .then(function (response) {
 

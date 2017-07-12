@@ -55,6 +55,11 @@ app.controller('ControllerMantenimiento', ['$scope', '$http', 'myProvider', "$ti
             $scope.urlAllEmbarcacion = myProvider.getUrlAllEmbarcacion();
             $scope.urlBuscarEmbarcacion = myProvider.getUrlBuscarEmbarcacion();
 
+            if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+                $scope.usuario = JSON.parse(localStorage.getItem("user"));
+                $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
+            }
+
             //atributos
             $scope.id = "";
             $scope.tipoMantenimiento = "";

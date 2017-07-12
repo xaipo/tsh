@@ -20,6 +20,11 @@ app.controller('ControllerVehiculo', ['$scope', '$http', 'myProvider', function 
             $scope.urlModificar = myProvider.getUrlModificarVehiculo();
             $scope.urlAllVehiculo = myProvider.getUrlAllVehiculo();
 
+            if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
+                $scope.usuario = JSON.parse(localStorage.getItem("user"));
+                $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
+            }
+
             $http.get($scope.urlAllVehiculo)
                 .then(function (response) {
 
