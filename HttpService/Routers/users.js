@@ -26,30 +26,6 @@ router.post('/register', (req, res, next) => {
     });
 });
 
-
-// modificar
-router.post('/updateUser', (req, res, next) => {
-    let newUser = new User({
-        _id: req.body.id,
-        name: req.body.name,
-        email: req.body.email,
-        username: req.body.username,
-        password: req.body.password,
-        type_user: req.body.type_user,
-        phone: req.body.phone,
-        identification_card: req.body.identification_card
-    });
-
-    User.addUser(newUser, (err, user) => {
-        if (err) {
-            console.log(newUser);
-            res.json({ success: false, msg: 'Failed to register user' });
-        } else {
-            res.json({ success: true, msg: 'User UpDate' });
-        }
-    });
-});
-
 // AUTENTICACION 
 router.post('/autenticacion', (req, res, next) => {
     const username = req.body.username;

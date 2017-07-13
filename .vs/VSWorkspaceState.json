@@ -2,9 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\client",
-    "\\client\\Marinero",
+    "\\client\\Administrador",
     "\\HttpService"
   ],
-  "SelectedNode": "\\client\\controllers",
+  "SelectedNode": "\\client\\Administrador\\IngresoTipoAlimento.html",
   "PreviewInSolutionExplorer": false
 }

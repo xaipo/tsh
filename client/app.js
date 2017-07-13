@@ -4,6 +4,7 @@ var app = angular.module("myApp", ['angularUtils.directives.dirPagination'])
 function ApiUrl() {
 
     var url;
+    var urlUser;
     //url = "http://52.173.139.76:3000/api/";
     //urlUser = "http://52.173.139.76:3000/users/";
     url = "http://localhost:3000/api/";
@@ -389,7 +390,7 @@ function ApiUrl() {
     this.getUrlModificarTipoAlimentos = function () {
         return (url + 'updateTipoAlimentos');
     }
-
+    
     // Buscar Tipo Alimentos
     this.getUrlBuscarTipoAlimentos = function () {
         return (url + 'getByIdTipoAlimentos');
@@ -472,6 +473,11 @@ function ApiUrl() {
     // Modificar Usuario
     this.getUrlModificarUsuario = function () {
         return (url + 'updateUsuario');
+    }
+
+    // Modificar Usuario
+    this.getUrlModificarUsuarioPsswd = function () {
+        return (url + 'updateUsuarioPassword');
     }
 
     // Buscar Usuario

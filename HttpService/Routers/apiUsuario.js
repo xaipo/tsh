@@ -37,6 +37,40 @@ router.post('/saveUsuario', function (req, res) {
 
 });
 
+router.post('/updateUsuarioPassword', function (req, res) {
+    var item;
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(req.body.password, salt, (err, hash) => {
+            if (err) throw err;
+
+            item = {
+                name: req.body.name,
+                email: req.body.email,
+                username: req.body.username,
+                password: hash,
+                phone: req.body.phone,
+                type_user: req.body.type_user,
+                identification_card: req.body.identification_card
+            };
+
+        });
+    });
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+
+        var id = req.body.id;
+        db.collection('users').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
+            assert.equal(null, err);
+            console.log('Item updated');
+
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
 router.post('/updateUsuario', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {

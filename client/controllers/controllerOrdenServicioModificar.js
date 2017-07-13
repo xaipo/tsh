@@ -404,6 +404,78 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
         window.location = "../login.html"
     }
 
+    $scope.imprimirOrden = function () {
+        
+        console.log("hola");
+        
+        var doc = new jsPDF('p', 'mm', [297, 210]);
+
+        var x = 25;
+        var y = 25;
+
+
+        //doc.addImage(img.onload(), 'PNG', x, y - 20, 165, 25);
+        doc.rect(x, y + 10, 165, 10, 'S')
+        doc.setFontSize(8);
+        doc.setFontType("bold");
+        doc.text("PERIODO: ", x + 5, y + 16);
+        doc.setFontType("normal");
+        doc.text($scope.observaciones, x + 20, y + 16);
+        doc.setFontSize(10);
+        doc.setFontType("bold");
+        doc.text("LISTA DE ALUMNOS ", x + 60, y + 16);
+        doc.setFontSize(8);
+        doc.setFontType("bold");
+        doc.text("NIVEL: ", x + 135, y + 16);
+        doc.setFontType("normal");
+        doc.text($scope.observacionMaquinista, x + 145, y + 16);
+
+        doc.setFontSize(8);
+        doc.setFontType("bold");
+        doc.text("PARALELO: ", x + 5, y + 25);
+        doc.setFontType("normal");
+        doc.text($scope.detalle, x + 23, y + 25);
+        doc.setFontType("bold");
+        doc.text("PROFESOR: ", x + 5, y + 30);
+        doc.setFontType("normal");
+        doc.text("JOSE ANDRES ROALES", x + 23, y + 30);
+
+        doc.rect(x, y + 35, 165, 220, 'S')
+        doc.line(x, y + 40, x + 165, y + 40)
+        doc.line(x + 15, y + 35, x + 15, y + 255)
+        doc.line(x + 50, y + 35, x + 50, y + 255)
+        var aun = 45;
+        for (var i = 0; i < 42; i++) {
+
+            doc.line(x, y + aun, x + 165, y + aun)
+            aun = aun + 5;
+
+        }
+
+        doc.setFontSize(10);
+        doc.setFontType("bold");
+        doc.text("Num", x + 4, y + 39);
+        doc.text("Cedula", x + 25, y + 39);
+        doc.text("Nombre Completo", x + 55, y + 39);
+
+        doc.setFontSize(10);
+        doc.setFontType("normal");
+        var z = 44;
+        var num = 1;
+        //for (var i = 0; i < lista.length; i++) {
+
+        //    doc.text(num.toString(), x + 6, y + z);
+        //    doc.text(lista[i].CEDULA, x + 22, y + z);
+        //    doc.text(lista[i].NOMBRE, x + 55, y + z);
+        //    z = z + 5;
+        //    num = num + 1;
+
+        //}
+
+        doc.save('Listado.pdf');
+
+    }
+
     $scope.iniciarListas = function () {
 
         //atributos
@@ -995,7 +1067,6 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
                     console.log(response);
                 });
         }
-
     }
 
     $scope.buscarSeleccionListaOrdenServicio = function () {
@@ -1529,7 +1600,6 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     }
 
 }]);
-
 
 function validarCamposVacios(obj) {
     if (obj.seleccionCliente == "" || obj.detalle == "" || obj.embarcacion == "" || obj.estado == "" || obj.fecha_emision == "" ||
