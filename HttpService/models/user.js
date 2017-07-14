@@ -30,6 +30,10 @@ const UserSchema = mongoose.Schema({
     identification_card: {
         type: String,
         required: true
+    },
+    estado: {
+        type: String,
+        required: true
     }
 });
 

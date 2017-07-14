@@ -33,7 +33,8 @@ router.post('/updatePuerto', function (req, res) {
         assert.equal(null, err);
         console.log(req.body);
         var item = {
-            descripcion_puerto: req.body.descripcion_puerto
+            descripcion_puerto: req.body.descripcion_puerto,
+            estado: req.body.estado
         };
 
 

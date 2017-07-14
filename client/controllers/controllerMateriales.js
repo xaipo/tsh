@@ -38,6 +38,9 @@ app.controller('ControllerMaterial', ['$scope', '$http', 'myProvider', function 
             $scope.listaMaterial;
             $scope.listaEstado;
 
+            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.estado = "1";
+
             $http.get($scope.urlAllMateriales)
                 .then(function (response) {
 
@@ -47,10 +50,7 @@ app.controller('ControllerMaterial', ['$scope', '$http', 'myProvider', function 
 
                     console.log(response);
                 });
-
-            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Desactivado" }];
-            $scope.estado = "1";
-
+            
         }
 
     } else {
@@ -83,7 +83,10 @@ app.controller('ControllerMaterial', ['$scope', '$http', 'myProvider', function 
     $scope.modificarMaterial = function () {
 
         var obj = {
-            id: $scope.id, descripcion_material: $scope.descripcionMaterial, stock: $scope.stock, estado: $scope.estado
+            id: $scope.id,
+            descripcion_material: $scope.descripcionMaterial,
+            stock: $scope.stock,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {

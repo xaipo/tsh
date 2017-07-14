@@ -94,6 +94,10 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
 
                 }
             }
+            $scope.listaEstado;
+
+            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.estado = "1";
 
             $http.get($scope.urlAllUsuario)
                 .then(function (response) {
@@ -143,7 +147,8 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
                         password: $scope.contrasenaUsuario,
                         phone: $scope.telefonoUsuario,
                         email: $scope.correoUsuario,
-                        type_user: $scope.tipoUsuario
+                        type_user: $scope.tipoUsuario,
+                        estado: $scope.estado
                     }
 
                     if (validarCamposVacios(user)) {
@@ -183,7 +188,8 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
                 password: $scope.contrasenaAux,
                 phone: $scope.telefonoUsuario,
                 email: $scope.correoUsuario,
-                type_user: $scope.tipoUsuario
+                type_user: $scope.tipoUsuario,
+                estado: $scope.estado
             };
             if (validarCamposVacios(obj)) {
                 if (validateEmail(obj.email)) {
@@ -253,6 +259,7 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
             $scope.telefonoUsuario = $scope.selecUsu.phone;
             $scope.correoUsuario = $scope.selecUsu.email;
             $scope.tipoUsuario = $scope.selecUsu.type_user._id;
+            $scope.estado = $scope.selecUsu.estado;
 
             $scope.contrasenaAux = $scope.selecUsu.password;
             $scope.userAux = $scope.selecUsu;

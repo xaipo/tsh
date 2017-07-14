@@ -72,7 +72,8 @@ app.controller('ControllerTipoUsuario', ['$scope', '$http', 'myProvider', functi
     $scope.modificarTipoUsuario = function () {
 
         var obj = {
-            id: $scope.id, descripcion_tipo_usuario: $scope.descripcionTipoUsuario
+            id: $scope.id,
+            descripcion_tipo_usuario: $scope.descripcionTipoUsuario
         };
 
         if (validarCamposVacios(obj)) {

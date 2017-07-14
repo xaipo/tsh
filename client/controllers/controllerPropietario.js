@@ -42,6 +42,10 @@ app.controller('ControllerPropietario', ['$scope', '$http', 'myProvider', functi
 
             $scope.busqueda = "";
             $scope.listaPropietario;
+            $scope.listaEstado;
+
+            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.estado = "1";
 
             $http.get($scope.urlAllPropietario)
                 .then(function (response) {
@@ -64,7 +68,8 @@ app.controller('ControllerPropietario', ['$scope', '$http', 'myProvider', functi
             cedula_propietario: $scope.cedulaPropietario,
             telefono_propietario: $scope.telefonoPropietario,
             celular_propietario: $scope.celularPropietario,
-            correo_propietario: $scope.correoPropietario
+            correo_propietario: $scope.correoPropietario,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -96,7 +101,8 @@ app.controller('ControllerPropietario', ['$scope', '$http', 'myProvider', functi
             cedula_propietario: $scope.cedulaPropietario,
             telefono_propietario: $scope.telefonoPropietario,
             celular_propietario: $scope.celularPropietario,
-            correo_propietario: $scope.correoPropietario
+            correo_propietario: $scope.correoPropietario,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -131,7 +137,7 @@ app.controller('ControllerPropietario', ['$scope', '$http', 'myProvider', functi
             $scope.telefonoPropietario = $scope.selecProp.telefono_propietario;
             $scope.celularPropietario = $scope.selecProp.celular_propietario;
             $scope.correoPropietario = $scope.selecProp.correo_propietario;
-
+            $scope.estado = $scope.selecProp.estado;
         }
     }
 

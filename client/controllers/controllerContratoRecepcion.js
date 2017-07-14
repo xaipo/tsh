@@ -35,6 +35,10 @@ app.controller('ControllerContratoRecepcion', ['$scope', '$http', 'myProvider', 
 
             $scope.busqueda = "";
             $scope.listaContratoRecepcion = [];
+            $scope.listaEstado;
+
+            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.estado = "1";
 
             $http.get($scope.urlAllContratoRecepcion)
                 .then(function (response) {
@@ -53,7 +57,8 @@ app.controller('ControllerContratoRecepcion', ['$scope', '$http', 'myProvider', 
     $scope.ingresoContratoRecepcion = function () {
 
         var obj = {
-            descripcion_contrato_recepcion: $scope.descripcionContratoRecepcion
+            descripcion_contrato_recepcion: $scope.descripcionContratoRecepcion,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -76,7 +81,9 @@ app.controller('ControllerContratoRecepcion', ['$scope', '$http', 'myProvider', 
     $scope.modificarContratoRecepcion = function () {
 
         var obj = {
-            id: $scope.id, descripcion_contrato_recepcion: $scope.descripcionContratoRecepcion
+            id: $scope.id,
+            descripcion_contrato_recepcion: $scope.descripcionContratoRecepcion,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -104,6 +111,7 @@ app.controller('ControllerContratoRecepcion', ['$scope', '$http', 'myProvider', 
 
             $scope.id = $scope.selecContRecep._id;
             $scope.descripcionContratoRecepcion = $scope.selecContRecep.descripcion_contrato_recepcion;
+            $scope.estado = $scope.selecContRecep.estado;
 
         }
     }

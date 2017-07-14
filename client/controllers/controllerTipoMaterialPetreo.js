@@ -33,6 +33,10 @@ app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider',
 
             $scope.busqueda = "";
             $scope.listaTipoMaterial;
+            $scope.listaEstado;
+
+            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.estado = "1";
 
             $http.get($scope.urlAllTipoMaterial)
                 .then(function (response) {
@@ -49,9 +53,10 @@ app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider',
     }
 
     $scope.ingresoTipoMaterial = function () {
-        console.log($scope.descripcionTipoMaterial);
+        
         var obj = {
-            descripcion_tipo_material: $scope.descripcionTipoMaterial
+            descripcion_tipo_material: $scope.descripcionTipoMaterial,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -74,7 +79,8 @@ app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider',
 
         var obj = {
             id: $scope.id,
-            descripcion_tipo_material: $scope.descripcionTipoMaterial
+            descripcion_tipo_material: $scope.descripcionTipoMaterial,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -100,7 +106,7 @@ app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider',
             $scope.selecTipoMaterial = JSON.parse($scope.seleccionTipoMaterial);
             $scope.id = $scope.selecTipoMaterial._id;
             $scope.descripcionTipoMaterial = $scope.selecTipoMaterial.descripcion_tipo_material;
-
+            $scope.estado = $scope.selecTipoMaterial.estado;
         }
     }
 

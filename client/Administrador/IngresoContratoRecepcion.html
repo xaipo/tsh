@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -121,6 +121,17 @@
                             </div>
                             <div class="col-md-7">
                                 <input type="text" placeholder="Nombre Contrato" ng-model="descripcionContratoRecepcion" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">
+
+                            </div>
+                            <div class="col-md-3">
+                                <h4>Estado: </h4>
+                            </div>
+                            <div class="col-md-7">
+                                <select class="form-control" ng-model="estado" ng-options="item.id as item.estado for item in listaEstado"></select>
                             </div>
                         </div>
                         <br />

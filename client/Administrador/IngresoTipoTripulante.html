@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -113,10 +113,18 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-5">
-                                <h4>Nombre Tipo Tripulante: </h4>
+                                <h4>Descripción: </h4>
                             </div>
                             <div class="col-md-7">
                                 <input type="text" ng-model="descripcionTipoTripulante" placeholder="Tipo Tripulante" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">                            
+                            <div class="col-md-5">
+                                <h4>Estado: </h4>
+                            </div>
+                            <div class="col-md-7">
+                                <select class="form-control" ng-model="estado" ng-options="item.id as item.estado for item in listaEstado"></select>
                             </div>
                         </div>
                         <br />
@@ -129,7 +137,7 @@
                                 <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoTipoTripulante()"/>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarTipoTripulante()"/>
                             </div>
                         </div>

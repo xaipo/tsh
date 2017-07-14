@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -175,7 +175,18 @@
                                     <input type="email" ng-model="correoPropietario" placeholder="email@example.com" class="form-control" />
                                 </div>
                             </div>
-                            <br>
+                            <div class="row">
+                            <div class="col-md-1">
+
+                            </div>
+                            <div class="col-md-3">
+                                <h4>Estado: </h4>
+                            </div>
+                            <div class="col-md-7">
+                                <select class="form-control" ng-model="estado" ng-options="item.id as item.estado for item in listaEstado"></select>
+                            </div>
+                        </div>
+                        <br />
                         </div>
                         <br />
                         <div class="row">
@@ -187,7 +198,7 @@
                                 <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoPropietario()" />
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarPropietario()" />
                             </div>
                         </div>

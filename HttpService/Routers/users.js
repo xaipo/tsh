@@ -14,7 +14,8 @@ router.post('/register', (req, res, next) => {
         password: req.body.password,
         type_user: req.body.type_user,
         phone: req.body.phone,
-        identification_card: req.body.identification_card
+        identification_card: req.body.identification_card,
+        estado: req.body.estado
     });
 
     User.addUser(newUser, (err, user) => {

@@ -29,6 +29,10 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
 
             $scope.busqueda = "";
             $scope.listaTipoEmbarcacion;
+            $scope.listaEstado;
+
+            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.estado = "1";
 
             $http.get($scope.urlAllTipoEmbarcacion)
                 .then(function (response) {
@@ -47,7 +51,8 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
     $scope.ingresoTipoEmbarcacion = function () {
 
         var obj = {
-            descripcion_tipo_embarcacion: $scope.descripcionTipoEmbarcacion
+            descripcion_tipo_embarcacion: $scope.descripcionTipoEmbarcacion,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -69,7 +74,9 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
     $scope.modificarTipoEmbarcacion = function () {
 
         var obj = {
-            id: $scope.id, descripcion_tipo_embarcacion: $scope.descripcionTipoEmbarcacion
+            id: $scope.id,
+            descripcion_tipo_embarcacion: $scope.descripcionTipoEmbarcacion,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -96,7 +103,7 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
 
             $scope.id = $scope.selecTipEmb._id;
             $scope.descripcionTipoEmbarcacion = $scope.selecTipEmb.descripcion_tipo_embarcacion;
-
+            $scope.estado = $scope.selecTipEmb.estado;
         }
     }
 

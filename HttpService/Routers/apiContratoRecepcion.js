@@ -33,7 +33,8 @@ router.post('/updateContratoRecepcion', function (req, res) {
         assert.equal(null, err);
         console.log(req.body);
         var item = {
-            descripcion_contrato_recepcion: req.body.descripcion_contrato_recepcion
+            descripcion_contrato_recepcion: req.body.descripcion_contrato_recepcion,
+            estado: req.body.estado
         };
 
 

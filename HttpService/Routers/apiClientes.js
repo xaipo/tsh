@@ -37,7 +37,8 @@ router.post('/updateClientes', function (req, res) {
             direccion_cliente: req.body.direccion_cliente,
             telefono_cliente: req.body.telefono_cliente,
             correo_cliente: req.body.correo_cliente,
-            tipo_cliente: req.body.tipo_cliente
+            tipo_cliente: req.body.tipo_cliente,
+            estado: req.body.estado
         };
 
 

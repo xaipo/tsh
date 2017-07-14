@@ -33,7 +33,8 @@ router.post('/updateTipoMantenimiento', function (req, res) {
         assert.equal(null, err);
         console.log(req.body);
         var item = {
-            descripcion_tipo_mantenimiento: req.body.descripcion_tipo_mantenimiento
+            descripcion_tipo_mantenimiento: req.body.descripcion_tipo_mantenimiento,
+            estado: req.body.estado
         };
 
 

@@ -33,6 +33,10 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
 
             $scope.busqueda = "";
             $scope.listaPuertos = "";
+            $scope.listaEstado;
+
+            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.estado = "1";
 
             $http.get($scope.urlAllPuertos)
                 .then(function (response) {
@@ -52,7 +56,8 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
     $scope.ingresoPuerto = function () {
 
         var obj = {
-            descripcion_puerto: $scope.descripcionPuerto
+            descripcion_puerto: $scope.descripcionPuerto,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -74,7 +79,9 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
     $scope.modificarPuerto = function () {
 
         var obj = {
-            id: $scope.id, descripcion_puerto: $scope.descripcionPuerto
+            id: $scope.id,
+            descripcion_puerto: $scope.descripcionPuerto,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -100,7 +107,7 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
             $scope.selecPuerto = JSON.parse($scope.seleccionPuerto);
             $scope.id = $scope.selecPuerto._id;
             $scope.descripcionPuerto = $scope.selecPuerto.descripcion_puerto;
-
+            $scope.estado = $scope.selecPuerto.estado;
         }
     }
 

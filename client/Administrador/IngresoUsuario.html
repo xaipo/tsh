@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -194,6 +194,17 @@
                                 </div>
                                 <div class="col-md-7">
                                     <select class="form-control" ng-model="tipoUsuario" ng-options="item._id as item.descripcion_tipo_usuario for item in listaTipoUsuario"></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Estado: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <select class="form-control" ng-model="estado" ng-options="item.id as item.estado for item in listaEstado"></select>
                                 </div>
                             </div>
                         </div>

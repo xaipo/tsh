@@ -33,6 +33,10 @@ app.controller('ControllerTipoAlimentos', ['$scope', '$http', 'myProvider', func
 
             $scope.busqueda;
             $scope.listaTipoAlimentos;
+            $scope.listaEstado;
+
+            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.estado = "1";
 
             $http.get($scope.urlAllTipoAlimentos)
                 .then(function (response) {
@@ -52,7 +56,8 @@ app.controller('ControllerTipoAlimentos', ['$scope', '$http', 'myProvider', func
     $scope.ingresoTipoAlimentos = function () {
 
         var obj = {
-            descripcion_tipo_alimento: $scope.descripcionTipoAlimento
+            descripcion_tipo_alimento: $scope.descripcionTipoAlimento,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -75,7 +80,8 @@ app.controller('ControllerTipoAlimentos', ['$scope', '$http', 'myProvider', func
 
         var obj = {
             id: $scope.id,
-            descripcion_tipo_alimento: $scope.descripcionTipoAlimento
+            descripcion_tipo_alimento: $scope.descripcionTipoAlimento,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -101,7 +107,7 @@ app.controller('ControllerTipoAlimentos', ['$scope', '$http', 'myProvider', func
             $scope.selecTipAlim = JSON.parse($scope.seleccionTipoAlimento);
             $scope.id = $scope.selecTipAlim._id;
             $scope.descripcionTipoAlimento = $scope.selecTipAlim.descripcion_tipo_alimento;
-
+            $scope.estado = $scope.selecTipAlim.estado;
         }
     }
 

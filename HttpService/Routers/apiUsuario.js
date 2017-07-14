@@ -50,7 +50,8 @@ router.post('/updateUsuarioPassword', function (req, res) {
                 password: hash,
                 phone: req.body.phone,
                 type_user: req.body.type_user,
-                identification_card: req.body.identification_card
+                identification_card: req.body.identification_card,
+                estado: req.body.estado
             };
 
         });

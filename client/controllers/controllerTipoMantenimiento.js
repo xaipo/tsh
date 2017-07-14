@@ -33,6 +33,10 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
 
             $scope.busqueda = "";
             $scope.listaTipoMantenimiento;
+            $scope.listaEstado;
+
+            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.estado = "1";
 
             $http.get($scope.urlAllTipoMantenimiento)
                 .then(function (response) {
@@ -51,7 +55,8 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
     $scope.ingresoTipoMantenimiento = function () {
 
         var obj = {
-            descripcion_tipo_mantenimiento: $scope.descripcionTipoMantenimiento
+            descripcion_tipo_mantenimiento: $scope.descripcionTipoMantenimiento,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -73,7 +78,9 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
     $scope.modificarTipoMantenimiento = function () {
 
         var obj = {
-            id: $scope.id, descripcion_tipo_mantenimiento: $scope.descripcionTipoMantenimiento
+            id: $scope.id,
+            descripcion_tipo_mantenimiento: $scope.descripcionTipoMantenimiento,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -100,7 +107,7 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
 
             $scope.id = $scope.selecTipMant._id;
             $scope.descripcionTipoMantenimiento = $scope.selecTipMant.descripcion_tipo_mantenimiento;
-
+            $scope.estado = $scope.selecTipMant.estado;
         }
     }
 

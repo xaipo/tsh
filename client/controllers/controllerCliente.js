@@ -47,6 +47,10 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
             $scope.busqueda = "";
             $scope.listaClientes = [];
             $scope.listaTipoClientes = [];
+            $scope.listaEstado;
+
+            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.estado = "1";
 
             $http.get($scope.urlAllClientes)
                 .then(function (response) {
@@ -74,7 +78,8 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
             direccion_cliente: $scope.direccionCliente,
             telefono_cliente: $scope.telefonoCliente,
             correo_cliente: $scope.correoCliente,
-            tipo_cliente: $scope.tipoCliente
+            tipo_cliente: $scope.tipoCliente,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -97,8 +102,7 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
             $.notify("Revise los Campos", "info");
         }
     }
-
-
+    
     $scope.modificarCliente = function () {
 
         var obj = {
@@ -108,7 +112,8 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
             direccion_cliente: $scope.direccionCliente,
             telefono_cliente: $scope.telefonoCliente,
             correo_cliente: $scope.correoCliente,
-            tipo_cliente: $scope.tipoCliente
+            tipo_cliente: $scope.tipoCliente,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -158,7 +163,7 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
             $scope.telefonoCliente = $scope.selecCli.telefono_cliente;
             $scope.correoCliente = $scope.selecCli.correo_cliente;
             $scope.tipoCliente = $scope.selecCli.tipo_cliente;
-            console.log($scope.tipoCliente);
+            $scope.estado = $scope.selecCli.estado;
             //$scope.buscarTipoCliente();
 
         }

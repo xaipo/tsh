@@ -33,6 +33,10 @@ app.controller('ControllerTipoTripulante', ['$scope', '$http', 'myProvider', fun
 
             $scope.busqueda = "";
             $scope.listaTipoUsuario;
+            $scope.listaEstado;
+
+            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.estado = "1";
 
             $http.get($scope.urlAllTipoUsuario)
                 .then(function (response) {
@@ -51,7 +55,8 @@ app.controller('ControllerTipoTripulante', ['$scope', '$http', 'myProvider', fun
     $scope.ingresoTipoTripulante = function () {
 
         var obj = {
-            descripcion_tipo_tripulante: $scope.descripcionTipoTripulante
+            descripcion_tipo_tripulante: $scope.descripcionTipoTripulante,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -73,7 +78,9 @@ app.controller('ControllerTipoTripulante', ['$scope', '$http', 'myProvider', fun
     $scope.modificarTipoTripulante = function () {
 
         var obj = {
-            id: $scope.id, descripcion_tipo_tripulante: $scope.descripcionTipoTripulante
+            id: $scope.id,
+            descripcion_tipo_tripulante: $scope.descripcionTipoTripulante,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -100,7 +107,7 @@ app.controller('ControllerTipoTripulante', ['$scope', '$http', 'myProvider', fun
 
             $scope.id = $scope.selecTipTrip._id;
             $scope.descripcionTipoTripulante = $scope.selecTipTrip.descripcion_tipo_tripulante;
-
+            $scope.estado = $scope.selecTipTrip.estado;
         }
     }
 

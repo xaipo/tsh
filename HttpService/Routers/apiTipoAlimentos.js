@@ -31,7 +31,8 @@ router.post('/updateTipoAlimentos', function (req, res) {
         assert.equal(null, err);
         console.log(req.body);
         var item = {
-            descripcion_tipo_alimento: req.body.descripcion_tipo_alimento
+            descripcion_tipo_alimento: req.body.descripcion_tipo_alimento,
+            estado: req.body.estado
         };
 
 

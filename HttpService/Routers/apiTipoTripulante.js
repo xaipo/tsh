@@ -33,7 +33,8 @@ router.post('/updateTipoTripulante', function (req, res) {
         assert.equal(null, err);
         console.log(req.body);
         var item = {
-            descripcion_tipo_tripulante: req.body.descripcion_tipo_tripulante
+            descripcion_tipo_tripulante: req.body.descripcion_tipo_tripulante,
+            estado: req.body.estado
         };
 
 

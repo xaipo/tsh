@@ -37,7 +37,8 @@ router.post('/updatePropietario', function (req, res) {
             cedula_propietario: req.body.cedula_propietario,
             telefono_propietario: req.body.telefono_propietario,
             celular_propietario: req.body.celular_propietario,
-            correo_propietario: req.body.correo_propietario
+            correo_propietario: req.body.correo_propietario,
+            estado: req.body.estado
         };
 
 

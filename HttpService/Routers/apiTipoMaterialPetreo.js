@@ -33,7 +33,8 @@ router.post('/updateTipoMaterialPetreo', function (req, res) {
         assert.equal(null, err);
         console.log(req.body);
         var item = {
-            descripcion_tipo_material: req.body.descripcion_tipo_material
+            descripcion_tipo_material: req.body.descripcion_tipo_material,
+            estado: req.body.estado
         };
 
 
