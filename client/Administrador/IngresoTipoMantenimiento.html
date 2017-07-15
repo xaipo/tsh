@@ -167,13 +167,32 @@
 
                             </div>
 
-                            <div class="col-md-12">
-                                <select name="Puertos" ng-model="seleccionTipoMantenimiento" multiple class="form-control" style="height: 150px;" ng-click="buscarSeleccionTipoMantenimiento()">
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaTipoMantenimiento | filter:busqueda| orderBy:aux.descripcion_tipo_mantenimiento">
-                                        {{aux.descripcion_tipo_mantenimiento}}
-                                    </option>
-                                </select>
+                            <div class="col-md-12 col-xs-12">
+
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr class="success">
+                                                <th>#</th>
+                                                <th>Descripción</th>
+                                                <th>Estado</th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+
+                                            <tr dir-paginate="item in listaTipoMantenimiento| filter:busqueda| itemsPerPage:4 track by $index"
+                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="mantenimiento">
+
+                                                <td>{{$index+1}}</td>
+                                                <td>{{ item.descripcion_tipo_mantenimiento}}</td>
+                                                <td>{{ item.estado.estado}}</td>
+
+                                            </tr>
+                                            <dir-pagination-controls pagination-id="mantenimiento"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

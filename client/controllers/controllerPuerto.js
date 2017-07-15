@@ -35,7 +35,7 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
             $scope.listaPuertos = "";
             $scope.listaEstado;
 
-            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.listaEstado = [{ id: '1', estado: 'Activo' }, { id: '2', estado: "Inactivo" }];
             $scope.estado = "1";
 
             $http.get($scope.urlAllPuertos)
@@ -43,13 +43,20 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
 
                     $scope.listaPuertos = response.data;
 
+                    var n = $scope.listaPuertos.length;
+                    for (var i = 0; i < n; i++) {
+                        if ($scope.listaPuertos[i].estado == $scope.listaEstado[0].id)
+                            $scope.listaPuertos[i].estado = $scope.listaEstado[0];
+                        else
+                            $scope.listaPuertos[i].estado = $scope.listaEstado[1];
+                    }
+
                 }, function errorCallback(response) {
 
                     console.log(response);
                 });
 
         }
-
     } else {
         window.location = "../login.html"
     }
@@ -104,10 +111,10 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
 
         if ($scope.seleccionPuerto != '' && $scope.seleccionPuerto != undefined) {
 
-            $scope.selecPuerto = JSON.parse($scope.seleccionPuerto);
+            $scope.selecPuerto = $scope.seleccionPuerto;
             $scope.id = $scope.selecPuerto._id;
             $scope.descripcionPuerto = $scope.selecPuerto.descripcion_puerto;
-            $scope.estado = $scope.selecPuerto.estado;
+            $scope.estado = $scope.selecPuerto.estado.id;
         }
     }
 
@@ -117,6 +124,16 @@ app.controller('ControllerPuerto', ['$scope', '$http', 'myProvider', function ($
         window.location = "../login.html"
 
     }
+
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.seleccionPuerto = item;
+        $scope.selectedRow = index;
+
+        $scope.buscarSeleccionPuerto();
+
+    }
+
 }]);
 
 function validarCamposVacios(obj) {

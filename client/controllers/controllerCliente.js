@@ -49,13 +49,21 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
             $scope.listaTipoClientes = [];
             $scope.listaEstado;
 
-            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.listaEstado = [{ id: '1', estado: 'Activo' }, { id: '2', estado: "Inactivo" }];
             $scope.estado = "1";
 
             $http.get($scope.urlAllClientes)
                 .then(function (response) {
 
                     $scope.listaClientes = response.data;
+
+                    var n = $scope.listaClientes.length;
+                    for (var i = 0; i < n; i++) {
+                        if ($scope.listaClientes[i].estado == $scope.listaEstado[0].id)
+                            $scope.listaClientes[i].estado = $scope.listaEstado[0];
+                        else
+                            $scope.listaClientes[i].estado = $scope.listaEstado[1];
+                    }
 
                 }, function errorCallback(response) {
 
@@ -163,7 +171,7 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
             $scope.telefonoCliente = $scope.selecCli.telefono_cliente;
             $scope.correoCliente = $scope.selecCli.correo_cliente;
             $scope.tipoCliente = $scope.selecCli.tipo_cliente;
-            $scope.estado = $scope.selecCli.estado;
+            $scope.estado = $scope.selecCli.estado.id;
             //$scope.buscarTipoCliente();
 
         }

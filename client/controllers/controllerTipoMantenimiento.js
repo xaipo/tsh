@@ -35,13 +35,21 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
             $scope.listaTipoMantenimiento;
             $scope.listaEstado;
 
-            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.listaEstado = [{ id: '1', estado: 'Activo' }, { id: '2', estado: "Inactivo" }];
             $scope.estado = "1";
 
             $http.get($scope.urlAllTipoMantenimiento)
                 .then(function (response) {
 
                     $scope.listaTipoMantenimiento = response.data;
+
+                    var n = $scope.listaTipoMantenimiento.length;
+                    for (var i = 0; i < n; i++) {
+                        if ($scope.listaTipoMantenimiento[i].estado == $scope.listaEstado[0].id)
+                            $scope.listaTipoMantenimiento[i].estado = $scope.listaEstado[0];
+                        else
+                            $scope.listaTipoMantenimiento[i].estado = $scope.listaEstado[1];
+                    }
 
                 }, function errorCallback(response) {
 
@@ -103,11 +111,11 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
 
         if ($scope.seleccionTipoMantenimiento != '' && $scope.seleccionTipoMantenimiento != undefined) {
 
-            $scope.selecTipMant = JSON.parse($scope.seleccionTipoMantenimiento);
+            $scope.selecTipMant = $scope.seleccionTipoMantenimiento;
 
             $scope.id = $scope.selecTipMant._id;
             $scope.descripcionTipoMantenimiento = $scope.selecTipMant.descripcion_tipo_mantenimiento;
-            $scope.estado = $scope.selecTipMant.estado;
+            $scope.estado = $scope.selecTipMant.estado.id;
         }
     }
 
@@ -115,6 +123,15 @@ app.controller('ControllerTipoMantenimiento', ['$scope', '$http', 'myProvider', 
 
         localStorage.clear();
         window.location = "../login.html"
+
+    }
+
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.seleccionTipoMantenimiento = item;
+        $scope.selectedRow = index;
+
+        $scope.buscarSeleccionTipoMantenimiento();
 
     }
 

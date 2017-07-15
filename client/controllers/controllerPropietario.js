@@ -19,7 +19,6 @@ app.controller('ControllerPropietario', ['$scope', '$http', 'myProvider', functi
 
     var aux = localStorage.getItem("id_token");
     if (aux != null) {
-
         $scope.iniciar = function () {
             $scope.url = myProvider.getUrlIngresoPropietario();
             $scope.urlModificar = myProvider.getUrlModificarPropietario();
@@ -44,13 +43,21 @@ app.controller('ControllerPropietario', ['$scope', '$http', 'myProvider', functi
             $scope.listaPropietario;
             $scope.listaEstado;
 
-            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.listaEstado = [{ id: '1', estado: 'Activo' }, { id: '2', estado: "Inactivo" }];
             $scope.estado = "1";
 
             $http.get($scope.urlAllPropietario)
                 .then(function (response) {
 
                     $scope.listaPropietario = response.data;
+
+                    var n = $scope.listaPropietario.length;
+                    for (var i = 0; i < n; i++) {
+                        if ($scope.listaPropietario[i].estado == $scope.listaEstado[0].id)
+                            $scope.listaPropietario[i].estado = $scope.listaEstado[0];
+                        else
+                            $scope.listaPropietario[i].estado = $scope.listaEstado[1];
+                    }
 
                 }, function errorCallback(response) {
 
@@ -137,7 +144,7 @@ app.controller('ControllerPropietario', ['$scope', '$http', 'myProvider', functi
             $scope.telefonoPropietario = $scope.selecProp.telefono_propietario;
             $scope.celularPropietario = $scope.selecProp.celular_propietario;
             $scope.correoPropietario = $scope.selecProp.correo_propietario;
-            $scope.estado = $scope.selecProp.estado;
+            $scope.estado = $scope.selecProp.estado.id;
         }
     }
 

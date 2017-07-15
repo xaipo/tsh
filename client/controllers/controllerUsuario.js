@@ -80,7 +80,7 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
                     $scope.cedulaUsuario = "";
                     $scope.userAux = "";
                     $scope.contrasenaAux = "";
-                    
+
                     $http.get($scope.urlAllTipoUsuario)
                         .then(function (response) {
 
@@ -96,13 +96,21 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
             }
             $scope.listaEstado;
 
-            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.listaEstado = [{ id: '1', estado: 'Activo' }, { id: '2', estado: "Inactivo" }];
             $scope.estado = "1";
 
             $http.get($scope.urlAllUsuario)
                 .then(function (response) {
 
                     $scope.listaUsuario = response.data;
+
+                    var n1 = $scope.listaUsuario.length;
+                    for (var i = 0; i < n1; i++) {
+                        if ($scope.listaUsuario[i].estado == $scope.listaEstado[0].id)
+                            $scope.listaUsuario[i].estado = $scope.listaEstado[0];
+                        else
+                            $scope.listaUsuario[i].estado = $scope.listaEstado[1];
+                    }
 
                     var n = $scope.listaUsuario.length;
                     var k = 0;
@@ -151,13 +159,19 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
                         estado: $scope.estado
                     }
 
-                    if (validarCamposVacios(user)) {
+                    if (validarCamposVacios(user) && $scope.contrasenaUsuario != "") {
                         if (validateEmail(user.email)) {
                             $http.post($scope.urlRegister, user)
                                 .then(function (response) {
 
                                     $scope.iniciar();
                                     $.notify("Ingreso Correcto", "success");
+
+                                    if ($scope.tipoUsuarioLogin.descripcion_tipo_usuario != "administrador") {
+
+                                        $scope.logout();
+                                        window.location = "../login.html";
+                                    }
 
                                 }, function errorCallback(response) {
 
@@ -196,11 +210,19 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
                     $http.post($scope.urlModificar, obj)
                         .then(function (response) {
 
-                            $scope.iniciar();
-                            $.notify("Modificacion Exitosa", "success");
-                            $.notify("Realice nuevamente su Login!", "error");
-                            $scope.logout();
-                            window.location = "../login.html";
+                            if ($scope.id == $scope.usuario._id) {
+                                
+                                $scope.iniciar();
+                                $.notify("Modificacion Exitosa", "success");
+                                $scope.logout();
+                                window.location = "../login.html";
+
+                            } else {
+                                
+                                $scope.iniciar();
+                                $.notify("Modificacion Exitosa", "success");
+
+                            }
 
                         }, function errorCallback(response) {
                             $.notify("Error!", "error");
@@ -220,18 +242,27 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
                 password: $scope.contrasenaUsuario,
                 phone: $scope.telefonoUsuario,
                 email: $scope.correoUsuario,
-                type_user: $scope.tipoUsuario
+                type_user: $scope.tipoUsuario,
+                estado: $scope.estado
             };
             if (validarCamposVacios(obj)) {
                 if (validateEmail(obj.email)) {
                     $http.post($scope.urlModificarPsswd, obj)
                         .then(function (response) {
 
-                            $scope.iniciar();
-                            $.notify("Modificacion Exitosa", "success");
-                            $.notify("Realice nuevamente su Login!", "error");
-                            $scope.logout();
-                            window.location = "../login.html";
+                            if ($scope.id == $scope.usuario._id) {
+
+                                $scope.iniciar();
+                                $.notify("Modificacion Exitosa", "success");
+                                $scope.logout();
+                                window.location = "../login.html";
+
+                            } else {
+
+                                $scope.iniciar();
+                                $.notify("Modificacion Exitosa", "success");
+
+                            }
 
                         }, function errorCallback(response) {
                             $.notify("Error!", "error");
@@ -255,11 +286,11 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
             $scope.nombreUsuario = $scope.selecUsu.username;
             $scope.nombresCompletos = $scope.selecUsu.name;
             $scope.cedulaUsuario = $scope.selecUsu.identification_card;
-            $scope.contrasenaUsuario = $scope.selecUsu.password;
+            $scope.contrasenaUsuario = "";
             $scope.telefonoUsuario = $scope.selecUsu.phone;
             $scope.correoUsuario = $scope.selecUsu.email;
             $scope.tipoUsuario = $scope.selecUsu.type_user._id;
-            $scope.estado = $scope.selecUsu.estado;
+            $scope.estado = $scope.selecUsu.estado.id;
 
             $scope.contrasenaAux = $scope.selecUsu.password;
             $scope.userAux = $scope.selecUsu;

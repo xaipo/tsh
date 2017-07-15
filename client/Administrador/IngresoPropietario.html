@@ -240,23 +240,25 @@
                                                 <th>Teléfono</th>
                                                 <th>Celular</th>
                                                 <th>Email</th>
+                                                <th>Estado</th>
                                             </tr>
 
                                         </thead>
                                         <tbody>
 
-                                            <tr dir-paginate="item in listaPropietario| filter:busqueda| itemsPerPage:5 track by $index"
-                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="contrato">
+                                            <tr dir-paginate="item in listaPropietario| filter:busqueda| itemsPerPage:4 track by $index"
+                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="propietario">
 
-                                                <td>{{$index}}</td>
+                                                <td>{{$index+1}}</td>
                                                 <td>{{ item.cedula_propietario}}</td>
                                                 <td>{{ item.nombre_propietario}}</td>
                                                 <td>{{ item.telefono_propietario}}</td>
                                                 <td>{{ item.celular_propietario}}</td>
                                                 <td>{{ item.correo_propietario }}</td>
+                                                <td>{{ item.estado.estado }}</td>
 
                                             </tr>
-                                            <dir-pagination-controls pagination-id="contrato"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                            <dir-pagination-controls pagination-id="propietario"></dir-pagination-controls> <!--agregar botones paginacion-->
                                         </tbody>
                                     </table>
                                 </div>

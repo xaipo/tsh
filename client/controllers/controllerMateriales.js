@@ -38,13 +38,21 @@ app.controller('ControllerMaterial', ['$scope', '$http', 'myProvider', function 
             $scope.listaMaterial;
             $scope.listaEstado;
 
-            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.listaEstado = [{ id: '1', estado: 'Activo' }, { id: '2', estado: "Inactivo" }];
             $scope.estado = "1";
 
             $http.get($scope.urlAllMateriales)
                 .then(function (response) {
 
                     $scope.listaMaterial = response.data;
+
+                    var n = $scope.listaMaterial.length;
+                    for (var i = 0; i < n; i++) {
+                        if ($scope.listaMaterial[i].estado == $scope.listaEstado[0].id)
+                            $scope.listaMaterial[i].estado = $scope.listaEstado[0];
+                        else
+                            $scope.listaMaterial[i].estado = $scope.listaEstado[1];
+                    }
 
                 }, function errorCallback(response) {
 
@@ -109,12 +117,12 @@ app.controller('ControllerMaterial', ['$scope', '$http', 'myProvider', function 
 
         if ($scope.seleccionMaterial != '' && $scope.seleccionMaterial != undefined) {
 
-            $scope.selecMat = JSON.parse($scope.seleccionMaterial);
+            $scope.selecMat = $scope.seleccionMaterial;
 
             $scope.id = $scope.selecMat._id;
             $scope.descripcionMaterial = $scope.selecMat.descripcion_material;
             $scope.stock = $scope.selecMat.stock;
-            $scope.estado = $scope.selecMat.estado;
+            $scope.estado = $scope.selecMat.estado.id;
 
         }
     }
@@ -123,6 +131,15 @@ app.controller('ControllerMaterial', ['$scope', '$http', 'myProvider', function 
 
         localStorage.clear();
         window.location = "../login.html"
+
+    }
+
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.seleccionMaterial = item;
+        $scope.selectedRow = index;
+
+        $scope.buscarSeleccionMaterial();
 
     }
 

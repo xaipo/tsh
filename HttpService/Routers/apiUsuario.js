@@ -18,7 +18,8 @@ router.post('/saveUsuario', function (req, res) {
         password: psswd,
         phone: req.body.phone,
         identification_card: req.body.identification_card,
-        type_user: req.body.type_user
+        type_user: req.body.type_user,
+        estado: req.body.estado
     }
 
     MongoClient.connect(url, function (err, db) {
@@ -84,7 +85,8 @@ router.post('/updateUsuario', function (req, res) {
             password: req.body.password,
             phone: req.body.phone,
             type_user: req.body.type_user,
-            identification_card: req.body.identification_card
+            identification_card: req.body.identification_card,
+            estado: req.body.estado
         };
 
         var id = req.body.id;

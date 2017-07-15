@@ -91,8 +91,6 @@
     <!-- final menu-->
 
     <div class="jumbotron">
-        <br>
-        <br>
         <div class="row">
             <div class="col-md-1">
 
@@ -246,10 +244,6 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
-
-                            </div>
-
                             <div class="col-md-12 col-xs-12">
 
                                 <div class="table-responsive">
@@ -263,29 +257,30 @@
                                                 <th>Teléfono</th>
                                                 <th>Email</th>
                                                 <th>Tipo Usuario</th>
+                                                <th>Estado</th>
                                             </tr>
 
                                         </thead>
                                         <tbody>
 
-                                            <tr dir-paginate="item in listaUsuario| filter:busqueda| itemsPerPage:5 track by $index"
-                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="cliente">
+                                            <tr dir-paginate="item in listaUsuario| filter:busqueda| itemsPerPage:4 track by $index"
+                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="usuario">
 
-                                                <td>{{$index}}</td>
+                                                <td>{{$index+1}}</td>
                                                 <td>{{ item.username}}</td>
                                                 <td>{{ item.identification_card}}</td>
                                                 <td>{{ item.name}}</td>
                                                 <td>{{ item.phone}}</td>
                                                 <td>{{ item.email }}</td>
                                                 <td>{{ item.type_user.descripcion_tipo_usuario }}</td>
+                                                <td>{{ item.estado.estado }}</td>
 
                                             </tr>
-                                            <dir-pagination-controls pagination-id="cliente"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                            <dir-pagination-controls pagination-id="usuario"></dir-pagination-controls> <!--agregar botones paginacion-->
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>

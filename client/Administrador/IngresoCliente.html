@@ -244,20 +244,22 @@
                                             <th>Dirección</th>
                                             <th>Teléfono</th>
                                             <th>Email</th>
+                                            <th>Estado</th>
                                         </tr>
 
                                     </thead>
                                     <tbody>
 
-                                        <tr dir-paginate="item in listaClientes| filter:busqueda| itemsPerPage:5 track by $index"
+                                        <tr dir-paginate="item in listaClientes| filter:busqueda| itemsPerPage:4 track by $index"
                                             ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="cliente">
 
-                                            <td>{{$index}}</td>
+                                            <td>{{$index+1}}</td>
                                             <td>{{ item.ruc_cliente}}</td>
                                             <td>{{ item.nombre_cliente}}</td>
                                             <td>{{ item.direccion_cliente}}</td>
                                             <td>{{ item.telefono_cliente}}</td>
                                             <td>{{ item.correo_cliente }}</td>
+                                            <td>{{ item.estado.estado }}</td>
 
                                         </tr>
                                         <dir-pagination-controls pagination-id="cliente"></dir-pagination-controls> <!--agregar botones paginacion-->

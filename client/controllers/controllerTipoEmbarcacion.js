@@ -31,13 +31,21 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
             $scope.listaTipoEmbarcacion;
             $scope.listaEstado;
 
-            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.listaEstado = [{ id: '1', estado: 'Activo' }, { id: '2', estado: "Inactivo" }];
             $scope.estado = "1";
 
             $http.get($scope.urlAllTipoEmbarcacion)
                 .then(function (response) {
 
                     $scope.listaTipoEmbarcacion = response.data;
+
+                    var n = $scope.listaTipoEmbarcacion.length;
+                    for (var i = 0; i < n; i++) {
+                        if ($scope.listaTipoEmbarcacion[i].estado == $scope.listaEstado[0].id)
+                            $scope.listaTipoEmbarcacion[i].estado = $scope.listaEstado[0];
+                        else
+                            $scope.listaTipoEmbarcacion[i].estado = $scope.listaEstado[1];
+                    }
 
                 }, function errorCallback(response) {
 
@@ -99,11 +107,11 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
 
         if ($scope.seleccionTipoEmbarcacion != '' && $scope.seleccionTipoEmbarcacion != undefined) {
 
-            $scope.selecTipEmb = JSON.parse($scope.seleccionTipoEmbarcacion);
+            $scope.selecTipEmb = $scope.seleccionTipoEmbarcacion;
 
             $scope.id = $scope.selecTipEmb._id;
             $scope.descripcionTipoEmbarcacion = $scope.selecTipEmb.descripcion_tipo_embarcacion;
-            $scope.estado = $scope.selecTipEmb.estado;
+            $scope.estado = $scope.selecTipEmb.estado.id;
         }
     }
 
@@ -111,6 +119,15 @@ app.controller('ControllerTipoEmbacacion', ['$scope', '$http', 'myProvider', fun
 
         localStorage.clear();
         window.location = "../login.html"
+
+    }
+
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.seleccionTipoEmbarcacion = item;
+        $scope.selectedRow = index;
+
+        $scope.buscarSeleccionTipoEmbarcacion();
 
     }
 

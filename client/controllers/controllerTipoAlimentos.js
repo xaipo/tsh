@@ -35,13 +35,21 @@ app.controller('ControllerTipoAlimentos', ['$scope', '$http', 'myProvider', func
             $scope.listaTipoAlimentos;
             $scope.listaEstado;
 
-            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.listaEstado = [{ id: '1', estado: 'Activo' }, { id: '2', estado: "Inactivo" }];
             $scope.estado = "1";
 
             $http.get($scope.urlAllTipoAlimentos)
                 .then(function (response) {
 
                     $scope.listaTipoAlimentos = response.data;
+
+                    var n = $scope.listaTipoAlimentos.length;
+                    for (var i = 0; i < n; i++) {
+                        if ($scope.listaTipoAlimentos[i].estado == $scope.listaEstado[0].id)
+                            $scope.listaTipoAlimentos[i].estado = $scope.listaEstado[0];
+                        else
+                            $scope.listaTipoAlimentos[i].estado = $scope.listaEstado[1];
+                    }
 
                 }, function errorCallback(response) {
 
@@ -104,10 +112,10 @@ app.controller('ControllerTipoAlimentos', ['$scope', '$http', 'myProvider', func
 
         if ($scope.seleccionTipoAlimento != '' && $scope.seleccionTipoAlimento != undefined) {
 
-            $scope.selecTipAlim = JSON.parse($scope.seleccionTipoAlimento);
+            $scope.selecTipAlim = $scope.seleccionTipoAlimento;
             $scope.id = $scope.selecTipAlim._id;
             $scope.descripcionTipoAlimento = $scope.selecTipAlim.descripcion_tipo_alimento;
-            $scope.estado = $scope.selecTipAlim.estado;
+            $scope.estado = $scope.selecTipAlim.estado.id;
         }
     }
 
@@ -115,6 +123,15 @@ app.controller('ControllerTipoAlimentos', ['$scope', '$http', 'myProvider', func
 
         localStorage.clear();
         window.location = "../login.html"
+
+    }
+
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.seleccionTipoAlimento = item;
+        $scope.selectedRow = index;
+
+        $scope.buscarseleccionTipoAlimento();
 
     }
 

@@ -37,13 +37,21 @@ app.controller('ControllerContratoRecepcion', ['$scope', '$http', 'myProvider', 
             $scope.listaContratoRecepcion = [];
             $scope.listaEstado;
 
-            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.listaEstado = [{ id: '1', estado: 'Activo' }, { id: '2', estado: "Inactivo" }];
             $scope.estado = "1";
 
             $http.get($scope.urlAllContratoRecepcion)
                 .then(function (response) {
 
                     $scope.listaContratoRecepcion = response.data;
+
+                    var n = $scope.listaContratoRecepcion.length;
+                    for (var i = 0; i < n; i++) {
+                        if ($scope.listaContratoRecepcion[i].estado == $scope.listaEstado[0].id)
+                            $scope.listaContratoRecepcion[i].estado = $scope.listaEstado[0];
+                        else
+                            $scope.listaContratoRecepcion[i].estado = $scope.listaEstado[1];
+                    }
 
                 }, function errorCallback(response) {
 
@@ -107,11 +115,11 @@ app.controller('ControllerContratoRecepcion', ['$scope', '$http', 'myProvider', 
 
         if ($scope.seleccionContratoRecepcion != '' && $scope.seleccionContratoRecepcion != undefined) {
 
-            $scope.selecContRecep = JSON.parse($scope.seleccionContratoRecepcion);
+            $scope.selecContRecep = $scope.seleccionContratoRecepcion;
 
             $scope.id = $scope.selecContRecep._id;
             $scope.descripcionContratoRecepcion = $scope.selecContRecep.descripcion_contrato_recepcion;
-            $scope.estado = $scope.selecContRecep.estado;
+            $scope.estado = $scope.selecContRecep.estado.id;
 
         }
     }
@@ -120,6 +128,15 @@ app.controller('ControllerContratoRecepcion', ['$scope', '$http', 'myProvider', 
 
         localStorage.clear();
         window.location = "../login.html"
+
+    }
+
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.seleccionContratoRecepcion = item;
+        $scope.selectedRow = index;
+
+        $scope.buscarSeleccionContratoRecepcion();
 
     }
 

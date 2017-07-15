@@ -54,59 +54,60 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
 
             }).then(function successCallback(response) {
 
-                localStorage.setItem("id_token", response.data.token);
-                ////////////
+                if (response.data.user.estado == "1") {
+                    localStorage.setItem("id_token", response.data.token);
 
-                $http({
-                    method: 'GET',
-                    url: $scope.urlPerfil,
-                    headers: {
-                        'Authorization': localStorage.getItem("id_token"),
-                        'Content-Type': 'application/json'
-                    }
+                    $http({
+                        method: 'GET',
+                        url: $scope.urlPerfil,
+                        headers: {
+                            'Authorization': localStorage.getItem("id_token"),
+                            'Content-Type': 'application/json'
+                        }
 
-                }).then(function successCallback(response) {
+                    }).then(function successCallback(response) {
 
-                    localStorage.setItem("user", JSON.stringify(response.data.user));
-                    var tipUsu = {
-                        id: response.data.user.type_user
-                    }
+                        localStorage.setItem("user", JSON.stringify(response.data.user));
+                        var tipUsu = {
+                            id: response.data.user.type_user
+                        }
 
-                    $http.post($scope.urlBuscarTipoUsuario, tipUsu)
-                        .then(function (response) {
+                        $http.post($scope.urlBuscarTipoUsuario, tipUsu)
+                            .then(function (response) {
 
-                            localStorage.setItem("tipoUser", JSON.stringify(response.data));
+                                localStorage.setItem("tipoUser", JSON.stringify(response.data));
 
-                            if (response.data.descripcion_tipo_usuario == "administrador") {
-                                window.location = "menu.html";
+                                if (response.data.descripcion_tipo_usuario == "administrador") {
+                                    window.location = "menu.html";
+                                }
 
-                            }
+                                if (response.data.descripcion_tipo_usuario == "timonel") {
+                                    window.location = "menuTimonel.html";
+                                }
 
-                            if (response.data.descripcion_tipo_usuario == "timonel") {
-                                window.location = "menuTimonel.html";
-                            }
+                                if (response.data.descripcion_tipo_usuario == "maquinista") {
+                                    window.location = "menuMaquinista.html";
+                                }
 
-                            if (response.data.descripcion_tipo_usuario == "maquinista") {
-                                window.location = "menuMaquinista.html";
-                            }
+                                if (response.data.descripcion_tipo_usuario == "marinero") {
+                                    window.location = "menuMarinero.html";
+                                }
 
-                            if (response.data.descripcion_tipo_usuario == "marinero") {
-                                window.location = "menuMarinero.html";
-                            }
+                            }, function errorCallback(response) {
 
-                        }, function errorCallback(response) {
+                                console.log(response);
 
-                            console.log(response);
+                            });
 
-                        });
+                    }, function errorCallback(response) {
 
+                        $.notify("Usuario o Clave Incorrectos!! ");
 
-                }, function errorCallback(response) {
+                    });
 
-                    $.notify("Usuario o Clave Incorrectos!! ");
-
-                });
-
+                } else {
+                    $.notify("Usuario Inactivo!! ");
+                }
             }, function errorCallback(response) {
 
                 $.notify(" ERROR!! ");
@@ -117,8 +118,6 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
 
             $.notify("Revise los Campos!! ");
         }
-
-
     }
 
     $scope.logout = function () {

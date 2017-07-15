@@ -35,13 +35,21 @@ app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider',
             $scope.listaTipoMaterial;
             $scope.listaEstado;
 
-            $scope.listaEstado = [{ id: '1', estado: 'Activado' }, { id: '2', estado: "Inactivo" }];
+            $scope.listaEstado = [{ id: '1', estado: 'Activo' }, { id: '2', estado: "Inactivo" }];
             $scope.estado = "1";
 
             $http.get($scope.urlAllTipoMaterial)
                 .then(function (response) {
 
                     $scope.listaTipoMaterial = response.data;
+
+                    var n = $scope.listaTipoMaterial.length;
+                    for (var i = 0; i < n; i++) {
+                        if ($scope.listaTipoMaterial[i].estado == $scope.listaEstado[0].id)
+                            $scope.listaTipoMaterial[i].estado = $scope.listaEstado[0];
+                        else
+                            $scope.listaTipoMaterial[i].estado = $scope.listaEstado[1];
+                    }
 
                 }, function errorCallback(response) {
 
@@ -103,10 +111,10 @@ app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider',
 
         if ($scope.seleccionTipoMaterial != '' && $scope.seleccionTipoMaterial != undefined) {
 
-            $scope.selecTipoMaterial = JSON.parse($scope.seleccionTipoMaterial);
+            $scope.selecTipoMaterial = $scope.seleccionTipoMaterial;
             $scope.id = $scope.selecTipoMaterial._id;
             $scope.descripcionTipoMaterial = $scope.selecTipoMaterial.descripcion_tipo_material;
-            $scope.estado = $scope.selecTipoMaterial.estado;
+            $scope.estado = $scope.selecTipoMaterial.estado.id;
         }
     }
 
@@ -114,6 +122,15 @@ app.controller('ControllerTipoMaterialPetreo', ['$scope', '$http', 'myProvider',
 
         localStorage.clear();
         window.location = "../login.html"
+
+    }
+
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.seleccionTipoMaterial = item;
+        $scope.selectedRow = index;
+
+        $scope.buscarSeleccionTipoMaterial();
 
     }
 
