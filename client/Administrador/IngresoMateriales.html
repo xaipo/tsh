@@ -12,7 +12,7 @@
 
     <script src="../jquery/dist/jquery.min.js"></script>
     <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../alertas/sweetalert.min.js"></script>    
+    <script src="../alertas/sweetalert.min.js"></script>
     <script src="../notificaciones/notify.js"></script>
     <script src="../angular/angular.js"></script>
     <script src="../node_modules/angular-utils-pagination/dirPagination.js"></script>
@@ -160,36 +160,38 @@
 
                         </div>
 
-                        <div class="row">                            
-                            <div class="col-md-12 col-xs-12">
+                        <div class="row">
+                            <center>
+                                <div class="col-md-12 col-xs-12">
 
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr class="success">
-                                                <th>#</th>
-                                                <th>Descripción</th>
-                                                <th>Stock</th>
-                                                <th>Estado</th>
-                                            </tr>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr class="success">
+                                                    <th>#</th>
+                                                    <th>Descripción</th>
+                                                    <th>Stock</th>
+                                                    <th>Estado</th>
+                                                </tr>
 
-                                        </thead>
-                                        <tbody>
+                                            </thead>
+                                            <tbody>
 
-                                            <tr dir-paginate="item in listaMaterial| filter:busqueda| itemsPerPage:4 track by $index"
-                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="material">
+                                                <tr dir-paginate="item in listaMaterial| filter:busqueda| itemsPerPage:4 track by $index"
+                                                    ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="material">
 
-                                                <td>{{$index+1}}</td>
-                                                <td>{{ item.descripcion_material}}</td>
-                                                <td>{{ item.stock}}</td>
-                                                <td>{{ item.estado.estado}}</td>
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{ item.descripcion_material}}</td>
+                                                    <td>{{ item.stock}}</td>
+                                                    <td>{{ item.estado.estado}}</td>
 
-                                            </tr>
-                                            <dir-pagination-controls pagination-id="material"></dir-pagination-controls> <!--agregar botones paginacion-->
-                                        </tbody>
-                                    </table>
+                                                </tr>
+                                                <dir-pagination-controls pagination-id="material"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
+                            </center>
                         </div>
                     </div>
                 </div>

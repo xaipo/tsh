@@ -12,7 +12,7 @@
 
     <script src="../jquery/dist/jquery.min.js"></script>
     <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../alertas/sweetalert.min.js"></script>    
+    <script src="../alertas/sweetalert.min.js"></script>
     <script src="../notificaciones/notify.js"></script>
     <script src="../angular/angular.js"></script>
     <script src="../node_modules/angular-utils-pagination/dirPagination.js"></script>
@@ -121,7 +121,7 @@
                                 <input type="text" ng-model="descripcionPuerto" class="form-control" placeholder="Nombre Puerto" />
                             </div>
                         </div>
-                        <div class="row">                            
+                        <div class="row">
                             <div class="col-md-5">
                                 <h4>Estado: </h4>
                             </div>
@@ -136,11 +136,11 @@
                             </div>
 
                             <div class="col-md-4">
-                                <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoPuerto()"/>
+                                <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoPuerto()" />
                             </div>
 
                             <div class="col-md-4">
-                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarPuerto()"/>
+                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarPuerto()" />
                             </div>
                         </div>
                     </div>
@@ -165,37 +165,35 @@
 
                         <br>
                         <div class="row">
-                            <div class="col-md-12">
+                            <center>
+                                <div class="col-md-12 col-xs-12">
 
-                            </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr class="success">
+                                                    <th>#</th>
+                                                    <th>Descripción</th>
+                                                    <th>Estado</th>
+                                                </tr>
 
-                            <div class="col-md-12 col-xs-12">
+                                            </thead>
+                                            <tbody>
 
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr class="success">
-                                                <th>#</th>
-                                                <th>Descripción</th>
-                                                <th>Estado</th>
-                                            </tr>
+                                                <tr dir-paginate="item in listaPuertos| filter:busqueda| itemsPerPage:4 track by $index"
+                                                    ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="puerto">
 
-                                        </thead>
-                                        <tbody>
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{ item.descripcion_puerto}}</td>
+                                                    <td>{{ item.estado.estado}}</td>
 
-                                            <tr dir-paginate="item in listaPuertos| filter:busqueda| itemsPerPage:4 track by $index"
-                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="puerto">
-
-                                                <td>{{$index+1}}</td>
-                                                <td>{{ item.descripcion_puerto}}</td>
-                                                <td>{{ item.estado.estado}}</td>
-
-                                            </tr>
-                                            <dir-pagination-controls pagination-id="puerto"></dir-pagination-controls> <!--agregar botones paginacion-->
-                                        </tbody>
-                                    </table>
+                                                </tr>
+                                                <dir-pagination-controls pagination-id="puerto"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
+                            </center>
                         </div>
                     </div>
                 </div>

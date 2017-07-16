@@ -177,17 +177,17 @@
                                 </div>
                             </div>
                             <div class="row">
-                            <div class="col-md-1">
+                                <div class="col-md-1">
 
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Estado: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <select class="form-control" ng-model="estado" ng-options="item.id as item.estado for item in listaEstado"></select>
+                                </div>
                             </div>
-                            <div class="col-md-3">
-                                <h4>Estado: </h4>
-                            </div>
-                            <div class="col-md-7">
-                                <select class="form-control" ng-model="estado" ng-options="item.id as item.estado for item in listaEstado"></select>
-                            </div>
-                        </div>
-                        <br />
+                            <br />
                         </div>
                         <br />
                         <div class="row">
@@ -225,46 +225,43 @@
 
                         <br>
                         <div class="row">
-                            <div class="col-md-12">
+                            <center>
+                                <div class="col-md-12 col-xs-12">
 
-                            </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr class="success">
+                                                    <th>#</th>
+                                                    <th>Cédula</th>
+                                                    <th>Nombres</th>
+                                                    <th>Teléfono</th>
+                                                    <th>Celular</th>
+                                                    <th>Email</th>
+                                                    <th>Estado</th>
+                                                </tr>
 
-                            <div class="col-md-12 col-xs-12">
+                                            </thead>
+                                            <tbody>
 
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr class="success">
-                                                <th>#</th>
-                                                <th>Cédula</th>
-                                                <th>Nombres</th>
-                                                <th>Teléfono</th>
-                                                <th>Celular</th>
-                                                <th>Email</th>
-                                                <th>Estado</th>
-                                            </tr>
+                                                <tr dir-paginate="item in listaPropietario| filter:busqueda| itemsPerPage:4 track by $index"
+                                                    ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="propietario">
 
-                                        </thead>
-                                        <tbody>
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{ item.cedula_propietario}}</td>
+                                                    <td>{{ item.nombre_propietario}}</td>
+                                                    <td>{{ item.telefono_propietario}}</td>
+                                                    <td>{{ item.celular_propietario}}</td>
+                                                    <td>{{ item.correo_propietario }}</td>
+                                                    <td>{{ item.estado.estado }}</td>
 
-                                            <tr dir-paginate="item in listaPropietario| filter:busqueda| itemsPerPage:4 track by $index"
-                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="propietario">
-
-                                                <td>{{$index+1}}</td>
-                                                <td>{{ item.cedula_propietario}}</td>
-                                                <td>{{ item.nombre_propietario}}</td>
-                                                <td>{{ item.telefono_propietario}}</td>
-                                                <td>{{ item.celular_propietario}}</td>
-                                                <td>{{ item.correo_propietario }}</td>
-                                                <td>{{ item.estado.estado }}</td>
-
-                                            </tr>
-                                            <dir-pagination-controls pagination-id="propietario"></dir-pagination-controls> <!--agregar botones paginacion-->
-                                        </tbody>
-                                    </table>
+                                                </tr>
+                                                <dir-pagination-controls pagination-id="propietario"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-
+                            </center>
                         </div>
                     </div>
                 </div>

@@ -43,6 +43,14 @@ app.controller('ControllerTipoTripulante', ['$scope', '$http', 'myProvider', fun
 
                     $scope.listaTipoTripulante = response.data;
 
+                    var n = $scope.listaTipoTripulante.length;
+                    for (var i = 0; i < n; i++) {
+                        if ($scope.listaTipoTripulante[i].estado == $scope.listaEstado[0].id)
+                            $scope.listaTipoTripulante[i].estado = $scope.listaEstado[0];
+                        else
+                            $scope.listaTipoTripulante[i].estado = $scope.listaEstado[1];
+                    }
+
                 }, function errorCallback(response) {
 
                     console.log(response);
@@ -103,11 +111,11 @@ app.controller('ControllerTipoTripulante', ['$scope', '$http', 'myProvider', fun
 
         if ($scope.seleccionTipoTripulante != '' && $scope.seleccionTipoTripulante != undefined) {
 
-            $scope.selecTipTrip = JSON.parse($scope.seleccionTipoTripulante);
+            $scope.selecTipTrip = $scope.seleccionTipoTripulante;
 
             $scope.id = $scope.selecTipTrip._id;
             $scope.descripcionTipoTripulante = $scope.selecTipTrip.descripcion_tipo_tripulante;
-            $scope.estado = $scope.selecTipTrip.estado;
+            $scope.estado = $scope.selecTipTrip.estado.id;
         }
     }
 
@@ -115,6 +123,15 @@ app.controller('ControllerTipoTripulante', ['$scope', '$http', 'myProvider', fun
 
         localStorage.clear();
         window.location = "../login.html"
+
+    }
+
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.seleccionTipoTripulante = item;
+        $scope.selectedRow = index;
+
+        $scope.buscarSeleccionTipoTripulante();
 
     }
 

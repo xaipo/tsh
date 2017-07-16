@@ -48,12 +48,22 @@ app.controller('ControllerTripulante', ['$scope', '$http', 'myProvider', functio
             $scope.listaTripulante;
             $scope.listaTipoTripulante;
 
+            $scope.listaEstado = [{ id: '1', estado: 'Activo' }, { id: '2', estado: "Inactivo" }];
+            $scope.estado = "1";
+
             $http.get($scope.urlAllTripulante)
                 .then(function (response) {
 
                     $scope.listaTripulante = response.data;
 
                     var n = $scope.listaTripulante.length;
+                    for (var i = 0; i < n; i++) {
+                        if ($scope.listaTripulante[i].estado == $scope.listaEstado[0].id)
+                            $scope.listaTripulante[i].estado = $scope.listaEstado[0];
+                        else
+                            $scope.listaTripulante[i].estado = $scope.listaEstado[1];
+                    }
+
                     var k = 0;
                     for (var i = 0; i < n; i++) {
                         var tpTrip = {
@@ -97,7 +107,8 @@ app.controller('ControllerTripulante', ['$scope', '$http', 'myProvider', functio
             nombre_tripulante: $scope.nombreTripulante,
             cedula_tripulante: $scope.cedulaTripulante,
             telefono_tripulante: $scope.telefonoTripulante,
-            tipo_tripulante: $scope.tipoTripulante
+            tipo_tripulante: $scope.tipoTripulante,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -115,15 +126,15 @@ app.controller('ControllerTripulante', ['$scope', '$http', 'myProvider', functio
             $.notify("Revise los Campos", "info");
         }
     }
-
-
+    
     $scope.modificarTripulante = function () {
 
         var obj = {
             id: $scope.id, nombre_tripulante: $scope.nombreTripulante,
             cedula_tripulante: $scope.cedulaTripulante,
             telefono_tripulante: $scope.telefonoTripulante,
-            tipo_tripulante: $scope.tipoTripulante
+            tipo_tripulante: $scope.tipoTripulante,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -153,6 +164,7 @@ app.controller('ControllerTripulante', ['$scope', '$http', 'myProvider', functio
             $scope.cedulaTripulante = $scope.selecTrip.cedula_tripulante;
             $scope.telefonoTripulante = $scope.selecTrip.telefono_tripulante;
             $scope.tipoTripulante = $scope.selecTrip.tipo_tripulante._id;
+            $scope.estado = $scope.selecTrip.estado.id;
 
         }
     }

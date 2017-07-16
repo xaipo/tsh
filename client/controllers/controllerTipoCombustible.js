@@ -34,10 +34,20 @@ app.controller('ControllerTipoCombustible', ['$scope', '$http', 'myProvider', fu
             $scope.busqueda = "";
             $scope.listaTipoCombustible;
 
+            $scope.listaEstado = [{ id: '1', estado: 'Activo' }, { id: '2', estado: "Inactivo" }];
+            $scope.estado = "1";
+
             $http.get($scope.urlAllTipoCombustible)
                 .then(function (response) {
 
                     $scope.listaTipoCombustible = response.data;
+                    var n = $scope.listaTipoCombustible.length;
+                    for (var i = 0; i < n; i++) {
+                        if ($scope.listaTipoCombustible[i].estado == $scope.listaEstado[0].id)
+                            $scope.listaTipoCombustible[i].estado = $scope.listaEstado[0];
+                        else
+                            $scope.listaTipoCombustible[i].estado = $scope.listaEstado[1];
+                    }
 
                 }, function errorCallback(response) {
 
@@ -52,7 +62,8 @@ app.controller('ControllerTipoCombustible', ['$scope', '$http', 'myProvider', fu
     $scope.ingresoTipoCombustible = function () {
 
         var obj = {
-            descripcion_tipo_combustible: $scope.descripcionTipoCombustible
+            descripcion_tipo_combustible: $scope.descripcionTipoCombustible,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -74,7 +85,9 @@ app.controller('ControllerTipoCombustible', ['$scope', '$http', 'myProvider', fu
     $scope.modificarTipoCombustible = function () {
 
         var obj = {
-            _id: $scope.id, descripcion_tipo_combustible: $scope.descripcionTipoCombustible
+            _id: $scope.id,
+            descripcion_tipo_combustible: $scope.descripcionTipoCombustible,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -97,10 +110,11 @@ app.controller('ControllerTipoCombustible', ['$scope', '$http', 'myProvider', fu
 
         if ($scope.seleccionTipoCombustible != '' && $scope.seleccionTipoCombustible != undefined) {
 
-            $scope.selecTipComb = JSON.parse($scope.seleccionTipoCombustible);
+            $scope.selecTipComb = $scope.seleccionTipoCombustible;
 
             $scope.id = $scope.selecTipComb._id;
             $scope.descripcionTipoCombustible = $scope.selecTipComb.descripcion_tipo_combustible;
+            $scope.estado = $scope.selecTipComb.estado.id;
 
         }
     }
@@ -109,6 +123,15 @@ app.controller('ControllerTipoCombustible', ['$scope', '$http', 'myProvider', fu
 
         localStorage.clear();
         window.location = "../login.html"
+
+    }
+
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.seleccionTipoCombustible = item;
+        $scope.selectedRow = index;
+
+        $scope.buscarSeleccionTipoCombustible();
 
     }
 

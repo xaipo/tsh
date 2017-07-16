@@ -12,7 +12,7 @@
 
     <script src="../jquery/dist/jquery.min.js"></script>
     <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../alertas/sweetalert.min.js"></script>    
+    <script src="../alertas/sweetalert.min.js"></script>
     <script src="../notificaciones/notify.js"></script>
     <script src="../angular/angular.js"></script>
     <script src="../node_modules/angular-utils-pagination/dirPagination.js"></script>
@@ -120,7 +120,7 @@
                                 <input type="text" ng-model="descripcionTipoEmbarcacion" placeholder="Tipo Embarcación" class="form-control" />
                             </div>
                         </div>
-                        <div class="row">                            
+                        <div class="row">
                             <div class="col-md-5">
                                 <h4>Estado: </h4>
                             </div>
@@ -135,11 +135,11 @@
                             </div>
 
                             <div class="col-md-4">
-                                <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoTipoEmbarcacion()"/>
+                                <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoTipoEmbarcacion()" />
                             </div>
 
                             <div class="col-md-4">
-                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarTipoEmbarcacion()"/>
+                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarTipoEmbarcacion()" />
                             </div>
                         </div>
                     </div>
@@ -169,31 +169,32 @@
                             </div>
 
                             <div class="col-md-12 col-xs-12">
+                                <center>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr class="success">
+                                                    <th>#</th>
+                                                    <th>Descripción</th>
+                                                    <th>Estado</th>
+                                                </tr>
 
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr class="success">
-                                                <th>#</th>
-                                                <th>Descripción</th>
-                                                <th>Estado</th>
-                                            </tr>
+                                            </thead>
+                                            <tbody>
 
-                                        </thead>
-                                        <tbody>
+                                                <tr dir-paginate="item in listaTipoEmbarcacion| filter:busqueda| itemsPerPage:4 track by $index"
+                                                    ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="embarcacion">
 
-                                            <tr dir-paginate="item in listaTipoEmbarcacion| filter:busqueda| itemsPerPage:4 track by $index"
-                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="embarcacion">
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{ item.descripcion_tipo_embarcacion}}</td>
+                                                    <td>{{ item.estado.estado}}</td>
 
-                                                <td>{{$index+1}}</td>
-                                                <td>{{ item.descripcion_tipo_embarcacion}}</td>
-                                                <td>{{ item.estado.estado}}</td>
-
-                                            </tr>
-                                            <dir-pagination-controls pagination-id="embarcacion"></dir-pagination-controls> <!--agregar botones paginacion-->
-                                        </tbody>
-                                    </table>
-                                </div>
+                                                </tr>
+                                                <dir-pagination-controls pagination-id="embarcacion"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </center>
                             </div>
                         </div>
                     </div>

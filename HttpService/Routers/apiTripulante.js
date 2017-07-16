@@ -36,7 +36,8 @@ router.post('/updateTripulante', function (req, res) {
             nombre_tripulante: req.body.nombre_tripulante,
             cedula_tripulante: req.body.cedula_tripulante,
             telefono_tripulante: req.body.telefono_tripulante,
-            tipo_tripulante: req.body.tipo_tripulante
+            tipo_tripulante: req.body.tipo_tripulante,
+            estado: req.body.estado
         };
 
 

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -167,6 +167,17 @@
 
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Estado: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <select class="form-control" ng-model="estado" ng-options="item.id as item.estado for item in listaEstado"></select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -204,7 +215,7 @@
 
                         </div>
                         <div class="row">
-
+<center>
                             <div class="col-md-12 col-xs-12">
 
                                 <div class="table-responsive">
@@ -215,7 +226,9 @@
                                                 <th>Cédula</th>
                                                 <th>Nombres</th>
                                                 <th>teléfono</th>
-                                                <th>Cargo</th>
+                                                <th>Cargo</th>                                                
+                                                <th>Estado</th>
+
                                             </tr>
 
                                         </thead>
@@ -224,11 +237,12 @@
                                             <tr dir-paginate="item in listaTripulante| filter:busqueda| itemsPerPage:4 track by $index"
                                                 ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="propietario">
 
-                                                <td>{{$index}}</td>
+                                                <td>{{$index+1}}</td>
                                                 <td>{{ item.cedula_tripulante}}</td>
                                                 <td>{{ item.nombre_tripulante}}</td>
                                                 <td>{{ item.telefono_tripulante}}</td>
-                                                <td>{{ item.tipo_tripulante.descripcion_tipo_tripulante }}</td>
+                                                <td>{{ item.tipo_tripulante.descripcion_tipo_tripulante }}</td>                                   <td>{{ item.estado.estado}}</td>
+
 
                                             </tr>
                                             <dir-pagination-controls pagination-id="propietario"></dir-pagination-controls> <!--agregar botones paginacion-->
@@ -236,7 +250,7 @@
                                     </table>
                                 </div>
                             </div>
-
+    </center>
                         </div>
                     </div>
                 </div>

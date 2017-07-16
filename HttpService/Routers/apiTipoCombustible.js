@@ -33,7 +33,8 @@ router.post('/updateTipoCombustible', function (req, res) {
         assert.equal(null, err);
         console.log(req.body);
         var item = {
-            descripcion_tipo_combustible: req.body.descripcion_tipo_combustible
+            descripcion_tipo_combustible: req.body.descripcion_tipo_combustible,
+            estado: req.body.estado
         };
 
 
