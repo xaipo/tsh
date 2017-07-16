@@ -103,19 +103,19 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
         $scope.iniciar = function () {
             $scope.url = myProvider.getUrlIngresoOrdenServicio();
             $scope.urlAllEmbarcacion = myProvider.getUrlAllEmbarcacion();
-            $scope.urlAllCliente = myProvider.getUrlAllClientes();
+            $scope.urlAllCliente = myProvider.getUrlAllClientesActivos();
             $scope.urlAllVehiculo = myProvider.getUrlAllVehiculo();
-            $scope.urlAllPuerto = myProvider.getUrlAllPuerto();
+            $scope.urlAllPuerto = myProvider.getUrlAllPuertoActivos();
             $scope.urlAllCombustible = myProvider.getUrlAllCombustible();
-            $scope.getUrlAllTripulanteCapitan = myProvider.getUrlAllTripulanteCapitan();
-            $scope.urlAllContratoRecepcion = myProvider.getUrlAllContratoRecepcion();
+            $scope.urlAllTripulanteCapitan = myProvider.getUrlAllTripulanteCapitan();
+            $scope.urlAllContratoRecepcion = myProvider.getUrlAllContratoRecepcionActivos();
             $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
             $scope.urlAllTipoTripulante = myProvider.getUrlAllTipoTripulante();
             $scope.urlMatPetreo = myProvider.getUrlIngresoMaterialPetreo();
             $scope.urlVehiculo = myProvider.getUrlIngresoVehiculo();
             $scope.urlCombustible = myProvider.getUrlIngresoCombustible();
             $scope.urlAllEstadosOrden = myProvider.getUrlAllEstadoOrden();
-            $scope.urlAllTipoMaterialPetreo = myProvider.getUrlAllTipoMaterialPetreo();
+            $scope.urlAllTipoMaterialPetreo = myProvider.getUrlAllTipoMaterialPetreoActivos();
 
             if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
                 $scope.usuario = JSON.parse(localStorage.getItem("user"));
@@ -235,7 +235,7 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
                     console.log(response);
                 });
 
-            $http.get($scope.getUrlAllTripulanteCapitan)
+            $http.get($scope.urlAllTripulanteCapitan)
                 .then(function (response) {
 
                     $scope.listaTripulantesCapitanes = response.data;

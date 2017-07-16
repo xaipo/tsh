@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\client",
-    "\\HttpService"
+    "\\client\\controllers",
+    "\\HttpService",
+    "\\HttpService\\Routers"
   ],
-  "SelectedNode": "\\client\\controllers",
+  "SelectedNode": "\\client\\controllers\\controllerEmbarcacionModificar.js",
   "PreviewInSolutionExplorer": false
 }

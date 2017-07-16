@@ -69,6 +69,24 @@ router.post('/getByIdTipoEmbarcacion', function (req, res) {
     });
 });
 
+router.get('/getAllTipoEmbarcacionActivos', function (req, res) {
+    var resultArray = [];
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+
+        var cursor = db.collection('tipo_embarcacion').find({ "estado": "1" });
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function () {
+            db.close();
+            res.send(resultArray);
+
+        });
+    });
+
+});
 
 router.get('/getAllTipoEmbarcacion', function (req, res) {
 

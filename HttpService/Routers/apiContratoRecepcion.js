@@ -25,7 +25,6 @@ router.post('/saveContratoRecepcion', function (req, res) {
     });
 });
 
-
 router.post('/updateContratoRecepcion', function (req, res) {
 
 
@@ -69,6 +68,24 @@ router.post('/getByIdContratoRecepcion', function (req, res) {
     });
 });
 
+router.get('/getAllContratoRecepcionActivos', function (req, res) {
+    var resultArray = [];
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+
+        var cursor = db.collection('contrato_recepcion').find({ "estado": "1" });
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function () {
+            db.close();
+            res.send(resultArray);
+
+        });
+    });
+
+});
 
 router.get('/getAllContratoRecepcion', function (req, res) {
 

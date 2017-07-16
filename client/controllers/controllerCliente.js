@@ -3,6 +3,7 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
     $scope.url;
     $scope.urlModificar;
     $scope.urlAllClientes;
+    $scope.urlAllTipoCliente;
 
     $scope.nombreCliente = "";
     $scope.rucCliente = "";
@@ -17,7 +18,7 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
 
     $scope.busqueda = "";
     $scope.listaClientes = [];
-    $scope.listaTipoClientes = [];
+    $scope.listaTipoCliente = [];
 
 
     var aux = localStorage.getItem("id_token");
@@ -27,6 +28,7 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
             $scope.url = myProvider.getUrlIngresoCliente();
             $scope.urlModificar = myProvider.getUrlModificarCliente();
             $scope.urlAllClientes = myProvider.getUrlAllClientes();
+            $scope.urlAllTipoCliente = myProvider.getUrlALLTipoClienteActivos();
 
             if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
                 $scope.usuario = JSON.parse(localStorage.getItem("user"));
@@ -46,7 +48,7 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
 
             $scope.busqueda = "";
             $scope.listaClientes = [];
-            $scope.listaTipoClientes = [];
+            $scope.listaTipoCliente = [];
             $scope.listaEstado;
 
             $scope.listaEstado = [{ id: '1', estado: 'Activo' }, { id: '2', estado: "Inactivo" }];
@@ -70,9 +72,18 @@ app.controller('ControllerCliente', ['$scope', '$http', 'myProvider', function (
                     console.log(response);
                 });
 
-            $scope.listaTipoClientes = [{ id: '1', nombre: 'Preferencial' }, { id: '2', nombre: "normal" },
-            { id: '3', nombre: "moroso" }];
-            $scope.tipoCliente = "1";
+            $http.get($scope.urlAllTipoCliente)
+                .then(function (response) {
+
+                    $scope.listaTipoCliente = response.data;
+                    console.log($scope.listaTipoCliente);
+                    $scope.tipoCliente = $scope.listaTipoCliente[0]._id;
+
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
+            
         }
 
     } else {

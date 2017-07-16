@@ -53,10 +53,10 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
         $scope.iniciar = function () {
             $scope.urlModificar = myProvider.getUrlModificarEmbarcacion();
             $scope.urlAllEmbarcacion = myProvider.getUrlAllEmbarcacion();
-            $scope.urlAllTipoEmbarcacion = myProvider.getUrlAllTipoEmbarcacion();
+            $scope.urlAllTipoEmbarcacion = myProvider.getUrlAllTipoEmbarcacionActivos();
 
             $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
-            $scope.urlAllPropietarios = myProvider.getUrlAllPropietario();
+            $scope.urlAllPropietarios = myProvider.getUrlAllPropietarioActivos();
             $scope.urlAllTripulantes = myProvider.getUrlAllTripulante();
             $scope.urlAllTripulantesCapitan = myProvider.getUrlAllTripulanteCapitan();
 

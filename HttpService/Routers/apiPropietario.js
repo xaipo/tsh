@@ -73,6 +73,24 @@ router.post('/getByIdPropietario', function (req, res) {
     });
 });
 
+router.get('/getAllPropietarioActivos', function (req, res) {
+    var resultArray = [];
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+
+        var cursor = db.collection('propietario').find({ "estado": "1" });
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function () {
+            db.close();
+            res.send(resultArray);
+
+        });
+    });
+
+});
 
 router.get('/getAllPropietario', function (req, res) {
 

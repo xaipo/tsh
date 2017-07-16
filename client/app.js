@@ -70,6 +70,11 @@ function ApiUrl() {
         return (url + 'getByIdTipoMaterialPetreo');
     }
 
+    // Buscar todos los Tipo Material Petreo Activos
+    this.getUrlAllTipoMaterialPetreoActivos = function () {
+        return (url + 'getAllTipoMaterialPetreoActivos');
+    }
+
     // Buscar todos los Tipo Material Petreo
     this.getUrlAllTipoMaterialPetreo = function () {
         return (url + 'getAllTipoMaterialPetreo');
@@ -126,6 +131,11 @@ function ApiUrl() {
     // Modificar Contrato Recepcion
     this.getUrlModificarContratoRecepcion = function () {
         return (url + 'updateContratoRecepcion');
+    }
+
+    // Buscar todos los Contrato Recepcion activos
+    this.getUrlAllContratoRecepcionActivos = function () {
+        return (url + 'getAllContratoRecepcionActivos');
     }
 
     // Buscar todos los Contrato Recepcion
@@ -185,7 +195,10 @@ function ApiUrl() {
     this.getUrlIdClientes = function () {
         return (url + 'getByIdClientes');
     }
-
+    // Buscar todos Cliente activos
+    this.getUrlAllClientesActivos = function () {
+        return (url + 'getAllClientesActivos');
+    }
     // Buscar todos los Clientes
     this.getUrlAllClientes = function () {
         return (url + 'getAllClientes');
@@ -205,14 +218,14 @@ function ApiUrl() {
     }
 
     // Buscar todos los Puertos
+    this.getUrlAllPuertoActivos = function () {
+        return (url + 'getAllPuertoActivos');
+    }
 
-    var aux = localStorage.getItem("id_token");
-    if (aux == null) {
-    } else {
+    // Buscar todos los Puertos
         this.getUrlAllPuerto = function () {
             return (url + 'getAllPuerto');
         }
-    }
 
     //////////////////////////////////////////////////////
 
@@ -317,6 +330,11 @@ function ApiUrl() {
         return (url + 'updateTipoEmbarcacion');
     }
 
+    // Buscar todos los Tipo Embarcacion Activos
+    this.getUrlAllTipoEmbarcacionActivos = function () {
+        return (url + 'getAllTipoEmbarcacionActivos');
+    }
+
     // Buscar todos los Tipo Embarcacion
     this.getUrlAllTipoEmbarcacion = function () {
         return (url + 'getAllTipoEmbarcacion');
@@ -336,6 +354,11 @@ function ApiUrl() {
     // Buscar Tipo Mantenimiento
     this.getBuscarTipoMantenimiento = function () {
         return (url + 'getByIdTipoMantenimiento');
+    }
+
+    // Buscar Todos los Tipo Mantenimiento Activos
+    this.getAllTipoMantenimientoActivos = function () {
+        return (url + 'getAllTipoMantenimientoActivos');
     }
 
     // Buscar Todos los Tipo Mantenimiento
@@ -360,6 +383,11 @@ function ApiUrl() {
     }
 
     // Buscar todos Materiales
+    this.getUrlAllMaterialesActivos = function () {
+        return (url + 'getAllMaterialesnActivos');
+    }
+
+    // Buscar todos Materiales
     this.getUrlAllMateriales = function () {
         return (url + 'getAllMateriales');
     }
@@ -373,6 +401,11 @@ function ApiUrl() {
     // Modificar Propietario
     this.getUrlModificarPropietario = function () {
         return (url + 'updatePropietario');
+    }
+
+    // Buscar todos los Propietario Activos
+    this.getUrlAllPropietarioActivos = function () {
+        return (url + 'getAllPropietarioActivos');
     }
 
     // Buscar todos los Propietario
@@ -396,9 +429,41 @@ function ApiUrl() {
         return (url + 'getByIdTipoAlimentos');
     }
 
+    // Buscar todos los Tipo Alimentos Activos
+    this.getUrlALLTipoAlimentosActivos = function () {
+        return (url + 'getAllTipoAlimentosActivos');
+    }
+
     // Buscar todos los Tipo Alimentos
     this.getUrlALLTipoAlimentos = function () {
         return (url + 'getAllTipoAlimentos');
+    }
+
+    //////////////////////////////////////////////////////////
+
+    // Ingreso Tipo Cliente
+    this.getUrlIngresoTipoCliente = function () {
+        return (url + 'saveTipoCliente');
+    }
+
+    // Modificar Tipo Cliente
+    this.getUrlModificarTipoCliente = function () {
+        return (url + 'updateTipoCliente');
+    }
+
+    // Buscar Tipo Cliente
+    this.getUrlBuscarTipoCliente = function () {
+        return (url + 'getByIdTipoCliente');
+    }
+
+    // Buscar todos los Tipo Cliente Activos
+    this.getUrlALLTipoClienteActivos = function () {
+        return (url + 'getAllTipoClienteActivos');
+    }
+
+    // Buscar todos los Tipo Cliente
+    this.getUrlALLTipoCliente = function () {
+        return (url + 'getAllTipoCliente');
     }
     /////////////////////////////////////////////////////////
 

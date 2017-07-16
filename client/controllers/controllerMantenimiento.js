@@ -49,7 +49,7 @@ app.controller('ControllerMantenimiento', ['$scope', '$http', 'myProvider', "$ti
             $scope.urlDetalleMantenimientoModificar = myProvider.getUrlModificarDetalleMantenimiento();
             $scope.urlBuscarDetalleMantenimiento = myProvider.getUrlBuscarDetalleMantenimiento();
 
-            $scope.urlAllTipoMantenimiento = myProvider.getAllTipoMantenimiento();
+            $scope.urlAllTipoMantenimiento = myProvider.getAllTipoMantenimientoActivos();
             $scope.urlBuscarTipoMantenimiento = myProvider.getBuscarTipoMantenimiento();
 
             $scope.urlAllEmbarcacion = myProvider.getUrlAllEmbarcacion();
@@ -165,16 +165,19 @@ app.controller('ControllerMantenimiento', ['$scope', '$http', 'myProvider', "$ti
             proximo_orometro: $scope.proximoOrometro,
             piezas_cambiadas_observaciones: $scope.piezasCambiadasObservaciones
         };
-        $http.post($scope.urlDetalleMantenimiento, obj)
-            .then(function (response) {
+        if (validarCamposVaciosDetalle(obj)) {
+            $http.post($scope.urlDetalleMantenimiento, obj)
+                .then(function (response) {
 
-                $scope.detalleMantenimiento = response.data._id;
+                    $scope.detalleMantenimiento = response.data._id;
 
-            }, function errorCallback(response) {
+                }, function errorCallback(response) {
 
-                console.log(response);
-            });
-
+                    console.log(response);
+                });
+        } else {
+            $.notify("Revise los Campos del Detalle", "info");
+        }
     }
 
     $scope.modificarDetalleMantenimiento = function () {
@@ -185,16 +188,18 @@ app.controller('ControllerMantenimiento', ['$scope', '$http', 'myProvider', "$ti
             proximo_orometro: $scope.proximoOrometro,
             piezas_cambiadas_observaciones: $scope.piezasCambiadasObservaciones
         };
-        $http.post($scope.urlDetalleMantenimientoModificar, obj)
-            .then(function (response) {
 
-                //$scope.detalleMantenimiento = response.data._id;
+        if (validarCamposVaciosDetalle(obj)) {
+            $http.post($scope.urlDetalleMantenimientoModificar, obj)
+                .then(function (response) {
 
-            }, function errorCallback(response) {
+                }, function errorCallback(response) {
 
-                console.log(response);
-            });
-
+                    console.log(response);
+                });
+        } else {
+            $.notify("Revise los Campos del Detalle", "info");
+        }
     }
 
     $scope.ingresoMantenimiento = function () {
@@ -224,7 +229,7 @@ app.controller('ControllerMantenimiento', ['$scope', '$http', 'myProvider', "$ti
 
                     });
             } else {
-                $.notify("Revise los Campos", "info");
+                $.notify("Revise el Campo Fecha o Mecanico", "info");
             }
 
         }, 500, false)
@@ -257,7 +262,7 @@ app.controller('ControllerMantenimiento', ['$scope', '$http', 'myProvider', "$ti
                         $.notify("Error!", "error");
                     });
             } else {
-                $.notify("Revise los Campos", "info");
+                $.notify("Revise el Campo Fecha o Mecanico", "info");
             }
         } else
             $.notify("Seleccione un Mantenimiento", "info");
@@ -312,6 +317,14 @@ app.controller('ControllerMantenimiento', ['$scope', '$http', 'myProvider', "$ti
 function validarCamposVacios(obj) {
     if (obj.tipo_mantenimiento == "" || obj.embarcacion == "" || obj.detalle_mantenimiento == "" ||
         obj.fecha_matenimiento == "" || obj.mecanico == "") {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function validarCamposVaciosDetalle(obj) {
+    if (obj.orometro == "" || obj.proximo_orometro == "" || obj.piezas_cambiadas_observaciones == "") {
         return false;
     } else {
         return true;

@@ -73,6 +73,25 @@ router.post('/getByIdClientes', function (req, res) {
     });
 });
 
+router.get('/getAllClientesActivos', function (req, res) {
+    var resultArray = [];
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+
+        var cursor = db.collection('clientes').find({ "estado": "1"});
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function () {
+            db.close();
+            res.send(resultArray);
+
+        });
+    });
+
+});
+
 router.get('/getAllClientes', function (req, res) {
 
     var resultArray = [];

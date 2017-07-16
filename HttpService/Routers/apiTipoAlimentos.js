@@ -23,7 +23,6 @@ router.post('/saveTipoAlimentos', function (req, res) {
     });
 });
 
-
 router.post('/updateTipoAlimentos', function (req, res) {
 
 
@@ -66,6 +65,24 @@ router.post('/getByIdTipoAlimentos', function (req, res) {
     });
 });
 
+router.get('/getAllTipoAlimentosActivos', function (req, res) {
+    var resultArray = [];
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+
+        var cursor = db.collection('tipo_alimento').find({ "estado": "1" });
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function () {
+            db.close();
+            res.send(resultArray);
+
+        });
+    });
+
+});
 
 router.get('/getAllTipoAlimentos', function (req, res) {
 

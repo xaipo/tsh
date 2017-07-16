@@ -70,6 +70,24 @@ router.post('/getByIdMateriales', function (req, res) {
     });
 });
 
+router.get('/getAllMaterialesnActivos', function (req, res) {
+    var resultArray = [];
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+
+        var cursor = db.collection('materiales').find({ "estado": "1" });
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function () {
+            db.close();
+            res.send(resultArray);
+
+        });
+    });
+
+});
 
 router.get('/getAllMateriales', function (req, res) {
 

@@ -42,10 +42,10 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
         $scope.iniciar = function () {
             $scope.url = myProvider.getUrlIngresoEmbarcacion();
             $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
-            $scope.urlAllPropietarios = myProvider.getUrlAllPropietario();
+            $scope.urlAllPropietarios = myProvider.getUrlAllPropietarioActivos();
             $scope.urlAllTripulantesCapitan = myProvider.getUrlAllTripulanteCapitan();
             $scope.urlAllTripulantes = myProvider.getUrlAllTripulante();
-            $scope.urlAllTipoEmbarcacion = myProvider.getUrlAllTipoEmbarcacion();
+            $scope.urlAllTipoEmbarcacion = myProvider.getUrlAllTipoEmbarcacionActivos();
 
             if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
                 $scope.usuario = JSON.parse(localStorage.getItem("user"));

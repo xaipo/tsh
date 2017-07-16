@@ -51,6 +51,7 @@ app.use('/api', require('./Routers/apiVehiculos'));
 app.use('/api', require('./Routers/apiMateriales'));
 app.use('/api', require('./Routers/apiMaterialesSeleccionados'));
 app.use('/api', require('./Routers/apiAlimentos'));
+app.use('/api', require('./Routers/apiTipoCliente'));
 app.use('/api', require('./Routers/apiTipoAlimentos'));
 app.use('/api', require('./Routers/apiDetalleMantenimiento'));
 app.use('/api', require('./Routers/apiEmbarcacion'));

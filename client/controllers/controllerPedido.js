@@ -41,8 +41,8 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
             $scope.urlAlimentos = myProvider.getUrlIngresoAlimentos();
             $scope.urlMaterialesSeleccionados = myProvider.getUrlIngresoMaterialesSeleccionados();
             $scope.urlAllOrdenServicioEstadoViajeProceso = myProvider.getUrlBuscarOrdenServicioEstadoViajeProceso();
-            $scope.urlAllMateriales = myProvider.getUrlAllMateriales();
-            $scope.urlAllTipoAlimentos = myProvider.getUrlALLTipoAlimentos();
+            $scope.urlAllMateriales = myProvider.getUrlAllMaterialesActivos();
+            $scope.urlAllTipoAlimentos = myProvider.getUrlALLTipoAlimentosActivos();
 
             if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
                 $scope.usuario = JSON.parse(localStorage.getItem("user"));
