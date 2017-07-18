@@ -39,6 +39,27 @@ function ApiUrl() {
 
     /////////////////////////////////////////////
 
+    // Ingreso Estado Embarcacion
+    this.getUrlIngresoEstadoEmbarcacion = function () {
+        return (url + 'saveEstadoEmbarcacion');
+    }
+
+    // Modificar Estado Embarcacion
+    this.getUrlModificarEstadoEmbarcacion = function () {
+        return (url + 'updateEstadoEmbarcacion');
+    }
+
+    // Buscar todos los Estado Embarcacion Activos
+    this.getUrlAllEstadoEmbarcacionActivos = function () {
+        return (url + 'getAllEstadoEmbarcacionActivos');
+    }
+
+    // Buscar todos los Estado Embarcacion
+    this.getUrlAllEstadoEmbarcacion = function () {
+        return (url + 'getAllEstadoEmbarcacion');
+    }
+    //////////////////////////////////////////////////////
+
     // Ingreso Estado Orden Servicio
     this.getUrlIngresoEstadoOrden = function () {
         return (url + 'saveEstadoOrden');
@@ -244,6 +265,11 @@ function ApiUrl() {
         return (url + 'getByIdTripulante');
     }
 
+    // Busacar Tripulantes Activos
+    this.getUrlAllTripulanteActivos = function () {
+        return (url + 'getAllTripulanteActivos');
+    }
+
     // Busacar Tripulantes de tipo capitan y timonel
     this.getUrlAllTripulanteCapitan = function () {
         return (url + 'getAllTripulanteCapitanes');
@@ -291,6 +317,11 @@ function ApiUrl() {
     // Buscar por ID tipo Usuario
     this.getUrlBuscarTipoUsuario = function () {
         return (url + 'getByIdTipoUsuario');
+    }
+
+    // Busacar todos los tipo Usuario Activos
+    this.getUrlAllTipoUsuarioActivos = function () {
+        return (url + 'getAllTipoUsuarioActivos');
     }
 
     // Busacar todos los tipo Usuario

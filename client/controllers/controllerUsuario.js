@@ -40,7 +40,7 @@ app.controller('ControllerUsuario', ['$scope', '$http', 'myProvider', function (
             $scope.urlModificarPsswd = myProvider.getUrlModificarUsuarioPsswd();
             $scope.urlModificar = myProvider.getUrlModificarUsuario();
             $scope.urlAllUsuario = myProvider.getUrlAllUsuario();
-            $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoUsuario();
+            $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoUsuarioActivos();
             $scope.urlBuscarTipoUsuario = myProvider.getUrlBuscarTipoUsuario();
 
             if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {

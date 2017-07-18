@@ -47,7 +47,8 @@ router.post('/updateEmbarcacion', function (req, res) {
             capacidad_carga: req.body.capacidad_carga,
             tipo_embarcacion: req.body.tipo_embarcacion,
             capitan_embarcacion: req.body.capitan_embarcacion,
-            tripulantes: req.body.tripulantes
+            tripulantes: req.body.tripulantes,
+            estado: req.body.estado
         };
 
 

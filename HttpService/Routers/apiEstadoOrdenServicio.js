@@ -33,7 +33,8 @@ router.post('/updateEstadoOrden', function (req, res) {
         assert.equal(null, err);
         console.log(req.body);
         var item = {
-            descripcion_estado: req.body.descripcion_estado
+            descripcion_estado: req.body.descripcion_estado,
+            estado: req.body.estado
         };
 
 

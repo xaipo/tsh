@@ -5,6 +5,7 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
     $scope.urlAllEmbarcacion;
     $scope.urlAllTipoCombustible;
     $scope.urlAllTipoEmbarcacion;
+    $scope.urlAllEstadoEmbarcacion;
     $scope.urlAllPropietarios;
     $scope.urlAllTripulantes;
     $scope.urlAllTripulantesCapitan;
@@ -25,6 +26,7 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
     $scope.capacidadCarga;
     $scope.tipoEmbarcacion;
     $scope.capitan = "";
+    $scope.estado = "";
 
     //Listas
     $scope.busqueda;
@@ -57,8 +59,9 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
 
             $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
             $scope.urlAllPropietarios = myProvider.getUrlAllPropietarioActivos();
-            $scope.urlAllTripulantes = myProvider.getUrlAllTripulante();
+            $scope.urlAllTripulantes = myProvider.getUrlAllTripulanteActivos();
             $scope.urlAllTripulantesCapitan = myProvider.getUrlAllTripulanteCapitan();
+            $scope.urlAllEstadoEmbarcacion = myProvider.getUrlAllEstadoEmbarcacionActivos();
 
             if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
                 $scope.usuario = JSON.parse(localStorage.getItem("user"));
@@ -96,6 +99,19 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
             //Selecciones
             $scope.seleccion = "";
             $scope.seleccionEmbarcacion = "";
+
+
+            $http.get($scope.urlAllEstadoEmbarcacion)
+                .then(function (response) {
+
+                    $scope.listaEstadoEmbarcacion = response.data;
+                    $scope.estado = $scope.listaEstadoEmbarcacion[0]._id;
+
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
+
 
             $http.get($scope.urlAllEmbarcacion)
                 .then(function (response) {
@@ -206,7 +222,8 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
                 capacidad_carga: $scope.capacidadCarga,
                 tipo_embarcacion: $scope.tipoEmbarcacion,
                 capitan_embarcacion: $scope.capitan,
-                tripulantes: $scope.listaTripulanteIngresar
+                tripulantes: $scope.listaTripulanteIngresar,
+                estado: $scope.estado
             };
 
             if (validarCamposVacios(obj)) {
@@ -231,8 +248,6 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
 
     $scope.cargarTripulantes = function () {
 
-        //console.log($scope.seleccionTripulanteAux);
-        //console.log($scope.seleccionTripulante);
         var n = $scope.selecEmbarJS.tripulantes.length;
         var listTrip = $scope.selecEmbarJS.tripulantes;
         for (var i = 0; i < n; i++) {

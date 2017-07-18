@@ -1,5 +1,5 @@
-var express= require('express');
-var router= express.Router();
+var express = require('express');
+var router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var url = 'mongodb://localhost:27017/tsh';
@@ -7,16 +7,16 @@ var objectId = require('mongodb').ObjectID;
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 
-router.post('/saveTipoUsuario',function(req,res){
+router.post('/saveEstadoEmbarcacion', function (req, res) {
 
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
 
         console.log(req.body);
-        var collection =db.collection('tipo_usuario');
+        var collection = db.collection('estado_embarcacion');
         collection.insert(req.body, {
 
-        } );
+        });
 
         res.send('Info ingresada');
 
@@ -26,21 +26,21 @@ router.post('/saveTipoUsuario',function(req,res){
 });
 
 
-router.post('/updateTipoUsuario', function (req, res) {
+router.post('/updateEstadoEmbarcacion', function (req, res) {
 
 
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
         console.log(req.body);
         var item = {
-            descripcion_tipo_usuario: req.body.descripcion_tipo_usuario,
+            descripcion_estado: req.body.descripcion_estado,
             estado: req.body.estado
         };
 
 
 
         var id = req.body.id;
-        db.collection('tipo_usuario').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
+        db.collection('estado_embarcacion').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
             assert.equal(null, err);
             console.log('Item updated');
 
@@ -51,14 +51,14 @@ router.post('/updateTipoUsuario', function (req, res) {
     });
 });
 
-router.post('/getByIdTipoUsuario', function (req, res) {
+router.post('/getByIdEstadoEmbarcacion', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
         console.log(req.body);
 
         var id = req.body.id;
-        db.collection('tipo_usuario').findOne({ "_id": objectId(id) }, function (err, result) {
+        db.collection('estado_embarcacion').findOne({ "_id": objectId(id) }, function (err, result) {
             assert.equal(null, err);
             console.log(result);
             console.log('Item loaded');
@@ -69,13 +69,13 @@ router.post('/getByIdTipoUsuario', function (req, res) {
     });
 });
 
-router.get('/getAllTipoUsuarioActivos', function (req, res) {
+router.get('/getAllEstadoEmbarcacionActivos', function (req, res) {
     var resultArray = [];
 
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
 
-        var cursor = db.collection('tipo_usuario').find({ "estado": "1" });
+        var cursor = db.collection('estado_embarcacion').find({ "estado": "1" });
         cursor.forEach(function (doc, err) {
             assert.equal(null, err);
             resultArray.push(doc);
@@ -88,13 +88,13 @@ router.get('/getAllTipoUsuarioActivos', function (req, res) {
 
 });
 
-router.get('/getAllTipoUsuario',function(req,res){
+router.get('/getAllEstadoEmbarcacion', function (req, res) {
 
     var resultArray = [];
     MongoClient.connect(url, function (err, db) {
 
         assert.equal(null, err);
-        var cursor = db.collection('tipo_usuario').find();
+        var cursor = db.collection('estado_embarcacion').find();
         cursor.forEach(function (doc, err) {
             assert.equal(null, err);
             resultArray.push(doc);
@@ -107,7 +107,7 @@ router.get('/getAllTipoUsuario',function(req,res){
 
 });
 
-router.get('/IngresoTipoUsuario.html', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.get('/IngresoEstadoEmbarcacion.html', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     res.json({ user: req.user });
 });
 

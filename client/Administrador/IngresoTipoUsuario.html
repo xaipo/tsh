@@ -41,6 +41,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="IngresoCliente.html">Cliente</a></li>
                                 <li><a href="IngresoContratoRecepcion.html">Contrato Recepción</a></li>
+                                <li><a href="IngresoEstadoEmbarcacion.html">Estado Embarcacion</a></li>
                                 <li><a href="IngresoEstadoOrden.html">Estado Orden Servicio</a></li>
                                 <li><a href="IngresoMateriales.html">Materiales</a></li>
                                 <li><a href="IngresoPropietario.html">Propietario</a></li>
@@ -120,8 +121,14 @@
                                 <input type="text" ng-model="descripcionTipoUsuario" placeholder="Tipo Usuario" class="form-control" />
                             </div>
                         </div>
-
-                        <br />
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h4>Estado: </h4>
+                            </div>
+                            <div class="col-md-7">
+                                <select class="form-control" ng-model="estado" ng-options="item.id as item.estado for item in listaEstado"></select>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-2">
 
@@ -156,15 +163,30 @@
                         </div>
 
                         <br>
-                        <div class="row">
+                        <div class="row">                            
                             <center>
-                                <div class="col-md-12">
-                                    <select name="Puertos" ng-model="seleccionTipoUsuario" multiple class="form-control" style="height: 150px;" ng-click="buscarSeleccionTipoUsuario()">
-                                        <option value={{aux}}
-                                                ng-repeat="aux in listaTipoUsuario | filter:busqueda| orderBy:aux.descripcion_tipo_usuario">
-                                            {{aux.descripcion_tipo_usuario}}
-                                        </option>
-                                    </select>
+                                <div class="col-md-12 col-xs-12">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr class="success">
+                                                    <th>#</th>
+                                                    <th>Descripción</th>
+                                                    <th>Estado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr dir-paginate="item in listaTipoUsuario| filter:busqueda| itemsPerPage:4 track by $index"
+                                                    ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="alimento">
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{ item.descripcion_tipo_usuario}}</td>
+                                                    <td>{{ item.estado.estado}}</td>
+                                                </tr>
+                                                <dir-pagination-controls pagination-id="alimento"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </center>
                         </div>

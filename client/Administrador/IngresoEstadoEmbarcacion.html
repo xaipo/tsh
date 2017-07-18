@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,14 +12,14 @@
 
     <script src="../jquery/dist/jquery.min.js"></script>
     <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../alertas/sweetalert.min.js"></script>
+    <script src="../alertas/sweetalert.min.js"></script>    
     <script src="../notificaciones/notify.js"></script>
     <script src="../angular/angular.js"></script>
     <script src="../node_modules/angular-utils-pagination/dirPagination.js"></script>
     <script src="../app.js"></script>
-    <script src="../controllers/controllerTripulante.js"></script>
+    <script src="../controllers/controllerEstadoEmbarcacion.js"></script>
 </head>
-<body ng-app="myApp" ng-controller="ControllerTripulante" ng-init="iniciar()">
+<body ng-app="myApp" ng-controller="ControllerEstadoEmbarcacion" ng-init="iniciar()">
 
     <!-- inicio de menu-->
     <header>
@@ -100,100 +100,48 @@
 
             </div>
             <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h1></h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <h1></h1>
+                    </div>
+                </div>
                 <div class="panel panel-default">
-                    <div class="panel-heading"><center><h3 class="panel-title">Tripulante</h3></center></div>
+                    <div class="panel-heading"><center><h3 class="panel-title">Estado Embarcacion</h3></center></div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="row">
-                                <div class="col-md-1">
 
-                                </div>
-                                <div class="col-md-3">
-                                    <h4>Cedula: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <script>
-                                        function valida(e) {
-                                            tecla = (document.all) ? e.keyCode : e.which;
-
-                                            //Tecla de retroceso para borrar, siempre la permite
-                                            if (tecla == 8) {
-                                                return true;
-                                            }
-
-                                            // Patron de entrada, en este caso solo acepta numeros
-                                            patron = /[0-9]/;
-                                            tecla_final = String.fromCharCode(tecla);
-                                            return patron.test(tecla_final);
-                                        }
-                                    </script>
-                                    <input type="text" ng-model="cedulaTripulante" onkeypress="return valida(event)" placeholder="1234567890" maxlength="10" class="form-control" />
-                                </div>
+                            <div class="col-md-5">
+                                <h4>Nombre Puerto: </h4>
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-1">
-
-                                </div>
-                                <div class="col-md-3">
-                                    <h4>Nombre: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <input type="text" ng-model="nombreTripulante" placeholder="Apellidos Nombres" class="form-control" />
-                                </div>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="descripcionEstado" class="form-control" placeholder="Nombre Estado" />
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-1">
-
-                                </div>
-                                <div class="col-md-3">
-                                    <h4>Telefono: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <input type="text" ng-model="telefonoTripulante" onkeypress="return valida(event)" placeholder="0990123456" maxlength="10" class="form-control" />
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-1">
-
-                                </div>
-                                <div class="col-md-3">
-                                    <h4>Tipo Tripulante: </h4>
-                                </div>
-                                <div class="col-md-7">
-
-                                    <select class="form-control" ng-model="tipoTripulante" ng-options="item._id as item.descripcion_tipo_tripulante for item in listaTipoTripulante"></select>
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-1">
-
-                                </div>
-                                <div class="col-md-3">
-                                    <h4>Estado: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <select class="form-control" ng-model="estado" ng-options="item.id as item.estado for item in listaEstado"></select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">
-
-                        </div>
-                        <div class="col-md-4">
-                            <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoTripulante()" />
-                        </div>
-                        <div class="col-md-4">
-                            <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarTripulante()" />
                         </div>
                         <div class="row">
-                            <div class="col-md-10">
-                                <h1></h1>
+                            <div class="col-md-5">
+                                <h4>Estado: </h4>
+                            </div>
+                            <div class="col-md-7">
+                                <select class="form-control" ng-model="estado" ng-options="item.id as item.estado for item in listaEstado"></select>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-2">
+
+                            </div>
+
+                            <div class="col-md-4">
+                                <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoEstadoEmbarcacion()" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarEstadoEmbarcacion()" />
                             </div>
                         </div>
                     </div>
@@ -202,7 +150,7 @@
 
             <div class="col-md-6">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><center><h3 class="panel-title">Lista Tripulante</h3></center></div>
+                    <div class="panel-heading"><center><h3 class="panel-title">Lista de Estados Embarcacion</h3></center></div>
                     <div class="panel-body">
                         <div class="row">
 
@@ -215,43 +163,38 @@
                             </div>
 
                         </div>
-                        <div class="row">
-<center>
-                            <div class="col-md-12 col-xs-12">
 
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr class="success">
-                                                <th>#</th>
-                                                <th>Cédula</th>
-                                                <th>Nombres</th>
-                                                <th>teléfono</th>
-                                                <th>Cargo</th>                                                
-                                                <th>Estado</th>
+                        <br>
+                        <div class="row">                        
+                            <center>
+                                <div class="col-md-12 col-xs-12">
 
-                                            </tr>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr class="success">
+                                                    <th>#</th>
+                                                    <th>Descripción</th>
+                                                    <th>Estado</th>
+                                                </tr>
 
-                                        </thead>
-                                        <tbody>
+                                            </thead>
+                                            <tbody>
 
-                                            <tr dir-paginate="item in listaTripulante| filter:busqueda| itemsPerPage:4 track by $index"
-                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="propietario">
+                                                <tr dir-paginate="item in listaEstadoEmbarcacion| filter:busqueda| itemsPerPage:4 track by $index"
+                                                    ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="estadoEmbarcacion">
 
-                                                <td>{{$index+1}}</td>
-                                                <td>{{ item.cedula_tripulante}}</td>
-                                                <td>{{ item.nombre_tripulante}}</td>
-                                                <td>{{ item.telefono_tripulante}}</td>
-                                                <td>{{ item.tipo_tripulante.descripcion_tipo_tripulante }}</td>                                   <td>{{ item.estado.estado}}</td>
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{ item.descripcion_estado}}</td>
+                                                    <td>{{ item.estado.estado}}</td>
 
-
-                                            </tr>
-                                            <dir-pagination-controls pagination-id="propietario"></dir-pagination-controls> <!--agregar botones paginacion-->
-                                        </tbody>
-                                    </table>
+                                                </tr>
+                                                <dir-pagination-controls pagination-id="estadoEmbarcacion"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-    </center>
+                            </center>
                         </div>
                     </div>
                 </div>

@@ -33,10 +33,21 @@ app.controller('ControllerEstadoOrden', ['$scope', '$http', 'myProvider', functi
             $scope.busqueda = "";
             $scope.listaEstadoOrden;
 
+            $scope.listaEstado = [{ id: '1', estado: 'Activo' }, { id: '2', estado: "Inactivo" }];
+            $scope.estado = "1";
+
             $http.get($scope.urlAllEstadoOrden)
                 .then(function (response) {
 
                     $scope.listaEstadoOrden = response.data;
+
+                    var n = $scope.listaEstadoOrden.length;
+                    for (var i = 0; i < n; i++) {
+                        if ($scope.listaEstadoOrden[i].estado == $scope.listaEstado[0].id)
+                            $scope.listaEstadoOrden[i].estado = $scope.listaEstado[0];
+                        else
+                            $scope.listaEstadoOrden[i].estado = $scope.listaEstado[1];
+                    }
 
                 }, function errorCallback(response) {
 
@@ -51,7 +62,8 @@ app.controller('ControllerEstadoOrden', ['$scope', '$http', 'myProvider', functi
     $scope.ingresoEstadoOrden = function () {
 
         var obj = {
-            descripcion_estado: $scope.descripcionEstado
+            descripcion_estado: $scope.descripcionEstado,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -74,7 +86,8 @@ app.controller('ControllerEstadoOrden', ['$scope', '$http', 'myProvider', functi
 
         var obj = {
             id: $scope.id,
-            descripcion_estado: $scope.descripcionEstado
+            descripcion_estado: $scope.descripcionEstado,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
@@ -97,9 +110,10 @@ app.controller('ControllerEstadoOrden', ['$scope', '$http', 'myProvider', functi
 
         if ($scope.seleccionEstado != '' && $scope.seleccionEstado != undefined) {
 
-            $scope.seleccionEstadoJS = JSON.parse($scope.seleccionEstado);
+            $scope.seleccionEstadoJS = $scope.seleccionEstado;
             $scope.id = $scope.seleccionEstadoJS._id;
             $scope.descripcionEstado = $scope.seleccionEstadoJS.descripcion_estado;
+            $scope.estado = $scope.seleccionEstadoJS.estado.id;
 
         }
     }
@@ -108,6 +122,15 @@ app.controller('ControllerEstadoOrden', ['$scope', '$http', 'myProvider', functi
 
         localStorage.clear();
         window.location = "../login.html"
+
+    }
+
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.seleccionEstado = item;
+        $scope.selectedRow = index;
+
+        $scope.buscarSeleccionEstadoOrden();
 
     }
 

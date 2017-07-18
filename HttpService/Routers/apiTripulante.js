@@ -71,13 +71,32 @@ router.post('/getByIdTripulante', function (req, res) {
     });
 });
 
+router.get('/getAllTripulanteActivos', function (req, res) {
+    var resultArray = [];
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+
+        var cursor = db.collection('tripulante').find({ "estado": "1"});
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function () {
+            db.close();
+            res.send(resultArray);
+
+        });
+    });
+
+});
+
 router.get('/getAllTripulanteCapitanes', function (req, res) {
     var resultArray = [];
 
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
 
-        var cursor = db.collection('tripulante').find({ "tipo_tripulante": { $in: ["59134f3de7ce1f43d8cf6609", "59134f991eb28943048a4577"] } });
+        var cursor = db.collection('tripulante').find({ "tipo_tripulante": { $in: ["59134f3de7ce1f43d8cf6609", "59134f991eb28943048a4577"] }, "estado": "1" });
         cursor.forEach(function (doc, err) {
             assert.equal(null, err);
             resultArray.push(doc);

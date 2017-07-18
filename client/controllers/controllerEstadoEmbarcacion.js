@@ -1,53 +1,52 @@
-app.controller('ControllerTipoUsuario', ['$scope', '$http', 'myProvider', function ($scope, $http, myProvider) {
+app.controller('ControllerEstadoEmbarcacion', ['$scope', '$http', 'myProvider', function ($scope, $http, myProvider) {
 
     $scope.url;
     $scope.urlModificar;
-    $scope.urlAllTipoUsuario;
-
-    $scope.descripcionTipoUsuario;
+    $scope.urlAllEstadoEmbarcacion;
 
     $scope.id;
+    $scope.descripcionEstado;
     $scope.seleccion;
-    $scope.seleccionTipoUsuario;
+    $scope.seleccionEstado;
 
     $scope.busqueda;
-    $scope.listaTipoUsuario;
+    $scope.listaEstadoEmbarcacion;
 
     var aux = localStorage.getItem("id_token");
     if (aux != null) {
+
         $scope.iniciar = function () {
-            $scope.url = myProvider.getUrlIngresoTipoUsuario();
-            $scope.urlModificar = myProvider.getUrlModificarTipoUsuario();
-            $scope.urlAllTipoUsuario = myProvider.getUrlAllTipoUsuario();
+            $scope.url = myProvider.getUrlIngresoEstadoEmbarcacion();
+            $scope.urlModificar = myProvider.getUrlModificarEstadoEmbarcacion();
+            $scope.urlAllEstadoEmbarcacion = myProvider.getUrlAllEstadoEmbarcacion();
 
             if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
                 $scope.usuario = JSON.parse(localStorage.getItem("user"));
                 $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
             }
 
-            $scope.descripcionTipoUsuario = "";
-
             $scope.id = "";
+            $scope.descripcionEstado = "";
             $scope.seleccion = "";
-            $scope.seleccionTipoUsuario = "";
+            $scope.seleccionEstado = "";
 
             $scope.busqueda = "";
-            $scope.listaTipoUsuario;
+            $scope.listaEstadoEmbarcacion;
 
             $scope.listaEstado = [{ id: '1', estado: 'Activo' }, { id: '2', estado: "Inactivo" }];
             $scope.estado = "1";
 
-            $http.get($scope.urlAllTipoUsuario)
+            $http.get($scope.urlAllEstadoEmbarcacion)
                 .then(function (response) {
 
-                    $scope.listaTipoUsuario = response.data;
+                    $scope.listaEstadoEmbarcacion = response.data;
 
-                    var n = $scope.listaTipoUsuario.length;
+                    var n = $scope.listaEstadoEmbarcacion.length;
                     for (var i = 0; i < n; i++) {
-                        if ($scope.listaTipoUsuario[i].estado == $scope.listaEstado[0].id)
-                            $scope.listaTipoUsuario[i].estado = $scope.listaEstado[0];
+                        if ($scope.listaEstadoEmbarcacion[i].estado == $scope.listaEstado[0].id)
+                            $scope.listaEstadoEmbarcacion[i].estado = $scope.listaEstado[0];
                         else
-                            $scope.listaTipoUsuario[i].estado = $scope.listaEstado[1];
+                            $scope.listaEstadoEmbarcacion[i].estado = $scope.listaEstado[1];
                     }
 
                 }, function errorCallback(response) {
@@ -55,13 +54,15 @@ app.controller('ControllerTipoUsuario', ['$scope', '$http', 'myProvider', functi
                     console.log(response);
                 });
         }
+
     } else {
         window.location = "../login.html"
     }
-    $scope.ingresoTipoUsuario = function () {
+
+    $scope.ingresoEstadoEmbarcacion = function () {
 
         var obj = {
-            descripcion_tipo_usuario: $scope.descripcionTipoUsuario,
+            descripcion_estado: $scope.descripcionEstado,
             estado: $scope.estado
         };
 
@@ -81,11 +82,11 @@ app.controller('ControllerTipoUsuario', ['$scope', '$http', 'myProvider', functi
         }
     }
 
-    $scope.modificarTipoUsuario = function () {
+    $scope.modificarEstadoEmbarcacion = function () {
 
         var obj = {
             id: $scope.id,
-            descripcion_tipo_usuario: $scope.descripcionTipoUsuario,
+            descripcion_estado: $scope.descripcionEstado,
             estado: $scope.estado
         };
 
@@ -105,15 +106,14 @@ app.controller('ControllerTipoUsuario', ['$scope', '$http', 'myProvider', functi
         }
     }
 
-    $scope.buscarSeleccionTipoUsuario = function () {
+    $scope.buscarSeleccionEstadoEmbarcacion = function () {
 
-        if ($scope.seleccionTipoUsuario != '' && $scope.seleccionTipoUsuario != undefined) {
+        if ($scope.seleccionEstado != '' && $scope.seleccionEstado != undefined) {
 
-            $scope.selecTipUsu = $scope.seleccionTipoUsuario;
-
-            $scope.id = $scope.selecTipUsu._id;
-            $scope.descripcionTipoUsuario = $scope.selecTipUsu.descripcion_tipo_usuario;
-            $scope.estado = $scope.selecTipUsu.estado.id;
+            $scope.seleccionEstadoJS = $scope.seleccionEstado;
+            $scope.id = $scope.seleccionEstadoJS._id;
+            $scope.descripcionEstado = $scope.seleccionEstadoJS.descripcion_estado;
+            $scope.estado = $scope.seleccionEstadoJS.estado.id;
 
         }
     }
@@ -127,22 +127,23 @@ app.controller('ControllerTipoUsuario', ['$scope', '$http', 'myProvider', functi
 
     $scope.setClickedRow = function (index, item) {
 
-        $scope.seleccionTipoUsuario = item;
+        $scope.seleccionEstado = item;
         $scope.selectedRow = index;
 
-        $scope.buscarSeleccionTipoUsuario();
+        $scope.buscarSeleccionEstadoEmbarcacion();
 
     }
 
 }]);
 
-
 function validarCamposVacios(obj) {
-    if (obj.descripcion_tipo_usuario == "") {
+
+    if (obj.descripcion_estado == "") {
 
         return false;
 
     } else {
         return true;
     }
+
 }

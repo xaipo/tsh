@@ -5,6 +5,7 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
     $scope.urlAllTipoUsuario;
     $scope.urlAllTipoCombustible;
     $scope.urlAllTipoEmbarcacion;
+    $scope.urlAllEstadoEmbarcacion;
     $scope.urlAllTripulantes;
     $scope.urlAllTripulantesCapitan;
 
@@ -25,9 +26,11 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
     $scope.capacidadCarga;
     $scope.tipoEmbarcacion;
     $scope.capitan = "";
+    $scope.estado = "";
 
     $scope.busqueda;
     $scope.listaTipoEmbarcacion;
+    $scope.listaEstadoEmbarcacion;
     $scope.listaTipoCombustible;
     $scope.listaPropietarios;
     $scope.listaTripulante;
@@ -44,8 +47,9 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
             $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
             $scope.urlAllPropietarios = myProvider.getUrlAllPropietarioActivos();
             $scope.urlAllTripulantesCapitan = myProvider.getUrlAllTripulanteCapitan();
-            $scope.urlAllTripulantes = myProvider.getUrlAllTripulante();
+            $scope.urlAllTripulantes = myProvider.getUrlAllTripulanteActivos();
             $scope.urlAllTipoEmbarcacion = myProvider.getUrlAllTipoEmbarcacionActivos();
+            $scope.urlAllEstadoEmbarcacion = myProvider.getUrlAllEstadoEmbarcacionActivos();
 
             if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
                 $scope.usuario = JSON.parse(localStorage.getItem("user"));
@@ -67,6 +71,7 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
             $scope.capacidadCarga = "";
             $scope.tipoEmbarcacion = "";
             $scope.capitan = "";
+            $scope.estado = "";
 
             $scope.busqueda;
             $scope.seleccionTripulante = "";
@@ -77,6 +82,17 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
             $scope.listaTripulanteIngresar = [];
             $scope.listaTripulanteSelect = [];
             $scope.listaTripulantesCapitanes;
+
+            $http.get($scope.urlAllEstadoEmbarcacion)
+                .then(function (response) {
+
+                    $scope.listaEstadoEmbarcacion = response.data;
+                    $scope.estado = $scope.listaEstadoEmbarcacion[0]._id;
+
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
 
             $http.get($scope.urlAllTipoCombustible)
                 .then(function (response) {
@@ -163,7 +179,8 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
             capacidad_carga: $scope.capacidadCarga,
             tipo_embarcacion: $scope.tipoEmbarcacion,
             capitan_embarcacion: $scope.capitan,
-            tripulantes: $scope.listaTripulanteIngresar
+            tripulantes: $scope.listaTripulanteIngresar,
+            estado: $scope.estado
         };
 
         if (validarCamposVacios(obj)) {
