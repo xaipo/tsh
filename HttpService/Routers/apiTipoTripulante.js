@@ -69,6 +69,24 @@ router.post('/getByIdTipoTripulante', function (req, res) {
     });
 });
 
+router.get('/getAllTipoTripulanteCapitanTimonel', function (req, res) {
+    var resultArray = [];
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+
+        var cursor = db.collection('tipo_tripulante').find({ "descripcion_tipo_tripulante": { $in: ["capitan", "timonel"] }, "estado": "1" });
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function () {
+            db.close();
+            res.send(resultArray);
+
+        });
+    });
+
+});
 
 router.get('/getAllTipoTripulante', function (req, res) {
 

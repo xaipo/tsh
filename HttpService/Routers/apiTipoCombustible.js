@@ -69,6 +69,24 @@ router.post('/getByIdTipoCombustible', function (req, res) {
     });
 });
 
+router.get('/getAllTipoCombustibleActivos', function (req, res) {
+    var resultArray = [];
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+
+        var cursor = db.collection('tipo_combustible').find({ "estado": "1" });
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function () {
+            db.close();
+            res.send(resultArray);
+
+        });
+    });
+
+});
 
 router.get('/getAllTipoCombustible', function (req, res) {
 

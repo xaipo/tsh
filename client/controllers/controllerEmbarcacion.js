@@ -6,6 +6,7 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
     $scope.urlAllTipoCombustible;
     $scope.urlAllTipoEmbarcacion;
     $scope.urlAllEstadoEmbarcacion;
+    $scope.urlAllTipoTripulantesCapitanTimonel;
     $scope.urlAllTripulantes;
     $scope.urlAllTripulantesCapitan;
 
@@ -48,6 +49,7 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
             $scope.urlAllPropietarios = myProvider.getUrlAllPropietarioActivos();
             $scope.urlAllTripulantesCapitan = myProvider.getUrlAllTripulanteCapitan();
             $scope.urlAllTripulantes = myProvider.getUrlAllTripulanteActivos();
+            $scope.urlAllTipoTripulantesCapitanTimonel = myProvider.getUrlAllTipoTripulanteCapitanTimonel();
             $scope.urlAllTipoEmbarcacion = myProvider.getUrlAllTipoEmbarcacionActivos();
             $scope.urlAllEstadoEmbarcacion = myProvider.getUrlAllEstadoEmbarcacionActivos();
 
@@ -127,11 +129,26 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
                     console.log(response);
                 });
 
-            $http.get($scope.urlAllTripulantesCapitan)
+            $http.get($scope.urlAllTipoTripulantesCapitanTimonel)
                 .then(function (response) {
 
-                    $scope.listaTripulantesCapitanes = response.data;
-                    $scope.capitan = $scope.listaTripulantesCapitanes[0]._id;
+                    $scope.listaTipoCapitanTimonel = response.data;
+                    var obj = {
+                        idCapitan: $scope.listaTipoCapitanTimonel[0]._id,
+                        idTimonel: $scope.listaTipoCapitanTimonel[1]._id
+                    }
+                    
+                    $http.post($scope.urlAllTripulantesCapitan, obj)
+                        .then(function (response) {
+
+                            $scope.listaTripulantesCapitanes = response.data;
+                            $scope.capitan = $scope.listaTripulantesCapitanes[0]._id;
+
+                        }, function errorCallback(response) {
+
+                            console.log(response);
+                        });
+
 
                 }, function errorCallback(response) {
 

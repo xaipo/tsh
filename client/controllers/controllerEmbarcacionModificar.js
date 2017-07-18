@@ -9,6 +9,7 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
     $scope.urlAllPropietarios;
     $scope.urlAllTripulantes;
     $scope.urlAllTripulantesCapitan;
+    $scope.urlAllTipoTripulantesCapitanTimonel;
 
     //atributos
     $scope.id;
@@ -60,6 +61,7 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
             $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
             $scope.urlAllPropietarios = myProvider.getUrlAllPropietarioActivos();
             $scope.urlAllTripulantes = myProvider.getUrlAllTripulanteActivos();
+            $scope.urlAllTipoTripulantesCapitanTimonel = myProvider.getUrlAllTipoTripulanteCapitanTimonel();
             $scope.urlAllTripulantesCapitan = myProvider.getUrlAllTripulanteCapitan();
             $scope.urlAllEstadoEmbarcacion = myProvider.getUrlAllEstadoEmbarcacionActivos();
 
@@ -156,11 +158,26 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
                     console.log(response);
                 });
 
-            $http.get($scope.urlAllTripulantesCapitan)
+            $http.get($scope.urlAllTipoTripulantesCapitanTimonel)
                 .then(function (response) {
 
-                    $scope.listaTripulantesCapitanes = response.data;
-                    $scope.capitan = $scope.listaTripulantesCapitanes[0]._id;
+                    $scope.listaTipoCapitanTimonel = response.data;
+                    var obj = {
+                        idCapitan: $scope.listaTipoCapitanTimonel[0]._id,
+                        idTimonel: $scope.listaTipoCapitanTimonel[1]._id
+                    }
+
+                    $http.post($scope.urlAllTripulantesCapitan, obj)
+                        .then(function (response) {
+
+                            $scope.listaTripulantesCapitanes = response.data;
+                            $scope.capitan = $scope.listaTripulantesCapitanes[0]._id;
+
+                        }, function errorCallback(response) {
+
+                            console.log(response);
+                        });
+
 
                 }, function errorCallback(response) {
 
@@ -288,6 +305,7 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
             $scope.capitan = $scope.selecEmbarJS.capitan_embarcacion;
             $scope.propietario = $scope.selecEmbarJS.propietario;
             $scope.fechaConstruccion = $scope.selecEmbarJS.fecha_construccion;
+            $scope.estado = $scope.selecEmbarJS.estado;
 
             $scope.cargarTripulantes();
 

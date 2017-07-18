@@ -49,6 +49,16 @@ function ApiUrl() {
         return (url + 'updateEstadoEmbarcacion');
     }
 
+    // Buscar todos los Estado Embarcacion Disponibles
+    this.getUrlAllEstadoEmbarcacionDisponible = function () {
+        return (url + 'getEstadoEmbarcacionDisponible');
+    }
+
+    // Buscar todos los Estado Embarcacion Disponibles y Viajes
+    this.getUrlAllEstadoEmbarcacionDisponibleViaje = function () {
+        return (url + 'getEstadoEmbarcacionDisponibleViaje');
+    }
+
     // Buscar todos los Estado Embarcacion Activos
     this.getUrlAllEstadoEmbarcacionActivos = function () {
         return (url + 'getAllEstadoEmbarcacionActivos');
@@ -180,6 +190,16 @@ function ApiUrl() {
         return (url + 'getByIdEmbarcacion');
     }
 
+    // Buscar todos los Embarcacion Disponibles
+    this.getUrlAllEmbarcacionDisponibles = function () {
+        return (url + 'getAllEmbarcacionDisponibles');
+    }
+
+    // Buscar todos los Embarcacion Disponibles y Viaje
+    this.getUrlAllEmbarcacionDisponiblesViaje = function () {
+        return (url + 'getAllEmbarcacionDisponiblesViaje');
+    }
+
     // Buscar todos los Embarcacion
     this.getUrlAllEmbarcacion = function () {
         return (url + 'getAllEmbarcacion');
@@ -297,6 +317,11 @@ function ApiUrl() {
         return (url + 'getByIdTipoTripulante');
     }
 
+    // Buscar todos los tipo Tripulante capitan y timonel
+    this.getUrlAllTipoTripulanteCapitanTimonel = function () {
+        return (url + 'getAllTipoTripulanteCapitanTimonel');
+    }
+
     // Buscar todos los tipo Tripulante
     this.getUrlAllTipoTripulante = function () {
         return (url + 'getAllTipoTripulante');
@@ -343,6 +368,11 @@ function ApiUrl() {
     // Buscar Tipo Combustible
     this.getUrlBuscarTipoCombustible = function () {
         return (url + 'getByIdTipoCombustible');
+    }
+
+    // Buscar todos los Tipo Combustible Activos
+    this.getUrlAllTipoCombustibleActivos = function () {
+        return (url + 'getAllTipoCombustibleActivos');
     }
 
     // Buscar todos los Tipo Combustible

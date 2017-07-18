@@ -83,7 +83,48 @@ router.post('/getByIdEmbarcacion', function (req, res) {
     });
 });
 
+router.post('/getAllEmbarcacionDisponibles', function (req, res) {
+    var resultArray = [];
 
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+
+        var idDisponible = req.body.idDisponible;
+
+        var cursor = db.collection('embarcacion').find({ "estado": idDisponible});
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function () {
+            db.close();
+            res.send(resultArray);
+
+        });
+    });
+
+});
+
+router.post('/getAllEmbarcacionDisponiblesViaje', function (req, res) {
+    var resultArray = [];
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+
+        var idDisponible = req.body.idDisponible;
+        var idViaje = req.body.idViaje;
+
+        var cursor = db.collection('embarcacion').find({ "estado": { $in: [idDisponible, idViaje] } });
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function () {
+            db.close();
+            res.send(resultArray);
+
+        });
+    });
+
+});
 
 router.get('/getAllEmbarcacion', function (req, res) {
 

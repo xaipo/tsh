@@ -25,7 +25,6 @@ router.post('/saveEstadoEmbarcacion', function (req, res) {
     });
 });
 
-
 router.post('/updateEstadoEmbarcacion', function (req, res) {
 
 
@@ -67,6 +66,44 @@ router.post('/getByIdEstadoEmbarcacion', function (req, res) {
 
         db.close();
     });
+});
+
+router.get('/getEstadoEmbarcacionDisponible', function (req, res) {
+    var resultArray = [];
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+
+        var cursor = db.collection('estado_embarcacion').find({ "descripcion_estado": "disponible", "estado": "1" });
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function () {
+            db.close();
+            res.send(resultArray);
+
+        });
+    });
+
+});
+
+router.get('/getEstadoEmbarcacionDisponibleViaje', function (req, res) {
+    var resultArray = [];
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+
+        var cursor = db.collection('estado_embarcacion').find({ "descripcion_estado": { $in: ["disponible", "viaje"] }, "estado": "1" });
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function () {
+            db.close();
+            res.send(resultArray);
+
+        });
+    });
+
 });
 
 router.get('/getAllEstadoEmbarcacionActivos', function (req, res) {

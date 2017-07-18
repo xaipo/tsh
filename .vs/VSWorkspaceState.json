@@ -2,9 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\client",
+    "\\client\\Administrador",
     "\\HttpService",
     "\\HttpService\\Routers"
   ],
-  "SelectedNode": "\\HttpService\\server.js",
+  "SelectedNode": "\\client\\Administrador\\IngresoOrdenServicio.html",
   "PreviewInSolutionExplorer": false
 }

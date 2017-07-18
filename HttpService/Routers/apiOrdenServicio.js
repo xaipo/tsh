@@ -52,8 +52,8 @@ router.post('/updateOrdenServicio', function (req, res) {
             observaciones: req.body.observaciones,
             combustible_consumo: req.body.combustible_consumo,
             combustible_transporte: req.body.combustible_transporte,
-            observacion_maquinista: req.body.observacion_maquinista,
-            contrato_recepcion: req.body.contacto_recepcion,
+            observacion_maquinaria: req.body.observacion_maquinaria,
+            contrato_recepcion: req.body.contrato_recepcion,
             capitan_embarcacion: req.body.capitan_embarcacion
         };
 

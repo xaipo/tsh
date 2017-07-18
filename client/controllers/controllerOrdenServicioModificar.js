@@ -22,6 +22,9 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     $scope.urlBuscarCombustibleId;
     $scope.urlBuscarTipoCombustibleId;
     $scope.urlBuscarTipoMaterialPetreoId;
+    $scope.urlEstadoEmbarcacionDisponible;
+    $scope.urlAllTipoTripulantesCapitanTimonel;
+    $scope.urlAllTipoCombustibleTransporte;
 
     //atributos
     $scope.id = "";
@@ -119,11 +122,11 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
         $scope.iniciar = function () {
             $scope.urlModificar = myProvider.getUrlModificarOrdenServicio();
-            $scope.urlAllEmbarcacion = myProvider.getUrlAllEmbarcacion();
-            $scope.urlAllCliente = myProvider.getUrlAllClientes();
+            $scope.urlAllEmbarcacion = myProvider.getUrlAllEmbarcacionDisponiblesViaje();
+            $scope.urlAllCliente = myProvider.getUrlAllClientesActivos();
             $scope.urlAllMaterialPetreo = myProvider.getUrlAllMaterialPetreo()
-            
-            $scope.urlAllPuerto = myProvider.getUrlAllPuerto();
+
+            $scope.urlAllPuerto = myProvider.getUrlAllPuertoActivos();
 
             $scope.urlAllCombustible = myProvider.getUrlAllCombustible();
             $scope.urlCombustible = myProvider.getUrlIngresoCombustible();
@@ -133,7 +136,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
             $scope.urlAllTripulante = myProvider.getUrlAllTripulante();
 
-            $scope.urlAllContratoRecepcion = myProvider.getUrlAllContratoRecepcion();
+            $scope.urlAllContratoRecepcion = myProvider.getUrlAllContratoRecepcionActivos();
 
             $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
             $scope.urlBuscarTipoCombustibleId = myProvider.getUrlBuscarTipoCombustible();
@@ -155,7 +158,13 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             $scope.urlAllEstadosOrden = myProvider.getUrlAllEstadoOrden();
 
             $scope.urlBuscarTipoMaterialPetreoId = myProvider.getUrlBuscarTipoMaterialPetreo();
-            $scope.urlAllTipoMaterialPetreo = myProvider.getUrlAllTipoMaterialPetreo();
+            $scope.urlAllTipoMaterialPetreo = myProvider.getUrlAllTipoMaterialPetreoActivos();
+
+
+            $scope.urlEstadoEmbarcacionDisponible = myProvider.getUrlAllEstadoEmbarcacionDisponibleViaje();
+            $scope.urlAllTipoTripulantesCapitanTimonel = myProvider.getUrlAllTipoTripulanteCapitanTimonel();
+            $scope.urlAllTripulantesCapitan = myProvider.getUrlAllTripulanteCapitan();
+            $scope.urlAllTipoCombustibleTransporte = myProvider.getUrlAllTipoCombustibleActivos();
 
             if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
                 $scope.usuario = JSON.parse(localStorage.getItem("user"));
@@ -250,17 +259,31 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             //variable de Id generado
             $scope.incId = 0;
 
-            $http.get($scope.getUrlAllTripulanteCapitan)
+            $http.get($scope.urlAllTipoTripulantesCapitanTimonel)
                 .then(function (response) {
 
-                    $scope.listaTripulantesCapitanes = response.data;
-                    $scope.capitan = $scope.listaTripulantesCapitanes[0]._id;
+                    $scope.listaTipoCapitanTimonel = response.data;
+                    var obj = {
+                        idCapitan: $scope.listaTipoCapitanTimonel[0]._id,
+                        idTimonel: $scope.listaTipoCapitanTimonel[1]._id
+                    }
+
+                    $http.post($scope.urlAllTripulantesCapitan, obj)
+                        .then(function (response) {
+
+                            $scope.listaTripulantesCapitanes = response.data;
+                            $scope.capitan = $scope.listaTripulantesCapitanes[0]._id;
+
+                        }, function errorCallback(response) {
+
+                            console.log(response);
+                        });
+
 
                 }, function errorCallback(response) {
 
                     console.log(response);
                 });
-
 
             $http.get($scope.urlAllEstadosOrden)
                 .then(function (response) {
@@ -329,7 +352,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
                     console.log(response);
                 });
 
-            $http.get($scope.urlAllTipoCombustible)
+            $http.get($scope.urlAllTipoCombustibleTransporte)
                 .then(function (response) {
 
                     $scope.listaTipoCombustibleTransporte = response.data;
@@ -352,12 +375,28 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
                     console.log(response);
                 });
-
-            $http.get($scope.urlAllEmbarcacion)
+            $http.get($scope.urlEstadoEmbarcacionDisponible)
                 .then(function (response) {
 
-                    $scope.listaEmbarcacion = response.data;
-                    $scope.embarcacion = $scope.listaEmbarcacion[0]._id;
+                    $scope.listaEstadoEmbarcacionDisponible = response.data;
+
+                    var obj = {
+                        idDisponible: $scope.listaEstadoEmbarcacionDisponible[0]._id,
+                        idViaje: $scope.listaEstadoEmbarcacionDisponible[1]._id
+                    }
+
+                    $http.post($scope.urlAllEmbarcacion, obj)
+                        .then(function (response) {
+
+                            $scope.listaEmbarcacion = response.data;
+                            $scope.embarcacion = $scope.listaEmbarcacion[0]._id;
+                            $scope.capitan = $scope.listaEmbarcacion[0].capitan_embarcacion;
+
+
+                        }, function errorCallback(response) {
+
+                            console.log(response);
+                        });
 
                 }, function errorCallback(response) {
 
@@ -368,7 +407,6 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
                 .then(function (response) {
 
                     $scope.listaCliente = response.data;
-                    //$scope.seleccionCliente = $scope.listaCliente[0];
 
                     $http.get($scope.urlAllOrdenServicioEstadoProcesoViaje)
                         .then(function (response) {
@@ -405,9 +443,9 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     }
 
     $scope.imprimirOrden = function () {
-        
+
         console.log("hola");
-        
+
         var doc = new jsPDF('p', 'mm', [297, 210]);
 
         var x = 25;
@@ -784,7 +822,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             combustible_transporte: $scope.listaTransporteCombutible,
             observacion_maquinaria: $scope.observacionMaquinista,
             contrato_recepcion: $scope.contratoRecepcion,
-            capitan_embarcacion: $scope.capitan
+            capitan_embarcacion: $scope.capitan            
         }
 
         if (validarCamposVacios(obj)) {
@@ -819,10 +857,10 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     }
 
     $scope.modificarOrdenServicio = function () {
-        
+
         if ($scope.seleccionOrdenServicioLista != "") {
             if ($scope.seleccionCliente != "") {
-                
+
                 if ($scope.horasSalida < 9) {
                     var h = "0" + $scope.horasSalida.toString();
                     if ($scope.minutosSalida < 9) {
@@ -1073,7 +1111,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
         $scope.iniciarListas();
         $scope.selecOrdenServ = JSON.parse($scope.seleccionOrdenServicioLista);
-        
+
         $scope.id = $scope.selecOrdenServ._id;
         $scope.seleccionCliente = JSON.stringify($scope.selecOrdenServ.cliente);
         $scope.fechaEmision = $scope.selecOrdenServ.fecha_emision;
@@ -1094,6 +1132,25 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
         $scope.detalle = $scope.selecOrdenServ.detalle;
         $scope.estado = $scope.selecOrdenServ.estado;
         $scope.cargarListasSeleccionOrdenServicio($scope.selecOrdenServ);
+    }
+
+    $scope.buscarCapitan = function () {
+
+        if ($scope.embarcacion != undefined && $scope.embarcacion != "") {
+
+            var n = $scope.listaEmbarcacion.length;
+            for (var i = 0; i < n; i++) {
+
+                if ($scope.listaEmbarcacion[i]._id == $scope.embarcacion) {
+                    
+                    $scope.capitan = $scope.listaEmbarcacion[i].capitan_embarcacion;
+                    break;
+
+                }
+
+            }
+
+        }
     }
 
     $scope.cargarDatosMaterialPetreo = function () {

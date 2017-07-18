@@ -77,7 +77,7 @@ router.get('/getAllTripulanteActivos', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
 
-        var cursor = db.collection('tripulante').find({ "estado": "1"});
+        var cursor = db.collection('tripulante').find({ "estado": "1" });
         cursor.forEach(function (doc, err) {
             assert.equal(null, err);
             resultArray.push(doc);
@@ -90,13 +90,16 @@ router.get('/getAllTripulanteActivos', function (req, res) {
 
 });
 
-router.get('/getAllTripulanteCapitanes', function (req, res) {
+router.post('/getAllTripulanteCapitanes', function (req, res) {
     var resultArray = [];
 
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
 
-        var cursor = db.collection('tripulante').find({ "tipo_tripulante": { $in: ["59134f3de7ce1f43d8cf6609", "59134f991eb28943048a4577"] }, "estado": "1" });
+        var idCapitan = req.body.idCapitan;
+        var idTimonel = req.body.idTimonel;
+
+        var cursor = db.collection('tripulante').find({ "tipo_tripulante": { $in: [idCapitan, idTimonel] }, "estado": "1" });
         cursor.forEach(function (doc, err) {
             assert.equal(null, err);
             resultArray.push(doc);

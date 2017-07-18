@@ -213,7 +213,7 @@
                                     <h4>Embarcacion: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <select class="form-control" ng-model="embarcacion" ng-options="item._id as item.nombre_embarcacion for item in listaEmbarcacion"></select>
+                                    <select class="form-control" ng-model="embarcacion" ng-options="item._id as item.nombre_embarcacion for item in listaEmbarcacion" ng-click="buscarCapitan()"></select>
                                 </div>
                             </div>
                         </div>
