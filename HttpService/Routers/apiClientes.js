@@ -14,11 +14,12 @@ router.post('/saveClientes', function (req, res) {
 
         console.log(req.body);
         var collection = db.collection('clientes');
-        collection.insert(req.body, {
-
+        collection.insert(req.body, function (err, result) {
+            if (err) {
+                res.send("false");
+            } else
+                res.send("true");
         });
-
-        res.send('Info ingresada');
 
         db.close();
 
@@ -45,10 +46,10 @@ router.post('/updateClientes', function (req, res) {
 
         var id = req.body.id;
         db.collection('clientes').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
-            assert.equal(null, err);
-            console.log('Item updated');
-
-            res.send(result);
+            if (err) {
+                res.send("false");
+            } else
+                res.send("true");
         });
 
         db.close();
@@ -79,7 +80,7 @@ router.get('/getAllClientesActivos', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
 
-        var cursor = db.collection('clientes').find({ "estado": "1"});
+        var cursor = db.collection('clientes').find({ "estado": "1" });
         cursor.forEach(function (doc, err) {
             assert.equal(null, err);
             resultArray.push(doc);

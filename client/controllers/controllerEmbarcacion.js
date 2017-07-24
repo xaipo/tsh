@@ -137,7 +137,7 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
                         idCapitan: $scope.listaTipoCapitanTimonel[0]._id,
                         idTimonel: $scope.listaTipoCapitanTimonel[1]._id
                     }
-                    
+
                     $http.post($scope.urlAllTripulantesCapitan, obj)
                         .then(function (response) {
 
@@ -201,20 +201,27 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
         };
 
         if (validarCamposVacios(obj)) {
+
             $http.post($scope.url, obj)
                 .then(function (response) {
 
-                    $scope.iniciar();
-                    $.notify("Ingreso Correcto", "success");
+                    if (response.data == "true") {
+
+                        $scope.iniciar();
+                        swal({
+                            title: "Ingreso Exitoso!",
+                            type: "success",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    } else
+                        $(document.getElementById("nombre")).notify("Embacaci\u00F3n ya Existe", { position: "right" });
 
                 }, function errorCallback(response) {
 
                     $.notify("Error!", "error");
 
                 });
-
-        } else {
-            $.notify("Revise los Campos", "info");
         }
     }
 
@@ -274,10 +281,132 @@ app.controller('ControllerEmbarcacion', ['$scope', '$http', 'myProvider', "$time
 
 }]);
 
+// SOLO LETRAS
+function soloLetras(e, id) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz'\u00E1''\u00E9''\u00ED''\u00F3''\u00FA''\u00F1''\u00C1''\u00C9''\u00CD''\u00D3''\u00DA''\u00D1'";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo Letras", { position: "right" });
+        return false;
+    }
+}
+
+// PERMITE INGRESAR NUMEROS, LETRAS /-(),.
+function numerosLetras(e, id) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = "-0123456789abcdefghijklmnñopqrstuvwxyz";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo N\u00FAmeros, Letras, - ", { position: "right" });
+        return false;
+    }
+}
+
+// SOLO FORMATO DE FECHA
+function validarFecha(e, id) {
+
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = "/0123456789";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Formato: 01/12/2017", { position: "right" });
+        return false;
+    }
+
+}
+
+// SOLO SE INGRESAN NUMEROS
+function soloNumeros(e, id) {
+
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = "0123456789";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo Numeros", { position: "right" });
+        return false;
+    }
+
+}
+
 function validarCamposVacios(obj) {
     if (obj.nombre_embarcacion == "" || obj.num_matricula == "" || obj.eslora_total == "" || obj.manga == "" || obj.puntual == "" ||
         obj.calado == "" || obj.fecha_construccion == "" || obj.propietario == "" || obj.propulsion == "" || obj.tipo_combustible == "" ||
         obj.tonelaje_bruto == "" || obj.capacidad_carga == "" || obj.tipo_embarcacion == "" || obj.capitan_embarcacion == "" || obj.tripulantes == "") {
+
+        if (obj.nombre_embarcacion == "") {
+            $(document.getElementById("nombre")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.calado == "") {
+            $(document.getElementById("calado")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.num_matricula == "") {
+            $(document.getElementById("mat")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.eslora_total == "") {
+            $(document.getElementById("eslora")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.manga == "") {
+            $(document.getElementById("manga")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.puntual == "") {
+            $(document.getElementById("puntual")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.fecha_construccion == "") {
+            $(document.getElementById("fecha")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.propulsion == "") {
+            $(document.getElementById("propulcion")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.tonelaje_bruto == "") {
+            $(document.getElementById("tonelada")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.capacidad_carga == "") {
+            $(document.getElementById("carga")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.tripulantes == "") {
+            $(document.getElementById("tripulante")).notify("Lista Vac\u00EDa", { position: "right" });
+        }
         return false;
     } else {
         return true;

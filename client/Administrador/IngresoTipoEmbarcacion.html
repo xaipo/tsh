@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -118,7 +118,7 @@
                                 <h4>Descripción: </h4>
                             </div>
                             <div class="col-md-7">
-                                <input type="text" ng-model="descripcionTipoEmbarcacion" placeholder="Tipo Embarcación" class="form-control" />
+                                <input type="text"  id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="descripcionTipoEmbarcacion" placeholder="Tipo Embarcación" class="form-control" />
                             </div>
                         </div>
                         <div class="row">
@@ -148,7 +148,7 @@
             </div>
 
             <div class="col-md-6">
-                <div class="panel panel-default">
+                <div class="panel panel-default" id="lista">
                     <div class="panel-heading"><center><h3 class="panel-title">Lista  Tipo Embarcacion</h3></center></div>
                     <div class="panel-body">
                         <div class="row">

@@ -96,7 +96,7 @@
                                 <h4>Nombre Puerto: </h4>
                             </div>
                             <div class="col-md-7">
-                                <input type="text" ng-model="descripcionPuerto" class="form-control" placeholder="Nombre Puerto" />
+                                <input type="text" id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="descripcionPuerto" class="form-control" placeholder="Nombre Puerto" />
                             </div>
                         </div>
                         <br />
@@ -106,11 +106,11 @@
                             </div>
 
                             <div class="col-md-4">
-                                <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoPuerto()"/>
+                                <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoPuerto()" />
                             </div>
 
                             <div class="col-md-4">
-                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarPuerto()"/>
+                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarPuerto()" />
                             </div>
                         </div>
                     </div>
@@ -133,20 +133,36 @@
 
                         </div>
 
-                        <br>
                         <div class="row">
-                            <div class="col-md-12">
+                            <center>
+                                <div class="col-md-12 col-xs-12">
 
-                            </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr class="success">
+                                                    <th>#</th>
+                                                    <th>Descripción</th>
+                                                    <th>Estado</th>
+                                                </tr>
 
-                            <div class="col-md-12">
-                                <select name="Puertos" ng-model="seleccionPuerto" multiple class="form-control" style="height: 150px;" ng-click="buscarSeleccionPuerto()">
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaPuertos | filter:busqueda| orderBy:aux.descripcion_puerto">
-                                        {{aux.descripcion_puerto}}
-                                    </option>
-                                </select>
-                            </div>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr dir-paginate="item in listaPuertos| filter:busqueda| itemsPerPage:4 track by $index"
+                                                    ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="puerto">
+
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{ item.descripcion_puerto}}</td>
+                                                    <td>{{ item.estado.estado}}</td>
+
+                                                </tr>
+                                                <dir-pagination-controls pagination-id="puerto"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </center>
                         </div>
                     </div>
                 </div>

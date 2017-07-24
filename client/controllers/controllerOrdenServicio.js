@@ -267,7 +267,7 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
 
                     console.log(response);
                 });
-            
+
             $http.get($scope.urlAllTipoTripulante)
                 .then(function (response) {
 
@@ -340,7 +340,7 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
 
                     console.log(response);
                 });
-            
+
             $http.get($scope.urlAllCliente)
                 .then(function (response) {
 
@@ -520,8 +520,17 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
 
                 }).then(function successCallback(response) {
 
-                    $scope.iniciar();
-                    $.notify("Ingreso Correcto", "success");
+                    if (response.data == "true") {
+
+                        $scope.iniciar();
+                        swal({
+                            title: "Ingreso Exitoso!",
+                            type: "success",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    } else
+                        $.notify("ERROR!", { position: "right" });
 
                 }, function errorCallback(response) {
 
@@ -537,8 +546,35 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
     }
 
     $scope.ingresoOrdenServicio = function () {
-        console.log($scope.selecCli);
-        if ($scope.selecCli != "" && $scope.selecCli != undefined) {
+
+        var obj = {
+            cliente: $scope.selecCli._id,
+            detalle: $scope.detalle,
+            embarcacion: $scope.embarcacion,
+            estado: $scope.estado,
+            fecha_emision: $scope.fechaEmision,
+            fecha_entrega: $scope.fechaEntrega,
+            puerto_embarque: $scope.puertoEmbarque,
+            puerto_desembarque: $scope.puertoDesembarque,
+            orometro_inicial_m1: $scope.orometroInicialM1,
+            orometro_inicial_m2: $scope.orometroInicialM2,
+            orometro_final_m1: $scope.orometroFinalM1,
+            orometro_final_m2: $scope.orometroFinalM2,
+            horaSal: $scope.horasSalida,
+            horaArrib: $scope.horasArribo,
+            minSal: $scope.minutosSalida,
+            minArrib: $scope.minutosArribo,
+            carga_material_petreo: $scope.listMatPetreo,
+            carga_vehiculo: $scope.listaVehi,
+            observaciones: $scope.observaciones,
+            combustible_consumo: $scope.listaCombustConsumo,
+            combustible_transporte: $scope.listaCombustTransporte,
+            observacion_maquinaria: $scope.observacionMaquinista,
+            contrato_recepcion: $scope.contratoRecepcion,
+            capitan_embarcacion: $scope.capitan
+        }
+
+        if (validarCamposVaciosAntes(obj)) {
             if ($scope.horasSalida < 9) {
                 var h = "0" + $scope.horasSalida.toString();
                 if ($scope.minutosSalida < 9) {
@@ -622,9 +658,7 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
                 $scope.ingresoOrden();
 
             }, 1500, false)
-        } else {
-            $.notify("Seleccione un Cliente", "info");
-        }
+        } 
     }
 
     $scope.buscarSeleccionListaCliente = function () {
@@ -965,11 +999,189 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
 
 }]);
 
+// SOLO LETRAS
+function soloLetras(e, id) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz'\u00E1''\u00E9''\u00ED''\u00F3''\u00FA''\u00F1''\u00C1''\u00C9''\u00CD''\u00D3''\u00DA''\u00D1'";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo Letras", { position: "right" });
+        return false;
+    }
+}
+
+// PERMITE INGRESAR NUMEROS, LETRAS /-(),.
+function numerosLetras(e, id) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = " (),/.-0123456789áéíóúabcdefghijklmnñopqrstuvwxyz'\u00E1''\u00E9''\u00ED''\u00F3''\u00FA''\u00F1''\u00C1''\u00C9''\u00CD''\u00D3''\u00DA''\u00D1'";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo N\u00FAmeros, Letras, /.,-()", { position: "right" });
+        return false;
+    }
+}
+
+// SOLO SE INGRESAN NUMEROS
+function soloNumerosCant(e, id) {
+
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = ",0123456789";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo Numeros", { position: "right" });
+        return false;
+    }
+
+}
+
+// SOLO SE INGRESAN NUMEROS
+function soloNumeros(e, id) {
+
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = "0123456789";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo Numeros", { position: "right" });
+        return false;
+    }
+
+}
+
+// SOLO FORMATO DE FECHA
+function validarFecha(e, id) {
+
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = "/0123456789";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Formato: 01/12/2017", { position: "right" });
+        return false;
+    }
+
+}
+
+// VALIDAR CAMPOS VACIOS
 function validarCamposVacios(obj) {
-    if (obj.seleccionCliente == "" || obj.detalle == "" || obj.embarcacion == "" || obj.estado == "" || obj.fecha_emision == "" ||
+    if (obj.cliente == "" || obj.embarcacion == "" || obj.estado == "" || obj.fecha_emision == "" ||
         obj.puerto_embarque == "" || obj.puerto_desembarque == "" || obj.orometro_inicial_m1 == "" || obj.orometro_inicial_m2 == "" ||
         obj.orometro_final_m1 == "" || obj.orometro_final_m2 == "" || obj.hora_salida == "" || obj.hora_arribo == "" ||
-        obj.combustible_consumo == "" || obj.contrato_recepcion == "" || obj.capitan_embarcacion == "") {
+        obj.contrato_recepcion == "" || obj.capitan_embarcacion == "") {
+
+        if (obj.cliente == "") {
+            $(document.getElementById("cliente")).notify("Seleccione Cliente", { position: "right" });
+        }
+        if (obj.fecha_emision == "") {
+            $(document.getElementById("fecha")).notify("Campo Vac\u00EDo", { position: "right" });
+        }        
+        if (obj.orometro_inicial_m1 == "") {
+            $(document.getElementById("oromIni1")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.orometro_inicial_m2 == "") {
+            $(document.getElementById("oroIni2")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.orometro_final_m1 == "") {
+            $(document.getElementById("oromFin1")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.orometro_final_m2 == "") {
+            $(document.getElementById("oromFin2")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+
+        return false;
+    } else {
+        return true;
+    }
+}
+
+// VALIDAR CAMPOS VACIOS Antes 
+function validarCamposVaciosAntes(obj) {
+    
+    if (obj.cliente == "" || obj.embarcacion == "" || obj.estado == "" || obj.fecha_emision == "" ||
+        obj.puerto_embarque == "" || obj.puerto_desembarque == "" || obj.orometro_inicial_m1 == "" || obj.orometro_inicial_m2 == "" ||
+        obj.orometro_final_m1 == "" || obj.orometro_final_m2 == "" || obj.horaSal == "" || obj.minSal == "" || obj.horaArrib == "" ||
+        obj.minArrib == "" || obj.contrato_recepcion == "" || obj.capitan_embarcacion == "") {
+
+        if (obj.cliente == "" || obj.cliente == undefined) {
+            $(document.getElementById("cliente")).notify("Seleccione Cliente", { position: "right" });
+        }
+        if (obj.fecha_emision == "") {
+            $(document.getElementById("fecha")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        
+        if (obj.orometro_inicial_m1 == "") {
+            $(document.getElementById("oromIni1")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.orometro_inicial_m2 == "") {
+            $(document.getElementById("oromIni2")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.orometro_final_m1 == "") {
+            $(document.getElementById("oromFin1")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.orometro_final_m2 == "") {
+            $(document.getElementById("oromFin2")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.horaSal == "") {
+            $(document.getElementById("horaSal")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.minSal == "") {
+            $(document.getElementById("minSal")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.horaArrib == "") {
+            $(document.getElementById("horaLleg")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.minArrib == "") {
+            $(document.getElementById("minLleg")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+
         return false;
     } else {
         return true;

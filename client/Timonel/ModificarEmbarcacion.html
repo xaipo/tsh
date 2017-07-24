@@ -78,7 +78,7 @@
         </div>
         <div class="col-md-10">
             <div class="panel panel-default">
-                <div class="panel-heading"><center><h2 class="panel-title">MODIFICACION EMBARCACION</h2></center></div>
+                <div class="panel-heading"><center><h2 class="panel-title">EMBARCACION</h2></center></div>
                 <div class="panel-body">
 
                     <div class="row">
@@ -168,18 +168,13 @@
                                 <input type="text" ng-model="busquedaTripu" class="form-control" placeholder="Busqueda" />
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <select name="Usuarios" ng-model="seleccionTripulante" multiple class="form-control" style="height: 150px;" disabled>
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaTripulante | filter:busquedaTripu| orderBy:aux.nombre_tripulante">
-                                        {{aux.nombre_tripulante}}
-                                    </option>
-                                </select>
-                            </div>
+                        <div class="row">                            
+                            <div class="col-md-2">
 
+                            </div>
                             <div class="col-md-5">
-                                <select name="Usuarios" ng-model="seleccionTripulante" multiple class="form-control" style="height: 150px;">
+                                <p>Tripulación:</p>
+                                <select name="Usuarios" ng-model="seleccionTripulante" disabled multiple class="form-control" style="height: 150px;">
                                     <option value={{aux}}
                                             ng-repeat="aux in listaTripulanteSelect | filter:busquedaTripu| orderBy:aux.nombre_tripulante">
                                         {{aux.nombre_tripulante}}

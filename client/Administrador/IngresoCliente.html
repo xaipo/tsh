@@ -1,7 +1,7 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
     <link type="text/css" href="../bootstrap/dist/css/bootstrap.css" id="pagesheet" rel="stylesheet" media="screen" />
@@ -98,9 +98,13 @@
 
             </div>
             <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><center><h3 class="panel-title">Cliente</h3></center></div>
-                    <di class="panel-body">
+                <div class="panel panel-default" id="mensaje">
+                    <div class="panel-heading">
+                        <center>
+                            <h3 class="panel-title"><b>Cliente</b></h3>
+                        </center>
+                    </div>
+                    <div class="panel-body">
 
                         <div class="row">
                             <div class="col-md-1">
@@ -110,23 +114,7 @@
                                 <h4>Ruc: </h4>
                             </div>
                             <div class="col-md-7">
-                                <script>
-                                    function valida(e) {
-                                        tecla = (document.all) ? e.keyCode : e.which;
-
-                                        //Tecla de retroceso para borrar, siempre la permite
-                                        if (tecla == 8) {
-                                            return true;
-                                        }
-
-                                        // Patron de entrada, en este caso solo acepta numeros
-                                        patron = /[0-9]/;
-                                        tecla_final = String.fromCharCode(tecla);
-                                        return patron.test(tecla_final);
-                                    }
-                                </script>
-
-                                <input type="text" onkeypress="return valida(event)" ng-model="rucCliente" class="form-control" placeholder="1234567890001" maxlength="13" />
+                                <input id="ruc" type="text" onkeypress="return soloNumeros(event,'ruc')" ng-model="rucCliente" class="form-control" placeholder="1234567890001" maxlength="13" />
                             </div>
                         </div>
 
@@ -138,7 +126,7 @@
                                 <h4>Nombres: </h4>
                             </div>
                             <div class="col-md-7">
-                                <input type="text" ng-model="nombreCliente" class="form-control" placeholder="Apellidos Nombres" />
+                                <input type="text" id="nombres" onkeypress="return soloLetras(event,'nombres')" ng-model="nombreCliente" class="form-control" placeholder="Apellidos Nombres" />
                             </div>
                         </div>
 
@@ -150,7 +138,7 @@
                                 <h4>Dirección: </h4>
                             </div>
                             <div class="col-md-7">
-                                <input type="text" placeholder="guayaquil y españa" ng-model="direccionCliente" class="form-control" />
+                                <input type="text" id="direccion" placeholder="guayaquil y españa" onkeypress="return numerosLetras(event,'direccion')" ng-model="direccionCliente" class="form-control" />
                             </div>
                         </div>
 
@@ -159,10 +147,10 @@
 
                             </div>
                             <div class="col-md-3">
-                                <h4>Telfono: </h4>
+                                <h4>Tlfn/Cel: </h4>
                             </div>
                             <div class="col-md-7">
-                                <input type="text" placeholder="0990123456" onkeypress="return valida(event)" ng-model="telefonoCliente" class="form-control" />
+                                <input type="text" id="telefono" placeholder="0990123456" onkeypress="return soloNumeros(event,'telefono')" ng-model="telefonoCliente" class="form-control" maxlength="10" />
                             </div>
                         </div>
 
@@ -174,7 +162,7 @@
                                 <h4>Correo: </h4>
                             </div>
                             <div class="col-md-7">
-                                <input type="email" ng-model="correoCliente" placeholder="email@example.com" class="form-control" />
+                                <input type="email" id="correo" ng-model="correoCliente" placeholder="email@example.com" class="form-control" />
                             </div>
                         </div>
 
@@ -213,12 +201,13 @@
                                 <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarCliente()" />
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><center><h3 class="panel-title">Lista de Clientes</h3></center></div>
+                <div class="panel panel-default" id="lista">
+                    <div class="panel-heading"><center><h3 class="panel-title"><b>Lista de Clientes</b></h3></center></div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-2">

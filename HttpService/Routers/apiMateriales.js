@@ -14,17 +14,17 @@ router.post('/saveMateriales', function (req, res) {
 
         console.log(req.body);
         var collection = db.collection('materiales');
-        collection.insert(req.body, {
-
+        collection.insert(req.body, function (err, result) {
+            if (err) {
+                res.send("false");
+            } else
+                res.send("true");
         });
-
-        res.send('Info ingresada');
 
         db.close();
 
     });
 });
-
 
 router.post('/updateMateriales', function (req, res) {
 
@@ -37,15 +37,13 @@ router.post('/updateMateriales', function (req, res) {
             stock: req.body.stock,
             estado: req.body.estado
         };
-
-
-
+        
         var id = req.body.id;
         db.collection('materiales').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
-            assert.equal(null, err);
-            console.log('Item updated');
-
-            res.send(result);
+            if (err) {
+                res.send("false");
+            } else
+                res.send("true");
         });
 
         db.close();

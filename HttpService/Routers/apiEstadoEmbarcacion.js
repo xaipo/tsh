@@ -14,11 +14,12 @@ router.post('/saveEstadoEmbarcacion', function (req, res) {
 
         console.log(req.body);
         var collection = db.collection('estado_embarcacion');
-        collection.insert(req.body, {
-
+        collection.insert(req.body, function (err, result) {
+            if (err) {
+                res.send("false");
+            } else
+                res.send("true");
         });
-
-        res.send('Info ingresada');
 
         db.close();
 
@@ -26,8 +27,7 @@ router.post('/saveEstadoEmbarcacion', function (req, res) {
 });
 
 router.post('/updateEstadoEmbarcacion', function (req, res) {
-
-
+    
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
         console.log(req.body);
@@ -35,15 +35,13 @@ router.post('/updateEstadoEmbarcacion', function (req, res) {
             descripcion_estado: req.body.descripcion_estado,
             estado: req.body.estado
         };
-
-
-
+        
         var id = req.body.id;
         db.collection('estado_embarcacion').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
-            assert.equal(null, err);
-            console.log('Item updated');
-
-            res.send(result);
+            if (err) {
+                res.send("false");
+            } else
+                res.send("true");
         });
 
         db.close();

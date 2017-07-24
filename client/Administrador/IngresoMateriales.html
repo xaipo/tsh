@@ -93,8 +93,7 @@
     <!-- final menu-->
 
     <div class="jumbotron">
-        <br>
-        <br>
+        
         <div class="row">
             <div class="col-md-1">
 
@@ -108,7 +107,7 @@
                                 <h4>Material: </h4>
                             </div>
                             <div class="col-md-7">
-                                <input type="text" ng-model="descripcionMaterial" placeholder="Nombre Material" class="form-control" />
+                                <input type="text" id="nombre" onkeypress="return numerosLetras(event,'nombre')" ng-model="descripcionMaterial" placeholder="Nombre Material" class="form-control" />
                             </div>
                         </div>
                         <div class="row">
@@ -116,7 +115,7 @@
                                 <h4>Stock: </h4>
                             </div>
                             <div class="col-md-7">
-                                <input type="number" ng-model="stock" min="0" max="1500" placeholder="0" class="form-control" />
+                                <input type="number" id="numero" onkeypress="return soloNumeros(event,'numero')" ng-model="stock" min="0" placeholder="0" class="form-control" />
                             </div>
                         </div>
                         <div class="row">
@@ -146,7 +145,7 @@
             </div>
 
             <div class="col-md-6">
-                <div class="panel panel-default">
+                <div class="panel panel-default" id="lista">
                     <div class="panel-heading"><center><h3 class="panel-title">Lista de Materiales</h3></center></div>
                     <div class="panel-body">
                         <div class="row">

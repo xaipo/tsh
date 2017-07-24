@@ -18,7 +18,7 @@
     <script src="../notificaciones/notify.js"></script>
     <script src="../angular/angular.js"></script>
     <script src="../node_modules/angular-utils-pagination/dirPagination.js"></script>
-    <script src="../app.js"></script>    
+    <script src="../app.js"></script>
     <script src="../node_modules/jspdf.min.js"></script>
     <script src="../controllers/controllerOrdenServicio.js"></script>
 </head>
@@ -126,8 +126,8 @@
                                             </div>
 
                                             <div class="col-md-12">
-                                                <select name="Clientes" ng-model="seleccionCliente" class="form-control" ng-click="buscarSeleccionListaCliente()">
-                                                    
+                                                <select name="Clientes" id="cliente" ng-model="seleccionCliente" class="form-control" ng-click="buscarSeleccionListaCliente()">
+
                                                     <option value={{aux}}
                                                             ng-repeat="aux in listaCliente | filter:busquedaCliente| orderBy:aux.nombre_cliente">
                                                         {{aux.nombre_cliente}}
@@ -147,7 +147,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="input-group date jp-date">
-                                        <input type="text" ng-model="fechaEmision" placeholder="Fecha Emisión" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                        <input type="text" id="fecha" onkeypress="return validarFecha(event,'fecha')" ng-model="fechaEmision" placeholder="Fecha Emisión" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                     </div>
                                     <script type="text/javascript">
                                         $('.jp-date').datepicker({
@@ -199,7 +199,7 @@
                                     <h4>Orometro Inicial M1: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="number" ng-model="orometroInicialM1" min="0" placeholder="0" class="form-control" />
+                                    <input type="number" id="oromIni1" onkeypress="return soloNumeros(event,'oromIni1')" ng-model="orometroInicialM1" min="0" placeholder="0" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -210,7 +210,7 @@
                                     <h4>Orometro Inicial M2: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="number" ng-model="orometroInicialM2" min="0" placeholder="0" class="form-control" />
+                                    <input type="number" id="oromIni2" onkeypress="return soloNumeros(event,'oromIni2')" ng-model="orometroInicialM2" min="0" placeholder="0" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -221,13 +221,13 @@
                                     <h4>Hora Salida: </h4>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" ng-model="horasSalida" min="0" max="23" placeholder="09" class="form-control" />
+                                    <input type="number" id="horaSal" onkeypress="return soloNumeros(event,'horaSal')" ng-model="horasSalida" min="0" max="23" placeholder="09" class="form-control" />
                                 </div>
                                 <div class="col-md-1">
                                     <h4>:</h4>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" ng-model="minutosSalida" min="0" max="59" placeholder="00" class="form-control" />
+                                    <input type="number" id="minSal" onkeypress="return soloNumeros(event,'minSal')" ng-model="minutosSalida" min="0" max="59" placeholder="00" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -238,7 +238,7 @@
                                     <h4>Orometro Final M1: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="number" ng-model="orometroFinalM1" min="0" placeholder="0" class="form-control" />
+                                    <input type="number" id="oromFin1" onkeypress="return soloNumeros(event,'oromFin1')" ng-model="orometroFinalM1" min="0" placeholder="0" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -249,7 +249,7 @@
                                     <h4>Orometro Final M2: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="number" ng-model="orometroFinalM2" min="0" placeholder="0" class="form-control" />
+                                    <input type="number" id="oromFin2" onkeypress="return soloNumeros(event,'oromFin2')" ng-model="orometroFinalM2" min="0" placeholder="0" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -260,13 +260,13 @@
                                     <h4>Hora Arribo: </h4>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" ng-model="horasArribo" min="0" max="23" placeholder="15" class="form-control" />
+                                    <input type="number" id="horaLleg" onkeypress="return soloNumeros(event,'horaLleg')" ng-model="horasArribo" min="0" max="23" placeholder="15" class="form-control" />
                                 </div>
                                 <div class="col-md-1">
                                     <h4>:</h4>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" ng-model="minutosArribo" min="0" max="59" placeholder="00" class="form-control" />
+                                    <input type="number" id="minLleg" onkeypress="return soloNumeros(event,'minLleg')" ng-model="minutosArribo" min="0" max="59" placeholder="00" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -289,7 +289,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="input-group date juan-date">
-                                        <input type="text" ng-model="fechaEntrega" placeholder="Fecha Entrega" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                        <input type="text" id="fecha1" onkeypress="return validarFecha(event,'fecha1')" ng-model="fechaEntrega" placeholder="Fecha Entrega" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                     </div>
                                     <script type="text/javascript">
                                         $('.juan-date').datepicker({
@@ -364,7 +364,7 @@
                                             <h4>Numero Volquetas: </h4>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="number" ng-model="numVolquetas" placeholder="0" class="form-control" />
+                                            <input type="number" id="numVol" onkeypress="return soloNumeros(event,'numVol')" ng-model="numVolquetas" placeholder="0" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -375,7 +375,7 @@
                                             <h4>Cantidad Total: </h4>
                                         </div>
                                         <div class="col-md-5">
-                                            <input type="number" ng-model="cantTotalM3" placeholder="0" class="form-control" />
+                                            <input type="number" id="cantTo" onkeypress="return soloNumerosCant(event,'cantTo')" ng-model="cantTotalM3" placeholder="0" class="form-control" />
                                         </div>
 
                                     </div>
@@ -394,6 +394,8 @@
                             </div>
 
                             <div class="col-md-12">
+                                <br
+                                <p>Lista Materiales:</p>
                                 <select name="Puertos" ng-model="seleccionMatPetreo" multiple class="form-control" style="height: 150px;" ng-click="cargarSeleccionListaMatPetreo()">
                                     <option value={{aux}}
                                             ng-repeat="aux in listaMaterialPetreo | orderBy:aux.tipo_material">
@@ -417,7 +419,7 @@
                                             <h4>Descripcion: </h4>
                                         </div>
                                         <div class="col-md-7">
-                                            <input type="text" ng-model="descripcionVehiculo" placeholder="Modelo Vehiculo" class="form-control" />
+                                            <input type="text" id="descripVehi" onkeypress="return numerosLetras(event,'descripVehi')" ng-model="descripcionVehiculo" placeholder="Modelo Vehiculo" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -425,7 +427,7 @@
                                             <h4>Cantidad: </h4>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="number" ng-model="cantidadVehiculo" placeholder="0" class="form-control" />
+                                            <input type="number" id="cant" onkeypress="return soloNumeros(event,'cant')" ng-model="cantidadVehiculo" placeholder="0" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -433,7 +435,7 @@
                                             <h4>Placa: </h4>
                                         </div>
                                         <div class="col-md-7">
-                                            <input type="text" ng-model="matricula" placeholder="Número Placa" class="form-control" />
+                                            <input type="text" id="placa" onkeypress="return numerosLetras(event,'placa')" ng-model="matricula" placeholder="Número Placa" class="form-control" />
                                         </div>
                                     </div>
 
@@ -451,6 +453,8 @@
                             </div>
 
                             <div class="col-md-12">
+                                <br>
+                                <p>Lista Vehículos:</p>
                                 <select name="Puertos" ng-model="seleccionVehiculo" multiple class="form-control" style="height: 150px;" ng-click="cargarSeleccionListaVehiculo()">
                                     <option value={{aux}}
                                             ng-repeat="aux in listaVehiculo | orderBy:aux.descripcion_vehiculos">
@@ -496,7 +500,7 @@
                                     <h4>Cantidad: </h4>
                                 </div>
                                 <div class="col-md-5">
-                                    <input type="number" placeholder="0" ng-model="cantidadConsumoCombustible" class="form-control" />
+                                    <input type="number" id="cantCon" onkeypress="return soloNumeros(event,'cantCon')" placeholder="0" ng-model="cantidadConsumoCombustible" class="form-control" />
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -509,6 +513,8 @@
                                 <input class="form-control btn-primary" type="submit" value="Quitar" ng-click="quitarSeleccionConsumoCombustible()" />
                             </div>
                             <div class="col-md-12">
+                                <br>
+                                <p>Lista Consumo Combustible:</p>
                                 <select name="Puertos" ng-model="seleccionConsumoCombustible" multiple class="form-control" style="height: 150px;" ng-click="cargarSeleccionListaConsumoCombustible()">
                                     <option value={{aux}}
                                             ng-repeat="aux in listaCombustibleConsumoSelect">
@@ -548,7 +554,7 @@
                                     <h4>Cantidad: </h4>
                                 </div>
                                 <div class="col-md-5">
-                                    <input type="number" placeholder="0" ng-model="cantidadTransporteCombustible" class="form-control" />
+                                    <input type="number" id="cantT" onkeypress="return soloNumeros(event,'cantT')" placeholder="0" ng-model="cantidadTransporteCombustible" class="form-control" />
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -561,6 +567,8 @@
                                 <input class="form-control btn-primary" type="submit" value="Quitar" ng-click="quitarSeleccionTrasnsporteCombustible()" />
                             </div>
                             <div class="col-md-12">
+                                <br>
+                                <p>Lista Transporte Combustible:</p>
                                 <select name="Puertos" ng-model="seleccionTransporteCombustible" multiple class="form-control" style="height: 150px;" ng-click="cargarSeleccionListaTransporteCombustible()">
                                     <option value={{aux}}
                                             ng-repeat="aux in listaCombustibleTransporteSelect">
@@ -577,20 +585,22 @@
 
                             </div>
                             <div class="col-md-5">
+                                <br>
                                 <div class="col-md-3">
                                     <h4>Detalle: </h4>
                                 </div>
                                 <div class="col-md-9">
-                                    <input type="text" ng-model="detalle" placeholder="Detalle orden" class="form-control" />
+                                    <input type="text" id="detall" onkeypress="return numerosLetras(event,'detall')" ng-model="detalle" placeholder="Detalle orden" class="form-control" />
                                 </div>
                             </div>
 
                             <div class="col-md-5">
+                                <br>
                                 <div class="col-md-4">
                                     <h4>Observaciones: </h4>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" ng-model="observaciones" placeholder="observacions Adicionales" class="form-control" />
+                                    <input type="text" id="obs" onkeypress="return numerosLetras(event,'obs')" ng-model="observaciones" placeholder="observacions Adicionales" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -604,11 +614,12 @@
 
                         <div class="col-md-9">
                             <div class="row">
+                                <br>
                                 <div class="col-md-4">
                                     <h4>Observacion Maquinista: </h4>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" ng-model="observacionMaquinista" placeholder="Observaciones Maquinista" class="form-control" />
+                                    <input type="text" id="obsMaq" onkeypress="return numerosLetras(event,'obsMaq')" ng-model="observacionMaquinista" placeholder="Observaciones Maquinista" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -616,6 +627,7 @@
 
                     <div class="col-md-12">
                         <div class="row">
+                            <br>
                             <div class="col-md-4">
 
                             </div>

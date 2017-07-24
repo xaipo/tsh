@@ -15,7 +15,10 @@ router.post('/saveTipoAlimentos', function (req, res) {
         console.log(req.body);
         var collection = db.collection('tipo_alimento');
         collection.insert(req.body, function (err, result) {
-            res.send(result.ops[0]);
+            if (err) {
+                res.send("false");
+            } else
+                res.send(result.ops[0]);
         });
 
         db.close();
@@ -37,10 +40,10 @@ router.post('/updateTipoAlimentos', function (req, res) {
 
         var id = req.body.id;
         db.collection('tipo_alimento').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
-            assert.equal(null, err);
-            console.log('Item updated');
-
-            res.send(result);
+            if (err) {
+                res.send("false");
+            } else
+                res.send("true");
         });
 
         db.close();

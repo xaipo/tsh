@@ -204,68 +204,101 @@ app.controller('ControllerMantenimiento', ['$scope', '$http', 'myProvider', "$ti
 
     $scope.ingresoMantenimiento = function () {
 
-        $scope.ingresoDetalleMantenimiento();
+        var det = {
+            orometro: $scope.orometro,
+            proximo_orometro: $scope.proximoOrometro,
+            piezas_cambiadas_observaciones: $scope.piezasCambiadasObservaciones
+        }
 
-        $timeout(function () {
+        if (validarCamposVaciosDetalle(det)) {
 
-            var obj = {
-                tipo_mantenimiento: $scope.tipoMantenimiento,
-                embarcacion: $scope.embarcacion,
-                detalle_mantenimiento: $scope.detalleMantenimiento,
-                fecha_matenimiento: $scope.fechaMantenimiento,
-                mecanico: $scope.mecanico
-            };
+            $scope.ingresoDetalleMantenimiento();
 
-            if (validarCamposVacios(obj)) {
-                $http.post($scope.url, obj)
-                    .then(function (response) {
+            $timeout(function () {
 
-                        $scope.iniciar();
-                        $.notify("Ingreso Correcto", "success");
+                var obj = {
+                    tipo_mantenimiento: $scope.tipoMantenimiento,
+                    embarcacion: $scope.embarcacion,
+                    detalle_mantenimiento: $scope.detalleMantenimiento,
+                    fecha_matenimiento: $scope.fechaMantenimiento,
+                    mecanico: $scope.mecanico
+                };
 
-                    }, function errorCallback(response) {
+                if (validarCamposVacios(obj)) {
 
-                        $.notify("Error!", "error");
+                    $http.post($scope.url, obj)
+                        .then(function (response) {
 
-                    });
-            } else {
-                $.notify("Revise el Campo Fecha o Mecanico", "info");
-            }
+                            if (response.data == "true") {
 
-        }, 500, false)
+                                $scope.iniciar();
+                                swal({
+                                    title: "Ingreso Exitoso!",
+                                    type: "success",
+                                    timer: 1500,
+                                    showConfirmButton: false
+                                });
+                            }
 
+                        }, function errorCallback(response) {
+
+                            $.notify("Error!", "error");
+
+                        });
+                }
+            }, 500, false)
+        }
     }
 
     $scope.modificarMantenimiento = function () {
 
         if ($scope.seleccionMantenimiento != "") {
-            $scope.modificarDetalleMantenimiento();
 
-            var obj = {
-                id: $scope.id,
-                tipo_mantenimiento: $scope.tipoMantenimiento,
-                embarcacion: $scope.embarcacion,
-                detalle_mantenimiento: $scope.detalleMantenimiento,
-                fecha_matenimiento: $scope.fechaMantenimiento,
-                mecanico: $scope.mecanico
-            };
+            var det = {
+                orometro: $scope.orometro,
+                proximo_orometro: $scope.proximoOrometro,
+                piezas_cambiadas_observaciones: $scope.piezasCambiadasObservaciones
+            }
 
-            if (validarCamposVacios(obj)) {
-                $http.post($scope.urlModificar, obj)
-                    .then(function (response) {
+            if (validarCamposVaciosDetalle(det)) {
 
-                        $scope.iniciar();
-                        $.notify("Modificacion Exitosa", "success");
+                $scope.modificarDetalleMantenimiento();
 
-                    }, function errorCallback(response) {
+                var obj = {
+                    id: $scope.id,
+                    tipo_mantenimiento: $scope.tipoMantenimiento,
+                    embarcacion: $scope.embarcacion,
+                    detalle_mantenimiento: $scope.detalleMantenimiento,
+                    fecha_matenimiento: $scope.fechaMantenimiento,
+                    mecanico: $scope.mecanico
+                };
 
-                        $.notify("Error!", "error");
-                    });
-            } else {
-                $.notify("Revise el Campo Fecha o Mecanico", "info");
+                if (validarCamposVacios(obj)) {
+                    $http.post($scope.urlModificar, obj)
+                        .then(function (response) {
+
+                            if (response.data == "true") {
+
+                                $scope.iniciar();
+
+                                swal({
+                                    title: "Modificaci\u00F3n Exitosa!",
+                                    type: "success",
+                                    timer: 1500,
+                                    showConfirmButton: false
+                                });
+
+                            } else
+                                $(document.getElementById("lista")).notify("ERROR!", { position: "right" });
+
+                        }, function errorCallback(response) {
+
+                            $.notify("Error!", "error");
+                        });
+                }
             }
         } else
-            $.notify("Seleccione un Mantenimiento", "info");
+            $(document.getElementById("lista")).notify("Seleccione un Registro", { position: "left middle" });
     }
 
     $scope.buscarSeleccionMantenimiento = function () {
@@ -313,10 +346,105 @@ app.controller('ControllerMantenimiento', ['$scope', '$http', 'myProvider', "$ti
 
 }]);
 
+// SOLO LETRAS
+function soloLetras(e, id) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz'\u00E1''\u00E9''\u00ED''\u00F3''\u00FA''\u00F1''\u00C1''\u00C9''\u00CD''\u00D3''\u00DA''\u00D1'";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo Letras", { position: "right" });
+        return false;
+    }
+}
+
+// SOLO FORMATO DE FECHA
+function validarFecha(e, id) {
+
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = "/0123456789";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Formato: 01/12/2017", { position: "right" });
+        return false;
+    }
+
+}
+
+// SOLO SE INGRESAN NUMEROS
+function soloNumeros(e, id) {
+
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = "0123456789";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo Numeros", { position: "right" });
+        return false;
+    }
+
+}
+
+// PERMITE INGRESAR NUMEROS, LETRAS /-(),.
+function numerosLetras(e, id) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = " (),/.-0123456789áéíóúabcdefghijklmnñopqrstuvwxyz'\u00E1''\u00E9''\u00ED''\u00F3''\u00FA''\u00F1''\u00C1''\u00C9''\u00CD''\u00D3''\u00DA''\u00D1'";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo N\u00FAmeros, Letras, /.,-()", { position: "right" });
+        return false;
+    }
+}
 
 function validarCamposVacios(obj) {
     if (obj.tipo_mantenimiento == "" || obj.embarcacion == "" || obj.detalle_mantenimiento == "" ||
         obj.fecha_matenimiento == "" || obj.mecanico == "") {
+
+        if (obj.mecanico == "") {
+            $(document.getElementById("nombre")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.fecha_matenimiento == "") {
+            $(document.getElementById("fecha")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+
         return false;
     } else {
         return true;
@@ -324,7 +452,18 @@ function validarCamposVacios(obj) {
 }
 
 function validarCamposVaciosDetalle(obj) {
-    if (obj.orometro == "" || obj.proximo_orometro == "" || obj.piezas_cambiadas_observaciones == "") {
+    if (obj.orometro == "" || obj.proximo_orometro == "" || obj.piezas_cambiadas_observaciones == "" ||
+        obj.orometro == null || obj.proximo_orometro == null || obj.piezas_cambiadas_observaciones == null) {
+        if (obj.orometro == "" || obj.orometro == null) {
+            $(document.getElementById("orom")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.proximo_orometro == "" || obj.proximo_orometro == null) {
+            $(document.getElementById("porom")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.piezas_cambiadas_observaciones == "" || obj.piezas_cambiadas_observaciones == null) {
+            $(document.getElementById("descrip")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+
         return false;
     } else {
         return true;

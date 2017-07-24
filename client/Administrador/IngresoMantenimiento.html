@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -140,7 +140,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-group date juan-date">
-                                        <input type="text" ng-model="fechaMantenimiento" placeholder="Fecha Mantenimiento" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                        <input type="text" id="fecha" onkeypress="return validarFecha(event,'fecha')" placeholder="01/12/2017" ng-model="fechaMantenimiento" placeholder="Fecha Mantenimiento" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                     </div>
                                     <script type="text/javascript">
                                         $('.juan-date').datepicker({
@@ -161,7 +161,7 @@
                                     <h4>Mecánico: </h4>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" ng-model="mecanico" placeholder="Nombre mecánico" class="form-control" />
+                                    <input type="text" id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="mecanico" placeholder="Nombre mecánico" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -191,7 +191,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="col-md-10">
-                                            <input type="number" ng-model="orometro" placeholder="0" min="0" class="form-control" />
+                                            <input type="number" id="orom" onkeypress="return soloNumeros(event,'orom')" ng-model="orometro" placeholder="0" min="0" class="form-control" />
                                         </div>
                                     </div>
 
@@ -200,7 +200,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="col-md-10">
-                                            <input type="number" ng-model="proximoOrometro" placeholder="0" min="0" class="form-control" />
+                                            <input type="number" id="porom" onkeypress="return soloNumeros(event,'porom')" ng-model="proximoOrometro" placeholder="0" min="0" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -212,7 +212,7 @@
                                         <h4>Observacion: </h4>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" ng-model="piezasCambiadasObservaciones" placeholder="Describir los cambios realizados" class="form-control" />
+                                        <input type="text" id="descrip" onkeypress="return numerosLetras(event,'descrip')" ng-model="piezasCambiadasObservaciones" placeholder="Describir los cambios realizados" class="form-control" />
                                     </div>
                                 </div>
                             </div>

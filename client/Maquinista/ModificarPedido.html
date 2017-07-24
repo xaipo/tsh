@@ -6,6 +6,7 @@
     <title>Inicio</title>
     <link type="text/css" href="../bootstrap/dist/css/bootstrap.css" id="pagesheet" rel="stylesheet" media="screen" />
     <link type="text/css" href="../css/OverrideComponents.css" id="pagesheet2" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../alertas/sweetalert.css">
 
     <!-----angular-->
 
@@ -104,7 +105,7 @@
                                         </div>
 
                                         <div class="col-md-12">
-                                            <select name="Clientes" ng-model="seleccionPedido" multiple class="form-control" style="height: 75px;" ng-click="buscarSeleccionListaPedido()">
+                                            <select name="Clientes" id="mensaje" ng-model="seleccionPedido" multiple class="form-control" style="height: 75px;" ng-click="buscarSeleccionListaPedido()">
                                                 <option value={{aux}}
                                                         ng-repeat="aux in listaPedidos | filter:busqueda| orderBy:aux._id">
                                                     {{aux._id}}
@@ -155,13 +156,17 @@
 
                         </div>
                         <div class="col-md-5">
+
                             <div class="row">
                                 <div class="col-md-10">
                                     <h3>Alimentos: </h3>
                                 </div>
                             </div>
-
-                            <div class="col-md-6">
+                            <div class="col-md-2">
+                                
+                            </div>
+                            <div class="col-md-6">     
+                                <p>Lista de Alimentos:</p>
                                 <select ng-model="seleccionAlimento" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosSeleccionAlimentos()" disabled>
                                     <option value={{aux}}
                                             ng-repeat="aux in listaAlimentos | orderBy:aux.tipo_alimento">
@@ -180,6 +185,7 @@
                             </div>
 
                             <div class="col-md-6">
+                                <p>Nueva:</p>
                                 <select ng-model="seleccionMaterial" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosSeleccionMaterial()">
                                     <option value={{aux}}
                                             ng-repeat="aux in listaMaterialesSeleccionadosNueva">
@@ -189,6 +195,7 @@
                             </div>
 
                             <div class="col-md-6">
+                                <p>Anterior:</p>
                                 <select ng-model="seleccionMaterial" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosSeleccionMaterial()">
                                     <option value={{aux}}
                                             ng-repeat="aux in listaMaterialesSeleccionados">
@@ -200,11 +207,12 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="row">
+                                        <br />
                                         <div class="col-md-1">
 
                                         </div>
                                         <div class="col-md-4">
-                                            <h4>Utensilio: </h4>
+                                            <h4>Material: </h4>
                                         </div>
                                         <div class="col-md-6">
                                             <select class="form-control" ng-model="material" ng-options="item._id as item.descripcion_material for item in listaMateriales"></select>
@@ -218,7 +226,7 @@
                                             <h4>Cantidad Utensilio: </h4>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="number" ng-model="cantidadMaterial" min="0" placeholder="0" class="form-control" />
+                                            <input type="number" id="numero" onkeypress="return soloNumeros(event,'numero')" ng-model="cantidadMaterial" min="0" placeholder="0" class="form-control" />
                                         </div>
                                     </div>
 
@@ -247,19 +255,19 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-1">
                         <div class="row">
 
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-10">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <h4>Observaciones: </h4>
                             </div>
-                            <div class="col-md-7">
-                                <input type="text" ng-model="observaciones" style="height: 50px;" class="form-control" />
+                            <div class="col-md-9">
+                                <input type="text" id="letras" onkeypress="return numerosLetras(event,'letras')" ng-model="observaciones" style="height: 50px;" class="form-control" />
                                 <br />
                             </div>
                         </div>

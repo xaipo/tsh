@@ -26,11 +26,12 @@ router.post('/saveUsuario', function (req, res) {
         assert.equal(null, err);
 
         var collection = db.collection('users');
-        collection.insert(newUser, {
-
+        collection.insert(req.body, function (err, result) {
+            if (err) {
+                res.send("false");
+            } else
+                res.send("true");
         });
-
-        res.send('Info ingresada');
 
         db.close();
 
@@ -63,10 +64,10 @@ router.post('/updateUsuarioPassword', function (req, res) {
 
         var id = req.body.id;
         db.collection('users').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
-            assert.equal(null, err);
-            console.log('Item updated');
-
-            res.send(result);
+            if (err) {
+                res.send("false");
+            } else
+                res.send(true);
         });
 
         db.close();
@@ -91,10 +92,10 @@ router.post('/updateUsuario', function (req, res) {
 
         var id = req.body.id;
         db.collection('users').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
-            assert.equal(null, err);
-            console.log('Item updated');
-
-            res.send(result);
+            if (err) {
+                res.send("false");
+            } else
+                res.send(true);
         });
 
         db.close();

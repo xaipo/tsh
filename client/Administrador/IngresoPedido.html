@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -138,7 +138,7 @@
 
                                     </div>
                                     <div class="col-md-4">
-                                        <h4>Nombre: </h4>
+                                        <h4>Alimento: </h4>
                                     </div>
                                     <div class="col-md-6">
                                         <select class="form-control" ng-model="alimento" ng-options="item._id as item.descripcion_tipo_alimento for item in listaTipoAlimentos"></select>
@@ -152,7 +152,7 @@
                                         <h4>Cantidad: </h4>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="number" ng-model="cantidadAlimento" min="0" placeholder="0" class="form-control" />
+                                        <input type="number" id="cant" onkeypress="return soloNumeros(event,'cant')" ng-model="cantidadAlimento" min="0" placeholder="0" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -163,7 +163,7 @@
                                         <h4>Unidades: </h4>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" ng-model="unidades" placeholder="Libras" class="form-control" />
+                                        <input type="text" id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="unidades" placeholder="Libras" class="form-control" />
                                     </div>
 
                                 </div>
@@ -186,7 +186,8 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12" id="listali">
+                            <p>Lista de Alimentos:</p>
                             <select name="Puertos" ng-model="seleccionAlimento" multiple class="form-control" style="height: 150px;" ng-click="cargarSeleccionListaAlimentos()">
                                 <option value={{aux}}
                                         ng-repeat="aux in listaAlimentos | orderBy:aux.nombre_alimento">
@@ -224,7 +225,7 @@
                                         <h4>Cantidad: </h4>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="number" ng-model="cantidadMaterial" min="0" placeholder="0" class="form-control" />
+                                        <input type="number" id="numero" onkeypress="return soloNumeros(event,'numero')" ng-model="cantidadMaterial" min="0" placeholder="0" class="form-control" />
                                     </div>
                                 </div>
                                 <br />
@@ -247,7 +248,8 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12" id="listmat">
+                            <p>Lista de Materiales:</p>
                             <select name="Puertos" ng-model="seleccionMaterial" multiple class="form-control" style="height: 150px;" ng-click="cargarSeleccionListaMateriales()">
                                 <option value={{aux}}
                                         ng-repeat="aux in listaMaterialSelect">
@@ -280,7 +282,7 @@
                                 <h4>Observaciones: </h4>
                             </div>
                             <div class="col-md-9">
-                                <input type="text" ng-model="observaciones" placeholder="Describa el pedido" style="height: 50px;" class="form-control" />
+                                <input type="text" id="letras" onkeypress="return numerosLetras(event,'letras')" ng-model="observaciones" placeholder="Describa el pedido" style="height: 50px;" class="form-control" />
                                 <br />
                             </div>
                         </div>

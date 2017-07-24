@@ -14,11 +14,12 @@ router.post('/saveTipoUsuario',function(req,res){
 
         console.log(req.body);
         var collection =db.collection('tipo_usuario');
-        collection.insert(req.body, {
-
-        } );
-
-        res.send('Info ingresada');
+        collection.insert(req.body, function (err, result) {
+            if (err) {
+                res.send("false");
+            } else
+                res.send("true");
+        });
 
         db.close();
 
@@ -41,10 +42,10 @@ router.post('/updateTipoUsuario', function (req, res) {
 
         var id = req.body.id;
         db.collection('tipo_usuario').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
-            assert.equal(null, err);
-            console.log('Item updated');
-
-            res.send(result);
+            if (err) {
+                res.send("false");
+            } else
+                res.send("true");
         });
 
         db.close();

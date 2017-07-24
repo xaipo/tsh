@@ -77,7 +77,7 @@
         </div>
         <div class="col-md-10">
             <div class="panel panel-default">
-                <div class="panel-heading"><center><h3 class="panel-title">MODIFICAR MANTENIMIENTO</h3></center></div>
+                <div class="panel-heading"><center><h3 class="panel-title">MANTENIMIENTO</h3></center></div>
                 <div class="panel-body">
 
                     <div class="row">
@@ -160,7 +160,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="input-group date juan-date">
-                                            <input type="text" ng-model="fechaMantenimiento" placeholder="Fecha Entrega" class="form-control"  disabled><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            <input type="text" id="fecha" onkeypress="return validarFecha(event,'fecha')" ng-model="fechaMantenimiento" placeholder="Fecha Entrega" class="form-control"  disabled><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                         </div>
                                         <script type="text/javascript">
                                             $('.juan-date').datepicker({
@@ -181,7 +181,7 @@
                                         <h4>Nombre mecánico: </h4>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" ng-model="mecanico" placeholder="Nombre mecánico" class="form-control"  disabled/>
+                                        <input type="text" id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="mecanico" placeholder="Nombre mecánico" class="form-control"  disabled/>
                                     </div>
                                 </div>
                             </div>
@@ -212,7 +212,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="col-md-10">
-                                            <input type="number" ng-model="orometro" placeholder="0" min="0" class="form-control" disabled />
+                                            <input type="number" id="orom" onkeypress="return soloNumeros(event,'orom')" ng-model="orometro" placeholder="0" min="0" class="form-control" disabled />
                                         </div>
                                     </div>
 
@@ -221,7 +221,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="col-md-10">
-                                            <input type="number" ng-model="proximoOrometro" placeholder="0" min="0" class="form-control" disabled />
+                                            <input type="number" id="porom" onkeypress="return soloNumeros(event,'porom')" ng-model="proximoOrometro" placeholder="0" min="0" class="form-control" disabled />
                                         </div>
                                     </div>
                                 </div>
@@ -233,7 +233,7 @@
                                         <h4>Observacion: </h4>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" ng-model="piezasCambiadasObservaciones" placeholder="Describir los cambios realizados" class="form-control" disabled />
+                                        <input type="text" id="descrip" onkeypress="return numerosLetras(event,'descrip')" ng-model="piezasCambiadasObservaciones" placeholder="Describir los cambios realizados" class="form-control" disabled />
                                     </div>
                                 </div>
                             </div>

@@ -109,7 +109,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="panel panel-default">
-                                <div class="panel-heading"><center><h3 class="panel-title">Lista de Ordenes</h3></center></div>
+                                <div class="panel-heading"><center><h3 class="panel-title">Lista de Mantenimientos</h3></center></div>
                                 <div class="panel-body">
                                     <div class="row">
 
@@ -130,7 +130,7 @@
                                         </div>
 
                                         <div class="col-md-12">
-                                            <select name="Clientes" ng-model="seleccionMantenimiento" multiple class="form-control" style="height: 75px;" ng-click="buscarSeleccionMantenimiento()">
+                                            <select name="Clientes" id="lista" ng-model="seleccionMantenimiento" multiple class="form-control" style="height: 75px;" ng-click="buscarSeleccionMantenimiento()">
                                                 <option value={{aux}}
                                                         ng-repeat="aux in listaMantenimiento | filter:busqueda">
                                                     {{aux.embarcacion.nombre_embarcacion}}{{"--"}}{{aux.tipo_mantenimiento.descripcion_tipo_mantenimiento}}
@@ -183,7 +183,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="input-group date juan-date">
-                                            <input type="text" ng-model="fechaMantenimiento" placeholder="Fecha Mantenimiento" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            <input type="text" id="fecha" onkeypress="return validarFecha(event,'fecha')" placeholder="01/12/2017" ng-model="fechaMantenimiento" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                         </div>
                                         <script type="text/javascript">
                                             $('.juan-date').datepicker({
@@ -204,7 +204,7 @@
                                         <h4>Nombre mecánico: </h4>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" ng-model="mecanico" placeholder="Nombre mecánico" class="form-control" />
+                                        <input type="text" id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="mecanico" placeholder="Nombre mecánico" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -235,7 +235,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="col-md-10">
-                                            <input type="number" ng-model="orometro" placeholder="0" min="0" class="form-control" />
+                                            <input type="number" id="orom" onkeypress="return soloNumeros(event,'orom')" ng-model="orometro" placeholder="0" min="0" class="form-control" />
                                         </div>
                                     </div>
 
@@ -244,7 +244,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="col-md-10">
-                                            <input type="number" ng-model="proximoOrometro" placeholder="0" min="0" class="form-control" />
+                                            <input type="number" id="porom" onkeypress="return soloNumeros(event,'porom')" ng-model="proximoOrometro" placeholder="0" min="0" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -256,7 +256,7 @@
                                         <h4>Observacion: </h4>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" ng-model="piezasCambiadasObservaciones" placeholder="Describir los cambios realizados" class="form-control" />
+                                        <input type="text" id="descrip" onkeypress="return numerosLetras(event,'descrip')" ng-model="piezasCambiadasObservaciones" placeholder="Describir los cambios realizados" class="form-control" />
                                     </div>
                                 </div>
                             </div>

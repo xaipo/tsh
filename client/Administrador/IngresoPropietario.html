@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -128,7 +128,7 @@
                                             return patron.test(tecla_final);
                                         }
                                     </script>
-                                    <input type="text" onkeypress="return valida(event)" placeholder="1234567890" maxlength="10" ng-model="cedulaPropietario" class="form-control" />
+                                    <input type="text" id="ruc" onkeypress="return soloNumeros(event,'ruc')"  placeholder="1234567890" maxlength="10" ng-model="cedulaPropietario" class="form-control" />
                                 </div>
                             </div>
 
@@ -140,7 +140,7 @@
                                     <h4>Nombre: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text" ng-model="nombrePropietario" placeholder="Apellidos Nombres" class="form-control" />
+                                    <input type="text"  id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="nombrePropietario" placeholder="Apellidos Nombres" class="form-control" />
                                 </div>
                             </div>
 
@@ -152,7 +152,7 @@
                                     <h4>Teléfono: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text" onkeypress="return valida(event)" placeholder="032123456" maxlength="9" ng-model="telefonoPropietario" class="form-control" />
+                                    <input type="text"  id="tlf" onkeypress="return soloNumeros(event,'tlf')" placeholder="032123456" maxlength="9" ng-model="telefonoPropietario" class="form-control" />
                                 </div>
                             </div>
                             <div class="row">
@@ -163,7 +163,7 @@
                                     <h4>Celular: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text" ng-model="celularPropietario" onkeypress="return valida(event)" placeholder="0990123456" maxlength="10" class="form-control" />
+                                    <input type="text" id="cell" onkeypress="return soloNumeros(event,'cell')"  ng-model="celularPropietario" onkeypress="return valida(event)" placeholder="0990123456" maxlength="10" class="form-control" />
                                 </div>
                             </div>
                             <div class="row">
@@ -174,7 +174,7 @@
                                     <h4>Correo: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="email" ng-model="correoPropietario" placeholder="email@example.com" class="form-control" />
+                                    <input type="email" id="correo" ng-model="correoPropietario" placeholder="email@example.com" class="form-control" />
                                 </div>
                             </div>
                             <div class="row">
@@ -209,7 +209,7 @@
             </div>
 
             <div class="col-md-6">
-                <div class="panel panel-default">
+                <div class="panel panel-default" id="lista">
                     <div class="panel-heading"><center><h3 class="panel-title">Lista de Propietario</h3></center></div>
                     <div class="panel-body">
                         <div class="row">

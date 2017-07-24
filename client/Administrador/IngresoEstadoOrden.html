@@ -93,8 +93,7 @@
     <!-- final menu-->
 
     <div class="jumbotron">
-        <br>
-        <br>
+        
         <div class="row">
             <div class="col-md-1">
 
@@ -119,7 +118,7 @@
                                 <h4>Nombre Puerto: </h4>
                             </div>
                             <div class="col-md-7">
-                                <input type="text" ng-model="descripcionEstado" class="form-control" placeholder="Nombre Estado" />
+                                <input type="text" id="nombre" onkeypress="return soloNumeros(event,'nombre')" ng-model="descripcionEstado" class="form-control" placeholder="Nombre Estado" />
                             </div>
                         </div>
                         <div class="row">
@@ -149,7 +148,7 @@
             </div>
 
             <div class="col-md-6">
-                <div class="panel panel-default">
+                <div class="panel panel-default" id="lista">
                     <div class="panel-heading"><center><h3 class="panel-title">Lista de Estados Orden Servicio</h3></center></div>
                     <div class="panel-body">
                         <div class="row">

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -100,7 +100,7 @@
 
             </div>
             <div class="col-md-4">
-                <div class="panel panel-default">
+                <div class="panel panel-default" id="mensaje">
                     <div class="panel-heading"><center><h3 class="panel-title">Tripulante</h3></center></div>
                     <div class="panel-body">
                         <div class="row">
@@ -127,7 +127,7 @@
                                             return patron.test(tecla_final);
                                         }
                                     </script>
-                                    <input type="text" ng-model="cedulaTripulante" onkeypress="return valida(event)" placeholder="1234567890" maxlength="10" class="form-control" />
+                                    <input type="text" id="ruc" onkeypress="return soloNumeros(event,'ruc')" ng-model="cedulaTripulante" onkeypress="return valida(event)" placeholder="1234567890" maxlength="10" class="form-control" />
                                 </div>
                             </div>
 
@@ -139,7 +139,7 @@
                                     <h4>Nombre: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text" ng-model="nombreTripulante" placeholder="Apellidos Nombres" class="form-control" />
+                                    <input type="text"  id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="nombreTripulante" placeholder="Apellidos Nombres" class="form-control" />
                                 </div>
                             </div>
 
@@ -151,7 +151,7 @@
                                     <h4>Telefono: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text" ng-model="telefonoTripulante" onkeypress="return valida(event)" placeholder="0990123456" maxlength="10" class="form-control" />
+                                    <input type="text" id="telefono" onkeypress="return soloNumeros(event,'telefono')" ng-model="telefonoTripulante" onkeypress="return valida(event)" placeholder="0990123456" maxlength="10" class="form-control" />
                                 </div>
                             </div>
 
@@ -201,7 +201,7 @@
             </div>
 
             <div class="col-md-6">
-                <div class="panel panel-default">
+                <div class="panel panel-default" id="lista">
                     <div class="panel-heading"><center><h3 class="panel-title">Lista Tripulante</h3></center></div>
                     <div class="panel-body">
                         <div class="row">

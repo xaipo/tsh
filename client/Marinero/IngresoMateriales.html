@@ -84,7 +84,7 @@
                                 <h4>Material: </h4>
                             </div>
                             <div class="col-md-7">
-                                <input type="text" ng-model="descripcionMaterial" placeholder="Nombre Material" class="form-control" />
+                                <input type="text" id="nombre" onkeypress="return numerosLetras(event,'nombre')" ng-model="descripcionMaterial" placeholder="Nombre Material" class="form-control" />
                             </div>
                         </div>
                         <div class="row">
@@ -92,7 +92,7 @@
                                 <h4>Stock: </h4>
                             </div>
                             <div class="col-md-7">
-                                <input type="number" ng-model="stock" min="0" max="500" class="form-control" />
+                                <input type="number" id="numero" onkeypress="return soloNumeros(event,'numero')" ng-model="stock" min="0" max="500" class="form-control" />
                             </div>
                         </div>
                         <div class="row">
@@ -139,18 +139,37 @@
 
                         <br>
                         <div class="row">
-                            <div class="col-md-12">
+                            <center>
+                                <div class="col-md-12 col-xs-12">
 
-                            </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr class="success">
+                                                    <th>#</th>
+                                                    <th>Descripción</th>
+                                                    <th>Stock</th>
+                                                    <th>Estado</th>
+                                                </tr>
 
-                            <div class="col-md-12">
-                                <select name="Puertos" ng-model="seleccionMaterial" multiple class="form-control" style="height: 150px;" ng-click="buscarSeleccionMaterial()">
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaMaterial | filter:busqueda| orderBy:aux.descripcion_material">
-                                        {{aux.descripcion_material}}
-                                    </option>
-                                </select>
-                            </div>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr dir-paginate="item in listaMaterial| filter:busqueda| itemsPerPage:4 track by $index"
+                                                    ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="material">
+
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{ item.descripcion_material}}</td>
+                                                    <td>{{ item.stock}}</td>
+                                                    <td>{{ item.estado.estado}}</td>
+
+                                                </tr>
+                                                <dir-pagination-controls pagination-id="material"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </center>
                         </div>
                     </div>
                 </div>

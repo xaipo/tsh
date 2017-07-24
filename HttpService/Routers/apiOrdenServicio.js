@@ -14,11 +14,12 @@ router.post('/saveOrdenServicio', function (req, res) {
 
         console.log(req.body);
         var collection = db.collection('orden_servicio');
-        collection.insert(req.body, {
-
+        collection.insert(req.body, function (err, result) {
+            if (err) {
+                res.send("false");
+            } else
+                res.send("true");
         });
-
-        res.send('Info ingresada');
 
         db.close();
 
@@ -61,10 +62,10 @@ router.post('/updateOrdenServicio', function (req, res) {
 
         var id = req.body.id;
         db.collection('orden_servicio').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
-            assert.equal(null, err);
-            console.log('Item updated');
-
-            res.send(result);
+            if (err) {
+                res.send("false");
+            } else
+                res.send("true");
         });
 
         db.close();

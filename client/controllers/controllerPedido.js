@@ -175,8 +175,16 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
                 $http.post($scope.url, obj)
                     .then(function successCallback(response) {
 
-                        $scope.iniciar();
-                        $.notify("Ingreso Correcto", "success");
+                        if (response.data == "true") {
+
+                            $scope.iniciar();
+                            swal({
+                                title: "Ingreso Exitoso!",
+                                type: "success",
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                        }
 
                     }, function errorCallback(response) {
 
@@ -184,8 +192,6 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
                     }));
 
             return q.promise
-        } else {
-            $.notify("Revise los Campos", "info");
         }
     }
 
@@ -353,7 +359,7 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
             var n = $scope.listaAlimentos.length;
 
             for (var i = 0; i < n; i++) {
-                console.log("hola");
+                
                 if ($scope.listaAlimentos[i].id == $scope.seleccionAlimentoJS.id) {
 
                     var n1 = $scope.listaTipoAlimentos.length;
@@ -411,8 +417,85 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
 
 }]);
 
+// SOLO LETRAS
+function soloLetras(e, id) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz'\u00E1''\u00E9''\u00ED''\u00F3''\u00FA''\u00F1''\u00C1''\u00C9''\u00CD''\u00D3''\u00DA''\u00D1'";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo Letras", { position: "right" });
+        return false;
+    }
+}
+
+// SOLO SE INGRESAN NUMEROS
+function soloNumeros(e, id) {
+
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = "0123456789";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo Numeros", { position: "right" });
+        return false;
+    }
+
+}
+
+// PERMITE INGRESAR NUMEROS, LETRAS /-(),.
+function numerosLetras(e, id) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = " (),/.-0123456789áéíóúabcdefghijklmnñopqrstuvwxyz'\u00E1''\u00E9''\u00ED''\u00F3''\u00FA''\u00F1''\u00C1''\u00C9''\u00CD''\u00D3''\u00DA''\u00D1'";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo N\u00FAmeros, Letras, /.,-()", { position: "right" });
+        return false;
+    }
+}
+
 function validarCamposVacios(obj) {
-    if (obj.alimentos == "") {
+    
+    if (obj.observaciones == "" || obj.alimentos == "" || obj.materiales == "" ||
+        obj.observaciones == null || obj.alimentos == null || obj.materiales == null) {
+
+        if (obj.materiales == "" || obj.materiales == null) {
+            $(document.getElementById("listmat")).notify("Lista Vac\u00EDa", { position: "right" });
+        }
+        if (obj.alimentos == "" || obj.alimentos == null) {
+            $(document.getElementById("listali")).notify("Lista Vac\u00EDa", { position: "right" });
+        }
+        if (obj.observaciones == "" || obj.observaciones == null) {
+            $(document.getElementById("letras")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
         return false;
     } else {
         return true;

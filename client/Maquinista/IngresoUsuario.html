@@ -58,7 +58,7 @@
                         <li><a href="#" ng-click="logout()"><span class="glyphicon glyphicon-log-out" style="color: white"></span> LogOut</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-info-sign" style="color: white"></span> {{tipoUsuario.descripcion_tipo_usuario}} </a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-info-sign" style="color: white"></span> {{tipoUsuarioLogin.descripcion_tipo_usuario}} </a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#"><span class="glyphicon glyphicon-user" style="color: white"></span> {{usuario.username}}</a></li>
@@ -89,9 +89,21 @@
                                     <h4>Usuario: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text" ng-model="nombreUsuario" placeholder="Nombre de Usuario" class="form-control" disabled />
+                                    <input type="text" id="userName" ng-model="nombreUsuario" placeholder="Nombre de Usuario" class="form-control" disabled />
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <h4>Contraseña: </h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="password" id="psswd" ng-model="contrasenaUsuario" placeholder="Password" class="form-control" />
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <div class="col-md-1">
 
@@ -115,7 +127,7 @@
                                             return patron.test(tecla_final);
                                         }
                                     </script>
-                                    <input type="text" disabled ng-model="cedulaUsuario" onkeypress="return valida(event)" placeholder="1234567890" maxlength="10" class="form-control" />
+                                    <input type="text" id="ruc" onkeypress="return soloNumeros(event,'ruc')" ng-model="cedulaUsuario" onkeypress="return valida(event)" placeholder="1234567890" maxlength="10" class="form-control" />
                                 </div>
                             </div>
                             <div class="row">
@@ -123,10 +135,10 @@
 
                                 </div>
                                 <div class="col-md-3">
-                                    <h4>Contraseña: </h4>
+                                    <h4>Nombres: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="password" ng-model="contrasenaUsuario" placeholder="Password" class="form-control" />
+                                    <input type="text" id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="nombresCompletos" placeholder="Nombres Completos" class="form-control" />
                                 </div>
                             </div>
                             <div class="row">
@@ -137,7 +149,7 @@
                                     <h4>Telefono: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text" ng-model="telefonoUsuario" onkeypress="return valida(event)" placeholder="032123456" maxlength="10" class="form-control" />
+                                    <input type="text" id="telefono" onkeypress="return soloNumeros(event,'telefono')" ng-model="telefonoUsuario" onkeypress="return valida(event)" placeholder="032123456" maxlength="10" class="form-control" />
                                 </div>
                             </div>
                             <div class="row">
@@ -148,7 +160,7 @@
                                     <h4>Correo: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="email" ng-model="correoUsuario" placeholder="email@example.com" class="form-control" />
+                                    <input type="email" id="correo" ng-model="correoUsuario" placeholder="email@example.com" class="form-control" />
                                 </div>
                             </div>
                             <div class="row">

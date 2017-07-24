@@ -14,11 +14,12 @@ router.post('/savePedido', function (req, res) {
 
         console.log(req.body);
         var collection = db.collection('pedido');
-        collection.insert(req.body, {
-
+        collection.insert(req.body, function (err, result) {
+            if (err) {
+                res.send("false");
+            } else
+                res.send("true");
         });
-
-        res.send('Info ingresada');
 
         db.close();
 
@@ -38,13 +39,13 @@ router.post('/updatePedido', function (req, res) {
             observaciones: req.body.observaciones,
             materiales: req.body.materiales
         };
-        
+
         var id = req.body.id;
         db.collection('pedido').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
-            assert.equal(null, err);
-            console.log('Item updated');
-
-            res.send(result);
+            if (err) {
+                res.send("false");
+            } else
+                res.send("true");
         });
 
         db.close();

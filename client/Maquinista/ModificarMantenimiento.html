@@ -85,8 +85,8 @@
 
                         </div>
                         <div class="col-md-4">
-                            <div class="panel panel-default">
-                                <div class="panel-heading"><center><h3 class="panel-title">Lista de Ordenes</h3></center></div>
+                            <div class="panel panel-default" >
+                                <div class="panel-heading"><center><h3 class="panel-title">Lista de Mantenimientos</h3></center></div>
                                 <div class="panel-body">
                                     <div class="row">
 
@@ -107,7 +107,7 @@
                                         </div>
 
                                         <div class="col-md-12">
-                                            <select name="Clientes" ng-model="seleccionMantenimiento" multiple class="form-control" style="height: 75px;" ng-click="buscarSeleccionMantenimiento()">
+                                            <select name="Clientes" id="lista" ng-model="seleccionMantenimiento" multiple class="form-control" style="height: 75px;" ng-click="buscarSeleccionMantenimiento()">
                                                 <option value={{aux}}
                                                         ng-repeat="aux in listaMantenimiento | filter:busqueda">
                                                     {{aux.embarcacion.nombre_embarcacion}}{{"--"}}{{aux.tipo_mantenimiento.descripcion_tipo_mantenimiento}}
@@ -141,7 +141,7 @@
 
                                     </div>
                                     <div class="col-md-3">
-                                        <h4>Embarcacion: </h4>
+                                        <h4>Embarcación: </h4>
                                     </div>
                                     <div class="col-md-4">
                                         <select class="form-control" ng-model="embarcacion" ng-options="item._id as item.nombre_embarcacion for item in listaEmbarcacion"></select>
@@ -156,11 +156,11 @@
 
                                     </div>
                                     <div class="col-md-3">
-                                        <h4>Fecha mantenimiento: </h4>
+                                        <h4>Fecha Mantenimiento: </h4>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="input-group date juan-date">
-                                            <input type="text" ng-model="fechaMantenimiento" placeholder="Fecha Entrega" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            <input type="text" id="fecha" onkeypress="return validarFecha(event,'fecha')" ng-model="fechaMantenimiento" placeholder="01/12/2017" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                         </div>
                                         <script type="text/javascript">
                                             $('.juan-date').datepicker({
@@ -178,10 +178,10 @@
 
                                     </div>
                                     <div class="col-md-3">
-                                        <h4>Nombre mecánico: </h4>
+                                        <h4>Nombre Mecánico: </h4>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" ng-model="mecanico" placeholder="Nombre mecánico" class="form-control" />
+                                        <input type="text" id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="mecanico" placeholder="Nombre mecánico" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -208,20 +208,20 @@
 
                                     </div>
                                     <div class="col-md-2">
-                                        <h4>Orometro: </h4>
+                                        <h4>Horómetro: </h4>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="col-md-10">
-                                            <input type="number" ng-model="orometro" placeholder="0" min="0" class="form-control" />
+                                            <input type="number" id="orom" onkeypress="return soloNumeros(event,'orom')" ng-model="orometro" placeholder="0" min="0" class="form-control" />
                                         </div>
                                     </div>
 
                                     <div class="col-md-2">
-                                        <h4>Proximo Orometro: </h4>
+                                        <h4>Proximo Horómetro: </h4>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="col-md-10">
-                                            <input type="number" ng-model="proximoOrometro" placeholder="0" min="0" class="form-control" />
+                                            <input type="number" id="porom" onkeypress="return soloNumeros(event,'porom')" ng-model="proximoOrometro" placeholder="0" min="0" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -230,10 +230,10 @@
 
                                     </div>
                                     <div class="col-md-2">
-                                        <h4>Observacion: </h4>
+                                        <h4>Observación: </h4>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" ng-model="piezasCambiadasObservaciones" placeholder="Describir los cambios realizados" class="form-control" />
+                                        <input type="text" id="descrip" onkeypress="return numerosLetras(event,'descrip')" ng-model="piezasCambiadasObservaciones" placeholder="Describir los cambios realizados" class="form-control" />
                                     </div>
                                 </div>
                             </div>

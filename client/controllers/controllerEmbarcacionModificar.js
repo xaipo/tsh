@@ -247,8 +247,19 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
                 $http.post($scope.urlModificar, obj)
                     .then(function (response) {
 
-                        $scope.iniciar();
-                        $.notify("Modificacion Exitosa", "success");
+                        if (response.data == "true") {
+
+                            $scope.iniciar();
+
+                            swal({
+                                title: "Modificaci\u00F3n Exitosa!",
+                                type: "success",
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+
+                        } else
+                            $(document.getElementById("nombre")).notify("Embacaci\u00F3n ya Existe", { position: "right" });
 
                     }, function errorCallback(response) {
 
@@ -256,11 +267,9 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
 
                     });
 
-            } else {
-                $.notify("Revise los Campos", "info");
             }
         } else
-            $.notify("Seleccione una Embacacion", "info");
+            $(document.getElementById("mensaje")).notify("Seleccione un Registro", { position: "left middle" });
     }
 
     $scope.cargarTripulantes = function () {
@@ -367,10 +376,135 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
 
 }]);
 
+// SOLO LETRAS
+function soloLetras(e, id) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz'\u00E1''\u00E9''\u00ED''\u00F3''\u00FA''\u00F1''\u00C1''\u00C9''\u00CD''\u00D3''\u00DA''\u00D1'";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo Letras", { position: "right" });
+        return false;
+    }
+}
+
+// SOLO FORMATO DE FECHA
+function validarFecha(e, id) {
+
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = "/0123456789";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Formato: 01/12/2017", { position: "right" });
+        return false;
+    }
+
+}
+
+// PERMITE INGRESAR NUMEROS, LETRAS /-(),.
+function numerosLetras(e, id) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = "-0123456789abcdefghijklmnñopqrstuvwxyz";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo N\u00FAmeros, Letras, - ", { position: "right" });
+        return false;
+    }
+}
+
+// SOLO SE INGRESAN NUMEROS
+function soloNumeros(e, id) {
+
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = "0123456789";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo Numeros", { position: "right" });
+        return false;
+    }
+
+}
+
 function validarCamposVacios(obj) {
     if (obj.nombre_embarcacion == "" || obj.num_matricula == "" || obj.eslora_total == "" || obj.manga == "" || obj.puntual == "" ||
         obj.calado == "" || obj.fecha_construccion == "" || obj.propietario == "" || obj.propulsion == "" || obj.tipo_combustible == "" ||
-        obj.tonelaje_bruto == "" || obj.capacidad_carga == "" || obj.tipo_embarcacion == "" || obj.capitan_embarcacion == "" || obj.tripulantes == "") {
+        obj.tonelaje_bruto == "" || obj.capacidad_carga == "" || obj.tipo_embarcacion == "" || obj.capitan_embarcacion == "" || obj.tripulantes == "" ||
+        obj.nombre_embarcacion == null || obj.num_matricula == null || obj.eslora_total == null || obj.manga == null || obj.puntual == null ||
+        obj.calado == null || obj.fecha_construccion == null || obj.propietario == null || obj.propulsion == null || obj.tipo_combustible == null ||
+        obj.tonelaje_bruto == null || obj.capacidad_carga == null || obj.tipo_embarcacion == null || obj.capitan_embarcacion == null || obj.tripulantes == null) {
+
+        if (obj.nombre_embarcacion == "" || obj.nombre_embarcacion == null) {
+            $(document.getElementById("nombre")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.calado == "" || obj.calado == null) {
+            $(document.getElementById("calado")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.num_matricula == "" || obj.num_matricula == null) {
+            $(document.getElementById("mat")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.eslora_total == "" || obj.eslora_total == null) {
+            $(document.getElementById("eslora")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.manga == "" || obj.manga == null) {
+            $(document.getElementById("manga")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.puntual == "" || obj.puntual == null) {
+            $(document.getElementById("puntual")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.fecha_construccion == "" || obj.fecha_construccion == null) {
+            $(document.getElementById("fecha")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.propulsion == "" || obj.propulsion == null) {
+            $(document.getElementById("propulcion")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.tonelaje_bruto == "" || obj.tonelaje_bruto == null) {
+            $(document.getElementById("tonelada")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.capacidad_carga == "" || obj.capacidad_carga == null) {
+            $(document.getElementById("carga")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.tripulantes == "" || obj.tripulantes == null) {
+            $(document.getElementById("tripulante")).notify("Lista Vac\u00EDa", { position: "right" });
+        }
         return false;
     } else {
         return true;

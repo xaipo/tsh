@@ -822,7 +822,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             combustible_transporte: $scope.listaTransporteCombutible,
             observacion_maquinaria: $scope.observacionMaquinista,
             contrato_recepcion: $scope.contratoRecepcion,
-            capitan_embarcacion: $scope.capitan            
+            capitan_embarcacion: $scope.capitan
         }
 
         if (validarCamposVacios(obj)) {
@@ -840,8 +840,19 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
                 }).then(function successCallback(response) {
 
-                    $scope.iniciar();
-                    $.notify("Modificacion Exitosa", "success");
+                    if (response.data == "true") {
+
+                        $scope.iniciar();
+
+                        swal({
+                            title: "Modificaci\u00F3n Exitosa!",
+                            type: "success",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+
+                    } else
+                        $(document.getElementById("mensaje")).notify("ERROR!", { position: "right" });
 
                 }, function errorCallback(response) {
 
@@ -857,9 +868,38 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     }
 
     $scope.modificarOrdenServicio = function () {
-
+        
         if ($scope.seleccionOrdenServicioLista != "") {
-            if ($scope.seleccionCliente != "") {
+            $scope.selecCli = JSON.parse($scope.seleccionCliente);
+            
+            var obj = {
+                cliente: $scope.selecCli._id,
+                detalle: $scope.detalle,
+                embarcacion: $scope.embarcacion,
+                estado: $scope.estado,
+                fecha_emision: $scope.fechaEmision,
+                fecha_entrega: $scope.fechaEntrega,
+                puerto_embarque: $scope.puertoEmbarque,
+                puerto_desembarque: $scope.puertoDesembarque,
+                orometro_inicial_m1: $scope.orometroInicialM1,
+                orometro_inicial_m2: $scope.orometroInicialM2,
+                orometro_final_m1: $scope.orometroFinalM1,
+                orometro_final_m2: $scope.orometroFinalM2,
+                horaSal: $scope.horasSalida,
+                horaArrib: $scope.horasArribo,
+                minSal: $scope.minutosSalida,
+                minArrib: $scope.minutosArribo,
+                carga_material_petreo: $scope.listMatPetreo,
+                carga_vehiculo: $scope.listaVehi,
+                observaciones: $scope.observaciones,
+                combustible_consumo: $scope.listaCombustConsumo,
+                combustible_transporte: $scope.listaCombustTransporte,
+                observacion_maquinaria: $scope.observacionMaquinista,
+                contrato_recepcion: $scope.contratoRecepcion,
+                capitan_embarcacion: $scope.capitan
+            }
+            
+            if (validarCamposVaciosAntes(obj)) {
 
                 if ($scope.horasSalida < 9) {
                     var h = "0" + $scope.horasSalida.toString();
@@ -975,11 +1015,9 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
                     $scope.modificarOrden();
 
                 }, 1500, false)
-            } else {
-                $.notify("Seleccione Cliente", "info");
             }
         } else {
-            $.notify("Seleccionar una Orden", "info");
+            $(document.getElementById("mensaje")).notify("Seleccione un Registro", { position: "left middle" });
         }
     }
 
@@ -1142,7 +1180,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             for (var i = 0; i < n; i++) {
 
                 if ($scope.listaEmbarcacion[i]._id == $scope.embarcacion) {
-                    
+
                     $scope.capitan = $scope.listaEmbarcacion[i].capitan_embarcacion;
                     break;
 
@@ -1658,11 +1696,192 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
 }]);
 
+// SOLO LETRAS
+function soloLetras(e, id) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz'\u00E1''\u00E9''\u00ED''\u00F3''\u00FA''\u00F1''\u00C1''\u00C9''\u00CD''\u00D3''\u00DA''\u00D1'";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo Letras", { position: "right" });
+        return false;
+    }
+}
+
+// PERMITE INGRESAR NUMEROS, LETRAS /-(),.
+function numerosLetras(e, id) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = " (),/.-0123456789áéíóúabcdefghijklmnñopqrstuvwxyz'\u00E1''\u00E9''\u00ED''\u00F3''\u00FA''\u00F1''\u00C1''\u00C9''\u00CD''\u00D3''\u00DA''\u00D1'";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo N\u00FAmeros, Letras, /.,-()", { position: "right" });
+        return false;
+    }
+}
+
+// SOLO SE INGRESAN NUMEROS
+function soloNumerosCant(e, id) {
+
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = ",0123456789";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo Numeros", { position: "right" });
+        return false;
+    }
+
+}
+
+// SOLO SE INGRESAN NUMEROS
+function soloNumeros(e, id) {
+
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = "0123456789";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo Numeros", { position: "right" });
+        return false;
+    }
+
+}
+
+// SOLO FORMATO DE FECHA
+function validarFecha(e, id) {
+
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = "/0123456789";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Formato: 01/12/2017", { position: "right" });
+        return false;
+    }
+
+}
+
+// VALIDAR CAMPOS VACIOS
 function validarCamposVacios(obj) {
-    if (obj.seleccionCliente == "" || obj.detalle == "" || obj.embarcacion == "" || obj.estado == "" || obj.fecha_emision == "" ||
+    if (obj.cliente == "" || obj.embarcacion == "" || obj.estado == "" || obj.fecha_emision == "" ||
         obj.puerto_embarque == "" || obj.puerto_desembarque == "" || obj.orometro_inicial_m1 == "" || obj.orometro_inicial_m2 == "" ||
         obj.orometro_final_m1 == "" || obj.orometro_final_m2 == "" || obj.hora_salida == "" || obj.hora_arribo == "" ||
-        obj.combustible_consumo == "" || obj.contrato_recepcion == "" || obj.capitan_embarcacion == "") {
+        obj.contrato_recepcion == "" || obj.capitan_embarcacion == "") {
+
+        if (obj.cliente == "") {
+            $(document.getElementById("cliente")).notify("Seleccione Cliente", { position: "right" });
+        }
+        if (obj.fecha_emision == "") {
+            $(document.getElementById("fecha")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.orometro_inicial_m1 == "") {
+            $(document.getElementById("oromIni1")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.orometro_inicial_m2 == "") {
+            $(document.getElementById("oroIni2")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.orometro_final_m1 == "") {
+            $(document.getElementById("oromFin1")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.orometro_final_m2 == "") {
+            $(document.getElementById("oromFin2")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+
+        return false;
+    } else {
+        return true;
+    }
+}
+
+// VALIDAR CAMPOS VACIOS Antes 
+function validarCamposVaciosAntes(obj) {
+    
+    if (obj.cliente == "" || obj.embarcacion == "" || obj.estado == "" || obj.fecha_emision == "" ||
+        obj.puerto_embarque == "" || obj.puerto_desembarque == "" || obj.orometro_inicial_m1 == "" || obj.orometro_inicial_m2 == "" ||
+        obj.orometro_final_m1 == "" || obj.orometro_final_m2 == "" || obj.horaSal == "" || obj.minSal == "" || obj.horaArrib == "" ||
+        obj.minArrib == "" || obj.contrato_recepcion == "" || obj.capitan_embarcacion == "" ||
+        obj.cliente == null || obj.embarcacion == null || obj.estado == null || obj.fecha_emision == null ||
+        obj.puerto_embarque == null || obj.puerto_desembarque == null || obj.orometro_inicial_m1 == null || obj.orometro_inicial_m2 == null ||
+        obj.orometro_final_m1 == null || obj.orometro_final_m2 == null || obj.horaSal == null || obj.minSal == null || obj.horaArrib == null ||
+        obj.minArrib == null || obj.contrato_recepcion == null || obj.capitan_embarcacion == null) {
+
+        if (obj.cliente == "" || obj.cliente == undefined || obj.cliente == null) {
+            $(document.getElementById("cliente")).notify("Seleccione Cliente", { position: "right" });
+        }
+        if (obj.fecha_emision == "" || obj.fecha_emision == null) {
+            $(document.getElementById("fecha")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.orometro_inicial_m1 == "" || obj.orometro_inicial_m1 == null) {
+            $(document.getElementById("oromIni1")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.orometro_inicial_m2 == "" || obj.orometro_inicial_m2 == null) {
+            $(document.getElementById("oromIni2")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.orometro_final_m1 == "" || obj.orometro_final_m1 == null) {
+            $(document.getElementById("oromFin1")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.orometro_final_m2 == "" || obj.orometro_final_m2 == null) {
+            $(document.getElementById("oromFin2")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.horaSal == "" || obj.horaSal == null) {
+            $(document.getElementById("horaSal")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.minSal == "" || obj.minSal == null) {
+            $(document.getElementById("minSal")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.horaArrib == "" || obj.horaArrib == null) {
+            $(document.getElementById("horaLleg")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.minArrib == "" || obj.minArrib == null) {
+            $(document.getElementById("minLleg")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+
         return false;
     } else {
         return true;

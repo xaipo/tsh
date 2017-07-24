@@ -15,7 +15,10 @@ router.post('/saveTipoCliente', function (req, res) {
         console.log(req.body);
         var collection = db.collection('tipo_cliente');
         collection.insert(req.body, function (err, result) {
-            res.send(result.ops[0]);
+            if (err) {
+                res.send("false");
+            } else
+                res.send(result.ops[0]);
         });
 
         db.close();

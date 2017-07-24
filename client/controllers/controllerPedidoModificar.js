@@ -32,7 +32,7 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
     //Selecciones
     $scope.seleccionMaterial = "";
     $scope.seleccionAlimento = "";
-    $scope.seleccionPedido="";
+    $scope.seleccionPedido = "";
 
     // Incremento
     $scope.inc = 0;
@@ -52,7 +52,6 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
 
     var aux = localStorage.getItem("id_token");
     if (aux != null) {
-
         $scope.iniciar = function () {
 
             $scope.urlModificar = myProvider.getUrlModificarPedido();
@@ -68,10 +67,10 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
             $scope.urlMaterialesSeleccionadosModificar = myProvider.getUrlModificarMaterialesSeleccionados();
             $scope.urlBuscarMaterialesSeleccionados = myProvider.getUrlBuscarMaterialesSeleccionados();
 
-            $scope.urlAllTipoAlimentos = myProvider.getUrlALLTipoAlimentos();
+            $scope.urlAllTipoAlimentos = myProvider.getUrlALLTipoAlimentosActivos();
             $scope.urlBuscarTipoAlimentos = myProvider.getUrlBuscarTipoAlimentos();
 
-            $scope.urlAllMateriales = myProvider.getUrlAllMateriales();;
+            $scope.urlAllMateriales = myProvider.getUrlAllMaterialesActivos();;
             $scope.urlBuscarMateriales = myProvider.getUrlBuscarMateriales();
 
             $scope.urlBuscarOrdenServicio = myProvider.getUrlBuscarOrdenServicio();
@@ -292,16 +291,24 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
                 $http.post($scope.urlModificar, obj)
                     .then(function successCallback(response) {
 
-                        $scope.iniciar();
-                        $.notify("Modificacion Exitosa", "success");
+                        if (response.data == "true") {
+
+                            $scope.iniciar();
+
+                            swal({
+                                title: "Modificaci\u00F3n Exitosa!",
+                                type: "success",
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+
+                        }
 
                     }, function errorCallback(response) {
                         $.notify("Error!", "error");
                     }));
             return q.promise
-        } else {
-            $.notify("Revise los Campos", "info");
-        }
+        } 
     }
 
     $scope.modificarPedido = function () {
@@ -346,7 +353,7 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
 
             }, 500, false)
         } else {
-            $.notify("Seleccione un Pedido", "info");
+            $(document.getElementById("mensaje")).notify("Seleccione un Registro", { position: "left middle" });
         }
     }
 
@@ -762,9 +769,85 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
 
 }]);
 
+// SOLO LETRAS
+function soloLetras(e, id) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz'\u00E1''\u00E9''\u00ED''\u00F3''\u00FA''\u00F1''\u00C1''\u00C9''\u00CD''\u00D3''\u00DA''\u00D1'";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo Letras", { position: "right" });
+        return false;
+    }
+}
+
+// SOLO SE INGRESAN NUMEROS
+function soloNumeros(e, id) {
+
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = "0123456789";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo Numeros", { position: "right" });
+        return false;
+    }
+
+}
+
+// PERMITE INGRESAR NUMEROS, LETRAS /-(),.
+function numerosLetras(e, id) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = " (),/.-0123456789áéíóúabcdefghijklmnñopqrstuvwxyz'\u00E1''\u00E9''\u00ED''\u00F3''\u00FA''\u00F1''\u00C1''\u00C9''\u00CD''\u00D3''\u00DA''\u00D1'";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo N\u00FAmeros, Letras, /.,-()", { position: "right" });
+        return false;
+    }
+}
 
 function validarCamposVacios(obj) {
-    if (obj.alimentos == "") {
+
+    if (obj.observaciones == "" || obj.alimentos == "" || obj.materiales == "" ||
+        obj.observaciones == null || obj.alimentos == null || obj.materiales == null) {
+
+        if (obj.materiales == "" || obj.materiales == null) {
+            $(document.getElementById("listmat")).notify("Lista Vac\u00EDa", { position: "right" });
+        }
+        if (obj.alimentos == "" || obj.alimentos == null) {
+            $(document.getElementById("listali")).notify("Lista Vac\u00EDa", { position: "right" });
+        }
+        if (obj.observaciones == "" || obj.observaciones == null) {
+            $(document.getElementById("letras")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
         return false;
     } else {
         return true;

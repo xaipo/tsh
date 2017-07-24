@@ -69,16 +69,23 @@ app.controller('ControllerEstadoOrden', ['$scope', '$http', 'myProvider', functi
         if (validarCamposVacios(obj)) {
             $http.post($scope.url, obj)
                 .then(function (response) {
-
-                    $scope.iniciar();
-                    $.notify("Ingreso Correcto", "success");
-
+                    if (response.data == "true") {
+                        $scope.iniciar();
+                        swal({
+                            title: "Ingreso Exitoso!",
+                            type: "success",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    } else
+                        $(document.getElementById("nombre")).notify("Ya Existe", { position: "right" });
                 }, function errorCallback(response) {
 
                     $.notify("Error!", "error");
+
                 });
         } else {
-            $.notify("Revise los Campos", "info");
+            $(document.getElementById("nombre")).notify("Campo Vac\u00EDo", { position: "right" });
         }
     }
 
@@ -90,19 +97,31 @@ app.controller('ControllerEstadoOrden', ['$scope', '$http', 'myProvider', functi
             estado: $scope.estado
         };
 
-        if (validarCamposVacios(obj)) {
-            $http.post($scope.urlModificar, obj)
-                .then(function (response) {
+        if ($scope.seleccionEstado != "") {
+            if (validarCamposVacios(obj)) {
+                $http.post($scope.urlModificar, obj)
+                    .then(function (response) {
+                        console.log(response.data);
+                        if (response.data == "true") {
+                            $scope.iniciar();
+                            swal({
+                                title: "Modificaci\u00F3n Exitosa!",
+                                type: "success",
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                        } else
+                            $(document.getElementById("nombre")).notify("Ya Existe", { position: "right" });
+                    }, function errorCallback(response) {
 
-                    $scope.iniciar();
-                    $.notify("Modificacion Exitosa", "success");
+                        $.notify("Error!", "error");
 
-                }, function errorCallback(response) {
-
-                    $.notify("Error!", "error");
-                });
+                    });
+            } else {
+                $(document.getElementById("nombre")).notify("Campo Vac\u00EDo", { position: "right" });
+            }
         } else {
-            $.notify("Revise los Campos", "info");
+            $(document.getElementById("lista")).notify("Seleccione un Registro", { position: "left middle" });
         }
     }
 

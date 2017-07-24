@@ -14,11 +14,12 @@ router.post('/saveEmbarcacion', function (req, res) {
 
         console.log(req.body);
         var collection = db.collection('embarcacion');
-        collection.insert(req.body, {
-
+        collection.insert(req.body, function (err, result) {
+            if (err) {
+                res.send("false");
+            } else
+                res.send("true");
         });
-
-        res.send('Info ingresada');
 
         db.close();
 
@@ -55,10 +56,10 @@ router.post('/updateEmbarcacion', function (req, res) {
 
         var id = req.body.id;
         db.collection('embarcacion').updateOne({ "_id": objectId(id) }, { $set: item }, function (err, result) {
-            assert.equal(null, err);
-            console.log('Item updated');
-
-            res.send(result);
+            if (err) {
+                res.send("false");
+            } else
+                res.send("true");
         });
 
         db.close();
@@ -91,7 +92,7 @@ router.post('/getAllEmbarcacionDisponibles', function (req, res) {
 
         var idDisponible = req.body.idDisponible;
 
-        var cursor = db.collection('embarcacion').find({ "estado": idDisponible});
+        var cursor = db.collection('embarcacion').find({ "estado": idDisponible });
         cursor.forEach(function (doc, err) {
             assert.equal(null, err);
             resultArray.push(doc);

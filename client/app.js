@@ -5,8 +5,15 @@ function ApiUrl() {
 
     var url;
     var urlUser;
+
+    // JAIRO SERVIDOR
     //url = "http://52.173.139.76:3000/api/";
     //urlUser = "http://52.173.139.76:3000/users/";
+
+    // JUAN SERVIDOR
+    //url = "http://52.170.98.93:3000/api/";
+    //urlUser = "http://52.170.98.93:3000/users/";
+
     url = "http://localhost:3000/api/";
     urlUser = "http://localhost:3000/users/";
 
