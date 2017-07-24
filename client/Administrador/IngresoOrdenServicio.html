@@ -44,7 +44,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="IngresoCliente.html">Cliente</a></li>
                                 <li><a href="IngresoContratoRecepcion.html">Contrato Recepción</a></li>
-                                <li><a href="IngresoEstadoEmbarcacion.html">Estado Embarcacion</a></li>
+                                <li><a href="IngresoEstadoEmbarcacion.html">Estado Embarcación</a></li>
                                 <li><a href="IngresoEstadoOrden.html">Estado Orden Servicio</a></li>
                                 <li><a href="IngresoMateriales.html">Materiales</a></li>
                                 <li><a href="IngresoPropietario.html">Propietario</a></li>
@@ -101,12 +101,12 @@
         </div>
         <div class="col-md-10">
             <div class="panel panel-default">
-                <div class="panel-heading"><center><h2 class="panel-title">INGRESO ORDEN SERVICIO</h2></center></div>
+                <div class="panel-heading"><center><h2 class="panel-title"><b>INGRESO ORDEN SERVICIO</b></h2></center></div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="col-md-12">
-                                <h4>Seleccion de Cliente</h4>
+                                <h4>Selección de Cliente</h4>
                             </div>
                             <div class="row">
                                 <div class="col-md-8">
@@ -163,7 +163,7 @@
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <h4>Embarcacion: </h4>
+                                    <h4>Embarcación: </h4>
                                 </div>
                                 <div class="col-md-7">
                                     <select class="form-control" ng-model="embarcacion" ng-options="item._id as item.nombre_embarcacion for item in listaEmbarcacion" ng-click="buscarCapitan()"></select>
@@ -196,7 +196,7 @@
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <h4>Orometro Inicial M1: </h4>
+                                    <h4>Horómetro Inicial M1: </h4>
                                 </div>
                                 <div class="col-md-7">
                                     <input type="number" id="oromIni1" onkeypress="return soloNumeros(event,'oromIni1')" ng-model="orometroInicialM1" min="0" placeholder="0" class="form-control" />
@@ -207,7 +207,7 @@
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <h4>Orometro Inicial M2: </h4>
+                                    <h4>Horómetro Inicial M2: </h4>
                                 </div>
                                 <div class="col-md-7">
                                     <input type="number" id="oromIni2" onkeypress="return soloNumeros(event,'oromIni2')" ng-model="orometroInicialM2" min="0" placeholder="0" class="form-control" />
@@ -235,7 +235,7 @@
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <h4>Orometro Final M1: </h4>
+                                    <h4>Horómetro Final M1: </h4>
                                 </div>
                                 <div class="col-md-7">
                                     <input type="number" id="oromFin1" onkeypress="return soloNumeros(event,'oromFin1')" ng-model="orometroFinalM1" min="0" placeholder="0" class="form-control" />
@@ -246,7 +246,7 @@
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <h4>Orometro Final M2: </h4>
+                                    <h4>Horómetro Final M2: </h4>
                                 </div>
                                 <div class="col-md-7">
                                     <input type="number" id="oromFin2" onkeypress="return soloNumeros(event,'oromFin2')" ng-model="orometroFinalM2" min="0" placeholder="0" class="form-control" />
@@ -274,7 +274,7 @@
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <h4>Contrato Recepcion: </h4>
+                                    <h4>Contrato Recepción: </h4>
                                 </div>
                                 <div class="col-md-7">
                                     <select class="form-control" ng-model="contratoRecepcion" ng-options="item._id as item.descripcion_contrato_recepcion for item in listaContratoRecepcion"></select>
@@ -308,7 +308,7 @@
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <h4>Capitan: </h4>
+                                    <h4>Capitán: </h4>
                                 </div>
                                 <div class="col-md-7">
                                     <select class="form-control" ng-model="capitan" ng-options="item._id as item.nombre_tripulante for item in listaTripulantesCapitanes"></select>
@@ -361,7 +361,7 @@
 
                                         </div>
                                         <div class="col-md-6">
-                                            <h4>Numero Volquetas: </h4>
+                                            <h4>Número Volquetas: </h4>
                                         </div>
                                         <div class="col-md-4">
                                             <input type="number" id="numVol" onkeypress="return soloNumeros(event,'numVol')" ng-model="numVolquetas" placeholder="0" class="form-control" />
@@ -409,14 +409,14 @@
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-10">
-                                    <h3>Detalle Vehiculos: </h3>
+                                    <h3>Detalle Vehículos: </h3>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <h4>Descripcion: </h4>
+                                            <h4>Descripción: </h4>
                                         </div>
                                         <div class="col-md-7">
                                             <input type="text" id="descripVehi" onkeypress="return numerosLetras(event,'descripVehi')" ng-model="descripcionVehiculo" placeholder="Modelo Vehiculo" class="form-control" />
@@ -481,7 +481,7 @@
 
                                 </div>
                                 <div class="col-md-4">
-                                    <h4>Consumo Conbustible: </h4>
+                                    <h4>Conbustible: </h4>
                                 </div>
                                 <div class="col-md-6">
                                     <select name="Puertos" ng-model="seleccionConsumoTipoCombustible" class="form-control">
@@ -535,7 +535,7 @@
 
                                 </div>
                                 <div class="col-md-4">
-                                    <h4>Transportacion Combustible: </h4>
+                                    <h4>Combustible: </h4>
                                 </div>
                                 <div class="col-md-6">
                                     <select name="Puertos" ng-model="seleccionTransporteTipoCombustible" class="form-control">
@@ -616,7 +616,7 @@
                             <div class="row">
                                 <br>
                                 <div class="col-md-4">
-                                    <h4>Observacion Maquinista: </h4>
+                                    <h4>Observación Maquinista: </h4>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="text" id="obsMaq" onkeypress="return numerosLetras(event,'obsMaq')" ng-model="observacionMaquinista" placeholder="Observaciones Maquinista" class="form-control" />

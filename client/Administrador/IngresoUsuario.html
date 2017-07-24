@@ -99,7 +99,7 @@
             </div>
             <div class="col-md-4">
                 <div class="panel panel-default" id="mensaje">
-                    <div class="panel-heading"><center><h3 class="panel-title">Usuario</h3></center></div>
+                    <div class="panel-heading"><center><h3 class="panel-title"><b>Usuario</b></h3></center></div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="row">
@@ -168,7 +168,7 @@
 
                                 </div>
                                 <div class="col-md-3">
-                                    <h4>Telefono: </h4>
+                                    <h4>Teléfono: </h4>
                                 </div>
                                 <div class="col-md-7">
                                     <input type="text" id="telefono" onkeypress="return soloNumeros(event,'telefono')" ng-model="telefonoUsuario" onkeypress="return valida(event)" placeholder="032123456" maxlength="10" class="form-control" />
@@ -232,15 +232,17 @@
 
             <div class="col-md-6">
                 <div class="panel panel-default" id="lista">
-                    <div class="panel-heading"><center><h3 class="panel-title">Lista de Tipo Usuario</h3></center></div>
+                    <div class="panel-heading"><center><h3 class="panel-title"><b>Lista de Tipo Usuario</b></h3></center></div>
                     <div class="panel-body">
                         <div class="row">
+                            <div class="col-md-2">
 
-                            <div class="col-md-5">
+                            </div>
+                            <div class="col-md-2">
                                 <h4>Filtrar: </h4>
                             </div>
 
-                            <div class="col-md-7">
+                            <div class="col-md-6">
                                 <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
                             </div>
 
@@ -257,7 +259,7 @@
                                                     <th>Cédula</th>
                                                     <th>Nombres</th>
                                                     <th>Teléfono</th>
-                                                    <th>Email</th>
+                                                    <th>Correo</th>
                                                     <th>Tipo Usuario</th>
                                                     <th>Estado</th>
                                                 </tr>

@@ -429,6 +429,22 @@ function validarCamposVacios(obj) {
     if (obj.nombre_propietario == "" || obj.correo_propietario == "" || obj.cedula_propietario == "" ||
         obj.telefono_propietario == "" || obj.celular_propietario == "") {
 
+        if (obj.nombre_propietario == "") {
+            $(document.getElementById("nombre")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.correo_propietario == "") {
+            $(document.getElementById("correo")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.cedula_propietario == "") {
+            $(document.getElementById("ruc")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.telefono_propietario == "") {
+            $(document.getElementById("tlf")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.celular_propietario == "") {
+            $(document.getElementById("cell")).notify("Campo Vac\u00EDo", { position: "right" });
+        }        
+
         return false;
 
     } else {

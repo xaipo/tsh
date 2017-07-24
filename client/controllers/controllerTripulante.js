@@ -235,8 +235,7 @@ app.controller('ControllerTripulante', ['$scope', '$http', 'myProvider', functio
         window.location = "../login.html"
 
     }
-
-
+    
     $scope.setClickedRow = function (index, item) {
 
         $scope.seleccionTripulante = item;
@@ -448,6 +447,16 @@ function validarCamposVacios(obj) {
 
     if (obj.nombre_tripulante == "" || obj.cedula_tripulante == "" ||
         obj.telefono_tripulante == "" || obj.tipo_tripulante == "") {
+
+        if (obj.nombre_tripulante == "") {
+            $(document.getElementById("nombre")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.cedula_tripulante == "") {
+            $(document.getElementById("ruc")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.telefono_tripulante == "") {
+            $(document.getElementById("telefono")).notify("Campo Vac\u00EDo", { position: "right" });
+        }            
 
         return false;
 

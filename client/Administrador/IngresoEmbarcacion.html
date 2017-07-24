@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -44,7 +44,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="IngresoCliente.html">Cliente</a></li>
                                 <li><a href="IngresoContratoRecepcion.html">Contrato Recepción</a></li>
-                                <li><a href="IngresoEstadoEmbarcacion.html">Estado Embarcacion</a></li>
+                                <li><a href="IngresoEstadoEmbarcacion.html">Estado Embarcación</a></li>
                                 <li><a href="IngresoEstadoOrden.html">Estado Orden Servicio</a></li>
                                 <li><a href="IngresoMateriales.html">Materiales</a></li>
                                 <li><a href="IngresoPropietario.html">Propietario</a></li>
@@ -101,13 +101,13 @@
         </div>
         <div class="col-md-10">
             <div class="panel panel-default">
-                <div class="panel-heading"><center><h2 class="panel-title">INGRESO EMBARCACION</h2></center></div>
+                <div class="panel-heading"><center><h2 class="panel-title"><b>INGRESO EMBARCACIÓN</b></h2></center></div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <h4>Nombre: </h4>
+                                    <h4>Descricipción: </h4>
                                 </div>
                                 <div class="col-md-7">
                                     <input type="text" ng-model="nombreEmbarcacion" id="nombre" onkeypress="return soloLetras(event,'nombre')" placeholder="Nombre Embarcación" class="form-control" />
@@ -200,7 +200,7 @@
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <h4>Capitan: </h4>
+                                    <h4>Capitán: </h4>
                                 </div>
                                 <div class="col-md-7">
                                     <select class="form-control" ng-model="capitan" ng-options="item._id as item.nombre_tripulante for item in listaTripulantesCapitanes"></select>
@@ -244,7 +244,7 @@
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <h4>Propulsion: </h4>
+                                    <h4>Propulsión: </h4>
                                 </div>
                                 <div class="col-md-7">
                                     <input type="text" id="propulcion" onkeypress="return soloLetras(event,'propulcion')" ng-model="propulsion" placeholder="Tipo Propulción" class="form-control" />
@@ -255,7 +255,7 @@
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-7">
-                                    <h4>Tonelada Bruto: </h4>
+                                    <h4>Tonelaje Bruto: </h4>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="number" id="tonelada" onkeypress="return soloNumeros(event,'tonelada')" ng-model="tonelajeBruto" min="0" placeholder="0" class="form-control" />
@@ -266,7 +266,7 @@
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <h4>Tipo Combustible: </h4>
+                                    <h4>Combustible: </h4>
                                 </div>
                                 <div class="col-md-7">
                                     <select class="form-control" ng-model="tipoCombustible" ng-options="item._id as item.descripcion_tipo_combustible for item in listaTipoCombustible"></select>
@@ -319,6 +319,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="row">
+                                <br />
                                 <div class="col-md-5">
                                     <h4>Fecha Construción: </h4>
                                 </div>
@@ -339,6 +340,7 @@
 
                         <div class="col-md-4">
                             <div class="row">
+                                <br />
                                 <div class="col-md-4">
                                     <h4>Estado Embarcación: </h4>
                                 </div>
@@ -352,6 +354,7 @@
 
                     <div class="col-md-12">
                         <div class="row">
+                            <br />
                             <div class="col-md-4">
 
                             </div>

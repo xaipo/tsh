@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -41,7 +41,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="IngresoCliente.html">Cliente</a></li>
                                 <li><a href="IngresoContratoRecepcion.html">Contrato Recepción</a></li>
-                                <li><a href="IngresoEstadoEmbarcacion.html">Estado Embarcacion</a></li>
+                                <li><a href="IngresoEstadoEmbarcacion.html">Estado Embarcación</a></li>
                                 <li><a href="IngresoEstadoOrden.html">Estado Orden Servicio</a></li>
                                 <li><a href="IngresoMateriales.html">Materiales</a></li>
                                 <li><a href="IngresoPropietario.html">Propietario</a></li>
@@ -93,15 +93,14 @@
     <!-- final menu-->
 
     <div class="jumbotron">
-        <br>
-        <br>
+
         <div class="row">
             <div class="col-md-1">
 
             </div>
             <div class="col-md-4">
                 <div class="panel panel-default" id="mensaje">
-                    <div class="panel-heading"><center><h3 class="panel-title">Tripulante</h3></center></div>
+                    <div class="panel-heading"><center><h3 class="panel-title"><b>Tripulante</b></h3></center></div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="row">
@@ -139,7 +138,7 @@
                                     <h4>Nombre: </h4>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text"  id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="nombreTripulante" placeholder="Apellidos Nombres" class="form-control" />
+                                    <input type="text" id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="nombreTripulante" placeholder="Apellidos Nombres" class="form-control" />
                                 </div>
                             </div>
 
@@ -202,56 +201,59 @@
 
             <div class="col-md-6">
                 <div class="panel panel-default" id="lista">
-                    <div class="panel-heading"><center><h3 class="panel-title">Lista Tripulante</h3></center></div>
+                    <div class="panel-heading"><center><h3 class="panel-title"><b>Lista Tripulante</b></h3></center></div>
                     <div class="panel-body">
                         <div class="row">
+                            <div class="col-md-2">
 
-                            <div class="col-md-5">
+                            </div>
+                            <div class="col-md-2">
                                 <h4>Filtrar: </h4>
                             </div>
 
-                            <div class="col-md-7">
+                            <div class="col-md-6">
                                 <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
                             </div>
 
                         </div>
                         <div class="row">
-<center>
-                            <div class="col-md-12 col-xs-12">
+                            <center>
+                                <div class="col-md-12 col-xs-12">
 
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr class="success">
-                                                <th>#</th>
-                                                <th>Cédula</th>
-                                                <th>Nombres</th>
-                                                <th>teléfono</th>
-                                                <th>Cargo</th>                                                
-                                                <th>Estado</th>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr class="success">
+                                                    <th>#</th>
+                                                    <th>Cédula</th>
+                                                    <th>Nombres</th>
+                                                    <th>teléfono</th>
+                                                    <th>Cargo</th>
+                                                    <th>Estado</th>
 
-                                            </tr>
+                                                </tr>
 
-                                        </thead>
-                                        <tbody>
+                                            </thead>
+                                            <tbody>
 
-                                            <tr dir-paginate="item in listaTripulante| filter:busqueda| itemsPerPage:4 track by $index"
-                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="propietario">
+                                                <tr dir-paginate="item in listaTripulante| filter:busqueda| itemsPerPage:4 track by $index"
+                                                    ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="propietario">
 
-                                                <td>{{$index+1}}</td>
-                                                <td>{{ item.cedula_tripulante}}</td>
-                                                <td>{{ item.nombre_tripulante}}</td>
-                                                <td>{{ item.telefono_tripulante}}</td>
-                                                <td>{{ item.tipo_tripulante.descripcion_tipo_tripulante }}</td>                                   <td>{{ item.estado.estado}}</td>
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{ item.cedula_tripulante}}</td>
+                                                    <td>{{ item.nombre_tripulante}}</td>
+                                                    <td>{{ item.telefono_tripulante}}</td>
+                                                    <td>{{ item.tipo_tripulante.descripcion_tipo_tripulante }}</td>
+                                                    <td>{{ item.estado.estado}}</td>
 
 
-                                            </tr>
-                                            <dir-pagination-controls pagination-id="propietario"></dir-pagination-controls> <!--agregar botones paginacion-->
-                                        </tbody>
-                                    </table>
+                                                </tr>
+                                                <dir-pagination-controls pagination-id="propietario"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-    </center>
+                            </center>
                         </div>
                     </div>
                 </div>

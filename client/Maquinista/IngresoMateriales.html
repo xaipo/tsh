@@ -78,29 +78,38 @@
             </div>
             <div class="col-md-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><center><h3 class="panel-title">Materiales</h3></center></div>
+                    <div class="panel-heading"><center><h3 class="panel-title"><b>Materiales</b></h3></center></div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-1">
+
+                            </div>
+                            <div class="col-md-4">
                                 <h4>Material: </h4>
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-6">
                                 <input type="text" id="nombre" onkeypress="return numerosLetras(event,'nombre')" ng-model="descripcionMaterial" placeholder="Nombre Material" class="form-control" />
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-1">
+
+                            </div>
+                            <div class="col-md-4">
                                 <h4>Stock: </h4>
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-6">
                                 <input type="number" id="numero" onkeypress="return soloNumeros(event,'numero')" ng-model="stock" min="0" max="500" class="form-control" />
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-1">
+
+                            </div>
+                            <div class="col-md-4">
                                 <h4>Estado: </h4>
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-6">
                                 <select class="form-control" ng-model="estado" ng-options="item.id as item.estado for item in listaEstado"></select>
                             </div>
                         </div>
@@ -124,20 +133,21 @@
 
             <div class="col-md-6">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><center><h3 class="panel-title">Lista de Materiales</h3></center></div>
+                    <div class="panel-heading"><center><h3 class="panel-title"><b>Lista de Materiales</b></h3></center></div>
                     <div class="panel-body">
                         <div class="row">
+                            <div class="col-md-2">
 
-                            <div class="col-md-5">
+                            </div>
+                            <div class="col-md-2">
                                 <h4>Filtrar: </h4>
                             </div>
 
-                            <div class="col-md-7">
+                            <div class="col-md-6">
                                 <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
                             </div>
 
                         </div>
-
                         <div class="row">
                             <center>
                                 <div class="col-md-12 col-xs-12">

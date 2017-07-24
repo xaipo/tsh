@@ -78,7 +78,7 @@
         </div>
         <div class="col-md-10">
             <div class="panel panel-default">
-                <div class="panel-heading"><center><h2 class="panel-title">EMBARCACION</h2></center></div>
+                <div class="panel-heading"><center><h2 class="panel-title"><b>EMBARCACION</b></h2></center></div>
                 <div class="panel-body">
 
                     <div class="row">
@@ -87,21 +87,21 @@
                         </div>
                         <div class="col-md-4">
                             <div class="panel panel-default">
-                                <div class="panel-heading"><center><h3 class="panel-title">Lista de Embarcaciones</h3></center></div>
+                                <div class="panel-heading"><center><h3 class="panel-title"><b>Lista de Embarcaciones</b></h3></center></div>
                                 <div class="panel-body">
                                     <div class="row">
+                                        <div class="col-md-1">
 
-                                        <div class="col-md-5">
+                                        </div>
+                                        <div class="col-md-3">
                                             <h4>Filtrar: </h4>
                                         </div>
 
-                                        <div class="col-md-7">
+                                        <div class="col-md-6">
                                             <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
                                         </div>
 
                                     </div>
-
-                                    <br>
                                     <div class="row">
                                         <div class="col-md-12">
 
@@ -187,7 +187,7 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col-md-4">
-                                <h4>Capitan: </h4>
+                                <h4>Capitán: </h4>
                             </div>
                             <div class="col-md-7">
                                 <select class="form-control" disabled ng-model="capitan" ng-options="item._id as item.nombre_tripulante for item in listaTripulantesCapitanes"></select>
@@ -231,7 +231,7 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col-md-4">
-                                <h4>Propulsion: </h4>
+                                <h4>Propulsión: </h4>
                             </div>
                             <div class="col-md-7">
                                 <input type="text" ng-model="propulsion" placeholder="Tipo Propulción" class="form-control" disabled />
@@ -242,7 +242,7 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col-md-7">
-                                <h4>Tonelada Bruto: </h4>
+                                <h4>Tonelaje Bruto: </h4>
                             </div>
                             <div class="col-md-4">
                                 <input type="number" ng-model="tonelajeBruto" min="0" placeholder="0" class="form-control" disabled />
@@ -253,7 +253,7 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col-md-4">
-                                <h4>Tipo Combustible: </h4>
+                                <h4>Combustible: </h4>
                             </div>
                             <div class="col-md-7">
                                 <select class="form-control" disabled ng-model="tipoCombustible" ng-options="item._id as item.descripcion_tipo_combustible for item in listaTipoCombustible"></select>

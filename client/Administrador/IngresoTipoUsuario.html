@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -41,7 +41,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="IngresoCliente.html">Cliente</a></li>
                                 <li><a href="IngresoContratoRecepcion.html">Contrato Recepción</a></li>
-                                <li><a href="IngresoEstadoEmbarcacion.html">Estado Embarcacion</a></li>
+                                <li><a href="IngresoEstadoEmbarcacion.html">Estado Embarcación</a></li>
                                 <li><a href="IngresoEstadoOrden.html">Estado Orden Servicio</a></li>
                                 <li><a href="IngresoMateriales.html">Materiales</a></li>
                                 <li><a href="IngresoPropietario.html">Propietario</a></li>
@@ -93,8 +93,7 @@
     <!-- final menu-->
 
     <div class="jumbotron">
-        <br>
-        <br>
+       
         <div class="row">
             <div class="col-md-1">
 
@@ -111,21 +110,27 @@
                     </div>
                 </div>
                 <div class="panel panel-default">
-                    <div class="panel-heading"><center><h3 class="panel-title">Tipo Usuario</h3></center></div>
+                    <div class="panel-heading"><center><h3 class="panel-title"><b>Tipo Usuario</b></h3></center></div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-1">
+
+                            </div>
+                            <div class="col-md-4">
                                 <h4>Descripción: </h4>
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-6">
                                 <input type="text"  id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="descripcionTipoUsuario" placeholder="Tipo Usuario" class="form-control" />
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-1">
+
+                            </div>
+                            <div class="col-md-4">
                                 <h4>Estado: </h4>
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-6">
                                 <select class="form-control" ng-model="estado" ng-options="item.id as item.estado for item in listaEstado"></select>
                             </div>
                         </div>
@@ -148,21 +153,21 @@
 
             <div class="col-md-6">
                 <div class="panel panel-default" id="lista">
-                    <div class="panel-heading"><center><h3 class="panel-title">Lista de Tipo Usuario</h3></center></div>
+                    <div class="panel-heading"><center><h3 class="panel-title"><b>Lista de Tipo Usuario</b></h3></center></div>
                     <div class="panel-body">
                         <div class="row">
+                            <div class="col-md-2">
 
-                            <div class="col-md-5">
+                            </div>
+                            <div class="col-md-2">
                                 <h4>Filtrar: </h4>
                             </div>
 
-                            <div class="col-md-7">
+                            <div class="col-md-6">
                                 <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
                             </div>
 
                         </div>
-
-                        <br>
                         <div class="row">                            
                             <center>
                                 <div class="col-md-12 col-xs-12">

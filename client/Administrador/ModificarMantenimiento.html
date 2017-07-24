@@ -14,7 +14,7 @@
     <script src="../jquery/dist/jquery.min.js"></script>
     <script src="../bootstrap-datepicker/js/bootstrap-datepicker.min.js" charset="utf-8"></script>
     <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../alertas/sweetalert.min.js"></script>    
+    <script src="../alertas/sweetalert.min.js"></script>
     <script src="../notificaciones/notify.js"></script>
     <script src="../angular/angular.js"></script>
     <script src="../node_modules/angular-utils-pagination/dirPagination.js"></script>
@@ -43,7 +43,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="IngresoCliente.html">Cliente</a></li>
                                 <li><a href="IngresoContratoRecepcion.html">Contrato Recepción</a></li>
-                                <li><a href="IngresoEstadoEmbarcacion.html">Estado Embarcacion</a></li>
+                                <li><a href="IngresoEstadoEmbarcacion.html">Estado Embarcación</a></li>
                                 <li><a href="IngresoEstadoOrden.html">Estado Orden Servicio</a></li>
                                 <li><a href="IngresoMateriales.html">Materiales</a></li>
                                 <li><a href="IngresoPropietario.html">Propietario</a></li>
@@ -100,7 +100,7 @@
         </div>
         <div class="col-md-10">
             <div class="panel panel-default">
-                <div class="panel-heading"><center><h3 class="panel-title">MODIFICAR MANTENIMIENTO</h3></center></div>
+                <div class="panel-heading"><center><h3 class="panel-title"><b>MODIFICAR MANTENIMIENTO</b></h3></center></div>
                 <div class="panel-body">
 
                     <div class="row">
@@ -109,21 +109,21 @@
                         </div>
                         <div class="col-md-4">
                             <div class="panel panel-default">
-                                <div class="panel-heading"><center><h3 class="panel-title">Lista de Mantenimientos</h3></center></div>
+                                <div class="panel-heading"><center><h3 class="panel-title"><b>Lista de Mantenimientos</b></h3></center></div>
                                 <div class="panel-body">
                                     <div class="row">
+                                        <div class="col-md-1">
 
-                                        <div class="col-md-5">
+                                        </div>
+                                        <div class="col-md-3">
                                             <h4>Filtrar: </h4>
                                         </div>
 
-                                        <div class="col-md-7">
+                                        <div class="col-md-6">
                                             <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
                                         </div>
 
                                     </div>
-
-                                    <br>
                                     <div class="row">
                                         <div class="col-md-12">
 
@@ -147,10 +147,10 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
 
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-5">
                                         <h4>Tipo Mantenimiento: </h4>
                                     </div>
                                     <div class="col-md-4">
@@ -160,7 +160,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="row">
-                                    <div class="col-md-1">
+                                    <div class="col-md-2">
 
                                     </div>
                                     <div class="col-md-3">
@@ -175,11 +175,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
 
                                     </div>
-                                    <div class="col-md-3">
-                                        <h4>Fecha mantenimiento: </h4>
+                                    <div class="col-md-5">
+                                        <h4>Fecha Mantenimiento: </h4>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="input-group date juan-date">
@@ -197,11 +197,11 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="row">
-                                    <div class="col-md-1">
+                                    <div class="col-md-2">
 
                                     </div>
                                     <div class="col-md-3">
-                                        <h4>Nombre mecánico: </h4>
+                                        <h4>Mecánico: </h4>
                                     </div>
                                     <div class="col-md-4">
                                         <input type="text" id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="mecanico" placeholder="Nombre mecánico" class="form-control" />
@@ -210,7 +210,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-">
                             <div class="row">
@@ -231,7 +231,7 @@
 
                                     </div>
                                     <div class="col-md-2">
-                                        <h4>Orometro: </h4>
+                                        <h4>Horómetro: </h4>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="col-md-10">
@@ -240,7 +240,7 @@
                                     </div>
 
                                     <div class="col-md-2">
-                                        <h4>Proximo Orometro: </h4>
+                                        <h4>Próximo Horómetro: </h4>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="col-md-10">
@@ -253,7 +253,7 @@
 
                                     </div>
                                     <div class="col-md-2">
-                                        <h4>Observacion: </h4>
+                                        <h4>Observaciones: </h4>
                                     </div>
                                     <div class="col-md-6">
                                         <input type="text" id="descrip" onkeypress="return numerosLetras(event,'descrip')" ng-model="piezasCambiadasObservaciones" placeholder="Describir los cambios realizados" class="form-control" />
@@ -262,9 +262,7 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <br />
                 <div class="row">
                     <div class="col-md-4">
 
@@ -275,7 +273,7 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input class="form-control btn-primary" type="submit" value="Cancelar"  ng-click="redireccion()" />
+                        <input class="form-control btn-primary" type="submit" value="Cancelar" ng-click="redireccion()" />
                     </div>
                     <br />
                     <br />

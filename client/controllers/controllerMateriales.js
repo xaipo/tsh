@@ -59,7 +59,7 @@ app.controller('ControllerMaterial', ['$scope', '$http', 'myProvider', function 
 
                     console.log(response);
                 });
-            
+
         }
 
     } else {
@@ -91,8 +91,6 @@ app.controller('ControllerMaterial', ['$scope', '$http', 'myProvider', function 
                     $.notify("Error!", "error");
 
                 });
-        } else {
-            $(document.getElementById("nombre")).notify("Campo Vac\u00EDo", { position: "right" });
         }
     }
 
@@ -212,6 +210,13 @@ function soloNumeros(e, id) {
 function validarCamposVacios(obj) {
 
     if (obj.descripcion_material == "" || obj.stock == "") {
+
+        if (obj.descripcion_material == "") {
+            $(document.getElementById("nombre")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.stock == "") {
+            $(document.getElementById("numero")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
 
         return false;
 

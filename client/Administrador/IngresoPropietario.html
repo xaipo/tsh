@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -41,7 +41,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="IngresoCliente.html">Cliente</a></li>
                                 <li><a href="IngresoContratoRecepcion.html">Contrato Recepción</a></li>
-                                <li><a href="IngresoEstadoEmbarcacion.html">Estado Embarcacion</a></li>
+                                <li><a href="IngresoEstadoEmbarcacion.html">Estado Embarcación</a></li>
                                 <li><a href="IngresoEstadoOrden.html">Estado Orden Servicio</a></li>
                                 <li><a href="IngresoMateriales.html">Materiales</a></li>
                                 <li><a href="IngresoPropietario.html">Propietario</a></li>
@@ -93,15 +93,14 @@
     <!-- final menu-->
 
     <div class="jumbotron">
-        <br>
-        <br>
+        
         <div class="row">
             <div class="col-md-1">
 
             </div>
             <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><center><h3 class="panel-title">Propietario</h3></center></div>
+                <div class="panel panel-default" id="mensaje">
+                    <div class="panel-heading"><center><h3 class="panel-title"><b>Propietario</b></h3></center></div>
                     <div class="panel-body">
                         <div class="row">
 
@@ -190,12 +189,10 @@
                             </div>
                             <br />
                         </div>
-                        <br />
                         <div class="row">
                             <div class="col-md-2">
 
                             </div>
-
                             <div class="col-md-4">
                                 <input class="form-control btn-primary" type="submit" value="Ingresar" ng-click="ingresoPropietario()" />
                             </div>
@@ -210,21 +207,21 @@
 
             <div class="col-md-6">
                 <div class="panel panel-default" id="lista">
-                    <div class="panel-heading"><center><h3 class="panel-title">Lista de Propietario</h3></center></div>
+                    <div class="panel-heading"><center><h3 class="panel-title"><b>Lista de Propietario</b></h3></center></div>
                     <div class="panel-body">
                         <div class="row">
+                            <div class="col-md-2">
 
-                            <div class="col-md-5">
+                            </div>
+                            <div class="col-md-2">
                                 <h4>Filtrar: </h4>
                             </div>
 
-                            <div class="col-md-7">
+                            <div class="col-md-6">
                                 <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
                             </div>
 
                         </div>
-
-                        <br>
                         <div class="row">
                             <center>
                                 <div class="col-md-12 col-xs-12">
@@ -238,7 +235,7 @@
                                                     <th>Nombres</th>
                                                     <th>Teléfono</th>
                                                     <th>Celular</th>
-                                                    <th>Email</th>
+                                                    <th>Correo</th>
                                                     <th>Estado</th>
                                                 </tr>
 

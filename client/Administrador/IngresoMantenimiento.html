@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -43,7 +43,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="IngresoCliente.html">Cliente</a></li>
                                 <li><a href="IngresoContratoRecepcion.html">Contrato Recepción</a></li>
-                                <li><a href="IngresoEstadoEmbarcacion.html">Estado Embarcacion</a></li>
+                                <li><a href="IngresoEstadoEmbarcacion.html">Estado Embarcación</a></li>
                                 <li><a href="IngresoEstadoOrden.html">Estado Orden Servicio</a></li>
                                 <li><a href="IngresoMateriales.html">Materiales</a></li>
                                 <li><a href="IngresoPropietario.html">Propietario</a></li>
@@ -100,7 +100,7 @@
         </div>
         <div class="col-md-10">
             <div class="panel panel-default">
-                <div class="panel-heading"><center><h3 class="panel-title">Ingreso Mantenimiento</h3></center></div>
+                <div class="panel-heading"><center><h3 class="panel-title"><b>INGRESO MANTENIMIENTO</b></h3></center></div>
                 <div class="panel-body">
 
                     <div class="row">
@@ -123,7 +123,7 @@
 
                                 </div>
                                 <div class="col-md-3">
-                                    <h4>Embarcacion: </h4>
+                                    <h4>Embarcación: </h4>
                                 </div>
                                 <div class="col-md-4">
                                     <select class="form-control" ng-model="embarcacion" ng-options="item._id as item.nombre_embarcacion for item in listaEmbarcacion"></select>
@@ -187,7 +187,7 @@
 
                                     </div>
                                     <div class="col-md-2">
-                                        <h4>Orometro: </h4>
+                                        <h4>Horómetro: </h4>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="col-md-10">
@@ -196,7 +196,7 @@
                                     </div>
 
                                     <div class="col-md-2">
-                                        <h4>Proximo Orometro: </h4>
+                                        <h4>Próximo Horómetro: </h4>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="col-md-10">
@@ -205,11 +205,12 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <br />
                                     <div class="col-md-2">
 
                                     </div>
                                     <div class="col-md-2">
-                                        <h4>Observacion: </h4>
+                                        <h4>Observaciones: </h4>
                                     </div>
                                     <div class="col-md-6">
                                         <input type="text" id="descrip" onkeypress="return numerosLetras(event,'descrip')" ng-model="piezasCambiadasObservaciones" placeholder="Describir los cambios realizados" class="form-control" />
@@ -219,7 +220,7 @@
                         </div>
                     </div>
                 </div>
-                <br />
+                
                 <div class="row">
                     <div class="col-md-4">
 

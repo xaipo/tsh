@@ -78,7 +78,7 @@
         </div>
         <div class="col-md-10">
             <div class="panel panel-default">
-                <div class="panel-heading"><center><h2 class="panel-title">EMBARCACION</h2></center></div>
+                <div class="panel-heading"><center><h2 class="panel-title"><b>EMBARCACION</b></h2></center></div>
                 <div class="panel-body">
 
                     <div class="row">
@@ -87,21 +87,21 @@
                         </div>
                         <div class="col-md-4">
                             <div class="panel panel-default">
-                                <div class="panel-heading"><center><h3 class="panel-title">Lista de Embarcaciones</h3></center></div>
+                                <div class="panel-heading"><center><h3 class="panel-title"><b>Lista de Embarcaciones</b></h3></center></div>
                                 <div class="panel-body">
                                     <div class="row">
+                                        <div class="col-md-1">
 
-                                        <div class="col-md-5">
+                                        </div>
+                                        <div class="col-md-3">
                                             <h4>Filtrar: </h4>
                                         </div>
 
-                                        <div class="col-md-7">
+                                        <div class="col-md-6">
                                             <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
                                         </div>
 
                                     </div>
-
-                                    <br>
                                     <div class="row">
                                         <div class="col-md-12">
 
@@ -168,13 +168,13 @@
                                 <input type="text" ng-model="busquedaTripu" class="form-control" placeholder="Busqueda" />
                             </div>
                         </div>
-                        <div class="row"> 
+                        <div class="row">
                             <div class="col-md-2">
-                                
+
                             </div>
                             <div class="col-md-5">
                                 <p>Tripulación:</p>
-                                <select name="Usuarios" ng-model="seleccionTripulante" multiple class="form-control" style="height: 150px;"  disabled >
+                                <select name="Usuarios" ng-model="seleccionTripulante" multiple class="form-control" style="height: 150px;" disabled>
                                     <option value={{aux}}
                                             ng-repeat="aux in listaTripulanteSelect | filter:busquedaTripu| orderBy:aux.nombre_tripulante">
                                         {{aux.nombre_tripulante}}
@@ -187,10 +187,10 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col-md-4">
-                                <h4>Capitan: </h4>
+                                <h4>Capitán: </h4>
                             </div>
                             <div class="col-md-7">
-                                <select class="form-control" disabled ng-model="capitan" ng-options="item._id as item.nombre_tripulante for item in listaTripulantesCapitanes" ></select>
+                                <select class="form-control" disabled ng-model="capitan" ng-options="item._id as item.nombre_tripulante for item in listaTripulantesCapitanes"></select>
                             </div>
                         </div>
                     </div>
@@ -212,7 +212,7 @@
                                 <h4>Propietario: </h4>
                             </div>
                             <div class="col-md-7">
-                                <select class="form-control" ng-model="propietario" ng-options="item._id as item.nombre_propietario for item in listaPropietarios" disabled ></select>
+                                <select class="form-control" ng-model="propietario" ng-options="item._id as item.nombre_propietario for item in listaPropietarios" disabled></select>
                             </div>
                         </div>
                     </div>
@@ -231,7 +231,7 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col-md-4">
-                                <h4>Propulsion: </h4>
+                                <h4>Propulsión: </h4>
                             </div>
                             <div class="col-md-7">
                                 <input type="text" ng-model="propulsion" placeholder="Tipo Propulción" class="form-control" disabled />
@@ -242,7 +242,7 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col-md-7">
-                                <h4>Tonelada Bruto: </h4>
+                                <h4>Tonelaje Bruto: </h4>
                             </div>
                             <div class="col-md-4">
                                 <input type="number" ng-model="tonelajeBruto" min="0" placeholder="0" class="form-control" disabled />
@@ -253,10 +253,10 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col-md-4">
-                                <h4>Tipo Combustible: </h4>
+                                <h4>Combustible: </h4>
                             </div>
                             <div class="col-md-7">
-                                <select class="form-control" ng-model="tipoCombustible" ng-options="item._id as item.descripcion_tipo_combustible for item in listaTipoCombustible" disabled ></select>
+                                <select class="form-control" ng-model="tipoCombustible" ng-options="item._id as item.descripcion_tipo_combustible for item in listaTipoCombustible" disabled></select>
                             </div>
                         </div>
                     </div>
@@ -280,8 +280,8 @@
                             <div class="col-md-4">
                                 <h4>Tipo Embarcación: </h4>
                             </div>
-                            <div class="col-md-7"> 
-                                <select class="form-control" ng-model="tipoEmbarcacion" ng-options="item._id as item.descripcion_tipo_embarcacion for item in listaTipoEmbarcacion" disabled ></select>
+                            <div class="col-md-7">
+                                <select class="form-control" ng-model="tipoEmbarcacion" ng-options="item._id as item.descripcion_tipo_embarcacion for item in listaTipoEmbarcacion" disabled></select>
                             </div>
                         </div>
                     </div>
@@ -304,7 +304,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group date jp-date">
-                                    <input type="text" ng-model="fechaConstruccion" class="form-control" disabled ><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                    <input type="text" ng-model="fechaConstruccion" class="form-control" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                 </div>
                                 <script type="text/javascript">
                                     $('.jp-date').datepicker({
