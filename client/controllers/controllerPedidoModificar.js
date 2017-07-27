@@ -119,6 +119,38 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
 
                     $scope.listaPedidos = response.data;
 
+                    var n = $scope.listaPedidos.length;
+                    var x = 0;
+                    for (var i = 0; i < n; i++) {
+
+                        var orden = {
+                            id: $scope.listaPedidos[x].orden_servicio
+                        }
+
+                        $http.post($scope.urlBuscarOrdenServicio, orden)
+                            .then(function (response) {
+
+                                $scope.listaPedidos[x].orden_servicio = response.data;
+
+                                var emb = {
+                                    id: response.data.embarcacion
+                                }
+                                $http.post($scope.urlBuscarEmbarcacion, emb)
+                                    .then(function (response) {
+
+                                        $scope.listaPedidos[x++].orden_servicio.embarcacion = response.data;
+
+                                    }, function errorCallback(response) {
+
+                                        console.log(response);
+                                    });
+
+                            }, function errorCallback(response) {
+
+                                console.log(response);
+                            });
+                    }
+
                 }, function errorCallback(response) {
 
                     console.log(response);
@@ -280,7 +312,7 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
 
         var obj = {
             id: $scope.id,
-            orden_servicio: $scope.ordenServicio,
+            orden_servicio: $scope.ordenServicio._id,
             alimentos: $scope.listaAlimentosArray,
             materiales: $scope.listaMaterialesArray,
             observaciones: $scope.observaciones
@@ -308,11 +340,13 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
                         $.notify("Error!", "error");
                     }));
             return q.promise
-        } 
+        }
     }
 
     $scope.modificarPedido = function () {
-        if ($scope.seleccionPedido != "") {
+
+        console.log($scope.seleccionPedido);
+        if ($scope.seleccionPedido != "" && $scope.seleccionPedido != null) {
             var dimAlimMod = $scope.listaAlimentos.length;
 
             for (var i = 0; i < dimAlimMod; i++) {
@@ -353,7 +387,13 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
 
             }, 500, false)
         } else {
-            $(document.getElementById("mensaje")).notify("Seleccione un Registro", { position: "left middle" });
+            $(document.getElementById("listaOrden")).notify("Seleccione un Registro", { position: "left middle" });
+            swal({
+                title: "Seleccione un Registro!",
+                type: "error",
+                timer: 1500,
+                showConfirmButton: false
+            });
         }
     }
 
@@ -385,39 +425,12 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
         $scope.iniciarListas();
         if ($scope.seleccionPedido != '' && $scope.seleccionPedido != undefined) {
 
-            $scope.selecPedJS = JSON.parse($scope.seleccionPedido);
+            $scope.selecPedJS = $scope.seleccionPedido;
             $scope.id = $scope.selecPedJS._id;
             $scope.ordenServicio = $scope.selecPedJS.orden_servicio;
             $scope.observaciones = $scope.selecPedJS.observaciones;
             $scope.embarcacion = $scope.selecPedJS.embarcacion;
             $scope.cargarListasSeleccion($scope.selecPedJS);
-
-            var orden = {
-                id: $scope.selecPedJS.orden_servicio
-            }
-
-            $http.post($scope.urlBuscarOrdenServicio, orden)
-                .then(function (response) {
-
-                    $scope.ordenServicioObj = response.data;
-
-                    var emb = {
-                        id: $scope.ordenServicioObj.embarcacion
-                    }
-                    $http.post($scope.urlBuscarEmbarcacion, emb)
-                        .then(function (response) {
-
-                            $scope.embarcacion = response.data.nombre_embarcacion;
-
-                        }, function errorCallback(response) {
-
-                            console.log(response);
-                        });
-
-                }, function errorCallback(response) {
-
-                    console.log(response);
-                });
 
         }
     }
@@ -764,6 +777,15 @@ app.controller('ControllerPedidoModificar', ['$scope', '$http', 'myProvider', "$
 
         localStorage.clear();
         window.location = "../login.html"
+
+    }
+
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.seleccionPedido = item;
+        $scope.selectedRow = index;
+
+        $scope.buscarSeleccionListaPedido();
 
     }
 

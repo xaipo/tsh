@@ -68,16 +68,14 @@
     </header>
     <!-- final menu-->
 
-    <div class="jumbotron">
-        <br>
-        <br>
+    <div class="jumbotron">        
         <div class="row">
             <div class="col-md-1">
 
             </div>
             <div class="col-md-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><center><h3 class="panel-title"><b>Materiales</b></h3></center></div>
+                    <div class="panel-heading"><center><h3 class="panel-title"><b>Material</b></h3></center></div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-1">
@@ -90,7 +88,7 @@
                                 <input type="text" id="nombre" onkeypress="return numerosLetras(event,'nombre')" ng-model="descripcionMaterial" placeholder="Nombre Material" class="form-control" />
                             </div>
                         </div>
-                        <div class="row">
+                        <!--<div class="row">
                             <div class="col-md-1">
 
                             </div>
@@ -100,7 +98,7 @@
                             <div class="col-md-6">
                                 <input type="number" id="numero" onkeypress="return soloNumeros(event,'numero')" ng-model="stock" min="0" max="500" class="form-control" />
                             </div>
-                        </div>
+                        </div>-->
                         <div class="row">
                             <div class="col-md-1">
 
@@ -129,11 +127,17 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-md-6">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><center><h3 class="panel-title"><b>Lista de Materiales</b></h3></center></div>
+                    <div class="panel-heading"><center><h3 class="panel-title"><b>Lista Materiales</b></h3></center></div>
                     <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-10">
+                                <h5>Seleccione un registro para modificarlo:</h5>
+                            </div>
+
+                        </div>
                         <div class="row">
                             <div class="col-md-2">
 
@@ -157,7 +161,7 @@
                                                 <tr class="success">
                                                     <th>#</th>
                                                     <th>Descripción</th>
-                                                    <th>Stock</th>
+                                                    <!--<th>Stock</th>-->
                                                     <th>Estado</th>
                                                 </tr>
 
@@ -169,7 +173,7 @@
 
                                                     <td>{{$index+1}}</td>
                                                     <td>{{ item.descripcion_material}}</td>
-                                                    <td>{{ item.stock}}</td>
+                                                    <!--<td>{{ item.stock}}</td>-->
                                                     <td>{{ item.estado.estado}}</td>
 
                                                 </tr>

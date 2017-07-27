@@ -101,257 +101,436 @@
         </div>
         <div class="col-md-10">
             <div class="panel panel-default">
-                <div class="panel-heading"><center><h2 class="panel-title"><b>INGRESO ORDEN SERVICIO</b></h2></center></div>
+                <div class="panel-heading"><center><h4><b>INGRESO ORDEN SERVICIO</b></h4></center></div>
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="col-md-12">
-                                <h4>Selección de Cliente</h4>
-                            </div>
+
+                    <div class="panel-group color2">
+                        <DETAILS ng-open="showRequeridos">
+                            <summary><font size=5>Datos Requeridos</font></summary>
+
                             <div class="row">
-                                <div class="col-md-8">
-                                    <div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <h4>Filtrar: </h4>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <input type="text" ng-model="busquedaCliente" class="form-control" placeholder="Busqueda" />
+                                <div class="col-md-4">
+                                    <div class="col-md-12">
+                                        <h4>Selección de Cliente</h4>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-11">
+                                            <div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <h4>Filtrar: </h4>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <input type="text" ng-model="busquedaCliente" class="form-control" placeholder="Busqueda" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-2">
+
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <h4>Cliente: </h4>
+                                                    </div>
+
+                                                    <div class="col-md-7">
+                                                        <select name="Clientes" id="cliente" ng-model="seleccionCliente" class="form-control" ng-click="buscarSeleccionListaCliente()">
+
+                                                            <option value={{aux}}
+                                                                    ng-repeat="aux in listaCliente | filter:busquedaCliente| orderBy:aux.nombre_cliente">
+                                                                {{aux.nombre_cliente}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
 
-                                        <div class="row">
-                                            <div class="col-md-12">
-
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <select name="Clientes" id="cliente" ng-model="seleccionCliente" class="form-control" ng-click="buscarSeleccionListaCliente()">
-
-                                                    <option value={{aux}}
-                                                            ng-repeat="aux in listaCliente | filter:busquedaCliente| orderBy:aux.nombre_cliente">
-                                                        {{aux.nombre_cliente}}
-                                                    </option>
-                                                </select>
-                                            </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>No. Orden: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="text" id="numOrden" onkeypress="return numerosLetrasSigno(event,'numOrden')" ng-model="numOrden" placeholder="001-002-003" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <h4>Fecha Emisión: </h4>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group date jp-date">
-                                        <input type="text" id="fecha" onkeypress="return validarFecha(event,'fecha')" ng-model="fechaEmision" placeholder="Fecha Emisión" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>Embarcación: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select class="form-control" ng-model="embarcacion" ng-options="item._id as item.nombre_embarcacion for item in listaEmbarcacion" ng-click="buscarCapitan()"></select>
+                                        </div>
                                     </div>
-                                    <script type="text/javascript">
-                                        $('.jp-date').datepicker({
-                                            format: "dd/mm/yyyy",
-                                            language: "es",
-                                            autoclose: true
-                                        });
-                                    </script>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="col-md-4">
-                            <div class="row">
                                 <div class="col-md-4">
-                                    <h4>Embarcación: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <select class="form-control" ng-model="embarcacion" ng-options="item._id as item.nombre_embarcacion for item in listaEmbarcacion" ng-click="buscarCapitan()"></select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Puerto Embarque: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <select class="form-control" ng-model="puertoEmbarque" ng-options="item._id as item.descripcion_puerto for item in listaPuerto"></select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Puerto Desembarque: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <select class="form-control" ng-model="puertoDesembarque" ng-options="item._id as item.descripcion_puerto for item in listaPuerto"></select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Horómetro Inicial M1: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <input type="number" id="oromIni1" onkeypress="return soloNumeros(event,'oromIni1')" ng-model="orometroInicialM1" min="0" placeholder="0" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Horómetro Inicial M2: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <input type="number" id="oromIni2" onkeypress="return soloNumeros(event,'oromIni2')" ng-model="orometroInicialM2" min="0" placeholder="0" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Hora Salida: </h4>
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="number" id="horaSal" onkeypress="return soloNumeros(event,'horaSal')" ng-model="horasSalida" min="0" max="23" placeholder="09" class="form-control" />
-                                </div>
-                                <div class="col-md-1">
-                                    <h4>:</h4>
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="number" id="minSal" onkeypress="return soloNumeros(event,'minSal')" ng-model="minutosSalida" min="0" max="59" placeholder="00" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Horómetro Final M1: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <input type="number" id="oromFin1" onkeypress="return soloNumeros(event,'oromFin1')" ng-model="orometroFinalM1" min="0" placeholder="0" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Horómetro Final M2: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <input type="number" id="oromFin2" onkeypress="return soloNumeros(event,'oromFin2')" ng-model="orometroFinalM2" min="0" placeholder="0" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Hora Arribo: </h4>
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="number" id="horaLleg" onkeypress="return soloNumeros(event,'horaLleg')" ng-model="horasArribo" min="0" max="23" placeholder="15" class="form-control" />
-                                </div>
-                                <div class="col-md-1">
-                                    <h4>:</h4>
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="number" id="minLleg" onkeypress="return soloNumeros(event,'minLleg')" ng-model="minutosArribo" min="0" max="59" placeholder="00" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Contrato Recepción: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <select class="form-control" ng-model="contratoRecepcion" ng-options="item._id as item.descripcion_contrato_recepcion for item in listaContratoRecepcion"></select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <h4>Fecha Entrega: </h4>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group date juan-date">
-                                        <input type="text" id="fecha1" onkeypress="return validarFecha(event,'fecha1')" ng-model="fechaEntrega" placeholder="Fecha Entrega" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>Puerto Embarque: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select class="form-control" ng-model="puertoEmbarque" ng-options="item._id as item.descripcion_puerto for item in listaPuerto"></select>
+                                        </div>
                                     </div>
-                                    <script type="text/javascript">
-                                        $('.juan-date').datepicker({
-                                            format: "dd/mm/yyyy",
-                                            language: "es",
-                                            autoclose: true
-                                        });
-                                    </script>
                                 </div>
-                            </div>
-                        </div>
 
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="row">
                                 <div class="col-md-4">
-                                    <h4>Capitán: </h4>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>Puerto Desembarque: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select class="form-control" ng-model="puertoDesembarque" ng-options="item._id as item.descripcion_puerto for item in listaPuerto"></select>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-7">
-                                    <select class="form-control" ng-model="capitan" ng-options="item._id as item.nombre_tripulante for item in listaTripulantesCapitanes"></select>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-md-4">
-                            <div class="row">
                                 <div class="col-md-4">
-                                    <h4>Estado Orden: </h4>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>Horómetro Inicial M1: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="number" id="oromIni1" onkeypress="return soloNumeros(event,'oromIni1')" ng-model="orometroInicialM1" min="0" placeholder="0" class="form-control" />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-7">
-                                    <select class="form-control" ng-model="estado" ng-options="item._id as item.descripcion_estado for item in listaEstadosOrden"></select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-2">
-
-                        </div>
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-10">
-                                    <h3>Detalle Material Pretreo: </h3>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>Horómetro Inicial M2: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="number" id="oromIni2" onkeypress="return soloNumeros(event,'oromIni2')" ng-model="orometroInicialM2" min="0" placeholder="0" class="form-control" />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
+
+                                <div class="col-md-4">
                                     <div class="row">
                                         <div class="col-md-1">
 
                                         </div>
                                         <div class="col-md-3">
-                                            <h4>Material: </h4>
+                                            <h4>Hora Salida: </h4>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="number" id="horaSal" onkeypress="return soloNumeros(event,'horaSal')" ng-model="horasSalida" min="0" max="23" placeholder="09" class="form-control" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h4>:</h4>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="number" id="minSal" onkeypress="return soloNumeros(event,'minSal')" ng-model="minutosSalida" min="0" max="59" placeholder="00" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>Horómetro Final M1: </h4>
                                         </div>
                                         <div class="col-md-7">
-                                            <select name="Puertos" ng-model="seleccionTipoMatPetreo" class="form-control">
+                                            <input type="number" id="oromFin1" onkeypress="return soloNumeros(event,'oromFin1')" ng-model="orometroFinalM1" min="0" placeholder="0" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>Horómetro Final M2: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="number" id="oromFin2" onkeypress="return soloNumeros(event,'oromFin2')" ng-model="orometroFinalM2" min="0" placeholder="0" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-1">
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h4>Hora Arribo: </h4>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="number" id="horaLleg" onkeypress="return soloNumeros(event,'horaLleg')" ng-model="horasArribo" min="0" max="23" placeholder="15" class="form-control" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h4>:</h4>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="number" id="minLleg" onkeypress="return soloNumeros(event,'minLleg')" ng-model="minutosArribo" min="0" max="59" placeholder="00" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>Contrato Recepción: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select class="form-control" ng-model="contratoRecepcion" ng-options="item._id as item.descripcion_contrato_recepcion for item in listaContratoRecepcion"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <h4>Fecha Emisión: </h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group date jp-date">
+                                                <input type="text" id="fecha" onkeypress="return validarFecha(event,'fecha')" ng-model="fechaEmision" placeholder="01/12/2017" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            </div>
+                                            <script type="text/javascript">
+                                                $('.jp-date').datepicker({
+                                                    format: "dd/mm/yyyy",
+                                                    language: "es",
+                                                    autoclose: true
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-1">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>Capitán: </h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <select class="form-control" ng-model="capitan" ng-options="item._id as item.nombre_tripulante for item in listaTripulantesCapitanes"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>Estado Orden: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select class="form-control" ng-model="estado" ng-options="item._id as item.descripcion_estado for item in listaEstadosOrden"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <h4>Fecha Entrega: </h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group date juan-date">
+                                                <input type="text" id="fecha1" onkeypress="return validarFecha(event,'fecha1')" ng-model="fechaEntrega" placeholder="01/12/2017" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            </div>
+                                            <script type="text/javascript">
+                                                $('.juan-date').datepicker({
+                                                    format: "dd/mm/yyyy",
+                                                    language: "es",
+                                                    autoclose: true
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </DETAILS>
+                    </div>
+
+                    <div class="panel-group color2">
+                        <DETAILS ng-open="showMaterialVehiculo">
+                            <summary><font size=5>Material Petreo y Vehículos</font></summary>
+                            <div class="row">
+                                <div class="col-md-2">
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h3>Detalle Material Pretreo: </h3>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-1">
+
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <h4>Material: </h4>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <select name="Puertos" ng-model="seleccionTipoMatPetreo" class="form-control">
+                                                        <option value={{aux}}
+                                                                ng-repeat="aux in listaTipoMaterialPetreo">
+                                                            {{aux.descripcion_tipo_material}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-1">
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>Número Volquetas: </h4>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="number" id="numVol" onkeypress="return soloNumeros(event,'numVol')" ng-model="numVolquetas" placeholder="0" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-1">
+
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <h4>Cantidad Total: </h4>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <input type="number" id="cantTo" onkeypress="return soloNumerosCant(event,'cantTo')" ng-model="cantTotalM3" placeholder="0" class="form-control" />
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaMatPetreo()" />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaMatPetreo()" />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input class="form-control btn-primary" type="submit" value="Quitar" ng-click="quitarSeleccionMaterialPetreo()" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <br />
+                                        <p>Lista Materiales:</p>
+                                        <select name="Puertos" ng-model="seleccionMatPetreo" multiple class="form-control" style="height: 150px;" ng-click="cargarSeleccionListaMatPetreo()">
+                                            <option value={{aux}}
+                                                    ng-repeat="aux in listaMaterialPetreo | orderBy:aux.tipo_material">
+                                                {{aux.tipo_material.descripcion_tipo_material}} {{" -- "}} {{aux.num_volquetas}} {{" -- "}} {{aux.cant_total_m3}}
+                                            </option>
+                                        </select>
+                                        <br />
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h3>Detalle Vehículos: </h3>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h4>Descripción: </h4>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="text" id="descripVehi" onkeypress="return numerosLetras(event,'descripVehi')" ng-model="descripcionVehiculo" placeholder="Modelo Vehiculo" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <h4>Cantidad: </h4>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="number" id="cant" onkeypress="return soloNumeros(event,'cant')" ng-model="cantidadVehiculo" placeholder="0" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h4>Placa: </h4>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="text" id="placa" onkeypress="return numerosLetras(event,'placa')" ng-model="matricula" placeholder="Número Placa" class="form-control" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaVehiculo()" />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaVehiculo()" />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input class="form-control btn-primary" type="submit" value="Quitar" ng-click="quitarSeleccionVehiculo()" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <br>
+                                        <p>Lista Vehículos:</p>
+                                        <select name="Puertos" ng-model="seleccionVehiculo" multiple class="form-control" style="height: 150px;" ng-click="cargarSeleccionListaVehiculo()">
+                                            <option value={{aux}}
+                                                    ng-repeat="aux in listaVehiculo | orderBy:aux.descripcion_vehiculos">
+                                                {{aux.descripcion_vehiculos}} {{" -- "}} {{aux.cantidad_vehiculos}}{{" -- "}} {{aux.matricula}}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </DETAILS>
+                    </div>
+
+                    <div class="panel-group color2">
+                        <DETAILS ng-open="showCombustibles">
+                            <summary><font size=5>Combustible de Consumo y Transporte</font></summary>
+                            <div class="row">
+                                <div class="col-md-2">
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h3>Consumo Combustible: </h3>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>Conbustible: </h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <select name="Puertos" ng-model="seleccionConsumoTipoCombustible" class="form-control">
                                                 <option value={{aux}}
-                                                        ng-repeat="aux in listaTipoMaterialPetreo">
-                                                    {{aux.descripcion_tipo_material}}
+                                                        ng-repeat="aux in listaCombustibleConsumo">
+                                                    {{aux.descripcion_tipo_combustible}}
                                                 </option>
                                             </select>
                                         </div>
@@ -360,11 +539,55 @@
                                         <div class="col-md-1">
 
                                         </div>
-                                        <div class="col-md-6">
-                                            <h4>Número Volquetas: </h4>
+                                        <div class="col-md-5">
+                                            <h4>Cantidad: </h4>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="number" id="cantCon" onkeypress="return soloNumeros(event,'cantCon')" placeholder="0" ng-model="cantidadConsumoCombustible" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaConsumoCombustible()" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaConsumoCombustible()" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input class="form-control btn-primary" type="submit" value="Quitar" ng-click="quitarSeleccionConsumoCombustible()" />
+                                    </div>
+                                    <div class="col-md-12">
+                                        <br>
+                                        <p>Lista Consumo Combustible:</p>
+                                        <select name="Puertos" ng-model="seleccionConsumoCombustible" multiple class="form-control" style="height: 150px;" ng-click="cargarSeleccionListaConsumoCombustible()">
+                                            <option value={{aux}}
+                                                    ng-repeat="aux in listaCombustibleConsumoSelect">
+                                                {{aux.tipo_combustible.descripcion_tipo_combustible}} {{" -- "}} {{aux.cantidad_combustible}}
+                                            </option>
+                                        </select>
+                                        <br />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h3>Transporte Combustible: </h3>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1">
+
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="number" id="numVol" onkeypress="return soloNumeros(event,'numVol')" ng-model="numVolquetas" placeholder="0" class="form-control" />
+                                            <h4>Combustible: </h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <select name="Puertos" ng-model="seleccionTransporteTipoCombustible" class="form-control">
+                                                <option value={{aux}}
+                                                        ng-repeat="aux in listaCombustibleTransporte">
+                                                    {{aux.descripcion_tipo_combustible}}
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -372,262 +595,91 @@
 
                                         </div>
                                         <div class="col-md-5">
-                                            <h4>Cantidad Total: </h4>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <input type="number" id="cantTo" onkeypress="return soloNumerosCant(event,'cantTo')" ng-model="cantTotalM3" placeholder="0" class="form-control" />
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaMatPetreo()" />
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaMatPetreo()" />
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Quitar" ng-click="quitarSeleccionMaterialPetreo()" />
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <br
-                                <p>Lista Materiales:</p>
-                                <select name="Puertos" ng-model="seleccionMatPetreo" multiple class="form-control" style="height: 150px;" ng-click="cargarSeleccionListaMatPetreo()">
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaMaterialPetreo | orderBy:aux.tipo_material">
-                                        {{aux.tipo_material.descripcion_tipo_material}} {{" -- "}} {{aux.num_volquetas}} {{" -- "}} {{aux.cant_total_m3}}
-                                    </option>
-                                </select>
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-10">
-                                    <h3>Detalle Vehículos: </h3>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <h4>Descripción: </h4>
-                                        </div>
-                                        <div class="col-md-7">
-                                            <input type="text" id="descripVehi" onkeypress="return numerosLetras(event,'descripVehi')" ng-model="descripcionVehiculo" placeholder="Modelo Vehiculo" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-7">
                                             <h4>Cantidad: </h4>
                                         </div>
-                                        <div class="col-md-4">
-                                            <input type="number" id="cant" onkeypress="return soloNumeros(event,'cant')" ng-model="cantidadVehiculo" placeholder="0" class="form-control" />
+                                        <div class="col-md-5">
+                                            <input type="number" id="cantT" onkeypress="return soloNumeros(event,'cantT')" placeholder="0" ng-model="cantidadTransporteCombustible" class="form-control" />
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <h4>Placa: </h4>
-                                        </div>
-                                        <div class="col-md-7">
-                                            <input type="text" id="placa" onkeypress="return numerosLetras(event,'placa')" ng-model="matricula" placeholder="Número Placa" class="form-control" />
-                                        </div>
-                                    </div>
-
                                     <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaVehiculo()" />
+                                        <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaTransporteCombustible()" />
                                     </div>
                                     <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaVehiculo()" />
+                                        <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaTransporteCombustible()" />
                                     </div>
                                     <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Quitar" ng-click="quitarSeleccionVehiculo()" />
+                                        <input class="form-control btn-primary" type="submit" value="Quitar" ng-click="quitarSeleccionTrasnsporteCombustible()" />
                                     </div>
-
+                                    <div class="col-md-12">
+                                        <br>
+                                        <p>Lista Transporte Combustible:</p>
+                                        <select name="Puertos" ng-model="seleccionTransporteCombustible" multiple class="form-control" style="height: 150px;" ng-click="cargarSeleccionListaTransporteCombustible()">
+                                            <option value={{aux}}
+                                                    ng-repeat="aux in listaCombustibleTransporteSelect">
+                                                {{aux.tipo_combustible.descripcion_tipo_combustible}} {{" -- "}} {{aux.cantidad_combustible}}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-12">
-                                <br>
-                                <p>Lista Vehículos:</p>
-                                <select name="Puertos" ng-model="seleccionVehiculo" multiple class="form-control" style="height: 150px;" ng-click="cargarSeleccionListaVehiculo()">
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaVehiculo | orderBy:aux.descripcion_vehiculos">
-                                        {{aux.descripcion_vehiculos}} {{" -- "}} {{aux.cantidad_vehiculos}}{{" -- "}} {{aux.matricula}}
-                                    </option>
-                                </select>
-                            </div>
-
-                        </div>
+                        </DETAILS>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-2">
-
-                        </div>
-                        <div class="col-md-4">
+                    <div class="panel-group color2">
+                        <DETAILS ng-open="showCombustibles">
+                            <summary><font size=5>Observaciones</font></summary>
                             <div class="row">
-                                <div class="col-md-10">
-                                    <h3>Consumo Combustible: </h3>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-1">
+                                <div class="row">
+                                    <div class="col-md-1">
 
-                                </div>
-                                <div class="col-md-4">
-                                    <h4>Conbustible: </h4>
-                                </div>
-                                <div class="col-md-6">
-                                    <select name="Puertos" ng-model="seleccionConsumoTipoCombustible" class="form-control">
-                                        <option value={{aux}}
-                                                ng-repeat="aux in listaCombustibleConsumo">
-                                            {{aux.descripcion_tipo_combustible}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-1">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <br>
+                                        <div class="col-md-3">
+                                            <h4>Detalle: </h4>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="text" id="detall" onkeypress="return numerosLetras(event,'detall')" ng-model="detalle" placeholder="Detalle orden" class="form-control" />
+                                            <br />
+                                        </div>
+                                    </div>
 
-                                </div>
-                                <div class="col-md-5">
-                                    <h4>Cantidad: </h4>
-                                </div>
-                                <div class="col-md-5">
-                                    <input type="number" id="cantCon" onkeypress="return soloNumeros(event,'cantCon')" placeholder="0" ng-model="cantidadConsumoCombustible" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaConsumoCombustible()" />
-                            </div>
-                            <div class="col-md-4">
-                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaConsumoCombustible()" />
-                            </div>
-                            <div class="col-md-4">
-                                <input class="form-control btn-primary" type="submit" value="Quitar" ng-click="quitarSeleccionConsumoCombustible()" />
-                            </div>
-                            <div class="col-md-12">
-                                <br>
-                                <p>Lista Consumo Combustible:</p>
-                                <select name="Puertos" ng-model="seleccionConsumoCombustible" multiple class="form-control" style="height: 150px;" ng-click="cargarSeleccionListaConsumoCombustible()">
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaCombustibleConsumoSelect">
-                                        {{aux.tipo_combustible.descripcion_tipo_combustible}} {{" -- "}} {{aux.cantidad_combustible}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-10">
-                                    <h3>Transporte Combustible: </h3>
+                                    <div class="col-md-5">
+                                        <br>
+                                        <div class="col-md-4">
+                                            <h4>Observaciones: </h4>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" id="obs" onkeypress="return numerosLetras(event,'obs')" ng-model="observaciones" placeholder="observacions Adicionales" class="form-control" />
+                                            <br />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-1">
+
+                                <div class="col-md-2">
 
                                 </div>
-                                <div class="col-md-4">
-                                    <h4>Combustible: </h4>
-                                </div>
-                                <div class="col-md-6">
-                                    <select name="Puertos" ng-model="seleccionTransporteTipoCombustible" class="form-control">
-                                        <option value={{aux}}
-                                                ng-repeat="aux in listaCombustibleTransporte">
-                                            {{aux.descripcion_tipo_combustible}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-1">
 
-                                </div>
-                                <div class="col-md-5">
-                                    <h4>Cantidad: </h4>
-                                </div>
-                                <div class="col-md-5">
-                                    <input type="number" id="cantT" onkeypress="return soloNumeros(event,'cantT')" placeholder="0" ng-model="cantidadTransporteCombustible" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaTransporteCombustible()" />
-                            </div>
-                            <div class="col-md-4">
-                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaTransporteCombustible()" />
-                            </div>
-                            <div class="col-md-4">
-                                <input class="form-control btn-primary" type="submit" value="Quitar" ng-click="quitarSeleccionTrasnsporteCombustible()" />
-                            </div>
-                            <div class="col-md-12">
-                                <br>
-                                <p>Lista Transporte Combustible:</p>
-                                <select name="Puertos" ng-model="seleccionTransporteCombustible" multiple class="form-control" style="height: 150px;" ng-click="cargarSeleccionListaTransporteCombustible()">
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaCombustibleTransporteSelect">
-                                        {{aux.tipo_combustible.descripcion_tipo_combustible}} {{" -- "}} {{aux.cantidad_combustible}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="row">
-                            <div class="col-md-1">
-
-                            </div>
-                            <div class="col-md-5">
-                                <br>
-                                <div class="col-md-3">
-                                    <h4>Detalle: </h4>
-                                </div>
                                 <div class="col-md-9">
-                                    <input type="text" id="detall" onkeypress="return numerosLetras(event,'detall')" ng-model="detalle" placeholder="Detalle orden" class="form-control" />
+                                    <div class="row">
+                                        <br>
+                                        <div class="col-md-4">
+                                            <h4>Observación Maquinista: </h4>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" id="obsMaq" onkeypress="return numerosLetras(event,'obsMaq')" ng-model="observacionMaquinista" placeholder="Observaciones Maquinista" class="form-control" />
+                                            <br />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-5">
-                                <br>
-                                <div class="col-md-4">
-                                    <h4>Observaciones: </h4>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" id="obs" onkeypress="return numerosLetras(event,'obs')" ng-model="observaciones" placeholder="observacions Adicionales" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-
-                        <div class="col-md-2">
-
-                        </div>
-
-                        <div class="col-md-9">
-                            <div class="row">
-                                <br>
-                                <div class="col-md-4">
-                                    <h4>Observación Maquinista: </h4>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" id="obsMaq" onkeypress="return numerosLetras(event,'obsMaq')" ng-model="observacionMaquinista" placeholder="Observaciones Maquinista" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
+                        </DETAILS>
                     </div>
 
                     <div class="col-md-12">
                         <div class="row">
-                            <br>
                             <div class="col-md-4">
 
                             </div>
@@ -643,7 +695,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </body>
 </html>

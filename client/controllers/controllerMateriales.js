@@ -4,7 +4,7 @@ app.controller('ControllerMaterial', ['$scope', '$http', 'myProvider', function 
     $scope.urlModificar;
     $scope.urlAllMateriales;
     $scope.descripcionMaterial;
-    $scope.stock = "";
+    $scope.stock = 1;
     $scope.estado;
 
     $scope.id;
@@ -28,7 +28,7 @@ app.controller('ControllerMaterial', ['$scope', '$http', 'myProvider', function 
             }
 
             $scope.descripcionMaterial = "";
-            $scope.stock = "";
+            $scope.stock = 1;
             $scope.estado = "";
 
             $scope.id = "";

@@ -26,6 +26,9 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     $scope.urlAllTipoTripulantesCapitanTimonel;
     $scope.urlAllTipoCombustibleTransporte;
 
+    $scope.buscarEmbarcacion;
+    $scope.buscarpuerto;
+
     //atributos
     $scope.id = "";
     $scope.cliente = "";
@@ -50,6 +53,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     $scope.observacionMaquinista = "";
     $scope.contratoRecepcion = "";
     $scope.capitan = "";
+    $scope.numOrden = "";
 
     // Variable de combustible
     $scope.cantidadConsumoCombustible = "";
@@ -116,6 +120,11 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     $scope.dimTrip;
     $scope.incId;
 
+    // menus 
+    $scope.buscar = true;
+    $scope.showRequeridos = true;
+    $scope.showMaterialVehiculo = false;
+    $scope.showCombustibles = false;
 
     var aux = localStorage.getItem("id_token");
     if (aux != null) {
@@ -152,7 +161,6 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             $scope.urlVehiculoBuscar = myProvider.getUrlIdVehiculo();
 
             $scope.urlAllOrdenServicioEstadoProcesoViaje = myProvider.getUrlBuscarOrdenServicioEstadoViajeProceso();
-            $scope.urlBuscarClienteId = myProvider.getUrlIdClientes();
 
             $scope.getUrlAllTripulanteCapitan = myProvider.getUrlAllTripulanteCapitan();
             $scope.urlAllEstadosOrden = myProvider.getUrlAllEstadoOrden();
@@ -165,6 +173,10 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             $scope.urlAllTipoTripulantesCapitanTimonel = myProvider.getUrlAllTipoTripulanteCapitanTimonel();
             $scope.urlAllTripulantesCapitan = myProvider.getUrlAllTripulanteCapitan();
             $scope.urlAllTipoCombustibleTransporte = myProvider.getUrlAllTipoCombustibleActivos();
+
+            $scope.buscarEmbarcacion = myProvider.getUrlBuscarEmbarcacion();
+            $scope.urlBuscarClienteId = myProvider.getUrlIdClientes();
+            $scope.buscarPuerto = myProvider.getUrlIdPuerto();
 
             if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
                 $scope.usuario = JSON.parse(localStorage.getItem("user"));
@@ -195,6 +207,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             $scope.observacionMaquinista = "";
             $scope.contratoRecepcion = "";
             $scope.capitan = "";
+            $scope.numOrden = "";
 
             // Variables horas
             $scope.horasSalida = "";
@@ -256,8 +269,85 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             $scope.listaCombustibleTransporteEliminar = [];
             $scope.listaTripEliminar = [];
 
+            // menus 
+            $scope.buscar = true;
+            $scope.showRequeridos = true;
+            $scope.showMaterialVehiculo = false;
+            $scope.showCombustibles = false;
+
             //variable de Id generado
             $scope.incId = 0;
+
+            $http.get($scope.urlAllOrdenServicioEstadoProcesoViaje)
+                .then(function (response) {
+
+                    $scope.listaOrdenServicio = response.data;
+
+                    var n = $scope.listaOrdenServicio.length;
+                    var x = 0;
+                    var y = 0;
+                    var z = 0;
+                    var k = 0;
+                    for (var i = 0; i < n; i++) {
+
+                        var cli = {
+                            id: $scope.listaOrdenServicio[i].cliente
+                        };
+                        $http.post($scope.urlBuscarClienteId, cli)
+                            .then(function (response) {
+
+                                $scope.listaOrdenServicio[x++].cliente = response.data;
+
+                            }, function errorCallback(response) {
+
+                                console.log(response);
+                            });
+
+                        var emb = {
+                            id: $scope.listaOrdenServicio[i].embarcacion
+                        };
+                        $http.post($scope.buscarEmbarcacion, emb)
+                            .then(function (response) {
+
+                                $scope.listaOrdenServicio[y++].embarcacion = response.data;
+
+                            }, function errorCallback(response) {
+
+                                console.log(response);
+                            });
+
+                        var puertEmb = {
+                            id: $scope.listaOrdenServicio[i].puerto_embarque
+                        };
+                        $http.post($scope.buscarPuerto, puertEmb)
+                            .then(function (response) {
+
+                                $scope.listaOrdenServicio[z++].puerto_embarque = response.data;
+
+                            }, function errorCallback(response) {
+
+                                console.log(response);
+                            });
+
+                        var puertoDesem = {
+                            id: $scope.listaOrdenServicio[i].puerto_desembarque
+                        };
+                        $http.post($scope.buscarPuerto, puertoDesem)
+                            .then(function (response) {
+
+                                $scope.listaOrdenServicio[k++].puerto_desembarque = response.data;
+
+                            }, function errorCallback(response) {
+
+                                console.log(response);
+                            });
+
+                    }
+
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
 
             $http.get($scope.urlAllTipoTripulantesCapitanTimonel)
                 .then(function (response) {
@@ -408,29 +498,6 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
                     $scope.listaCliente = response.data;
 
-                    $http.get($scope.urlAllOrdenServicioEstadoProcesoViaje)
-                        .then(function (response) {
-
-                            $scope.listaOrdenServicio = response.data;
-
-                            var n1 = $scope.listaCliente.length;
-                            var n = $scope.listaOrdenServicio.length;
-                            for (var i = 0; i < n; i++) {
-                                for (var j = 0; j < n1; j++) {
-                                    if ($scope.listaOrdenServicio[i].cliente == $scope.listaCliente[j]._id) {
-
-                                        $scope.listaOrdenServicio[i].cliente = $scope.listaCliente[j];
-                                        j = n1;
-
-                                    }
-                                }
-                            }
-
-                        }, function errorCallback(response) {
-
-                            console.log(response);
-                        });
-
                 }, function errorCallback(response) {
 
                     console.log(response);
@@ -444,8 +511,6 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
     $scope.imprimirOrden = function () {
 
-        console.log("hola");
-
         var doc = new jsPDF('p', 'mm', [297, 210]);
 
         var x = 25;
@@ -455,51 +520,59 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
         //doc.addImage(img.onload(), 'PNG', x, y - 20, 165, 25);
         doc.rect(x, y + 10, 165, 10, 'S')
         doc.setFontSize(8);
-        doc.setFontType("bold");
-        doc.text("PERIODO: ", x + 5, y + 16);
+        //doc.setFontType("bold");
+        //doc.text("PERIODO: ", x + 5, y + 16);
         doc.setFontType("normal");
         doc.text($scope.observaciones, x + 20, y + 16);
         doc.setFontSize(10);
         doc.setFontType("bold");
-        doc.text("LISTA DE ALUMNOS ", x + 60, y + 16);
+        doc.text("ORDEN DE SERVICIO ", x + 60, y + 16);
         doc.setFontSize(8);
         doc.setFontType("bold");
-        doc.text("NIVEL: ", x + 135, y + 16);
+        doc.text("Fecha: ", x + 5, y + 25);
         doc.setFontType("normal");
-        doc.text($scope.observacionMaquinista, x + 145, y + 16);
+        doc.text($scope.fechaEmision, x + 23, y + 25);
+
+        $scope.selecCli = JSON.parse($scope.seleccionCliente);
 
         doc.setFontSize(8);
         doc.setFontType("bold");
-        doc.text("PARALELO: ", x + 5, y + 25);
+        doc.text("RUC: ", x + 5, y + 30);
         doc.setFontType("normal");
-        doc.text($scope.detalle, x + 23, y + 25);
+        doc.text($scope.selecCli.ruc_cliente, x + 23, y + 30);
+
         doc.setFontType("bold");
-        doc.text("PROFESOR: ", x + 5, y + 30);
+        doc.text("Cliente: ", x + 5, y + 35);
         doc.setFontType("normal");
-        doc.text("JOSE ANDRES ROALES", x + 23, y + 30);
+        doc.text($scope.selecCli.nombre_cliente, x + 23, y + 35);
 
-        doc.rect(x, y + 35, 165, 220, 'S')
-        doc.line(x, y + 40, x + 165, y + 40)
-        doc.line(x + 15, y + 35, x + 15, y + 255)
-        doc.line(x + 50, y + 35, x + 50, y + 255)
-        var aun = 45;
-        for (var i = 0; i < 42; i++) {
-
-            doc.line(x, y + aun, x + 165, y + aun)
-            aun = aun + 5;
-
-        }
-
-        doc.setFontSize(10);
         doc.setFontType("bold");
-        doc.text("Num", x + 4, y + 39);
-        doc.text("Cedula", x + 25, y + 39);
-        doc.text("Nombre Completo", x + 55, y + 39);
-
-        doc.setFontSize(10);
+        doc.text("Direcci\u00F3n: ", x + 5, y + 45);
         doc.setFontType("normal");
-        var z = 44;
-        var num = 1;
+        doc.text($scope.selecCli.direccion_cliente, x + 23, y + 45);
+
+        //doc.rect(x, y + 35, 165, 220, 'S')
+        //doc.line(x, y + 40, x + 165, y + 40)
+        //doc.line(x + 15, y + 35, x + 15, y + 255)
+        //doc.line(x + 50, y + 35, x + 50, y + 255)
+        //var aun = 45;
+        //for (var i = 0; i < 42; i++) {
+
+        //    doc.line(x, y + aun, x + 165, y + aun)
+        //    aun = aun + 5;
+
+        //}
+
+        //doc.setFontSize(10);
+        //doc.setFontType("bold");
+        //doc.text("Num", x + 4, y + 39);
+        //doc.text("Cedula", x + 25, y + 39);
+        //doc.text("Nombre Completo", x + 55, y + 39);
+
+        //doc.setFontSize(10);
+        //doc.setFontType("normal");
+        //var z = 44;
+        //var num = 1;
         //for (var i = 0; i < lista.length; i++) {
 
         //    doc.text(num.toString(), x + 6, y + z);
@@ -822,7 +895,8 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             combustible_transporte: $scope.listaTransporteCombutible,
             observacion_maquinaria: $scope.observacionMaquinista,
             contrato_recepcion: $scope.contratoRecepcion,
-            capitan_embarcacion: $scope.capitan
+            capitan_embarcacion: $scope.capitan,
+            num_orden: $scope.numOrden
         }
 
         if (validarCamposVacios(obj)) {
@@ -868,10 +942,10 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     }
 
     $scope.modificarOrdenServicio = function () {
-        
+
         if ($scope.seleccionOrdenServicioLista != "") {
             $scope.selecCli = JSON.parse($scope.seleccionCliente);
-            
+
             var obj = {
                 cliente: $scope.selecCli._id,
                 detalle: $scope.detalle,
@@ -885,10 +959,10 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
                 orometro_inicial_m2: $scope.orometroInicialM2,
                 orometro_final_m1: $scope.orometroFinalM1,
                 orometro_final_m2: $scope.orometroFinalM2,
-                horaSal: $scope.horasSalida,
-                horaArrib: $scope.horasArribo,
-                minSal: $scope.minutosSalida,
-                minArrib: $scope.minutosArribo,
+                horaSal: $scope.horasSalida.toString(),
+                horaArrib: $scope.horasArribo.toString(),
+                minSal: $scope.minutosSalida.toString(),
+                minArrib: $scope.minutosArribo.toString(),
                 carga_material_petreo: $scope.listMatPetreo,
                 carga_vehiculo: $scope.listaVehi,
                 observaciones: $scope.observaciones,
@@ -896,9 +970,10 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
                 combustible_transporte: $scope.listaCombustTransporte,
                 observacion_maquinaria: $scope.observacionMaquinista,
                 contrato_recepcion: $scope.contratoRecepcion,
-                capitan_embarcacion: $scope.capitan
+                capitan_embarcacion: $scope.capitan,
+                num_orden: $scope.numOrden
             }
-            
+
             if (validarCamposVaciosAntes(obj)) {
 
                 if ($scope.horasSalida < 9) {
@@ -1018,6 +1093,12 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             }
         } else {
             $(document.getElementById("mensaje")).notify("Seleccione un Registro", { position: "left middle" });
+            swal({
+                title: "Seleccione un Registro!",
+                type: "error",
+                timer: 1500,
+                showConfirmButton: false
+            });
         }
     }
 
@@ -1148,15 +1229,15 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
     $scope.buscarSeleccionListaOrdenServicio = function () {
 
         $scope.iniciarListas();
-        $scope.selecOrdenServ = JSON.parse($scope.seleccionOrdenServicioLista);
+        $scope.selecOrdenServ = $scope.seleccionOrdenServicioLista;
 
         $scope.id = $scope.selecOrdenServ._id;
         $scope.seleccionCliente = JSON.stringify($scope.selecOrdenServ.cliente);
         $scope.fechaEmision = $scope.selecOrdenServ.fecha_emision;
         $scope.fechaEntrega = $scope.selecOrdenServ.fecha_entrega;
-        $scope.embarcacion = $scope.selecOrdenServ.embarcacion;
-        $scope.puertoEmbarque = $scope.selecOrdenServ.puerto_embarque;
-        $scope.puertoDesembarque = $scope.selecOrdenServ.puerto_desembarque;
+        $scope.embarcacion = $scope.selecOrdenServ.embarcacion._id;
+        $scope.puertoEmbarque = $scope.selecOrdenServ.puerto_embarque._id;
+        $scope.puertoDesembarque = $scope.selecOrdenServ.puerto_desembarque._id;
         $scope.orometroInicialM1 = $scope.selecOrdenServ.orometro_inicial_m1;
         $scope.orometroInicialM2 = $scope.selecOrdenServ.orometro_inicial_m2;
         $scope.orometroFinalM1 = $scope.selecOrdenServ.orometro_final_m1;
@@ -1169,6 +1250,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
         $scope.capitan = $scope.selecOrdenServ.capitan_embarcacion;
         $scope.detalle = $scope.selecOrdenServ.detalle;
         $scope.estado = $scope.selecOrdenServ.estado;
+        $scope.numOrden = $scope.selecOrdenServ.num_orden;
         $scope.cargarListasSeleccionOrdenServicio($scope.selecOrdenServ);
     }
 
@@ -1694,6 +1776,16 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
     }
 
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.seleccionOrdenServicioLista = item;
+        $scope.selectedRow = index;
+
+        $scope.buscarSeleccionListaOrdenServicio();
+
+    }
+
+
 }]);
 
 // SOLO LETRAS
@@ -1734,6 +1826,27 @@ function numerosLetras(e, id) {
 
     if (letras.indexOf(tecla) == -1 && !tecla_especial) {
         $(document.getElementById(id)).notify("Solo N\u00FAmeros, Letras, /.,-()", { position: "right" });
+        return false;
+    }
+}
+
+// PERMITE INGRESAR NUMEROS, LETRAS -
+function numerosLetrasSigno(e, id) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = "-0123456789áéíóúabcdefghijklmnñopqrstuvwxyz\u00E1\u00E9\u00ED\u00F3\u00FA\u00F1\u00C1\u00C9\u00CD\u00D3\u00DA\u00D1'";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo N\u00FAmeros, Letras, -", { position: "right" });
         return false;
     }
 }
@@ -1841,7 +1954,7 @@ function validarCamposVacios(obj) {
 
 // VALIDAR CAMPOS VACIOS Antes 
 function validarCamposVaciosAntes(obj) {
-    
+
     if (obj.cliente == "" || obj.embarcacion == "" || obj.estado == "" || obj.fecha_emision == "" ||
         obj.puerto_embarque == "" || obj.puerto_desembarque == "" || obj.orometro_inicial_m1 == "" || obj.orometro_inicial_m2 == "" ||
         obj.orometro_final_m1 == "" || obj.orometro_final_m2 == "" || obj.horaSal == "" || obj.minSal == "" || obj.horaArrib == "" ||
@@ -1849,7 +1962,9 @@ function validarCamposVaciosAntes(obj) {
         obj.cliente == null || obj.embarcacion == null || obj.estado == null || obj.fecha_emision == null ||
         obj.puerto_embarque == null || obj.puerto_desembarque == null || obj.orometro_inicial_m1 == null || obj.orometro_inicial_m2 == null ||
         obj.orometro_final_m1 == null || obj.orometro_final_m2 == null || obj.horaSal == null || obj.minSal == null || obj.horaArrib == null ||
-        obj.minArrib == null || obj.contrato_recepcion == null || obj.capitan_embarcacion == null) {
+        obj.minArrib == null || obj.contrato_recepcion == null || obj.capitan_embarcacion == null ||
+        obj.orometro_inicial_m1 >= obj.orometro_final_m1 || obj.orometro_inicial_m2 >= obj.orometro_final_m2 ||
+        obj.orometro_inicial_m1 >= obj.orometro_final_m1 || obj.orometro_inicial_m2 >= obj.orometro_final_m2) {
 
         if (obj.cliente == "" || obj.cliente == undefined || obj.cliente == null) {
             $(document.getElementById("cliente")).notify("Seleccione Cliente", { position: "right" });
@@ -1880,6 +1995,18 @@ function validarCamposVaciosAntes(obj) {
         }
         if (obj.minArrib == "" || obj.minArrib == null) {
             $(document.getElementById("minLleg")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.orometro_inicial_m1 >= obj.orometro_final_m1) {
+            $(document.getElementById("oromFin1")).notify("Debe ser mayor al Inicial", { position: "right" });
+        }
+        if (obj.orometro_inicial_m2 >= obj.orometro_final_m2) {
+            $(document.getElementById("oromFin2")).notify("Debe ser mayor al Inicial", { position: "right" });
+        }
+        if (obj.orometro_inicial_m1 >= obj.orometro_final_m1) {
+            $(document.getElementById("oromFin1")).notify("Debe ser mayor al Inicial", { position: "right" });
+        }
+        if (obj.orometro_inicial_m2 >= obj.orometro_final_m2) {
+            $(document.getElementById("oromFin2")).notify("Debe ser mayor al Inicial", { position: "right" });
         }
 
         return false;

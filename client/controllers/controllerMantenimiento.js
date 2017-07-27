@@ -11,6 +11,7 @@ app.controller('ControllerMantenimiento', ['$scope', '$http', 'myProvider', "$ti
     $scope.urlBuscarEmbarcacion;
     $scope.urlBuscarTipoMantenimiento;
     $scope.urlBuscarDetalleMantenimiento;
+    $scope.urlBuscarEstadoMantenimiento;
 
     //atributos
     $scope.id = "";
@@ -297,15 +298,23 @@ app.controller('ControllerMantenimiento', ['$scope', '$http', 'myProvider', "$ti
                         });
                 }
             }
-        } else
-            $(document.getElementById("lista")).notify("Seleccione un Registro", { position: "left middle" });
+        } else {
+            $(document.getElementById("mensaje")).notify("Seleccione un Registro", { position: "left middle" });
+            swal({
+                title: "Seleccione un Registro!",
+                type: "error",
+                timer: 1500,
+                showConfirmButton: false
+            });
+        }
+            
     }
 
     $scope.buscarSeleccionMantenimiento = function () {
 
         if ($scope.seleccionMantenimiento != '' && $scope.seleccionMantenimiento != undefined) {
 
-            $scope.selectMant = JSON.parse($scope.seleccionMantenimiento);
+            $scope.selectMant = $scope.seleccionMantenimiento;
             $scope.id = $scope.selectMant._id;
             $scope.fechaMantenimiento = $scope.selectMant.fecha_matenimiento;
             $scope.tipoMantenimiento = $scope.selectMant.tipo_mantenimiento._id;
@@ -342,6 +351,13 @@ app.controller('ControllerMantenimiento', ['$scope', '$http', 'myProvider', "$ti
         localStorage.clear();
         window.location = "../login.html"
 
+    }
+
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.seleccionMantenimiento = item;
+        $scope.selectedRow = index;
+        $scope.buscarSeleccionMantenimiento();
     }
 
 }]);

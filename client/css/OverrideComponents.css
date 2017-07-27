@@ -40,3 +40,8 @@ body {
     color: black;
     font-weight: bold;
 }
+
+.color2 {
+    border: 0.5px solid #222;
+    background-color: #E5E8E8;
+}

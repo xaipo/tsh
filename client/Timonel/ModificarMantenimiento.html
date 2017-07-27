@@ -81,18 +81,24 @@
                 <div class="panel-body">
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-1">
 
                         </div>
-                        <div class="col-md-4">
-                            <div class="panel panel-default">
-                                <div class="panel-heading"><center><h3 class="panel-title"><b>Lista de Ordenes</b></h3></center></div>
+
+                        <div class="col-md-10">
+                            <div class="panel panel-default" id="mensaje">
+                                <div class="panel-heading"><center><h3 class="panel-title"><b>Lista Mantenimientos</b></h3></center></div>
                                 <div class="panel-body">
                                     <div class="row">
-                                        <div class="col-md-1">
+                                        <div class="col-md-6">
+                                            <p>Seleccione un registro para mas detalles:</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
 
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <h4>Filtrar: </h4>
                                         </div>
 
@@ -102,22 +108,44 @@
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <center>
+                                            <div class="col-md-12 col-xs-12">
 
-                                        </div>
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr class="success">
+                                                                <th>#</th>
+                                                                <th>Embarcación</th>
+                                                                <th>Mantenimiento</th>
+                                                                <th>Fecha</th>
+                                                                <th>Mecánico</th>
+                                                            </tr>
 
-                                        <div class="col-md-12">
-                                            <select name="Clientes" ng-model="seleccionMantenimiento" multiple class="form-control" style="height: 75px;" ng-click="buscarSeleccionMantenimiento()">
-                                                <option value={{aux}}
-                                                        ng-repeat="aux in listaMantenimiento | filter:busqueda">
-                                                    {{aux.embarcacion.nombre_embarcacion}}{{"--"}}{{aux.tipo_mantenimiento.descripcion_tipo_mantenimiento}}
-                                                </option>
-                                            </select>
-                                        </div>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <tr dir-paginate="item in listaMantenimiento| filter:busqueda| itemsPerPage:4 track by $index"
+                                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="pedido">
+
+                                                                <td>{{$index+1}}</td>
+                                                                <td>{{ item.embarcacion.nombre_embarcacion}}</td>
+                                                                <td>{{ item.tipo_mantenimiento.descripcion_tipo_mantenimiento}}</td>
+                                                                <td>{{ item.fecha_matenimiento}}</td>
+                                                                <td>{{ item.mecanico}}</td>
+
+                                                            </tr>
+                                                            <dir-pagination-controls pagination-id="pedido"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </center>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="row">

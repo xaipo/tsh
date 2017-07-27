@@ -6,6 +6,8 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
     $scope.urlAllOrdenServicioEstadoViajeProceso;
     $scope.urlAllMateriales;
     $scope.urlAllTipoAlimentos;
+    $scope.buscarEmbarcacion;
+    $scope.buscarPuerto;
 
     // Variables Alimentos y Pedido
     $scope.observaciones;
@@ -21,6 +23,7 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
     $scope.seleccionAlimento;
 
     $scope.id;
+    $scope.seleccionOrden;
     $scope.seleccionPedido;
     $scope.seleccionMaterial;
     $scope.seleccionTipoAlimento = "";
@@ -43,6 +46,8 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
             $scope.urlAllOrdenServicioEstadoViajeProceso = myProvider.getUrlBuscarOrdenServicioEstadoViajeProceso();
             $scope.urlAllMateriales = myProvider.getUrlAllMaterialesActivos();
             $scope.urlAllTipoAlimentos = myProvider.getUrlALLTipoAlimentosActivos();
+            $scope.buscarEmbarcacion = myProvider.getUrlIdEmbarcacion();
+            $scope.buscarPuerto = myProvider.getUrlIdPuerto();
 
             if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
                 $scope.usuario = JSON.parse(localStorage.getItem("user"));
@@ -72,7 +77,7 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
             $scope.listaMaterialSelect = [];
             $scope.listaMaterialesArray = [];
             $scope.listaAlimentosArray = [];
-            $scope.listaTipoAlimentos = [];
+            $scope.listaTipoAlimentos = [];            
 
             $http.get($scope.urlAllTipoAlimentos)
                 .then(function (response) {
@@ -101,7 +106,53 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
                 .then(function (response) {
 
                     $scope.listaOrdenServicio = response.data;
-                    $scope.ordenServicio = $scope.listaOrdenServicio[0]._id;
+
+                    var n = $scope.listaOrdenServicio.length;
+                    var x = 0;
+                    var y = 0;
+                    var z = 0;
+                    for (var i = 0; i < n; i++) {
+
+                        var emb = {
+                            id: $scope.listaOrdenServicio[i].embarcacion
+                        };
+                        $http.post($scope.buscarEmbarcacion, emb)
+                            .then(function (response) {
+
+                                $scope.listaOrdenServicio[x++].embarcacion = response.data;
+
+                            }, function errorCallback(response) {
+
+                                console.log(response);
+                            });
+
+                        var puertEmb = {
+                            id: $scope.listaOrdenServicio[i].puerto_embarque
+                        };
+                        $http.post($scope.buscarPuerto, puertEmb)
+                            .then(function (response) {
+
+                                $scope.listaOrdenServicio[y++].puerto_embarque = response.data;
+
+                            }, function errorCallback(response) {
+
+                                console.log(response);
+                            });
+
+                        var puertoDesem = {
+                            id: $scope.listaOrdenServicio[i].puerto_desembarque
+                        };
+                        $http.post($scope.buscarPuerto, puertoDesem)
+                            .then(function (response) {
+
+                                $scope.listaOrdenServicio[z++].puerto_desembarque = response.data;
+
+                            }, function errorCallback(response) {
+
+                                console.log(response);
+                            });
+
+                    }
 
                 }, function errorCallback(response) {
 
@@ -196,29 +247,38 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
     }
 
     $scope.ingresoPedido = function () {
+        
+        if ($scope.ordenServicio != "" && $scope.ordenServicio != null) {
+            var dimProduc = $scope.listaAlimentos.length;
 
-        var dimProduc = $scope.listaAlimentos.length;
+            for (var i = 0; i < dimProduc; i++) {
 
-        for (var i = 0; i < dimProduc; i++) {
+                $scope.ingresoAlimentos(i);
 
-            $scope.ingresoAlimentos(i);
+            }
 
+            var dimUtenSelect = $scope.listaMaterialSelect.length;
+
+            for (var i = 0; i < dimUtenSelect; i++) {
+
+                $scope.ingresoMaterialesSeleccionados(i);
+
+            }
+
+            $timeout(function () {
+
+                $scope.ingresoPesidoBase();
+
+            }, 500, false)
+        } else {
+            $(document.getElementById("listaOrden")).notify("Seleccione un Registro", { position: "left middle" });
+            swal({
+                title: "Seleccione un Registro!",
+                type: "error",
+                timer: 1500,
+                showConfirmButton: false
+            });
         }
-
-        var dimUtenSelect = $scope.listaMaterialSelect.length;
-
-        for (var i = 0; i < dimUtenSelect; i++) {
-
-            $scope.ingresoMaterialesSeleccionados(i);
-
-        }
-
-        $timeout(function () {
-
-            $scope.ingresoPesidoBase();
-
-        }, 500, false)
-
     }
 
     $scope.cargarSeleccionListaMateriales = function () {
@@ -359,7 +419,7 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
             var n = $scope.listaAlimentos.length;
 
             for (var i = 0; i < n; i++) {
-                
+
                 if ($scope.listaAlimentos[i].id == $scope.seleccionAlimentoJS.id) {
 
                     var n1 = $scope.listaTipoAlimentos.length;
@@ -412,6 +472,13 @@ app.controller('ControllerPedido', ['$scope', '$http', 'myProvider', "$q", "$tim
 
         localStorage.clear();
         window.location = "../login.html"
+
+    }
+
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.ordenServicio = item._id;
+        $scope.selectedRow = index;
 
     }
 
@@ -483,7 +550,7 @@ function numerosLetras(e, id) {
 }
 
 function validarCamposVacios(obj) {
-    
+
     if (obj.observaciones == "" || obj.alimentos == "" || obj.materiales == "" ||
         obj.observaciones == null || obj.alimentos == null || obj.materiales == null) {
 

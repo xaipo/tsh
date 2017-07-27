@@ -100,21 +100,27 @@
         </div>
         <div class="col-md-10">
             <div class="panel panel-default">
-                <div class="panel-heading"><center><h2 class="panel-title"><b>MODIFICACION EMBARCACION</b></h2></center></div>
+                <div class="panel-heading"><center><h2 class="panel-title"><b>MODIFICAR EMBARCACIÓN</b></h2></center></div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-1">
 
                         </div>
-                        <div class="col-md-4">
+
+                        <div class="col-md-10">
                             <div class="panel panel-default" id="mensaje">
-                                <div class="panel-heading"><center><h3 class="panel-title"><b>Lista de Embarcaciones</b></h3></center></div>
+                                <div class="panel-heading"><center><h3 class="panel-title"><b>Lista Embarciones</b></h3></center></div>
                                 <div class="panel-body">
                                     <div class="row">
-                                        <div class="col-md-1">
+                                        <div class="col-md-6">
+                                            <p>Seleccione un registro para modificarlo:</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
 
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <h4>Filtrar: </h4>
                                         </div>
 
@@ -124,22 +130,47 @@
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <center>
+                                            <div class="col-md-12 col-xs-12">
 
-                                        </div>
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr class="success">
+                                                                <th>#</th>
+                                                                <th>Embacación</th>
+                                                                <th>Matrícula</th>
+                                                                <th>Propietario</th>
+                                                                <th>Fecha Construcción</th>
+                                                                <th>Estado</th>
+                                                                <!--<th>Estado</th>-->
+                                                            </tr>
 
-                                        <div class="col-md-12">
-                                            <select name="Clientes" ng-model="seleccionEmbarcacion" multiple class="form-control" style="height: 75px;" ng-click="buscarSeleccionListaEmbarcacion()">
-                                                <option value={{aux}}
-                                                        ng-repeat="aux in listaEmbarcacion | filter:busqueda| orderBy:aux.nombre_embarcacion">
-                                                    {{aux.nombre_embarcacion}}
-                                                </option>
-                                            </select>
-                                        </div>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <tr dir-paginate="item in listaEmbarcacion| filter:busqueda| itemsPerPage:4 track by $index"
+                                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="pedido">
+
+                                                                <td>{{$index+1}}</td>
+                                                                <td>{{ item.nombre_embarcacion}}</td>
+                                                                <td>{{ item.num_matricula}}</td>
+                                                                <td>{{ item.propietario.nombre_propietario}}</td>
+                                                                <td>{{ item.fecha_construccion}}</td>
+                                                                <td>{{ item.estado.descripcion_estado }}</td>
+
+                                                            </tr>
+                                                            <dir-pagination-controls pagination-id="pedido"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </center>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="row">
                         <div class="col-md-4">

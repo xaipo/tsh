@@ -44,6 +44,7 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
     $scope.observacionMaquinista = "";
     $scope.contratoRecepcion = "";
     $scope.capitan = "";
+    $scope.numOrden = "";
 
     // Variables horas
     $scope.horasSalida = "";
@@ -100,6 +101,12 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
     $scope.dimMatPet = "";
     $scope.dimTrip = "";
 
+    // menus 
+    $scope.showRequeridos = true;
+    $scope.showMaterialVehiculo = false;
+    $scope.showCombustibles = false;
+
+
     var aux = localStorage.getItem("id_token");
     if (aux != null) {
 
@@ -153,6 +160,7 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
             $scope.observacionMaquinista = "";
             $scope.contratoRecepcion = "";
             $scope.capitan = "";
+            $scope.numOrden = "";
 
             // Variables horas
             $scope.horasSalida = "";
@@ -208,6 +216,11 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
             $scope.dimVe = "";
             $scope.dimMatPet = "";
             $scope.dimTrip = "";
+
+            // menus 
+            $scope.showRequeridos = true;
+            $scope.showMaterialVehiculo = false;
+            $scope.showCombustibles = false;
 
             $http.get($scope.urlAllEstadosOrden)
                 .then(function (response) {
@@ -502,7 +515,8 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
             combustible_transporte: $scope.listaCombustTransporte,
             observacion_maquinaria: $scope.observacionMaquinista,
             contrato_recepcion: $scope.contratoRecepcion,
-            capitan_embarcacion: $scope.capitan
+            capitan_embarcacion: $scope.capitan,
+            num_orden: $scope.numOrden
         }
         if (validarCamposVacios(obj)) {
             var q = $q.defer()
@@ -547,118 +561,128 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
 
     $scope.ingresoOrdenServicio = function () {
 
-        var obj = {
-            cliente: $scope.selecCli._id,
-            detalle: $scope.detalle,
-            embarcacion: $scope.embarcacion,
-            estado: $scope.estado,
-            fecha_emision: $scope.fechaEmision,
-            fecha_entrega: $scope.fechaEntrega,
-            puerto_embarque: $scope.puertoEmbarque,
-            puerto_desembarque: $scope.puertoDesembarque,
-            orometro_inicial_m1: $scope.orometroInicialM1,
-            orometro_inicial_m2: $scope.orometroInicialM2,
-            orometro_final_m1: $scope.orometroFinalM1,
-            orometro_final_m2: $scope.orometroFinalM2,
-            horaSal: $scope.horasSalida,
-            horaArrib: $scope.horasArribo,
-            minSal: $scope.minutosSalida,
-            minArrib: $scope.minutosArribo,
-            carga_material_petreo: $scope.listMatPetreo,
-            carga_vehiculo: $scope.listaVehi,
-            observaciones: $scope.observaciones,
-            combustible_consumo: $scope.listaCombustConsumo,
-            combustible_transporte: $scope.listaCombustTransporte,
-            observacion_maquinaria: $scope.observacionMaquinista,
-            contrato_recepcion: $scope.contratoRecepcion,
-            capitan_embarcacion: $scope.capitan
+        if ($scope.seleccionCliente != "") {
+            var obj = {
+                cliente: $scope.selecCli._id,
+                detalle: $scope.detalle,
+                embarcacion: $scope.embarcacion,
+                estado: $scope.estado,
+                fecha_emision: $scope.fechaEmision,
+                fecha_entrega: $scope.fechaEntrega,
+                puerto_embarque: $scope.puertoEmbarque,
+                puerto_desembarque: $scope.puertoDesembarque,
+                orometro_inicial_m1: $scope.orometroInicialM1,
+                orometro_inicial_m2: $scope.orometroInicialM2,
+                orometro_final_m1: $scope.orometroFinalM1,
+                orometro_final_m2: $scope.orometroFinalM2,
+                horaSal: $scope.horasSalida.toString(),
+                horaArrib: $scope.horasArribo.toString(),
+                minSal: $scope.minutosSalida.toString(),
+                minArrib: $scope.minutosArribo.toString(),
+                carga_material_petreo: $scope.listMatPetreo,
+                carga_vehiculo: $scope.listaVehi,
+                observaciones: $scope.observaciones,
+                combustible_consumo: $scope.listaCombustConsumo,
+                combustible_transporte: $scope.listaCombustTransporte,
+                observacion_maquinaria: $scope.observacionMaquinista,
+                contrato_recepcion: $scope.contratoRecepcion,
+                capitan_embarcacion: $scope.capitan,
+                num_orden: $scope.numOrden
+            }
+            console.log(obj);
+            if (validarCamposVaciosAntes(obj)) {
+                if (parseInt($scope.horasSalida) < 9) {
+                    var h = "0" + $scope.horasSalida.toString();
+                    if (parseInt($scope.minutosSalida) < 9) {
+                        var min = "0" + $scope.minutosSalida.toString();
+                        $scope.horaSalida = h.toString() + ":" + min.toString();
+                    }
+                    if (parseInt($scope.minutosSalida) > 9) {
+                        var min = $scope.minutosSalida.toString();
+                        $scope.horaSalida = h.toString() + ":" + min.toString();
+                    }
+                }
+                if (parseInt($scope.horasSalida) > 9) {
+                    var h = $scope.horasSalida;
+                    if (parseInt($scope.minutosSalida) < 9) {
+                        var min = "0" + $scope.minutosSalida.toString();
+                        $scope.horaSalida = h.toString() + ":" + min.toString();
+                    }
+                    if (parseInt($scope.minutosSalida) > 9) {
+                        var min = $scope.minutosSalida.toString();
+                        $scope.horaSalida = h.toString() + ":" + min.toString();
+                    }
+                }
+
+                if (parseInt($scope.horasArribo) < 9) {
+                    var h = "0" + $scope.horasArribo.toString();
+                    if (parseInt($scope.minutosArribo) < 9) {
+                        var min = "0" + $scope.minutosArribo.toString();
+                        $scope.horaArribo = h.toString() + ":" + min.toString();
+                    }
+                    if (parseInt($scope.minutosArribo) > 9) {
+                        var min = $scope.minutosArribo.toString();
+                        $scope.horaArribo = h.toString() + ":" + min.toString();
+                    }
+                }
+                if (parseInt($scope.horasArribo) > 9) {
+                    var h = $scope.horasArribo.toString();
+                    if (parseInt($scope.minutosArribo) < 9) {
+                        var min = "0" + $scope.minutosArribo.toString();
+                        $scope.horaArribo = h.toString() + ":" + min.toString();
+                    }
+                    if (parseInt($scope.minutosArribo) > 9) {
+                        var min = $scope.minutosArribo.toString();
+                        $scope.horaArribo = h.toString() + ":" + min.toString();
+                    }
+                }
+
+                var dimMatPet = $scope.listaMaterialPetreo.length;
+
+                for (var i = 0; i < dimMatPet; i++) {
+
+                    $scope.ingresoMateriales(i);
+
+                }
+
+                var dimVe = $scope.listaVehiculo.length;
+
+                for (var i = 0; i < dimVe; i++) {
+
+                    $scope.ingresoVehiculos(i);
+
+                }
+
+                var dimeCombusCons = $scope.listaCombustibleConsumoSelect.length;
+
+                for (var i = 0; i < dimeCombusCons; i++) {
+
+                    $scope.ingresoCombustibleComsumo(i);
+
+                }
+
+                var dimeCombusTrans = $scope.listaCombustibleTransporteSelect.length;
+
+                for (var i = 0; i < dimeCombusTrans; i++) {
+
+                    $scope.ingresoCombustibleTransporte(i);
+
+                }
+
+                $timeout(function () {
+
+                    $scope.ingresoOrden();
+
+                }, 1500, false)
+            }
+        } else {
+            swal({
+                title: "Seleccione un Cliente!",
+                type: "error",
+                timer: 1500,
+                showConfirmButton: false
+            });
         }
-
-        if (validarCamposVaciosAntes(obj)) {
-            if ($scope.horasSalida < 9) {
-                var h = "0" + $scope.horasSalida.toString();
-                if ($scope.minutosSalida < 9) {
-                    var min = "0" + $scope.minutosSalida.toString();
-                    $scope.horaSalida = h.toString() + ":" + min.toString();
-                }
-                if ($scope.minutosSalida > 9) {
-                    var min = $scope.minutosSalida.toString();
-                    $scope.horaSalida = h.toString() + ":" + min.toString();
-                }
-            }
-            if ($scope.horasSalida > 9) {
-                var h = $scope.horasSalida;
-                if ($scope.minutosSalida < 9) {
-                    var min = "0" + $scope.minutosSalida.toString();
-                    $scope.horaSalida = h.toString() + ":" + min.toString();
-                }
-                if ($scope.minutosSalida > 9) {
-                    var min = $scope.minutosSalida.toString();
-                    $scope.horaSalida = h.toString() + ":" + min.toString();
-                }
-            }
-
-            if ($scope.horasArribo < 9) {
-                var h = "0" + $scope.horasArribo.toString();
-                if ($scope.minutosArribo < 9) {
-                    var min = "0" + $scope.minutosArribo.toString();
-                    $scope.horaArribo = h.toString() + ":" + min.toString();
-                }
-                if ($scope.minutosArribo > 9) {
-                    var min = $scope.minutosArribo.toString();
-                    $scope.horaArribo = h.toString() + ":" + min.toString();
-                }
-            }
-            if ($scope.horasArribo > 9) {
-                var h = $scope.horasArribo.toString();
-                if ($scope.minutosArribo < 9) {
-                    var min = "0" + $scope.minutosArribo.toString();
-                    $scope.horaArribo = h.toString() + ":" + min.toString();
-                }
-                if ($scope.minutosArribo > 9) {
-                    var min = $scope.minutosArribo.toString();
-                    $scope.horaArribo = h.toString() + ":" + min.toString();
-                }
-            }
-
-            var dimMatPet = $scope.listaMaterialPetreo.length;
-
-            for (var i = 0; i < dimMatPet; i++) {
-
-                $scope.ingresoMateriales(i);
-
-            }
-
-            var dimVe = $scope.listaVehiculo.length;
-
-            for (var i = 0; i < dimVe; i++) {
-
-                $scope.ingresoVehiculos(i);
-
-            }
-
-            var dimeCombusCons = $scope.listaCombustibleConsumoSelect.length;
-
-            for (var i = 0; i < dimeCombusCons; i++) {
-
-                $scope.ingresoCombustibleComsumo(i);
-
-            }
-
-            var dimeCombusTrans = $scope.listaCombustibleTransporteSelect.length;
-
-            for (var i = 0; i < dimeCombusTrans; i++) {
-
-                $scope.ingresoCombustibleTransporte(i);
-
-            }
-
-            $timeout(function () {
-
-                $scope.ingresoOrden();
-
-            }, 1500, false)
-        } 
     }
 
     $scope.buscarSeleccionListaCliente = function () {
@@ -1024,7 +1048,7 @@ function soloLetras(e, id) {
 function numerosLetras(e, id) {
     key = e.keyCode || e.which;
     tecla = String.fromCharCode(key).toLowerCase();
-    letras = " (),/.-0123456789áéíóúabcdefghijklmnñopqrstuvwxyz'\u00E1''\u00E9''\u00ED''\u00F3''\u00FA''\u00F1''\u00C1''\u00C9''\u00CD''\u00D3''\u00DA''\u00D1'";
+    letras = " (),/.-0123456789áéíóúabcdefghijklmnñopqrstuvwxyz\u00E1\u00E9\u00ED\u00F3\u00FA\u00F1\u00C1\u00C9\u00CD\u00D3\u00DA\u00D1'";
     especiales = "8-37-39-46";
 
     tecla_especial = false
@@ -1037,6 +1061,27 @@ function numerosLetras(e, id) {
 
     if (letras.indexOf(tecla) == -1 && !tecla_especial) {
         $(document.getElementById(id)).notify("Solo N\u00FAmeros, Letras, /.,-()", { position: "right" });
+        return false;
+    }
+}
+
+// PERMITE INGRESAR NUMEROS, LETRAS -
+function numerosLetrasSigno(e, id) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = "-0123456789áéíóúabcdefghijklmnñopqrstuvwxyz\u00E1\u00E9\u00ED\u00F3\u00FA\u00F1\u00C1\u00C9\u00CD\u00D3\u00DA\u00D1'";
+    especiales = "8-37-39-46";
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        $(document.getElementById(id)).notify("Solo N\u00FAmeros, Letras, -", { position: "right" });
         return false;
     }
 }
@@ -1115,14 +1160,15 @@ function validarCamposVacios(obj) {
     if (obj.cliente == "" || obj.embarcacion == "" || obj.estado == "" || obj.fecha_emision == "" ||
         obj.puerto_embarque == "" || obj.puerto_desembarque == "" || obj.orometro_inicial_m1 == "" || obj.orometro_inicial_m2 == "" ||
         obj.orometro_final_m1 == "" || obj.orometro_final_m2 == "" || obj.hora_salida == "" || obj.hora_arribo == "" ||
-        obj.contrato_recepcion == "" || obj.capitan_embarcacion == "") {
+        obj.contrato_recepcion == "" || obj.capitan_embarcacion == "" || obj.orometro_inicial_m1 >= obj.orometro_final_m1 ||
+        obj.orometro_inicial_m2 >= obj.orometro_final_m2) {
 
         if (obj.cliente == "") {
             $(document.getElementById("cliente")).notify("Seleccione Cliente", { position: "right" });
         }
         if (obj.fecha_emision == "") {
             $(document.getElementById("fecha")).notify("Campo Vac\u00EDo", { position: "right" });
-        }        
+        }
         if (obj.orometro_inicial_m1 == "") {
             $(document.getElementById("oromIni1")).notify("Campo Vac\u00EDo", { position: "right" });
         }
@@ -1144,11 +1190,12 @@ function validarCamposVacios(obj) {
 
 // VALIDAR CAMPOS VACIOS Antes 
 function validarCamposVaciosAntes(obj) {
-    
-    if (obj.cliente == "" || obj.embarcacion == "" || obj.estado == "" || obj.fecha_emision == "" ||
-        obj.puerto_embarque == "" || obj.puerto_desembarque == "" || obj.orometro_inicial_m1 == "" || obj.orometro_inicial_m2 == "" ||
-        obj.orometro_final_m1 == "" || obj.orometro_final_m2 == "" || obj.horaSal == "" || obj.minSal == "" || obj.horaArrib == "" ||
-        obj.minArrib == "" || obj.contrato_recepcion == "" || obj.capitan_embarcacion == "") {
+
+    if (obj.cliente == "" || obj.embarcacion == "" || obj.estado == "" || obj.fecha_emision == "" || obj.puerto_embarque == "" ||
+        obj.puerto_desembarque == "" || obj.orometro_inicial_m1 == "" || obj.orometro_inicial_m2 == "" || obj.orometro_final_m1 == "" ||
+        obj.orometro_final_m2 == "" || obj.horaSal == "" || obj.minSal == "" || obj.horaArrib == "" || obj.minArrib == "" ||
+        obj.contrato_recepcion == "" || obj.capitan_embarcacion == "" || obj.orometro_inicial_m1 >= obj.orometro_final_m1 ||
+        obj.orometro_inicial_m2 >= obj.orometro_final_m2 || obj.num_orden == "") {
 
         if (obj.cliente == "" || obj.cliente == undefined) {
             $(document.getElementById("cliente")).notify("Seleccione Cliente", { position: "right" });
@@ -1156,7 +1203,7 @@ function validarCamposVaciosAntes(obj) {
         if (obj.fecha_emision == "") {
             $(document.getElementById("fecha")).notify("Campo Vac\u00EDo", { position: "right" });
         }
-        
+
         if (obj.orometro_inicial_m1 == "") {
             $(document.getElementById("oromIni1")).notify("Campo Vac\u00EDo", { position: "right" });
         }
@@ -1181,9 +1228,20 @@ function validarCamposVaciosAntes(obj) {
         if (obj.minArrib == "") {
             $(document.getElementById("minLleg")).notify("Campo Vac\u00EDo", { position: "right" });
         }
+        if (obj.num_orden == "") {
+            $(document.getElementById("numOrden")).notify("Campo Vac\u00EDo", { position: "right" });
+        }
+        if (obj.orometro_inicial_m1 >= obj.orometro_final_m1 && obj.orometro_inicial_m1 != "") {
+            $(document.getElementById("oromFin1")).notify("Debe ser mayor al Inicial", { position: "right" });
+        }
+        if (obj.orometro_inicial_m2 >= obj.orometro_final_m2 && obj.orometro_inicial_m2 != "") {
+            $(document.getElementById("oromFin2")).notify("Debe ser mayor al Inicial", { position: "right" });
+        }
 
         return false;
     } else {
+        console.log("hacer");
         return true;
     }
+
 }

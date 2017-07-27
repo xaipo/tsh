@@ -10,6 +10,8 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
     $scope.urlAllTripulantes;
     $scope.urlAllTripulantesCapitan;
     $scope.urlAllTipoTripulantesCapitanTimonel;
+    $scope.buscarIdPropietario;
+    $scope.buscarIdEstadoEmbarcacion;
 
     //atributos
     $scope.id;
@@ -64,6 +66,8 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
             $scope.urlAllTipoTripulantesCapitanTimonel = myProvider.getUrlAllTipoTripulanteCapitanTimonel();
             $scope.urlAllTripulantesCapitan = myProvider.getUrlAllTripulanteCapitan();
             $scope.urlAllEstadoEmbarcacion = myProvider.getUrlAllEstadoEmbarcacionActivos();
+            $scope.buscarIdPropietario = myProvider.getUrlBuscarIdPropietario();
+            $scope.buscarIdEstadoEmbarcacion = myProvider.getUrlBuscarIdEstadoEmbarcacion();
 
             if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
                 $scope.usuario = JSON.parse(localStorage.getItem("user"));
@@ -119,6 +123,39 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
                 .then(function (response) {
 
                     $scope.listaEmbarcacion = response.data;
+
+                    var n = $scope.listaEmbarcacion.length;
+                    var x = 0;
+                    var y = 0;
+                    for (var i = 0; i < n; i++) {
+
+                        var prop = {
+                            id: $scope.listaEmbarcacion[i].propietario
+                        };
+                        $http.post($scope.buscarIdPropietario, prop)
+                            .then(function (response) {
+
+                                $scope.listaEmbarcacion[x++].propietario = response.data;
+
+                            }, function errorCallback(response) {
+
+                                console.log(response);
+                            });
+
+                        var estad = {
+                            id: $scope.listaEmbarcacion[i].estado
+                        };
+                        $http.post($scope.buscarIdEstadoEmbarcacion, estad)
+                            .then(function (response) {
+
+                                $scope.listaEmbarcacion[y++].estado = response.data;
+
+                            }, function errorCallback(response) {
+
+                                console.log(response);
+                            });
+                        
+                    }
 
                 }, function errorCallback(response) {
 
@@ -268,8 +305,15 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
                     });
 
             }
-        } else
+        } else {
             $(document.getElementById("mensaje")).notify("Seleccione un Registro", { position: "left middle" });
+            swal({
+                title: "Seleccione un Registro!",
+                type: "error",
+                timer: 1500,
+                showConfirmButton: false
+            });
+        }
     }
 
     $scope.cargarTripulantes = function () {
@@ -295,8 +339,8 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
         $scope.iniciarLista();
         if ($scope.seleccionEmbarcacion != '' && $scope.seleccionEmbarcacion != undefined) {
 
-            $scope.selecEmbarJS = JSON.parse($scope.seleccionEmbarcacion);
-
+            $scope.selecEmbarJS = $scope.seleccionEmbarcacion;
+            
             $scope.id = $scope.selecEmbarJS._id;
             $scope.nombreEmbarcacion = $scope.selecEmbarJS.nombre_embarcacion;
             $scope.numeroMatricula = $scope.selecEmbarJS.num_matricula;
@@ -305,16 +349,15 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
             $scope.puntual = $scope.selecEmbarJS.puntual;
             $scope.calado = $scope.selecEmbarJS.calado;
             $scope.fechaConstruccion = $scope.selecEmbarJS.fecha_construccion.toString();
-            $scope.propietario = $scope.selecEmbarJS.propietario;
+            $scope.propietario = $scope.selecEmbarJS.propietario._id;
             $scope.propulsion = $scope.selecEmbarJS.propulsion;
             $scope.tipoCombustible = $scope.selecEmbarJS.tipo_combustible;
             $scope.tonelajeBruto = $scope.selecEmbarJS.tonelaje_bruto;
             $scope.capacidadCarga = $scope.selecEmbarJS.capacidad_carga;
             $scope.tipoEmbarcacion = $scope.selecEmbarJS.tipo_embarcacion;
             $scope.capitan = $scope.selecEmbarJS.capitan_embarcacion;
-            $scope.propietario = $scope.selecEmbarJS.propietario;
             $scope.fechaConstruccion = $scope.selecEmbarJS.fecha_construccion;
-            $scope.estado = $scope.selecEmbarJS.estado;
+            $scope.estado = $scope.selecEmbarJS.estado._id;
 
             $scope.cargarTripulantes();
 
@@ -372,6 +415,13 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
         localStorage.clear();
         window.location = "../login.html"
 
+    }
+
+    $scope.setClickedRow = function (index, item) {
+
+        $scope.seleccionEmbarcacion = item;
+        $scope.selectedRow = index;
+        $scope.buscarSeleccionListaEmbarcacion();
     }
 
 }]);

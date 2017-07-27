@@ -14,7 +14,7 @@
     <script src="../jquery/dist/jquery.min.js"></script>
     <script src="../bootstrap-datepicker/js/bootstrap-datepicker.min.js" charset="utf-8"></script>
     <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../alertas/sweetalert.min.js"></script>    
+    <script src="../alertas/sweetalert.min.js"></script>
     <script src="../notificaciones/notify.js"></script>
     <script src="../angular/angular.js"></script>
     <script src="../node_modules/angular-utils-pagination/dirPagination.js"></script>
@@ -78,48 +78,83 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><center><h2 class="panel-title"><b>ORDEN SERVICIO</b></h2></center></div>
                 <div class="panel-body">
-                    <!--<DETAILS ng-open="expression">
-                        <summary><font size=6>Busqueda</font></summary>-->
-                    <div class="row">
-                        <div class="col-md-4">
+                    <div class="panel-group color2">
+                        <DETAILS ng-open="buscar">
+                            <summary><font size=5>Busqueda</font></summary>
+                            <div class="row">
 
-                        </div>
-                        <div class="col-md-4">
-                            <div class="panel panel-default">
-                                <div class="panel-heading"><center><h3 class="panel-title"><b>Lista de Ordenes</b></h3></center></div>
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-md-1">
+                                <div class="col-md-1">
 
-                                        </div>
-                                        <div class="col-md-3">
-                                            <h4>Filtrar: </h4>
-                                        </div>
+                                </div>
 
-                                        <div class="col-md-6">
-                                            <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
-                                        </div>
+                                <div class="col-md-10">
 
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
+                                    <div class="panel panel-default" id="mensaje">
+                                        <div class="panel-heading"><center><h3 class="panel-title"><b>Lista Ordenes Servicio</b></h3></center></div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p>Seleccione un registro para mas detalles:</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
 
-                                        </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <h4>Filtrar: </h4>
+                                                </div>
 
-                                        <div class="col-md-12">
-                                            <select name="OrdenServico" ng-model="seleccionOrdenServicioLista" multiple class="form-control" style="height: 60px;" ng-click="buscarSeleccionListaOrdenServicio()">
-                                                <option value={{aux}}
-                                                        ng-repeat="aux in listaOrdenServicio | filter:seleccionOrdenServicio">
-                                                    {{aux._id}} {{"--"}} {{aux.cliente.nombre_cliente}}
-                                                </option>
-                                            </select>
+                                                <div class="col-md-6">
+                                                    <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <center>
+                                                    <div class="col-md-12 col-xs-12">
+
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-striped">
+                                                                <thead>
+                                                                    <tr class="success">
+                                                                        <th>#</th>
+                                                                        <th>Número Orden</th>
+                                                                        <th>Cliente</th>
+                                                                        <th>Embarcación</th>
+                                                                        <th>Fecha</th>
+                                                                        <th>Puerto Embarque</th>
+                                                                        <th>Puerto Desembarque</th>
+                                                                    </tr>
+
+                                                                </thead>
+                                                                <tbody>
+
+                                                                    <tr dir-paginate="item in listaOrdenServicio| filter:busqueda| itemsPerPage:4 track by $index"
+                                                                        ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="pedido">
+
+                                                                        <td>{{$index+1}}</td>
+                                                                        <td>{{ item.num_orden}}</td>
+                                                                        <td>{{ item.cliente.nombre_cliente}}</td>
+                                                                        <td>{{ item.embarcacion.nombre_embarcacion}}</td>
+                                                                        <td>{{ item.fecha_emision}}</td>
+                                                                        <td>{{ item.puerto_embarque.descripcion_puerto}}</td>
+                                                                        <td>{{ item.puerto_desembarque.descripcion_puerto}}</td>
+
+                                                                    </tr>
+                                                                    <dir-pagination-controls pagination-id="pedido"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </center>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </DETAILS>
                     </div>
-                    <!--</DETAILS>-->
                     <!--<DETAILS ng-open="expression">
                         <summary><font size=6>Cliente, Fecha, otros</font></summary>-->
                     <div class="row">
@@ -395,7 +430,6 @@
                         </div>
                     </div>-->
                     <!--</DETAILS>-->
-
                     <!--<div class="col-md-12">
                         <div class="row">
                             <div class="col-md-4">

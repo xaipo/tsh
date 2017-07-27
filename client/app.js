@@ -55,10 +55,21 @@ function ApiUrl() {
     this.getUrlModificarEstadoEmbarcacion = function () {
         return (url + 'updateEstadoEmbarcacion');
     }
+    // Buscar por ID Estado Embarcacion
+    this.getUrlBuscarIdEstadoEmbarcacion = function () {
+        return (url + 'getByIdEstadoEmbarcacion');
+    }
 
     // Buscar todos los Estado Embarcacion Disponibles
     this.getUrlAllEstadoEmbarcacionDisponible = function () {
         return (url + 'getEstadoEmbarcacionDisponible');
+    }
+
+    //////////////////////////////////////////////////////////////////////
+
+    // Buscar por ID Embarcacion
+    this.getUrlIdEmbarcacion = function () {
+        return (url + 'getByIdEmbarcacion');
     }
 
     // Buscar todos los Estado Embarcacion Disponibles y Viajes
@@ -265,6 +276,11 @@ function ApiUrl() {
         return (url + 'updatePuerto');
     }
 
+    // Buscar po ID Puertos
+    this.getUrlIdPuerto = function () {
+        return (url + 'getByIdPuerto');
+    }
+
     // Buscar todos los Puertos
     this.getUrlAllPuertoActivos = function () {
         return (url + 'getAllPuertoActivos');
@@ -469,6 +485,11 @@ function ApiUrl() {
     // Modificar Propietario
     this.getUrlModificarPropietario = function () {
         return (url + 'updatePropietario');
+    }
+
+    // Buscar por ID Propietario
+    this.getUrlBuscarIdPropietario = function () {
+        return (url + 'getByIdPropietario');
     }
 
     // Buscar todos los Propietario Activos

@@ -82,15 +82,23 @@
                         <div class="col-md-1">
 
                         </div>
-                        <div class="col-md-5">
-                            <div class="panel panel-default">
-                                <div class="panel-heading"><center><h3 class="panel-title"><b>Lista de Pedidos</b></h3></center></div>
+
+                        <div class="col-md-10">
+                            <div class="panel panel-default" id="listaOrden">
+                                <div class="panel-heading"><center><h3 class="panel-title"><b>Lista Pedidos</b></h3></center></div>
                                 <div class="panel-body">
                                     <div class="row">
-                                        <div class="col-md-1">
+
+                                        <div class="col-md-6">
+                                            <p>Seleccione un Registro para Modificarlo:</p>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
 
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <h4>Filtrar: </h4>
                                         </div>
 
@@ -100,55 +108,43 @@
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <center>
+                                            <div class="col-md-12 col-xs-12">
 
-                                        </div>
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr class="success">
+                                                                <th>#</th>
+                                                                <!--<th>Número Pedido</th>-->
+                                                                <th>No. Orden Servicio</th>
+                                                                <th>Embacación</th>
+                                                                <!--<th>Estado</th>-->
+                                                            </tr>
 
-                                        <div class="col-md-12">
-                                            <select name="Clientes" id="mensaje" ng-model="seleccionPedido" multiple class="form-control" style="height: 75px;" ng-click="buscarSeleccionListaPedido()">
-                                                <option value={{aux}}
-                                                        ng-repeat="aux in listaPedidos | filter:busqueda| orderBy:aux._id">
-                                                    {{aux._id}}
-                                                </option>
-                                            </select>
-                                        </div>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <tr dir-paginate="item in listaPedidos| filter:busqueda| itemsPerPage:4 track by $index"
+                                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="pedido">
+
+                                                                <td>{{$index+1}}</td>
+                                                                <!--<td>{{ item._id}}</td>-->
+                                                                <td>{{ item.orden_servicio.num_orden}}</td>
+                                                                <td>{{ item.orden_servicio.embarcacion.nombre_embarcacion}}</td>
+
+                                                            </tr>
+                                                            <dir-pagination-controls pagination-id="pedido"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </center>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-5">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h5><b>ORDEN DE SERVICIO: </b></h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="col-md-2">
-
-                                    </div>
-                                    <div class="col-md-10">
-                                        <input type="text" ng-model="ordenServicio" class="form-control" disabled />
-                                    </div>
-                                </div>                                
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h5><b>EMBARCACIÓN: </b></h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="col-md-2">
-
-                                    </div>
-                                    <div class="col-md-10">
-                                        <input type="text" ng-model="embarcacion" class="form-control" disabled />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="row">

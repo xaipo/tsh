@@ -135,7 +135,7 @@
 
                                 </div>
                                 <div class="col-md-3">
-                                    <h4>Nombre: </h4>
+                                    <h4>Nombres: </h4>
                                 </div>
                                 <div class="col-md-7">
                                     <input type="text" id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="nombreTripulante" placeholder="Apellidos Nombres" class="form-control" />
@@ -147,7 +147,7 @@
 
                                 </div>
                                 <div class="col-md-3">
-                                    <h4>Telefono: </h4>
+                                    <h4>Teléfono: </h4>
                                 </div>
                                 <div class="col-md-7">
                                     <input type="text" id="telefono" onkeypress="return soloNumeros(event,'telefono')" ng-model="telefonoTripulante" onkeypress="return valida(event)" placeholder="0990123456" maxlength="10" class="form-control" />
@@ -203,6 +203,11 @@
                 <div class="panel panel-default" id="lista">
                     <div class="panel-heading"><center><h3 class="panel-title"><b>Lista Tripulante</b></h3></center></div>
                     <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h5>Seleccione un registro para modificarlo:</h5>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-2">
 
