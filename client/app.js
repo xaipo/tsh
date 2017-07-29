@@ -55,6 +55,12 @@ function ApiUrl() {
     this.getUrlModificarEstadoEmbarcacion = function () {
         return (url + 'updateEstadoEmbarcacion');
     }
+
+    // Buscar por Descripcion Estado Embarcacion
+    this.getUrlBuscarDescripcionEstadoEmbarcacion = function () {
+        return (url + 'getByDescripcionEstadoEmbarcacion');
+    }
+
     // Buscar por ID Estado Embarcacion
     this.getUrlBuscarIdEstadoEmbarcacion = function () {
         return (url + 'getByIdEstadoEmbarcacion');
@@ -201,6 +207,11 @@ function ApiUrl() {
     // Modificar Embarcacion
     this.getUrlModificarEmbarcacion = function () {
         return (url + 'updateEmbarcacion');
+    }
+
+    // Modificar Embarcacion Estado
+    this.getUrlModificarEmbarcacionEstado = function () {
+        return (url + 'updateEmbarcacionEstado');
     }
 
     // Buscar Embarcacion

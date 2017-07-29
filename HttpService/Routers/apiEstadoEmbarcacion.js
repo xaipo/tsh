@@ -66,6 +66,24 @@ router.post('/getByIdEstadoEmbarcacion', function (req, res) {
     });
 });
 
+router.post('/getByDescripcionEstadoEmbarcacion', function (req, res) {
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+
+        var descripcion = req.body.descripcion;
+        db.collection('estado_embarcacion').findOne({ "descripcion_estado": descripcion }, function (err, result) {
+            assert.equal(null, err);
+            console.log(result);
+            console.log('Item loaded');
+            res.send(result);
+        });
+
+        db.close();
+    });
+});
+
 router.get('/getEstadoEmbarcacionDisponible', function (req, res) {
     var resultArray = [];
 

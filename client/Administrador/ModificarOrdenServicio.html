@@ -108,13 +108,13 @@
                         <DETAILS ng-open="buscar">
                             <summary><font size=5>Busqueda</font></summary>
                             <div class="row">
-                                <div class="row">
+                                <!--<div class="row">
                                     <div class="col-md-2">
                                         <div class="col-md-12">
                                             <input class="form-control btn-primary" type="submit" value="Imprimir" ng-click="imprimirOrden()" />
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <div class="col-md-1">
 
@@ -488,7 +488,7 @@
 
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <h4>Tipo Material: </h4>
+                                                    <h4>Material: </h4>
                                                 </div>
                                                 <div class="col-md-7">
                                                     <select ng-model="seleccionTipoMatPetreo" class="form-control">
@@ -597,17 +597,14 @@
                                             </div>
 
                                             <div class="col-md-4">
-                                                <br />
                                                 <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaVehiculo()" />
                                                 <br />
                                             </div>
                                             <div class="col-md-4">
-                                                <br />
                                                 <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaVehiculo()" />
                                                 <br />
                                             </div>
                                             <div class="col-md-4">
-                                                <br />
                                                 <input class="form-control btn-primary" type="submit" value="Eliminar" ng-click="quitarSeleccionVehiculo()" />
                                                 <br />
                                             </div>
@@ -826,7 +823,8 @@
                             </div>
 
                             <div class="col-md-2">
-                                <input class="form-control btn-primary" type="submit" value="Cancelar" ng-click="redireccion()" />
+                                <input class="form-control btn-primary" type="submit" value="Imprimir" ng-click="imprimirOrden()" />
+                                <!--<input class="form-control btn-primary" type="submit" value="Cancelar" ng-click="redireccion()" />-->
                             </div>
                         </div>
                     </div>

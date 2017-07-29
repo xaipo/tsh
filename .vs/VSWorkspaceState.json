@@ -4,6 +4,6 @@
     "\\client",
     "\\HttpService"
   ],
-  "SelectedNode": "\\HttpService\\Routers",
+  "SelectedNode": "\\HttpService\\server.js",
   "PreviewInSolutionExplorer": false
 }
