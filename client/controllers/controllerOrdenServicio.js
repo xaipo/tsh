@@ -121,8 +121,8 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
             $scope.urlAllCombustible = myProvider.getUrlAllCombustible();
             $scope.urlAllTripulanteCapitan = myProvider.getUrlAllTripulanteCapitan();
             $scope.urlAllContratoRecepcion = myProvider.getUrlAllContratoRecepcionActivos();
-            $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustible();
-            $scope.urlAllTipoCombustibleTransporte = myProvider.getUrlAllTipoCombustibleActivos();
+            $scope.urlAllTipoCombustible = myProvider.getUrlAllTipoCombustibleActivos();
+            $scope.urlAllTipoCombustibleTransporte = myProvider.getUrlAllTipoCombustibleTransporte();
             $scope.urlAllTipoTripulante = myProvider.getUrlAllTipoTripulante();
             $scope.urlMatPetreo = myProvider.getUrlIngresoMaterialPetreo();
             $scope.urlVehiculo = myProvider.getUrlIngresoVehiculo();
@@ -376,7 +376,7 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
         window.location = "../login.html"
     }
 
-    $scope.imprimirOrden = function () {
+    $scope.imprimirOrdenServicio = function () {
 
         var doc = new jsPDF('p', 'mm', [297, 210]);
 
@@ -525,6 +525,135 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
 
     }
 
+    $scope.imprimirOrdenConsumo = function () {
+
+        var doc = new jsPDF('p', 'mm', [297, 210]);
+
+        var x = 25;
+        var y = 25;
+
+
+        //doc.addImage(img.onload(), 'PNG', x, y - 20, 165, 25);
+        doc.rect(x, y + 10, 165, 10, 'S')
+        doc.setFontSize(8);
+        //doc.setFontType("bold");
+        //doc.text("PERIODO: ", x + 5, y + 16);
+        //doc.setFontType("normal");
+        //doc.text($scope.observaciones, x + 20, y + 16);
+        doc.setFontSize(10);
+        doc.setFontType("bold");
+        doc.text("ORDEN DE CONSUMO ", x + 60, y + 16);
+
+        // fecha
+        doc.setFontSize(8);
+        doc.setFontType("bold");
+        doc.text("Fecha: ", x + 5, y + 25);
+        doc.setFontType("normal");
+        doc.text($scope.fechaEmision, x + 23, y + 25);
+
+        var puertoEmb = $scope.buscarPuertoID($scope.puertoEmbarque); // buscar puerto.
+
+        // Puerto embarque
+        doc.setFontSize(8);
+        doc.setFontType("bold");
+        doc.text("P. Embarque: ", x + 82, y + 25);
+        doc.setFontType("normal");
+        doc.text(puertoEmb.descripcion_puerto, x + 110, y + 25);
+
+        $scope.selecCli = JSON.parse($scope.seleccionCliente); // transfor un cliente a JSON.
+
+        //numero de orden
+        doc.setFontSize(8);
+        doc.setFontType("bold");
+        doc.text("No. Orden: ", x + 5, y + 30);
+        doc.setFontType("normal");
+        doc.text($scope.numOrden, x + 23, y + 30);
+
+        var puertoDes = $scope.buscarPuertoID($scope.puertoDesembarque); // buscar puerto.
+
+        //puerto desembarque
+        doc.setFontSize(8);
+        doc.setFontType("bold");
+        doc.text("P. Desembarque: ", x + 82, y + 30);
+        doc.setFontType("normal");
+        doc.text(puertoDes.descripcion_puerto, x + 110, y + 30);
+
+        // ruc cliente
+        doc.setFontSize(8);
+        doc.setFontType("bold");
+        doc.text("RUC: ", x + 5, y + 35);
+        doc.setFontType("normal");
+        doc.text($scope.selecCli.ruc_cliente, x + 23, y + 35);
+
+        var embar = $scope.buscarEmbarcacion($scope.embarcacion); // buscar embarcacion.
+
+        // Embarcación
+        doc.setFontSize(8);
+        doc.setFontType("bold");
+        doc.text("embarcaci\u00F3n: ", x + 82, y + 35);
+        doc.setFontType("normal");
+        doc.text(embar.nombre_embarcacion, x + 110, y + 35);
+
+        //nombres cliente
+        doc.setFontType("bold");
+        doc.text("Cliente: ", x + 5, y + 40);
+        doc.setFontType("normal");
+        doc.text($scope.selecCli.nombre_cliente, x + 23, y + 40);
+
+        //hora salida
+        doc.setFontType("bold");
+        doc.text("Hora Salida: ", x + 82, y + 40);
+        doc.setFontType("normal");
+        doc.text($scope.convertirHora($scope.horasSalida, $scope.minutosSalida), x + 110, y + 40);
+
+        // direccion cliente
+        doc.setFontType("bold");
+        doc.text("Direcci\u00F3n: ", x + 5, y + 45);
+        doc.setFontType("normal");
+        doc.text($scope.selecCli.direccion_cliente, x + 23, y + 45);
+
+        doc.rect(x, y + 10, 165, 220, 'S')
+        doc.rect(x, y + 50, 165, 180, 'S')
+        doc.line(x, y + 50, x + 165, y + 50)
+        doc.line(x + 15, y + 50, x + 15, y + 230)
+        //doc.line(x + 50, y + 50, x + 50, y + 255)
+        var aun = 56;
+        for (var i = 0; i < 35; i++) {
+
+            doc.line(x, y + aun, x + 165, y + aun)
+            aun = aun + 5;
+
+        }
+
+        doc.setFontSize(10);
+        doc.setFontType("bold");
+        doc.text("CANT", x + 4, y + 55);
+        doc.text("DETALLE", x + 80, y + 55);
+
+        doc.setFontSize(8);
+        doc.setFontType("normal");
+
+        var dimMatPetreo = $scope.listaMaterialPetreo.length;
+        var listMatPetreo = $scope.listaMaterialPetreo;
+        var z = 60;
+        var num = 0;
+
+        var dimCombCons = $scope.listaCombustibleConsumoSelect.length;
+        var listConsumo = $scope.listaCombustibleConsumoSelect;
+        var z = 60 + (num * 5);
+        for (var i = 0; i < dimCombCons; i++) {
+
+            doc.text(listConsumo[i].tipo_combustible.descripcion_tipo_combustible + " (galones)", x + 18, y + z);
+            doc.text(listConsumo[i].cantidad_combustible.toString(), x + 6, y + z);
+            z = z + 5;
+            num = num + 1;
+
+        }
+
+        doc.save('ordenConsumo.pdf');
+
+    }
+
     $scope.buscarPuertoID = function (idPuerto) {
         var n = $scope.listaPuerto.length;
         for (var i = 0; i < n; i++) {
@@ -553,9 +682,9 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
 
     $scope.convertirHora = function (hora, minutos) {
 
-        if (hora < 9) {
+        if (hora < 10) {
             var h = "0" + hora.toString();
-            if (minutos < 9) {
+            if (minutos < 10) {
                 var min = "0" + minutos.toString();
                 return (h.toString() + ":" + min.toString());
             }
@@ -566,7 +695,7 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
         }
         if (hora > 9) {
             var h = hora;
-            if (minutos < 9) {
+            if (minutos < 10) {
                 var min = "0" + minutos.toString();
                 return (h.toString() + ":" + min.toString());
             }
@@ -743,7 +872,13 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
                 }).then(function successCallback(response) {
 
                     if (response.data == "true") {
-                        $scope.imprimirOrden();
+
+                        $scope.imprimirOrdenServicio();
+
+                        //if ($scope.tipoUsuario == "administador")
+                            $scope.imprimirOrdenConsumo();
+
+
                         var estEmb = {
                             descripcion: "viaje"
                         }

@@ -276,6 +276,34 @@ function ApiUrl() {
 
     ///////////////////////////////////////////////////////
 
+    // Ingreso PapelesEmbarcacion
+    this.getUrlIngresoPapelesEmbarcacion = function () {
+
+        return (url + 'savePapelesEmbarcacion');
+    }
+
+    // Modificar PapelesEmbarcacion
+    this.getUrlModificarPapelesEmbarcacion = function () {
+        return (url + 'updatePapelesEmbarcacion');
+    }
+
+    // Buscar po ID PapelesEmbarcacion
+    this.getUrlIdPapelesEmbarcacion = function () {
+        return (url + 'getByIdPapelesEmbarcacion');
+    }
+
+    // Buscar todos los PapelesEmbarcacion
+    this.getUrlAllPapelesEmbarcacionActivos = function () {
+        return (url + 'getAllPapelesEmbarcacionActivos');
+    }
+
+    // Buscar todos los PapelesEmbarcacion
+    this.getUrlAllPapelesEmbarcacion = function () {
+        return (url + 'getAllPapelesEmbarcacion');
+    }
+
+    //////////////////////////////////////////////////////
+
     // Ingreso Puerto
     this.getUrlIngresoPuerto = function () {
 
@@ -407,6 +435,11 @@ function ApiUrl() {
     // Buscar todos los Tipo Combustible Activos
     this.getUrlAllTipoCombustibleActivos = function () {
         return (url + 'getAllTipoCombustibleActivos');
+    }
+
+    // Buscar todos los Tipo Combustible transporte
+    this.getUrlAllTipoCombustibleTransporte = function () {
+        return (url + 'getAllTipoCombustibleTransporte');
     }
 
     // Buscar todos los Tipo Combustible

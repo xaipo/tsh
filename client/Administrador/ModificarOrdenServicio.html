@@ -47,6 +47,7 @@
                                 <li><a href="IngresoEstadoEmbarcacion.html">Estado Embarcación</a></li>
                                 <li><a href="IngresoEstadoOrden.html">Estado Orden Servicio</a></li>
                                 <li><a href="IngresoMateriales.html">Materiales</a></li>
+                                <li><a href="IngresoPapelesEmbarcacion.html">Papeles Embarcación</a></li>
                                 <li><a href="IngresoPropietario.html">Propietario</a></li>
                                 <li><a href="IngresoPuerto.html">Puerto</a></li>
                                 <li><a href="IngresoTipoAlimento.html">Tipo Alimento</a></li>
@@ -815,15 +816,20 @@
                     </div>
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-2">
 
                             </div>
                             <div class="col-md-2">
                                 <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarOrdenServicio()" />
                             </div>
 
-                            <div class="col-md-2">
-                                <input class="form-control btn-primary" type="submit" value="Imprimir" ng-click="imprimirOrden()" />
+                            <div class="col-md-3">
+                                <input class="form-control btn-primary" type="submit" value="Imprimir Orden Servicio" ng-click="imprimirOrdenServicio()" />
+                                <!--<input class="form-control btn-primary" type="submit" value="Cancelar" ng-click="redireccion()" />-->
+                            </div>
+
+                            <div class="col-md-3">
+                                <input class="form-control btn-primary" type="submit" value="Imprimir Orden Consumo" ng-click="imprimirOrdenConsumo()" />
                                 <!--<input class="form-control btn-primary" type="submit" value="Cancelar" ng-click="redireccion()" />-->
                             </div>
                         </div>

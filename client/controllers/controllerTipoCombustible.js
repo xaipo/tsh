@@ -34,7 +34,7 @@ app.controller('ControllerTipoCombustible', ['$scope', '$http', 'myProvider', fu
             $scope.busqueda = "";
             $scope.listaTipoCombustible;
 
-            $scope.listaEstado = [{ id: '1', estado: 'Activo' }, { id: '2', estado: "Inactivo" }];
+            $scope.listaEstado = [{ id: '1', estado: 'Activo' }, { id: '2', estado: "transporte" }, { id: '3', estado: "inactivo" }];
             $scope.estado = "1";
 
             $http.get($scope.urlAllTipoCombustible)
@@ -45,8 +45,12 @@ app.controller('ControllerTipoCombustible', ['$scope', '$http', 'myProvider', fu
                     for (var i = 0; i < n; i++) {
                         if ($scope.listaTipoCombustible[i].estado == $scope.listaEstado[0].id)
                             $scope.listaTipoCombustible[i].estado = $scope.listaEstado[0];
-                        else
+
+                        if ($scope.listaTipoCombustible[i].estado == $scope.listaEstado[1].id)
                             $scope.listaTipoCombustible[i].estado = $scope.listaEstado[1];
+
+                        if ($scope.listaTipoCombustible[i].estado == $scope.listaEstado[2].id)
+                            $scope.listaTipoCombustible[i].estado = $scope.listaEstado[2];
                     }
 
                 }, function errorCallback(response) {

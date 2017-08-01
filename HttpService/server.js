@@ -50,6 +50,7 @@ app.use('/api', require('./Routers/apiCombustible'));
 app.use('/api', require('./Routers/apiMaterialPetreo'));
 app.use('/api', require('./Routers/apiVehiculos'));
 app.use('/api', require('./Routers/apiMateriales'));
+app.use('/api', require('./Routers/apiPapelesEmbarcacion'));
 app.use('/api', require('./Routers/apiMaterialesSeleccionados'));
 app.use('/api', require('./Routers/apiAlimentos'));
 app.use('/api', require('./Routers/apiTipoCliente'));
