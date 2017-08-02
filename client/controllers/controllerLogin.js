@@ -9,6 +9,7 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
     $scope.usuario;
     $scope.tipoUsuario;
 
+
     $scope.iniciar = function () {
 
         $scope.nombreUsuario = "";
@@ -26,9 +27,8 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
         $scope.urlBuscarTipoUsuario = myProvider.getUrlBuscarTipoUsuario();
         $scope.urlAutenticacion = myProvider.getUrlAutenticar();
         $scope.urlPerfil = myProvider.getUrlPerfil();
-
-
     }
+
 
     $scope.login = function () {
 
