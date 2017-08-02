@@ -12,6 +12,7 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
     $scope.urlAllTipoTripulantesCapitanTimonel;
     $scope.buscarIdPropietario;
     $scope.buscarIdEstadoEmbarcacion;
+    $scope.buscarAllPapelesEmbarcacion;
 
     //atributos
     $scope.id;
@@ -34,6 +35,7 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
     //Listas
     $scope.busqueda;
     $scope.listaEmbarcacion;
+    $scope.listaPapelesEmbarcacion;
     $scope.listaTipoEmbarcacion;
     $scope.listaTipoCombustible;
     $scope.listaPropietarios;
@@ -68,6 +70,7 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
             $scope.urlAllEstadoEmbarcacion = myProvider.getUrlAllEstadoEmbarcacionActivos();
             $scope.buscarIdPropietario = myProvider.getUrlBuscarIdPropietario();
             $scope.buscarIdEstadoEmbarcacion = myProvider.getUrlBuscarIdEstadoEmbarcacion();
+            $scope.buscarAllPapelesEmbarcacion = myProvider.getUrlAllPapelesEmbarcacionActivos();
 
             if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
                 $scope.usuario = JSON.parse(localStorage.getItem("user"));
@@ -92,6 +95,7 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
             //Listas
             $scope.busqueda;
             $scope.listaEmbarcacion;
+            $scope.listaPapelesEmbarcacion;
             $scope.listaTipoEmbarcacion;
             $scope.listaTipoCombustible;
             $scope.listaPropietarios;
@@ -117,7 +121,6 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
 
                     console.log(response);
                 });
-
 
             $http.get($scope.urlAllEmbarcacion)
                 .then(function (response) {
@@ -154,7 +157,7 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
 
                                 console.log(response);
                             });
-                        
+
                     }
 
                 }, function errorCallback(response) {
@@ -340,7 +343,7 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
         if ($scope.seleccionEmbarcacion != '' && $scope.seleccionEmbarcacion != undefined) {
 
             $scope.selecEmbarJS = $scope.seleccionEmbarcacion;
-            
+
             $scope.id = $scope.selecEmbarJS._id;
             $scope.nombreEmbarcacion = $scope.selecEmbarJS.nombre_embarcacion;
             $scope.numeroMatricula = $scope.selecEmbarJS.num_matricula;
@@ -360,6 +363,23 @@ app.controller('ControllerEmbarcacionModificar', ['$scope', '$http', 'myProvider
             $scope.estado = $scope.selecEmbarJS.estado._id;
 
             $scope.cargarTripulantes();
+
+
+            var obj = {
+                embarcacion: $scope.selecEmbarJS._id
+            }
+
+            $http.post($scope.buscarAllPapelesEmbarcacion, obj)
+                .then(function (response) {
+
+                    $scope.listaPapelesEmbarcacion = response.data;
+                    console.log($scope.listaPapelesEmbarcacion);
+
+                }, function errorCallback(response) {
+
+                    console.log(response);
+                });
+
 
         }
     }

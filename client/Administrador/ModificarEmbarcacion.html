@@ -382,17 +382,66 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-2">
+                        <br />
+                        <div class="col-md-1">
                             <div class="row">
 
                             </div>
                         </div>
+
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h4>Papeles: </h4>
+                                </div>
+
+                                <center>
+                                    <div class="col-md-12 col-xs-12">
+
+                                        <div class="table-responsive" style="height: 150px;">
+                                            <table class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr class="success">
+                                                        <th>#</th>
+                                                        <th>Documentos</th>
+                                                        <th>Fecha Caducidad</th>
+                                                    </tr>
+
+                                                </thead>
+                                                <tbody>
+
+                                                    <tr dir-paginate="item in listaPapelesEmbarcacion| itemsPerPage:3 track by $index"
+                                                        ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="papelesEmbarcacion">
+
+                                                        <td>{{$index+1}}</td>
+                                                        <td>{{ item.descripcion_papeles_embarcacion}}</td>
+                                                        <td>{{ item.fecha_caducidad}}</td>
+
+                                                    </tr>
+                                                    <dir-pagination-controls pagination-id="papelesEmbarcacion"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1">
+                            <div class="row">
+
+                            </div>
+                        </div>
+
                         <div class="col-md-4">
                             <div class="row">
+                                <br />
+                                <br />
                                 <div class="col-md-5">
                                     <h4>Fecha Construción: </h4>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-7">
+                                    <br />
                                     <div class="input-group date jp-date">
                                         <input type="text" id="fecha" onkeypress="return validarFecha(event,'fecha')" placeholder="01/12/2017" ng-model="fechaConstruccion" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                     </div>
@@ -407,17 +456,27 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="row">
-                                <div class="col-md-4">
+                                <br />
+                                <div class="col-md-2">
+                                    <div class="row">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
                                     <h4>Estado Embarcación: </h4>
                                 </div>
-                                <div class="col-md-7">
+                                <br />
+
+                                <div class="col-md-5">
                                     <select class="form-control" ng-model="estado" ng-options="item._id as item.descripcion_estado for item in listaEstadoEmbarcacion"></select>
                                 </div>
                             </div>
                         </div>
                     </div>
+
 
                     <div class="col-md-12">
                         <div class="row">

@@ -91,6 +91,24 @@ router.post('/getByIdOrdenServicio', function (req, res) {
     });
 });
 
+router.post('/getByNumeroOrdenServicio', function (req, res) {
+
+    MongoClient.connect(url, function (err, db) {
+        assert.equal(null, err);
+        console.log(req.body);
+
+        var numero_orden = req.body.numero_orden;
+        db.collection('orden_servicio').findOne({ "num_orden": numero_orden }, function (err, result) {
+            if (err) {
+                res.send(result);
+            } else
+                res.send(result);
+        });
+
+        db.close();
+    });
+});
+
 router.get('/getOrdenServicioEstadoViajeProceso', function (req, res) {
     var resultArray = [];
 

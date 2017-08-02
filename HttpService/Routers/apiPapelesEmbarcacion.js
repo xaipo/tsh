@@ -72,13 +72,14 @@ router.post('/getByIdPapelesEmbarcacion', function (req, res) {
     });
 });
 
-router.get('/getAllPapelesEmbarcacionActivos', function (req, res) {
+router.post('/getAllPapelesEmbarcacionActivos', function (req, res) {
     var resultArray = [];
 
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
 
-        var cursor = db.collection('papeles_embarcacion').find({ "estado": "1" });
+        var embarcacion = req.body.embarcacion;
+        var cursor = db.collection('papeles_embarcacion').find({ "embarcacion": embarcacion, "estado": "1" });
         cursor.forEach(function (doc, err) {
             assert.equal(null, err);
             resultArray.push(doc);

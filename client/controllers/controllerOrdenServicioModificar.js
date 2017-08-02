@@ -31,6 +31,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
     $scope.urlBuscarEmbarcacion;
     $scope.urlBuscarpuerto;
+    $scope.urlBuscarNumeroOrdeServicio;
 
     //atributos
     $scope.id = "";
@@ -183,6 +184,7 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
             $scope.urlBuscarpuerto = myProvider.getUrlIdPuerto();
             $scope.urlBuscarEstadoEmbarcacion = myProvider.getUrlBuscarDescripcionEstadoEmbarcacion();
             $scope.urlModificarEmbarcacionEstado = myProvider.getUrlModificarEmbarcacionEstado();
+            $scope.urlBuscarNumeroOrdeServicio = myProvider.getUrlBuscarOrdenServicioNumeroOrden();
 
             if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
                 $scope.usuario = JSON.parse(localStorage.getItem("user"));
@@ -1455,8 +1457,30 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
                 if ($scope.seleccionOrdenServicioLista != "") {
 
-                    $scope.prepararModificar();
+                    var numOrden = {
+                        numero_orden: $scope.numOrden
+                    }
 
+                    $http.post($scope.urlBuscarNumeroOrdeServicio, numOrden)
+                        .then(function (response) {
+                            if ($scope.id == response.data._id || response == "") {
+
+                                console.log(response.data);
+                                $scope.prepararModificar();
+
+                            } else {
+                                swal({
+                                    title: "Numero de orden ya existe!",
+                                    type: "error",
+                                    timer: 1500,
+                                    showConfirmButton: false
+                                });
+                            }
+                        }, function errorCallback(response) {
+
+                            console.log(response);
+
+                        });
                 } else {
                     $(document.getElementById("mensaje")).notify("Seleccione un Registro", { position: "left middle" });
                     swal({
@@ -1480,8 +1504,29 @@ app.controller('ControllerOrdenServicioModificar', ['$scope', '$http', 'myProvid
 
             if ($scope.seleccionOrdenServicioLista != "") {
 
-                $scope.prepararModificar();
+                var numOrden = {
+                    numero_orden: $scope.numOrden
+                }
 
+                $http.post($scope.urlBuscarNumeroOrdeServicio, numOrden)
+                    .then(function (response) {
+                        if ($scope.id == response.data._id || response == "") {
+
+                            $scope.prepararModificar();
+
+                        } else {
+                            swal({
+                                title: "Numero de orden ya existe!",
+                                type: "error",
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                        }
+                    }, function errorCallback(response) {
+
+                        console.log(response);
+
+                    });
             } else {
                 $(document.getElementById("mensaje")).notify("Seleccione un Registro", { position: "left middle" });
                 swal({

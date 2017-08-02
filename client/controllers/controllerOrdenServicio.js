@@ -20,6 +20,7 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
     $scope.urlEstadoEmbarcacionDisponible;
     $scope.urlAllTipoTripulantesCapitanTimonel;
     $scope.urlBuscarEstadoEmbarcacion;
+    $scope.urlBuscarNumeroOrdeServicio;
     $scope.urlModificarEmbarcacionEstado;
 
     //atributos
@@ -134,6 +135,7 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
             $scope.urlAllTripulantesCapitan = myProvider.getUrlAllTripulanteCapitan();
             $scope.urlModificarEmbarcacionEstado = myProvider.getUrlModificarEmbarcacionEstado();
             $scope.urlBuscarEstadoEmbarcacion = myProvider.getUrlBuscarDescripcionEstadoEmbarcacion();
+            $scope.urlBuscarNumeroOrdeServicio = myProvider.getUrlBuscarOrdenServicioNumeroOrden();
 
 
             if (localStorage.getItem("user") != undefined && localStorage.getItem("user") != "" && localStorage.getItem("user") != null) {
@@ -876,7 +878,7 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
                         $scope.imprimirOrdenServicio();
 
                         //if ($scope.tipoUsuario == "administador")
-                            $scope.imprimirOrdenConsumo();
+                        $scope.imprimirOrdenConsumo();
 
 
                         var estEmb = {
@@ -928,7 +930,7 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
             $.notify("Revise los Campos", "info");
         }
     }
-
+   
     $scope.ingresoOrdenServicio = function () {
 
         if ($scope.seleccionCliente != "") {
@@ -960,48 +962,68 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
                 num_orden: $scope.numOrden
             }
 
-            if (validarCamposVaciosAntes(obj)) {
-                $scope.horaSalida = $scope.convertirHora($scope.horasSalida, $scope.minutosSalida);
-                $scope.horaArribo = $scope.convertirHora($scope.horasArribo, $scope.minutosArribo);
-
-                var dimMatPet = $scope.listaMaterialPetreo.length;
-
-                for (var i = 0; i < dimMatPet; i++) {
-
-                    $scope.ingresoMateriales(i);
-
-                }
-
-                var dimVe = $scope.listaVehiculo.length;
-
-                for (var i = 0; i < dimVe; i++) {
-
-                    $scope.ingresoVehiculos(i);
-
-                }
-
-                var dimeCombusCons = $scope.listaCombustibleConsumoSelect.length;
-
-                for (var i = 0; i < dimeCombusCons; i++) {
-
-                    $scope.ingresoCombustibleComsumo(i);
-
-                }
-
-                var dimeCombusTrans = $scope.listaCombustibleTransporteSelect.length;
-
-                for (var i = 0; i < dimeCombusTrans; i++) {
-
-                    $scope.ingresoCombustibleTransporte(i);
-
-                }
-
-                $timeout(function () {
-
-                    $scope.ingresoOrden();
-
-                }, 1500, false)
+            var numOrden = {
+                numero_orden: $scope.numOrden
             }
+
+            $http.post($scope.urlBuscarNumeroOrdeServicio, numOrden)
+                .then(function (response) {
+                    if (response.data == "" || response.data == undefined) {
+                        if (validarCamposVaciosAntes(obj)) {
+                            $scope.horaSalida = $scope.convertirHora($scope.horasSalida, $scope.minutosSalida);
+                            $scope.horaArribo = $scope.convertirHora($scope.horasArribo, $scope.minutosArribo);
+
+                            var dimMatPet = $scope.listaMaterialPetreo.length;
+
+                            for (var i = 0; i < dimMatPet; i++) {
+
+                                $scope.ingresoMateriales(i);
+
+                            }
+
+                            var dimVe = $scope.listaVehiculo.length;
+
+                            for (var i = 0; i < dimVe; i++) {
+
+                                $scope.ingresoVehiculos(i);
+
+                            }
+
+                            var dimeCombusCons = $scope.listaCombustibleConsumoSelect.length;
+
+                            for (var i = 0; i < dimeCombusCons; i++) {
+
+                                $scope.ingresoCombustibleComsumo(i);
+
+                            }
+
+                            var dimeCombusTrans = $scope.listaCombustibleTransporteSelect.length;
+
+                            for (var i = 0; i < dimeCombusTrans; i++) {
+
+                                $scope.ingresoCombustibleTransporte(i);
+
+                            }
+
+                            $timeout(function () {
+
+                                $scope.ingresoOrden();
+
+                            }, 1500, false)
+                        }
+                    } else {
+                        swal({
+                            title: "Numero de orden ya existe!",
+                            type: "error",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    }
+                }, function errorCallback(response) {
+
+                    console.log(response);
+
+                });
         } else {
             swal({
                 title: "Seleccione un Cliente!",
