@@ -508,7 +508,7 @@
                                                     <h4>Número Volquetas </h4>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="number" id="numVol" onkeypress="return soloNumeros(event,'numVol')" placeholder="0" ng-model="numVolquetas" class="form-control" />
+                                                    <input type="number" id="numVol" onkeypress="return soloNumeros(event,'numVol')" min="0" placeholder="0" ng-model="numVolquetas" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -519,7 +519,7 @@
                                                     <h4>Cantidad Total: </h4>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <input type="number" id="cantTo" onkeypress="return soloNumerosCant(event,'cantTo')" placeholder="0" ng-model="cantTotalM3" class="form-control" />
+                                                    <input type="number" id="cantTo" onkeypress="return soloNumerosCant(event,'cantTo')" min="0" placeholder="0" ng-model="cantTotalM3" class="form-control" />
                                                 </div>
 
                                             </div>
@@ -584,7 +584,7 @@
                                                     <h4>Cantidad: </h4>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="number" id="cant" onkeypress="return soloNumeros(event,'cant')" placeholder="0" ng-model="cantidadVehiculo" class="form-control" />
+                                                    <input type="number" id="cant" onkeypress="return soloNumeros(event,'cant')" min="0" placeholder="0" ng-model="cantidadVehiculo" class="form-control" />
                                                 </div>
                                             </div>
 
@@ -675,7 +675,7 @@
                                             <h4>Cantidad: </h4>
                                         </div>
                                         <div class="col-md-5">
-                                            <input type="number" id="cantCon" onkeypress="return soloNumeros(event,'cantCon')" placeholder="0" min="0" ng-model="cantidadConsumoCombustible" class="form-control" />
+                                            <input type="number" id="cantCon" onkeypress="return min="0" soloNumeros(event,'cantCon')" placeholder="0" min="0" ng-model="cantidadConsumoCombustible" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -744,7 +744,7 @@
                                             <h4>Cantidad: </h4>
                                         </div>
                                         <div class="col-md-5">
-                                            <input type="text" id="cantT" onkeypress="return soloNumeros(event,'cantT')" placeholder="0" min="0" ng-model="cantidadTransporteCombustible" class="form-control" />
+                                            <input type="text" id="cantT" onkeypress="return min="0" soloNumeros(event,'cantT')" placeholder="0" min="0" ng-model="cantidadTransporteCombustible" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-4">

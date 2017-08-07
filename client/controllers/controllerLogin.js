@@ -9,9 +9,6 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
     $scope.usuario;
     $scope.tipoUsuario;
 
-    //var aux = localStorage.getItem("id_token");
-    //if (aux == null) {
-
     $scope.iniciar = function () {
 
         $scope.nombreUsuario = "";
@@ -22,27 +19,7 @@ app.controller('ControllerLogin', ['$scope', '$http', 'myProvider', function ($s
         $scope.urlAutenticacion = myProvider.getUrlAutenticar();
         $scope.urlPerfil = myProvider.getUrlPerfil();
     }
-
-    //} else {
-    //    $scope.tipoUsuario = JSON.parse(localStorage.getItem("tipoUser"));
-
-    //    if ($scope.tipoUsuario.descripcion_tipo_usuario == "administrador") {
-    //        window.location = "menu.html";
-    //    }
-
-    //    if ($scope.tipoUsuario.descripcion_tipo_usuario == "timonel") {
-    //        window.location = "menuTimonel.html";
-    //    }
-
-    //    if ($scope.tipoUsuario.descripcion_tipo_usuario == "maquinista") {
-    //        window.location = "menuMaquinista.html";
-    //    }
-
-    //    if ($scope.tipoUsuario.descripcion_tipo_usuario == "marinero") {
-    //        window.location = "menuMarinero.html";
-    //    }
-    //}
-
+    
     $scope.login = function () {
 
         var aux = localStorage.getItem("id_token");
