@@ -930,7 +930,7 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
             $.notify("Revise los Campos", "info");
         }
     }
-   
+
     $scope.ingresoOrdenServicio = function () {
 
         if ($scope.seleccionCliente != "") {
@@ -1508,9 +1508,7 @@ function validarFecha(e, id) {
 function validarCamposVacios(obj) {
     if (obj.cliente == "" || obj.embarcacion == "" || obj.estado == "" || obj.fecha_emision == "" ||
         obj.puerto_embarque == "" || obj.puerto_desembarque == "" || obj.orometro_inicial_m1 == "" || obj.orometro_inicial_m2 == "" ||
-        obj.orometro_final_m1 == "" || obj.orometro_final_m2 == "" || obj.hora_salida == "" || obj.hora_arribo == "" ||
-        obj.contrato_recepcion == "" || obj.capitan_embarcacion == "" || obj.orometro_inicial_m1 >= obj.orometro_final_m1 ||
-        obj.orometro_inicial_m2 >= obj.orometro_final_m2) {
+        obj.hora_salida == "" || obj.hora_arribo == "" || obj.contrato_recepcion == "" || obj.capitan_embarcacion == "") {
 
         if (obj.cliente == "") {
             $(document.getElementById("cliente")).notify("Seleccione Cliente", { position: "right" });
@@ -1524,12 +1522,6 @@ function validarCamposVacios(obj) {
         if (obj.orometro_inicial_m2 == "") {
             $(document.getElementById("oroIni2")).notify("Campo Vac\u00EDo", { position: "right" });
         }
-        if (obj.orometro_final_m1 == "") {
-            $(document.getElementById("oromFin1")).notify("Campo Vac\u00EDo", { position: "right" });
-        }
-        if (obj.orometro_final_m2 == "") {
-            $(document.getElementById("oromFin2")).notify("Campo Vac\u00EDo", { position: "right" });
-        }
 
         return false;
     } else {
@@ -1541,57 +1533,80 @@ function validarCamposVacios(obj) {
 function validarCamposVaciosAntes(obj) {
 
     if (obj.cliente == "" || obj.embarcacion == "" || obj.estado == "" || obj.fecha_emision == "" || obj.puerto_embarque == "" ||
-        obj.puerto_desembarque == "" || obj.orometro_inicial_m1 == "" || obj.orometro_inicial_m2 == "" || obj.orometro_final_m1 == "" ||
-        obj.orometro_final_m2 == "" || obj.horaSal == "" || obj.minSal == "" || obj.horaArrib == "" || obj.minArrib == "" ||
-        obj.contrato_recepcion == "" || obj.capitan_embarcacion == "" || obj.orometro_inicial_m1 >= obj.orometro_final_m1 ||
-        obj.orometro_inicial_m2 >= obj.orometro_final_m2 || obj.num_orden == "") {
+        obj.puerto_desembarque == "" || obj.orometro_inicial_m1 == "" || obj.orometro_inicial_m2 == "" || /*obj.orometro_final_m1 == "" || obj.orometro_final_m2 == "" ||*/
+        obj.horaSal == "" || obj.minSal == "" || obj.horaArrib == "" || obj.minArrib == "" ||
+        obj.contrato_recepcion == "" || obj.capitan_embarcacion == "" || /*obj.orometro_inicial_m1 >= obj.orometro_final_m1 ||*/
+        /*obj.orometro_inicial_m2 >= obj.orometro_final_m2 ||*/ obj.num_orden == "" ||
+        obj.cliente == null || obj.embarcacion == null || obj.estado == null || obj.fecha_emision == null || obj.puerto_embarque == null ||
+        obj.puerto_desembarque == null || obj.orometro_inicial_m1 == null || obj.orometro_inicial_m2 == null || /*obj.orometro_final_m1 == null || obj.orometro_final_m2 == null ||*/
+        obj.horaSal == null || obj.minSal == null || obj.horaArrib == null || obj.minArrib == null ||
+        obj.contrato_recepcion == null || obj.capitan_embarcacion == null || /*obj.orometro_inicial_m1 >= obj.orometro_final_m1 ||*/
+        /*obj.orometro_inicial_m2 >= obj.orometro_final_m2 ||*/ obj.num_orden == "") {
 
         if (obj.cliente == "" || obj.cliente == undefined) {
             $(document.getElementById("cliente")).notify("Seleccione Cliente", { position: "right" });
         }
-        if (obj.fecha_emision == "") {
+        if (obj.fecha_emision == "" || obj.fecha_emision == null) {
             $(document.getElementById("fecha")).notify("Campo Vac\u00EDo", { position: "right" });
         }
 
-        if (obj.orometro_inicial_m1 == "") {
+        if (obj.orometro_inicial_m1 == "" || obj.orometro_inicial_m1 == null) {
             $(document.getElementById("oromIni1")).notify("Campo Vac\u00EDo", { position: "right" });
         }
-        if (obj.orometro_inicial_m2 == "") {
+        if (obj.orometro_inicial_m2 == "" || obj.orometro_inicial_m2 == null) {
             $(document.getElementById("oromIni2")).notify("Campo Vac\u00EDo", { position: "right" });
         }
-        if (obj.orometro_final_m1 == "") {
-            $(document.getElementById("oromFin1")).notify("Campo Vac\u00EDo", { position: "right" });
-        }
-        if (obj.orometro_final_m2 == "") {
-            $(document.getElementById("oromFin2")).notify("Campo Vac\u00EDo", { position: "right" });
-        }
-        if (obj.horaSal == "") {
+        if (obj.horaSal == "" || obj.horaSal == null) {
             $(document.getElementById("horaSal")).notify("Campo Vac\u00EDo", { position: "right" });
         }
-        if (obj.minSal == "") {
+        if (obj.minSal == "" || obj.minSal == null) {
             $(document.getElementById("minSal")).notify("Campo Vac\u00EDo", { position: "right" });
         }
-        if (obj.horaArrib == "") {
+        if (obj.horaArrib == "" || obj.horaArrib == null) {
             $(document.getElementById("horaLleg")).notify("Campo Vac\u00EDo", { position: "right" });
         }
-        if (obj.minArrib == "") {
+        if (obj.minArrib == "" || obj.minArrib == null) {
             $(document.getElementById("minLleg")).notify("Campo Vac\u00EDo", { position: "right" });
         }
-        if (obj.num_orden == "") {
+        if (obj.num_orden == "" || obj.num_orden == null) {
             $(document.getElementById("numOrden")).notify("Campo Vac\u00EDo", { position: "right" });
         }
-        if (obj.orometro_inicial_m1 >= obj.orometro_final_m1 && obj.orometro_inicial_m1 != "") {
-            $(document.getElementById("oromFin1")).notify("Debe ser mayor al Inicial", { position: "right" });
-        }
-        if (obj.orometro_inicial_m2 >= obj.orometro_final_m2 && obj.orometro_inicial_m2 != "") {
-            $(document.getElementById("oromFin2")).notify("Debe ser mayor al Inicial", { position: "right" });
-        }
+        //if (obj.orometro_final_m1 == "") {
+        //    $(document.getElementById("oromFin1")).notify("Campo Vac\u00EDo", { position: "right" });
+        //}
+        //if (obj.orometro_final_m2 == "") {
+        //    $(document.getElementById("oromFin2")).notify("Campo Vac\u00EDo", { position: "right" });
+        //}
+        //if (obj.orometro_inicial_m1 >= obj.orometro_final_m1 && obj.orometro_inicial_m1 != "") {
+        //    $(document.getElementById("oromFin1")).notify("Debe ser mayor al Inicial", { position: "right" });
+        //}
+        //if (obj.orometro_inicial_m2 >= obj.orometro_final_m2 && obj.orometro_inicial_m2 != "") {
+        //    $(document.getElementById("oromFin2")).notify("Debe ser mayor al Inicial", { position: "right" });
+        //}
 
         return false;
     } else {
+        if (obj.orometro_final_m1 != "" || obj.orometro_final_m2 != "" || obj.orometro_final_m1 != null || obj.orometro_final_m2 != null ||
+            obj.orometro_final_m1 != undefined || obj.orometro_final_m2 != undefined) {
 
-        return true;
+            if (obj.orometro_inicial_m1 >= obj.orometro_final_m1 || obj.orometro_inicial_m2 >= obj.orometro_final_m2) {
 
+                if (obj.orometro_inicial_m1 >= obj.orometro_final_m1 && obj.orometro_final_m1 != "" && obj.orometro_final_m1 != null) {
+                    $(document.getElementById("oromFin1")).notify("Debe ser mayor al Inicial", { position: "right" });
+                    return false;
+                }
+
+                if (obj.orometro_inicial_m2 >= obj.orometro_final_m2 && obj.orometro_final_m2 != "" && obj.orometro_final_m2 != null) {
+                    $(document.getElementById("oromFin2")).notify("Debe ser mayor al Inicial", { position: "right" });
+                    return false;
+                }
+
+                return true;
+
+            } else
+                return true;
+        } else
+            return true;
     }
 
 }

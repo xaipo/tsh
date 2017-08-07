@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\client",
-    "\\client\\controllers",
     "\\HttpService"
   ],
-  "SelectedNode": "\\client\\controllers\\controllerOrdenServicioModificar.js",
+  "SelectedNode": "\\client\\Administrador",
   "PreviewInSolutionExplorer": false
 }
