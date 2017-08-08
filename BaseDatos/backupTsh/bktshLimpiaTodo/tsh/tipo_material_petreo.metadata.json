@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"tsh.tipo_material_petreo"},{"v":2,"unique":true,"key":{"descripcion_tipo_material":1.0},"name":"descripcion_tipo_material_1","ns":"tsh.tipo_material_petreo"}]}

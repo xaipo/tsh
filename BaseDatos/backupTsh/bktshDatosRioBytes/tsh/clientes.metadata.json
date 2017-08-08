@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"tsh.clientes"},{"v":2,"unique":true,"key":{"ruc_cliente":1.0},"name":"ruc_cliente_1","ns":"tsh.clientes"}]}
