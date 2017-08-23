@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\BaseDatos"
+    "\\client",
+    "\\client\\controllers",
+    "\\HttpService",
+    "\\HttpService\\models"
   ],
-  "SelectedNode": "\\BaseDatos\\backupTsh",
+  "SelectedNode": "\\client\\controllers\\controllerCliente.js",
   "PreviewInSolutionExplorer": false
 }

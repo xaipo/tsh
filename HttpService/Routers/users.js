@@ -55,7 +55,8 @@ router.post('/autenticacion', (req, res, next) => {
                         name: user.name,
                         username: user.username,
                         email: user.email,
-                        estado: user.estado
+                        estado: user.estado,
+                        type_user: user.type_user
                     }
                 });
             } else {
