@@ -45,3 +45,7 @@ body {
     border: 0.5px solid #222;
     background-color: #E5E8E8;
 }
+
+.manita {
+    cursor: pointer
+}

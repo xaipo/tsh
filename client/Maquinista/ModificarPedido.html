@@ -45,13 +45,17 @@
                         </li>
 
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actualizar Viajes<span class="caret"></span></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Embarcación<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="ModificarEmbarcacion.html">Embarcación</a></li>
                                 <li><a href="ModificarMantenimiento.html">Mantenimiento</a></li>
-                                <li><a href="ModificarOrdenServicio.html">Orden Servicio</a></li>
-                                <li><a href="ModificarPedido.html">Pedido</a></li>
                             </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="ModificarOrdenServicio.html">Orden Servicio</a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="ModificarPedido.html">Pedido</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -146,140 +150,143 @@
                         </div>
 
                     </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><center><h2 class="panel-title"><b>SELECCIÓN PEDIDO</b></h2></center></div>
+                        <div class="row">
+                            <div class="col-md-1">
 
-                    <div class="row">
-                        <div class="col-md-1">
+                            </div>
+                            <div class="col-md-5">
 
-                        </div>
-                        <div class="col-md-5">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <h3>Alimentos: </h3>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
 
-                            <div class="row">
-                                <div class="col-md-10">
-                                    <h3>Alimentos: </h3>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>Lista de Alimentos:</p>
+                                    <select ng-model="seleccionAlimento" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosSeleccionAlimentos()" disabled>
+                                        <option value={{aux}}
+                                                ng-repeat="aux in listaAlimentos | orderBy:aux.tipo_alimento">
+                                            {{aux.tipo_alimento.descripcion_tipo_alimento}} {{" -- "}} {{aux.cantidad_alimento}} {{" -- "}} {{aux.unidades_alimento}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <h3>Materiales: </h3>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p>Nueva:</p>
+                                    <select ng-model="seleccionMaterial" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosSeleccionMaterial()">
+                                        <option value={{aux}}
+                                                ng-repeat="aux in listaMaterialesSeleccionadosNueva">
+                                            {{aux.material.descripcion_material}} {{" -- "}} {{aux.cantidad_material}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p>Anterior:</p>
+                                    <select ng-model="seleccionMaterial" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosSeleccionMaterial()">
+                                        <option value={{aux}}
+                                                ng-repeat="aux in listaMaterialesSeleccionados">
+                                            {{aux.material.descripcion_material}} {{" -- "}} {{aux.cantidad_material}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <br />
+                                            <div class="col-md-1">
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h4>Material: </h4>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control" ng-model="material" ng-options="item._id as item.descripcion_material for item in listaMateriales"></select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-1">
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h4>Cantidad: </h4>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="number" id="numero" onkeypress="return soloNumeros(event,'numero')" ng-model="cantidadMaterial" min="0" placeholder="0" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaMaterial()" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaMaterial()" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input class="form-control btn-primary" type="submit" value="Eliminar" ng-click="eliminarListaMaterial()" />
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                
-                            </div>
-                            <div class="col-md-6">     
-                                <p>Lista de Alimentos:</p>
-                                <select ng-model="seleccionAlimento" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosSeleccionAlimentos()" disabled>
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaAlimentos | orderBy:aux.tipo_alimento">
-                                        {{aux.tipo_alimento.descripcion_tipo_alimento}} {{" -- "}} {{aux.cantidad_alimento}} {{" -- "}} {{aux.unidades_alimento}}
-                                    </option>
-                                </select>
-                            </div>
-
                         </div>
 
-                        <div class="col-md-5">
-                            <div class="row">
-                                <div class="col-md-10">
-                                    <h3>Materiales: </h3>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <p>Nueva:</p>
-                                <select ng-model="seleccionMaterial" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosSeleccionMaterial()">
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaMaterialesSeleccionadosNueva">
-                                        {{aux.material.descripcion_material}} {{" -- "}} {{aux.cantidad_material}}
-                                    </option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-6">
-                                <p>Anterior:</p>
-                                <select ng-model="seleccionMaterial" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosSeleccionMaterial()">
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaMaterialesSeleccionados">
-                                        {{aux.material.descripcion_material}} {{" -- "}} {{aux.cantidad_material}}
-                                    </option>
-                                </select>
-                            </div>
-
+                        <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="row">
-                                        <br />
-                                        <div class="col-md-1">
 
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h4>Material: </h4>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <select class="form-control" ng-model="material" ng-options="item._id as item.descripcion_material for item in listaMateriales"></select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1">
-
-                                        </div>
-                                        <div class="col-md-6">
-                                            <h4>Cantidad: </h4>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="number" id="numero" onkeypress="return soloNumeros(event,'numero')" ng-model="cantidadMaterial" min="0" placeholder="0" class="form-control" />
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaMaterial()" />
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaMaterial()" />
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Eliminar" ng-click="eliminarListaMaterial()" />
-                                    </div>
+                                    <br />
 
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-12">
-
-                                <br />
+                        <div class="col-md-1">
+                            <div class="row">
 
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-md-1">
-                        <div class="row">
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-10">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h4>Observaciones: </h4>
-                            </div>
-                            <div class="col-md-9">
-                                <input type="text" id="letras" onkeypress="return numerosLetras(event,'letras')" ng-model="observaciones" style="height: 50px;" class="form-control" />
-                                <br />
+                        <div class="col-md-10">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h4>Observaciones: </h4>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" id="letras" onkeypress="return numerosLetras(event,'letras')" ng-model="observaciones" style="height: 50px;" class="form-control" />
+                                    <br />
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-4">
 
-                        </div>
-                        <div class="col-md-2">
-                            <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarPedido()" />
-                        </div>
+                            </div>
+                            <div class="col-md-2">
+                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarPedido()" />
+                            </div>
 
-                        <div class="col-md-2">
-                            <input class="form-control btn-primary" type="submit" value="Cancelar" ng-click="" />
+                            <div class="col-md-2">
+                                <a href="../menuMaquinista.html"><input class="form-control btn-primary" type="submit" value="Cancelar" ng-click="" /></a>
+                            </div>
                         </div>
+                        <br />
                     </div>
                 </div>
             </div>

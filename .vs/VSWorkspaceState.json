@@ -2,10 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\client",
-    "\\client\\controllers",
-    "\\HttpService",
-    "\\HttpService\\models"
+    "\\HttpService"
   ],
-  "SelectedNode": "\\client\\controllers\\controllerCliente.js",
+  "SelectedNode": "\\client\\Timonel",
   "PreviewInSolutionExplorer": false
 }

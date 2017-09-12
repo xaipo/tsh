@@ -19,6 +19,8 @@
     <script src="./controllers/controllerMenus.js"></script>
 </head>
 <body ng-app="myApp" style="background-color: white" ng-controller="ControllerMenus" ng-init="iniciar()">
+    
+    
     <!-- inicio de menu-->
     <header>
         <nav class="navbar navbar-inverse">
@@ -43,13 +45,17 @@
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actualizar Viajes<span class="caret"></span></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Embarcación<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="./Timonel/ModificarEmbarcacion.html">Embarcación</a></li>
                                 <li><a href="./Timonel/ModificarMantenimiento.html">Mantenimiento</a></li>
-                                <li><a href="./Timonel/ModificarOrdenServicio.html">Orden Servicio</a></li>
-                                <li><a href="./Timonel/ModificarPedido.html">Pedido</a></li>
                             </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="./Timonel/ModificarOrdenServicio.html">Orden Servicio</a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="./Timonel/ModificarPedido.html">Pedido</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -66,6 +72,7 @@
         </nav>
     </header>
     <!-- final menu-->
+
     <br>
     <br>
     <br>
@@ -73,7 +80,7 @@
     <br>
     <div class="jumbotron">
         <div class="container" style="height: 200%">
-            <center> <img src="images/LogoModColor.svg" style="max-width: 40% ; text-align: center !important;" /></center>
+            <center> <img src="images/logo.svg" style="max-width: 40% ; text-align: center !important;" /></center>
         </div>
     </div>
 

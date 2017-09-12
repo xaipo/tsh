@@ -45,14 +45,15 @@
                                 <li><a href="IngresoUsuario.html">Usuario</a></li>
                             </ul>
                         </li>
-
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actualizar Viajes<span class="caret"></span></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Embarcación<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="ModificarEmbarcacion.html">Embarcación</a></li>
                                 <li><a href="ModificarMantenimiento.html">Mantenimiento</a></li>
-                                <li><a href="ModificarOrdenServicio.html">Orden Servicio</a></li>
                             </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="ModificarOrdenServicio.html">Orden Servicio</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -78,372 +79,207 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><center><h2 class="panel-title"><b>ORDEN SERVICIO</b></h2></center></div>
                 <div class="panel-body">
-                    <div class="panel-group color2">
-                        <DETAILS ng-open="buscar">
-                            <summary><font size=5>Busqueda</font></summary>
-                            <div class="row">
 
-                                <div class="col-md-1">
-
-                                </div>
-
-                                <div class="col-md-10">
-
-                                    <div class="panel panel-default" id="mensaje">
-                                        <div class="panel-heading"><center><h3 class="panel-title"><b>Lista Ordenes Servicio</b></h3></center></div>
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <p>Seleccione un registro para mas detalles:</p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2">
-
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <h4>Filtrar: </h4>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
-                                                </div>
-
-                                            </div>
-                                            <div class="row">
-                                                <center>
-                                                    <div class="col-md-12 col-xs-12">
-
-                                                        <div class="table-responsive">
-                                                            <table class="table table-bordered table-striped">
-                                                                <thead>
-                                                                    <tr class="success">
-                                                                        <th>#</th>
-                                                                        <th>Número Orden</th>
-                                                                        <th>Cliente</th>
-                                                                        <th>Embarcación</th>
-                                                                        <th>Fecha</th>
-                                                                        <th>Puerto Embarque</th>
-                                                                        <th>Puerto Desembarque</th>
-                                                                    </tr>
-
-                                                                </thead>
-                                                                <tbody>
-
-                                                                    <tr dir-paginate="item in listaOrdenServicio| filter:busqueda| itemsPerPage:4 track by $index"
-                                                                        ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="pedido">
-
-                                                                        <td>{{$index+1}}</td>
-                                                                        <td>{{ item.num_orden}}</td>
-                                                                        <td>{{ item.cliente.nombre_cliente}}</td>
-                                                                        <td>{{ item.embarcacion.nombre_embarcacion}}</td>
-                                                                        <td>{{ item.fecha_emision}}</td>
-                                                                        <td>{{ item.puerto_embarque.descripcion_puerto}}</td>
-                                                                        <td>{{ item.puerto_desembarque.descripcion_puerto}}</td>
-
-                                                                    </tr>
-                                                                    <dir-pagination-controls pagination-id="pedido"></dir-pagination-controls> <!--agregar botones paginacion-->
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </center>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </DETAILS>
-                    </div>
-                    <!--<DETAILS ng-open="expression">
-                        <summary><font size=6>Cliente, Fecha, otros</font></summary>-->
                     <div class="row">
 
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <h4>Fecha Emisión: </h4>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group date jp-date">
-                                        <input type="text" ng-model="fechaEmision" placeholder="Fecha Emisión" class="form-control" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                        <div class="col-md-1">
+
+                        </div>
+
+                        <div class="col-md-10">
+
+                            <div class="panel panel-default" id="mensaje">
+                                <div class="panel-heading"><center><h3 class="panel-title"><b>Lista Ordenes Servicio</b></h3></center></div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p>Seleccione un registro para mas detalles:</p>
+                                        </div>
                                     </div>
-                                    <script type="text/javascript">
-                                        $('.jp-date').datepicker({
-                                            format: "dd/mm/yyyy",
-                                            language: "es",
-                                            autoclose: true
-                                        });
-                                    </script>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Puerto Embarque: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <select class="form-control" ng-model="puertoEmbarque" ng-options="item._id as item.descripcion_puerto for item in listaPuerto" disabled></select>
-                                </div>
-                            </div>
-                        </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
 
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Puerto Desembarque: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <select class="form-control" ng-model="puertoDesembarque" ng-options="item._id as item.descripcion_puerto for item in listaPuerto" disabled></select>
-                                </div>
-                            </div>
-                        </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h4>Filtrar: </h4>
+                                        </div>
 
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Hora Salida: </h4>
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="number" ng-model="horasSalida" min="0" max="23" class="form-control" disabled />
-                                </div>
-                                <div class="col-md-1">
-                                    <h4>:</h4>
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="number" ng-model="minutosSalida" min="0" max="59" class="form-control" disabled />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Hora Arribo: </h4>
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="number" ng-model="horasArribo" min="0" max="23" class="form-control" disabled />
-                                </div>
-                                <div class="col-md-1">
-                                    <h4>:</h4>
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="number" ng-model="minutosArribo" min="0" max="59" class="form-control" disabled />
-                                </div>
-                            </div>
-                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" ng-model="busqueda" class="form-control" placeholder="Busqueda" />
+                                        </div>
 
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Contrato Recepción: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <select class="form-control" ng-model="contratoRecepcion" ng-options="item._id as item.descripcion_contrato_recepcion for item in listaContratoRecepcion" disabled></select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <h4>Fecha Entrega: </h4>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group date juan-date">
-                                        <input type="text" ng-model="fechaEntrega" placeholder="Fecha Entrega" class="form-control" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                     </div>
-                                    <script type="text/javascript">
-                                        $('.juan-date').datepicker({
-                                            format: "dd/mm/yyyy",
-                                            language: "es",
-                                            autoclose: true
-                                        });
-                                    </script>
-                                </div>
+                                    <div class="row">
+                                        <center>
+                                            <div class="col-md-12 col-xs-12">
 
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Capitan: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <select class="form-control" ng-model="capitan" ng-options="item._id as item.nombre_tripulante for item in listaTripulantesCapitanes" disabled></select>
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr class="success">
+                                                                <th>#</th>
+                                                                <th>Número Orden</th>
+                                                                <th>Cliente</th>
+                                                                <th>Embarcación</th>
+                                                                <th>Fecha</th>
+                                                                <th>Puerto Embarque</th>
+                                                                <th>Puerto Desembarque</th>
+                                                            </tr>
+
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <tr dir-paginate="item in listaOrdenServicio| filter:busqueda| itemsPerPage:4 track by $index"
+                                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="pedido">
+
+                                                                <td>{{$index+1}}</td>
+                                                                <td>{{ item.num_orden}}</td>
+                                                                <td>{{ item.cliente.nombre_cliente}}</td>
+                                                                <td>{{ item.embarcacion.nombre_embarcacion}}</td>
+                                                                <td>{{ item.fecha_emision}}</td>
+                                                                <td>{{ item.puerto_embarque.descripcion_puerto}}</td>
+                                                                <td>{{ item.puerto_desembarque.descripcion_puerto}}</td>
+
+                                                            </tr>
+                                                            <dir-pagination-controls pagination-id="pedido"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </center>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!--</DETAILS>-->
-                    <!--<DETAILS ng-open="expression">
-                    <summary><font size=6>Material Petreo, Vehiculos</font></summary>-->
-                    <!--<div class="row">
-                        <div class="col-md-2">
-
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-10">
-                                    <h3>Detalle Material Pretreo: </h3>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <select ng-model="seleccionMatPetreo" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosMaterialPetreo()">
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaMatPetreoNueva | orderBy:aux.tipo_material">
-                                        {{aux.tipo_material.descripcion_tipo_material}} {{" -- "}} {{aux.num_volquetas}} {{" -- "}} {{aux.cant_total_m3}}
-                                    </option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-6">
-                                <select ng-model="seleccionMatPetreo" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosMaterialPetreo()">
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaMaterialPetreo">
-                                        {{aux.tipo_material.descripcion_tipo_material}} {{" -- "}} {{aux.num_volquetas}} {{" -- "}} {{aux.cant_total_m3}}
-                                    </option>
-                                </select>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-1">
-
-                                        </div>
-                                        <div class="col-md-3">
-                                            <h4>Tipo Material: </h4>
-                                        </div>
-                                        <div class="col-md-7">
-                                            <select ng-model="seleccionTipoMatPetreo" class="form-control">
-                                                <option value={{aux}}
-                                                        ng-repeat="aux in listaTipoMaterialPetreo">
-                                                    {{aux.descripcion_tipo_material}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1">
-
-                                        </div>
-                                        <div class="col-md-6">
-                                            <h4>Numero Volquetas </h4>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="number" placeholder="0" ng-model="numVolquetas" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1">
-
-                                        </div>
-                                        <div class="col-md-5">
-                                            <h4>Cantidad Total: </h4>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <input type="number" placeholder="0" ng-model="cantTotalM3" class="form-control" />
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaMatPetreo()" />
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaMatPetreo()" />
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Eliminar" ng-click="quitarSeleccionMaterialPetreo()" />
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-10">
-                                    <h3>Detalle Vehiculos: </h3>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <select name="VehiculosNuevos" ng-model="seleccionVehiculo" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosVehiculo()">
-                                            <option value={{aux}}
-                                                    ng-repeat="aux in listaVehiNueva | orderBy:aux.descripcion_vehiculos">
-                                                {{aux.descripcion_vehiculos}} {{" -- "}} {{aux.cantidad_vehiculos}}{{" -- "}} {{aux.matricula}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <select name="Vehiculos" ng-model="seleccionVehiculo" multiple class="form-control" style="height: 150px;" ng-click="cargarDatosVehiculo()">
-                                            <option value={{aux}}
-                                                    ng-repeat="aux in listaVehiculo | orderBy:aux.descripcion_vehiculos">
-                                                {{aux.descripcion_vehiculos}} {{" -- "}} {{aux.cantidad_vehiculos}}{{" -- "}} {{aux.matricula}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <h4>Descripcion: </h4>
-                                        </div>
-                                        <div class="col-md-7">
-                                            <input type="text" placeholder="Modelo Vehiculo" ng-model="descripcionVehiculo" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-7">
-                                            <h4>Cantidad: </h4>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="number" placeholder="0" ng-model="cantidadVehiculo" class="form-control" />
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <h4>Placa: </h4>
-                                        </div>
-                                        <div class="col-md-7">
-                                            <input type="text" ng-model="matricula" placeholder="Número Placa" class="form-control" />
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaVehiculo()" />
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaVehiculo()" />
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Eliminar" ng-click="quitarSeleccionVehiculo()" />
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>-->
-                    <!--</DETAILS>-->
-                    <!--<div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><center><h3 class="panel-title"><b>Orden Servicio</b></h3></center></div>
                         <div class="row">
+                            <br />
+
                             <div class="col-md-4">
-
+                                <div class="row">
+                                    <div class="col-md-1">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h4>Fecha Emisión: </h4>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group date jp-date">
+                                            <input type="text" ng-model="fechaEmision" placeholder="Fecha Emisión" class="form-control" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                        </div>
+                                        <script type="text/javascript">
+                                            $('.jp-date').datepicker({
+                                                format: "dd/mm/yyyy",
+                                                language: "es",
+                                                autoclose: true
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-2">
-                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarOrdenServicio()" />
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>Puerto Embarque: </h4>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <select class="form-control" ng-model="puertoEmbarque" ng-options="item._id as item.descripcion_puerto for item in listaPuerto" disabled></select>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="col-md-2">
-                                <input class="form-control btn-primary" type="submit" value="Cancelar" ng-click="" />
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>Puerto Desembarque: </h4>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <select class="form-control" ng-model="puertoDesembarque" ng-options="item._id as item.descripcion_puerto for item in listaPuerto" disabled></select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4>Hora Salida: </h4>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="number" ng-model="horasSalida" min="0" max="23" class="form-control" disabled />
+                                    </div>
+                                    <div class="col-md-1">
+                                        <h4>:</h4>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="number" ng-model="minutosSalida" min="0" max="59" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>Hora Arribo: </h4>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="number" ng-model="horasArribo" min="0" max="23" class="form-control" disabled />
+                                    </div>
+                                    <div class="col-md-1">
+                                        <h4>:</h4>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="number" ng-model="minutosArribo" min="0" max="59" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>Contrato Recepción: </h4>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <select class="form-control" ng-model="contratoRecepcion" ng-options="item._id as item.descripcion_contrato_recepcion for item in listaContratoRecepcion" disabled></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h4>Fecha Entrega: </h4>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group date juan-date">
+                                            <input type="text" ng-model="fechaEntrega" placeholder="Fecha Entrega" class="form-control" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                        </div>
+                                        <script type="text/javascript">
+                                            $('.juan-date').datepicker({
+                                                format: "dd/mm/yyyy",
+                                                language: "es",
+                                                autoclose: true
+                                            });
+                                        </script>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>Capitan: </h4>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <select class="form-control" ng-model="capitan" ng-options="item._id as item.nombre_tripulante for item in listaTripulantesCapitanes" disabled></select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>-->
+                        <br />
+                    </div>
                 </div>
             </div>
         </div>

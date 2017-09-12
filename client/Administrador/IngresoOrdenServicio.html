@@ -63,6 +63,15 @@
                             </ul>
                         </li>
                         <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Embarcación<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="IngresoEmbarcacion.html"> Ingreso Embarcación</a></li>
+                                <li><a href="ModificarEmbarcacion.html">Modificar Embarcaciòn</a></li>
+                                <li><a href="IngresoMantenimiento.html">Mantenimiento</a></li>
+                                <li><a href="ModificarMantenimiento.html">Modificar Mantenimiento</a></li>
+                            </ul>
+                        </li>
+                        <!--<li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Viajes<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="IngresoEmbarcacion.html">Embarcación</a></li>
@@ -70,14 +79,28 @@
                                 <li><a href="IngresoOrdenServicio.html">Orden Servicio</a></li>
                                 <li><a href="IngresoPedido.html">Pedido</a></li>
                             </ul>
-                        </li>
+                        </li>-->
                         <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Orden Servicio<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="IngresoOrdenServicio.html">Ingreso Orden Servicio</a></li>
+                                <li><a href="ModificarOrdenServicio.html">Modificar Orden Servicio</a></li>
+                            </ul>
+                        </li>
+                        <!--<li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actualizar Viajes<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="ModificarEmbarcacion.html">Embarcación</a></li>
                                 <li><a href="ModificarMantenimiento.html">Mantenimiento</a></li>
                                 <li><a href="ModificarOrdenServicio.html">Orden Servicio</a></li>
                                 <li><a href="ModificarPedido.html">Pedido</a></li>
+                            </ul>
+                        </li>-->
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Pedido<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="IngresoPedido.html">Ingreso Pedido</a></li>
+                                <li><a href="ModificarPedido.html">Modificar Pedido</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -105,11 +128,25 @@
                 <div class="panel-heading"><center><h4><b>INGRESO ORDEN SERVICIO</b></h4></center></div>
                 <div class="panel-body">
 
-                    <div class="panel-group color2">
-                        <DETAILS ng-open="showRequeridos">
-                            <summary><font size=5>Datos Requeridos</font></summary>
+                    <div class="tabbable tabs-below" ng-init="selectedTab = 1;">
+                        <ul class="nav nav-tabs nav-justified">
+                            <li ng-class="{active: selectedTab == 1}">
+                                <a ng-click="selectedTab = 1;">Datos Requeridos</a>
+                            </li>
+                            <li ng-class="{active: selectedTab == 2}">
+                                <a ng-click="selectedTab = 2;">Carga</a>
+                            </li>
+                            <li ng-class="{active: selectedTab == 3}">
+                                <a ng-click="selectedTab = 3;">Combustible Consumo</a>
+                            </li>
+                            <li ng-class="{active: selectedTab == 4}">
+                                <a ng-click="selectedTab = 4;">Observaciones</a>
+                            </li>
+                        </ul>
 
+                        <div class="tab-content" ng-show="selectedTab == 1">
                             <div class="row">
+                                <br />
                                 <div class="col-md-4">
                                     <div class="col-md-12">
                                         <h4>Selección de Cliente</h4>
@@ -360,12 +397,10 @@
                                 </div>
 
                             </div>
-                        </DETAILS>
-                    </div>
+                        </div>
 
-                    <div class="panel-group color2">
-                        <DETAILS ng-open="showMaterialVehiculo">
-                            <summary><font size=5>Material Petreo y Vehículos</font></summary>
+                        <div class="tab-content" ng-show="selectedTab == 2">
+
                             <div class="row">
                                 <div class="col-md-2">
 
@@ -402,7 +437,7 @@
                                                     <h4>Número Volquetas: </h4>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="number" id="numVol" onkeypress="return min="0" soloNumeros(event,'numVol')" ng-model="numVolquetas" placeholder="0" class="form-control" />
+                                                    <input type="number" id="numVol" onkeypress="return min=" 0" soloNumeros(event,'numVol')" ng-model="numVolquetas" placeholder="0" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -413,7 +448,7 @@
                                                     <h4>Cantidad Total: </h4>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <input type="number" id="cantTo" onkeypress="return min="0" soloNumerosCant(event,'cantTo')" ng-model="cantTotalM3" placeholder="0" class="form-control" />
+                                                    <input type="number" id="cantTo" onkeypress="return min=" 0" soloNumerosCant(event,'cantTo')" ng-model="cantTotalM3" placeholder="0" class="form-control" />
                                                 </div>
 
                                             </div>
@@ -504,16 +539,73 @@
 
                                 </div>
                             </div>
-                        </DETAILS>
-                    </div>
 
-                    <div class="panel-group color2">
-                        <DETAILS ng-open="showCombustibles">
-                            <summary><font size=5>Combustible de Consumo y Transporte</font></summary>
                             <div class="row">
                                 <div class="col-md-2">
 
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h3>Transporte Combustible: </h3>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>Combustible: </h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <select name="Puertos" ng-model="seleccionTransporteTipoCombustible" class="form-control">
+                                                <option value={{aux}}
+                                                        ng-repeat="aux in listaCombustibleTransporte">
+                                                    {{aux.descripcion_tipo_combustible}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1">
+
+                                        </div>
+                                        <div class="col-md-5">
+                                            <h4>Cantidad: </h4>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="number" id="cantT" onkeypress="return soloNumeros(event,'cantT')" placeholder="0" min="0" ng-model="cantidadTransporteCombustible" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaTransporteCombustible()" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaTransporteCombustible()" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input class="form-control btn-primary" type="submit" value="Quitar" ng-click="quitarSeleccionTrasnsporteCombustible()" />
+                                    </div>
+                                    <div class="col-md-12">
+                                        <br>
+                                        <p>Lista Transporte Combustible:</p>
+                                        <select name="Puertos" ng-model="seleccionTransporteCombustible" multiple class="form-control" style="height: 150px;" ng-click="cargarSeleccionListaTransporteCombustible()">
+                                            <option value={{aux}}
+                                                    ng-repeat="aux in listaCombustibleTransporteSelect">
+                                                {{aux.tipo_combustible.descripcion_tipo_combustible}} {{" -- "}} {{aux.cantidad_combustible}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" ng-show="selectedTab == 3">
+                            <div class="row">
+                                <div class="col-md-4">
+
+                                </div>
+
                                 <div class="col-md-4">
                                     <div class="row">
                                         <div class="col-md-10">
@@ -569,66 +661,11 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <h3>Transporte Combustible: </h3>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1">
-
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h4>Combustible: </h4>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <select name="Puertos" ng-model="seleccionTransporteTipoCombustible" class="form-control">
-                                                <option value={{aux}}
-                                                        ng-repeat="aux in listaCombustibleTransporte">
-                                                    {{aux.descripcion_tipo_combustible}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1">
-
-                                        </div>
-                                        <div class="col-md-5">
-                                            <h4>Cantidad: </h4>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <input type="number" id="cantT" onkeypress="return soloNumeros(event,'cantT')" placeholder="0" min="0" ng-model="cantidadTransporteCombustible" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Agregar" ng-click="agregarListaTransporteCombustible()" />
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarListaTransporteCombustible()" />
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input class="form-control btn-primary" type="submit" value="Quitar" ng-click="quitarSeleccionTrasnsporteCombustible()" />
-                                    </div>
-                                    <div class="col-md-12">
-                                        <br>
-                                        <p>Lista Transporte Combustible:</p>
-                                        <select name="Puertos" ng-model="seleccionTransporteCombustible" multiple class="form-control" style="height: 150px;" ng-click="cargarSeleccionListaTransporteCombustible()">
-                                            <option value={{aux}}
-                                                    ng-repeat="aux in listaCombustibleTransporteSelect">
-                                                {{aux.tipo_combustible.descripcion_tipo_combustible}} {{" -- "}} {{aux.cantidad_combustible}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
-                        </DETAILS>
-                    </div>
+                        </div>
 
-                    <div class="panel-group color2">
-                        <DETAILS ng-open="showCombustibles">
-                            <summary><font size=5>Observaciones</font></summary>
+                        <div class="tab-content" ng-show="selectedTab == 4">
+
                             <div class="row">
                                 <div class="row">
                                     <div class="col-md-1">
@@ -657,6 +694,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
 
                                 <div class="col-md-2">
@@ -676,11 +714,14 @@
                                     </div>
                                 </div>
                             </div>
-                        </DETAILS>
+
+                        </div>
+
                     </div>
 
                     <div class="col-md-12">
                         <div class="row">
+                            <br />
                             <div class="col-md-4">
 
                             </div>

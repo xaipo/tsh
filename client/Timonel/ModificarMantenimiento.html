@@ -47,13 +47,17 @@
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actualizar Viajes<span class="caret"></span></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Embarcación<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="ModificarEmbarcacion.html">Embarcación</a></li>
                                 <li><a href="ModificarMantenimiento.html">Mantenimiento</a></li>
-                                <li><a href="ModificarOrdenServicio.html">Orden Servicio</a></li>
-                                <li><a href="ModificarPedido.html">Pedido</a></li>
                             </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="ModificarOrdenServicio.html">Orden Servicio</a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="ModificarPedido.html">Pedido</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -147,130 +151,131 @@
                         </div>
 
                     </div>
-
-                    <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><center><h3 class="panel-title"><b>Mantenimiento</b></h3></center></div>
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-2">
-
-                                    </div>
-                                    <div class="col-md-5">
-                                        <h4>Tipo Mantenimiento: </h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <select class="form-control" ng-model="tipoMantenimiento" ng-options="item._id as item.descripcion_tipo_mantenimiento for item in listaTipoMantenimiento"  disabled></select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-1">
-
-                                    </div>
-                                    <div class="col-md-3">
-                                        <h4>Embarcación: </h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <select class="form-control" ng-model="embarcacion" ng-options="item._id as item.nombre_embarcacion for item in listaEmbarcacion"  disabled></select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-2">
-
-                                    </div>
-                                    <div class="col-md-5">
-                                        <h4>Fecha mantenimiento: </h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="input-group date juan-date">
-                                            <input type="text" id="fecha" onkeypress="return validarFecha(event,'fecha')" ng-model="fechaMantenimiento" placeholder="Fecha Entrega" class="form-control"  disabled><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                        </div>
-                                        <script type="text/javascript">
-                                            $('.juan-date').datepicker({
-                                                format: "dd/mm/yyyy",
-                                                language: "es",
-                                                autoclose: true
-                                            });
-                                        </script>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-1">
-
-                                    </div>
-                                    <div class="col-md-3">
-                                        <h4>Mecánico: </h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="text" id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="mecanico" placeholder="Nombre mecánico" class="form-control"  disabled/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-">
+                            <br />
                             <div class="row">
-                                <div class="row">
-                                    <div class="col-md-3">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-2">
 
+                                        </div>
+                                        <div class="col-md-5">
+                                            <h4>Tipo Mantenimiento: </h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select class="form-control" ng-model="tipoMantenimiento" ng-options="item._id as item.descripcion_tipo_mantenimiento for item in listaTipoMantenimiento" disabled></select>
+                                        </div>
                                     </div>
-                                    <div class="col-md-4">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-1">
 
-                                        <h3>Detalle Mantenimiento: </h3>
-
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h4>Embarcación: </h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select class="form-control" ng-model="embarcacion" ng-options="item._id as item.nombre_embarcacion for item in listaEmbarcacion" disabled></select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="row">
-                                    <div class="col-md-2">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-2">
 
-                                    </div>
-                                    <div class="col-md-2">
-                                        <h4>Horómetro: </h4>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="col-md-10">
-                                            <input type="number" id="orom" onkeypress="return soloNumeros(event,'orom')" ng-model="orometro" placeholder="0" min="0" class="form-control" disabled />
                                         </div>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <h4>Próximo Horómetro: </h4>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="col-md-10">
-                                            <input type="number" id="porom" onkeypress="return soloNumeros(event,'porom')" ng-model="proximoOrometro" placeholder="0" min="0" class="form-control" disabled />
+                                        <div class="col-md-5">
+                                            <h4>Fecha mantenimiento: </h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-group date juan-date">
+                                                <input type="text" id="fecha" onkeypress="return validarFecha(event,'fecha')" ng-model="fechaMantenimiento" placeholder="Fecha Entrega" class="form-control" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            </div>
+                                            <script type="text/javascript">
+                                                $('.juan-date').datepicker({
+                                                    format: "dd/mm/yyyy",
+                                                    language: "es",
+                                                    autoclose: true
+                                                });
+                                            </script>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-2">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-1">
 
-                                    </div>
-                                    <div class="col-md-2">
-                                        <h4>Observación: </h4>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" id="descrip" onkeypress="return numerosLetras(event,'descrip')" ng-model="piezasCambiadasObservaciones" placeholder="Describir los cambios realizados" class="form-control" disabled />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h4>Mecánico: </h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="mecanico" placeholder="Nombre mecánico" class="form-control" disabled />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                        <div class="row">
+                            <div class="col-md-">
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-md-3">
+
+                                        </div>
+                                        <div class="col-md-4">
+
+                                            <h3>Detalle Mantenimiento: </h3>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-md-2">
+
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h4>Horómetro: </h4>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="col-md-10">
+                                                <input type="number" id="orom" onkeypress="return soloNumeros(event,'orom')" ng-model="orometro" placeholder="0" min="0" class="form-control" disabled />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <h4>Próximo Horómetro: </h4>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="col-md-10">
+                                                <input type="number" id="porom" onkeypress="return soloNumeros(event,'porom')" ng-model="proximoOrometro" placeholder="0" min="0" class="form-control" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h4>Observación: </h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" id="descrip" onkeypress="return numerosLetras(event,'descrip')" ng-model="piezasCambiadasObservaciones" placeholder="Describir los cambios realizados" class="form-control" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
                 </div>
-                <br />
-                
             </div>
         </div>
     </div>
