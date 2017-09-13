@@ -124,7 +124,7 @@
         </div>
         <div class="col-md-10">
             <div class="panel panel-default">
-                <div class="panel-heading"><center><h2 class="panel-title"><b>MODIFICAR EMBARCACIÓN</b></h2></center></div>
+                <div class="panel-heading"><center><h2 class="panel-title"><b>EMBARCACIÓN</b></h2></center></div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-1">
@@ -196,324 +196,344 @@
                         </div>
 
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Nombre: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <input type="text" id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="nombreEmbarcacion" placeholder="Nombre Embarcación" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Matrícula: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <input type="text" id="mat" onkeypress="return numerosLetras(event,'mat')" ng-model="numeroMatricula" placeholder="Número Matrícula" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <h4>Eslora Total: </h4>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="number" id="eslora" onkeypress="return soloNumeros(event,'eslora')" ng-model="esloraTotal" min="0" placeholder="0" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-10">
-                                    <h3>Tripulantes: </h3>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Filtrar: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <input type="text" ng-model="busquedaTripu" class="form-control" placeholder="Busqueda" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <p>Lista:</p>
-                                    <select name="Usuarios" ng-model="seleccionTripulante" multiple class="form-control" style="height: 150px;">
-                                        <option value={{aux}}
-                                                ng-repeat="aux in listaTripulante | filter:busquedaTripu| orderBy:aux.nombre_tripulante">
-                                            {{aux.nombre_tripulante}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="row">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h4 style="height: 25px;" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <input class="form-control btn-primary" type="submit" value=">>>" ng-click="agregarSeleccionListaTripulante()" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <input class="form-control btn-primary" type="submit" value="<<<" ng-click="quitarSeleccionListaTripulante()" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-5">
-                                    <p>Tripulación:</p>
-                                    <select name="Usuarios" id="tripulante" ng-model="seleccionTripulante" multiple class="form-control" style="height: 150px;">
-                                        <option value={{aux}}
-                                                ng-repeat="aux in listaTripulanteSelect | filter:busquedaTripu| orderBy:aux.nombre_tripulante">
-                                            {{aux.nombre_tripulante}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Capitan: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <select class="form-control" ng-model="capitan" ng-options="item._id as item.nombre_tripulante for item in listaTripulantesCapitanes"></select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <h4>Puntual: </h4>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="number" id="puntual" onkeypress="return soloNumeros(event,'puntual')" ng-model="puntual" min="0" placeholder="0" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Propietario: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <select class="form-control" ng-model="propietario" ng-options="item._id as item.nombre_propietario for item in listaPropietarios"></select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <h4>Calado: </h4>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="number" id="calado" onkeypress="return soloNumeros(event,'calado')" ng-model="calado" min="0" placeholder="0" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Propulsión: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <input type="text" id="propulcion" onkeypress="return soloLetras(event,'propulcion')" ng-model="propulsion" placeholder="Tipo Propulción" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <h4>Tonelaje Bruto: </h4>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="number" id="tonelada" onkeypress="return soloNumeros(event,'tonelada')" ng-model="tonelajeBruto" min="0" placeholder="0" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Combustible: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <select class="form-control" ng-model="tipoCombustible" ng-options="item._id as item.descripcion_tipo_combustible for item in listaTipoCombustible"></select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Capacidad Carga: </h4>
-                                </div>
-                                <div class="col-md-3">
-                                    <h4> </h4>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="number" id="carga" onkeypress="return soloNumeros(event,'carga')" ng-model="capacidadCarga" min="0" placeholder="0" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>Tipo Embarcación: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <select class="form-control" ng-model="tipoEmbarcacion" ng-options="item._id as item.descripcion_tipo_embarcacion for item in listaTipoEmbarcacion"></select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <h4>Manga: </h4>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="number" id="manga" onkeypress="return soloNumeros(event,'manga')" ng-model="manga" min="0" placeholder="0" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <br />
-                        <div class="col-md-1">
-                            <div class="row">
-
-                            </div>
-                        </div>
-
-                        <div class="col-md-5">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <h4>Papeles: </h4>
-                                </div>
-
-                                <center>
-                                    <div class="col-md-12 col-xs-12">
-
-                                        <div class="table-responsive" style="height: 150px;">
-                                            <table class="table table-bordered table-striped">
-                                                <thead>
-                                                    <tr class="success">
-                                                        <th>#</th>
-                                                        <th>Documentos</th>
-                                                        <th>Fecha Caducidad</th>
-                                                    </tr>
-
-                                                </thead>
-                                                <tbody>
-
-                                                    <tr dir-paginate="item in listaPapelesEmbarcacion| itemsPerPage:3 track by $index"
-                                                        ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="papelesEmbarcacion">
-
-                                                        <td>{{$index+1}}</td>
-                                                        <td>{{ item.descripcion_papeles_embarcacion}}</td>
-                                                        <td>{{ item.fecha_caducidad}}</td>
-
-                                                    </tr>
-                                                    <dir-pagination-controls pagination-id="papelesEmbarcacion"></dir-pagination-controls> <!--agregar botones paginacion-->
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </center>
-                            </div>
-                        </div>
-
-                        <div class="col-md-1">
-                            <div class="row">
-
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="row">
-                                <br />
-                                <br />
-                                <div class="col-md-5">
-                                    <h4>Fecha Construción: </h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <br />
-                                    <div class="input-group date jp-date">
-                                        <input type="text" id="fecha" onkeypress="return validarFecha(event,'fecha')" placeholder="01/12/2017" ng-model="fechaConstruccion" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                    </div>
-                                    <script type="text/javascript">
-                                        $('.jp-date').datepicker({
-                                            format: "dd/mm/yyyy",
-                                            language: "es",
-                                            autoclose: true
-                                        });
-                                    </script>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="row">
-                                <br />
-                                <div class="col-md-2">
-                                    <div class="row">
-
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <h4>Estado Embarcación: </h4>
-                                </div>
-                                <br />
-
-                                <div class="col-md-5">
-                                    <select class="form-control" ng-model="estado" ng-options="item._id as item.descripcion_estado for item in listaEstadoEmbarcacion"></select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><center><h2 class="panel-title"><b>Embarcación</b></h2></center></div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="row">
+                                <br />
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-1">
 
-                            </div>
-                            <div class="col-md-2">
-                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarEmbarcacion()" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>Nombre: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="text" id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="nombreEmbarcacion" placeholder="Nombre Embarcación" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>Matrícula: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="text" id="mat" onkeypress="return numerosLetras(event,'mat')" ng-model="numeroMatricula" placeholder="Número Matrícula" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <h4>Eslora Total: </h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="number" id="eslora" onkeypress="return soloNumeros(event,'eslora')" ng-model="esloraTotal" min="0" placeholder="0" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-1">
+
+                                        </div>
+                                        <div class="col-md-10">
+                                            <h3>Tripulantes: </h3>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>Filtrar: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="text" ng-model="busquedaTripu" class="form-control" placeholder="Busqueda" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p>Lista:</p>
+                                            <select name="Usuarios" ng-model="seleccionTripulante" multiple class="form-control" style="height: 150px;">
+                                                <option value={{aux}}
+                                                        ng-repeat="aux in listaTripulante | filter:busquedaTripu| orderBy:aux.nombre_tripulante">
+                                                    {{aux.nombre_tripulante}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="row">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <h4 style="height: 25px;" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <input class="form-control btn-primary" type="submit" value=">>>" ng-click="agregarSeleccionListaTripulante()" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <input class="form-control btn-primary" type="submit" value="<<<" ng-click="quitarSeleccionListaTripulante()" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <p>Tripulación:</p>
+                                            <select name="Usuarios" id="tripulante" ng-model="seleccionTripulante" multiple class="form-control" style="height: 150px;">
+                                                <option value={{aux}}
+                                                        ng-repeat="aux in listaTripulanteSelect | filter:busquedaTripu| orderBy:aux.nombre_tripulante">
+                                                    {{aux.nombre_tripulante}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>Capitan: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select class="form-control" ng-model="capitan" ng-options="item._id as item.nombre_tripulante for item in listaTripulantesCapitanes"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <h4>Puntual: </h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="number" id="puntual" onkeypress="return soloNumeros(event,'puntual')" ng-model="puntual" min="0" placeholder="0" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>Propietario: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select class="form-control" ng-model="propietario" ng-options="item._id as item.nombre_propietario for item in listaPropietarios"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <h4>Calado: </h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="number" id="calado" onkeypress="return soloNumeros(event,'calado')" ng-model="calado" min="0" placeholder="0" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>Propulsión: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="text" id="propulcion" onkeypress="return soloLetras(event,'propulcion')" ng-model="propulsion" placeholder="Tipo Propulción" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <h4>Tonelaje Bruto: </h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="number" id="tonelada" onkeypress="return soloNumeros(event,'tonelada')" ng-model="tonelajeBruto" min="0" placeholder="0" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>Combustible: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select class="form-control" ng-model="tipoCombustible" ng-options="item._id as item.descripcion_tipo_combustible for item in listaTipoCombustible"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>Capacidad Carga: </h4>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h4> </h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="number" id="carga" onkeypress="return soloNumeros(event,'carga')" ng-model="capacidadCarga" min="0" placeholder="0" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>Tipo Embarcación: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select class="form-control" ng-model="tipoEmbarcacion" ng-options="item._id as item.descripcion_tipo_embarcacion for item in listaTipoEmbarcacion"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <h4>Manga: </h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="number" id="manga" onkeypress="return soloNumeros(event,'manga')" ng-model="manga" min="0" placeholder="0" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="col-md-2">
-                                <input class="form-control btn-primary" type="submit" value="Cancelar" ng-click="redireccion()" />
+                            <div class="row">
+                                <br />
+                                <div class="col-md-1">
+                                    <div class="row">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h4>Papeles: </h4>
+                                        </div>
+
+                                        <center>
+                                            <div class="col-md-12 col-xs-12">
+
+                                                <div class="table-responsive" style="height: 150px;">
+                                                    <table class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr class="success">
+                                                                <th>#</th>
+                                                                <th>Documentos</th>
+                                                                <th>Fecha Caducidad</th>
+                                                            </tr>
+
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <tr dir-paginate="item in listaPapelesEmbarcacion| itemsPerPage:3 track by $index"
+                                                                ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item) " pagination-id="papelesEmbarcacion">
+
+                                                                <td>{{$index+1}}</td>
+                                                                <td>{{ item.descripcion_papeles_embarcacion}}</td>
+                                                                <td>{{ item.fecha_caducidad}}</td>
+
+                                                            </tr>
+                                                            <dir-pagination-controls pagination-id="papelesEmbarcacion"></dir-pagination-controls> <!--agregar botones paginacion-->
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </center>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <div class="row">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <br />
+                                        <br />
+                                        <div class="col-md-5">
+                                            <h4>Fecha Construción: </h4>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <br />
+                                            <div class="input-group date jp-date">
+                                                <input type="text" id="fecha" onkeypress="return validarFecha(event,'fecha')" placeholder="01/12/2017" ng-model="fechaConstruccion" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            </div>
+                                            <script type="text/javascript">
+                                                $('.jp-date').datepicker({
+                                                    format: "dd/mm/yyyy",
+                                                    language: "es",
+                                                    autoclose: true
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <br />
+                                        <div class="col-md-2">
+                                            <div class="row">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <h4>Estado Embarcación: </h4>
+                                        </div>
+                                        <br />
+
+                                        <div class="col-md-5">
+                                            <select class="form-control" ng-model="estado" ng-options="item._id as item.descripcion_estado for item in listaEstadoEmbarcacion"></select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarEmbarcacion()" />
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <input class="form-control btn-primary" type="submit" value="Cancelar" ng-click="redireccion()" />
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
+                        <br />
                     </div>
                 </div>
             </div>

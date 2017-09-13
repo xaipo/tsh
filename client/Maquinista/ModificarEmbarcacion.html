@@ -154,202 +154,215 @@
                         </div>
 
                     </div>
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <h4>Nombre: </h4>
-                            </div>
-                            <div class="col-md-7">
-                                <input type="text" ng-model="nombreEmbarcacion" placeholder="Nombre Embarcación" class="form-control" disabled />
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><center><h3 class="panel-title"><b>Embarcación</b></h3></center></div>
                         <div class="row">
+                            <br />
                             <div class="col-md-4">
-                                <h4>Matrícula: </h4>
-                            </div>
-                            <div class="col-md-7">
-                                <input type="text" ng-model="numeroMatricula" placeholder="Número Matrícula" class="form-control" disabled />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <h4>Eslora Total: </h4>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="number" ng-model="esloraTotal" min="0" placeholder="0" class="form-control" disabled />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h3>Tripulantes: </h3>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <h4>Filtrar: </h4>
-                            </div>
-                            <div class="col-md-7">
-                                <input type="text" ng-model="busquedaTripu" class="form-control" placeholder="Busqueda" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
-
-                            </div>
-                            <div class="col-md-5">
-                                <p>Tripulación:</p>
-                                <select name="Usuarios" ng-model="seleccionTripulante" multiple class="form-control" style="height: 150px;" disabled>
-                                    <option value={{aux}}
-                                            ng-repeat="aux in listaTripulanteSelect | filter:busquedaTripu| orderBy:aux.nombre_tripulante">
-                                        {{aux.nombre_tripulante}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <h4>Capitán: </h4>
-                            </div>
-                            <div class="col-md-7">
-                                <select class="form-control" disabled ng-model="capitan" ng-options="item._id as item.nombre_tripulante for item in listaTripulantesCapitanes"></select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <h4>Puntual: </h4>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="number" ng-model="puntual" min="0" placeholder="0" class="form-control" disabled />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <h4>Propietario: </h4>
-                            </div>
-                            <div class="col-md-7">
-                                <select class="form-control" ng-model="propietario" ng-options="item._id as item.nombre_propietario for item in listaPropietarios" disabled></select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <h4>Calado: </h4>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="number" ng-model="calado" min="0" placeholder="0" class="form-control" disabled />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <h4>Propulsión: </h4>
-                            </div>
-                            <div class="col-md-7">
-                                <input type="text" ng-model="propulsion" placeholder="Tipo Propulción" class="form-control" disabled />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <h4>Tonelaje Bruto: </h4>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="number" ng-model="tonelajeBruto" min="0" placeholder="0" class="form-control" disabled />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <h4>Combustible: </h4>
-                            </div>
-                            <div class="col-md-7">
-                                <select class="form-control" ng-model="tipoCombustible" ng-options="item._id as item.descripcion_tipo_combustible for item in listaTipoCombustible" disabled></select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <h4>Capacidad Carga: </h4>
-                            </div>
-                            <div class="col-md-3">
-                                <h4> </h4>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="number" ng-model="capacidadCarga" min="0" placeholder="0" class="form-control" disabled />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <h4>Tipo Embarcación: </h4>
-                            </div>
-                            <div class="col-md-7">
-                                <select class="form-control" ng-model="tipoEmbarcacion" ng-options="item._id as item.descripcion_tipo_embarcacion for item in listaTipoEmbarcacion" disabled></select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <h4>Manga: </h4>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="number" ng-model="manga" min="0" placeholder="0" class="form-control" disabled />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <h4>Fecha Construción: </h4>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-group date jp-date">
-                                    <input type="text" ng-model="fechaConstruccion" class="form-control" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4>Nombre: </h4>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="nombreEmbarcacion" placeholder="Nombre Embarcación" class="form-control" disabled />
+                                    </div>
                                 </div>
-                                <script type="text/javascript">
-                                    $('.jp-date').datepicker({
-                                        format: "dd/mm/yyyy",
-                                        language: "es",
-                                        autoclose: true
-                                    });
-                                </script>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>Matrícula: </h4>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="numeroMatricula" placeholder="Número Matrícula" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <h4>Eslora Total: </h4>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="number" ng-model="esloraTotal" min="0" placeholder="0" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                    </div>
+                                    <div class="col-md-10">
+                                        <h3>Tripulantes: </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4>Filtrar: </h4>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="busquedaTripu" class="form-control" placeholder="Busqueda" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+
+                                    </div>
+                                    <div class="col-md-5">
+                                        <p>Tripulación:</p>
+                                        <select name="Usuarios" ng-model="seleccionTripulante" multiple class="form-control" style="height: 150px;" disabled>
+                                            <option value={{aux}}
+                                                    ng-repeat="aux in listaTripulanteSelect | filter:busquedaTripu| orderBy:aux.nombre_tripulante">
+                                                {{aux.nombre_tripulante}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>Capitán: </h4>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <select class="form-control" disabled ng-model="capitan" ng-options="item._id as item.nombre_tripulante for item in listaTripulantesCapitanes"></select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <h4>Puntual: </h4>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="number" ng-model="puntual" min="0" placeholder="0" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>Propietario: </h4>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <select class="form-control" ng-model="propietario" ng-options="item._id as item.nombre_propietario for item in listaPropietarios" disabled></select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <h4>Calado: </h4>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="number" ng-model="calado" min="0" placeholder="0" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>Propulsión: </h4>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="propulsion" placeholder="Tipo Propulción" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <h4>Tonelaje Bruto: </h4>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="number" ng-model="tonelajeBruto" min="0" placeholder="0" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>Combustible: </h4>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <select class="form-control" ng-model="tipoCombustible" ng-options="item._id as item.descripcion_tipo_combustible for item in listaTipoCombustible" disabled></select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>Capacidad Carga: </h4>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4> </h4>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="number" ng-model="capacidadCarga" min="0" placeholder="0" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>Tipo Embarcación: </h4>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <select class="form-control" ng-model="tipoEmbarcacion" ng-options="item._id as item.descripcion_tipo_embarcacion for item in listaTipoEmbarcacion" disabled></select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <h4>Manga: </h4>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="number" ng-model="manga" min="0" placeholder="0" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h4>Fecha Construción: </h4>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group date jp-date">
+                                            <input type="text" ng-model="fechaConstruccion" class="form-control" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                        </div>
+                                        <script type="text/javascript">
+                                            $('.jp-date').datepicker({
+                                                format: "dd/mm/yyyy",
+                                                language: "es",
+                                                autoclose: true
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <br />
                     </div>
-
                 </div>
             </div>
         </div>

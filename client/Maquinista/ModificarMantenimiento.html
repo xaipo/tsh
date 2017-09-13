@@ -152,142 +152,144 @@
 
                     </div>
 
-                    <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><center><h3 class="panel-title"><b>Mantenimiento</b></h3></center></div>
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-2">
-
-                                    </div>
-                                    <div class="col-md-5">
-                                        <h4>Tipo Mantenimiento: </h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <select class="form-control" ng-model="tipoMantenimiento" ng-options="item._id as item.descripcion_tipo_mantenimiento for item in listaTipoMantenimiento"></select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-1">
-
-                                    </div>
-                                    <div class="col-md-3">
-                                        <h4>Embarcación: </h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <select class="form-control" ng-model="embarcacion" ng-options="item._id as item.nombre_embarcacion for item in listaEmbarcacion"></select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-2">
-
-                                    </div>
-                                    <div class="col-md-5">
-                                        <h4>Fecha Mantenimiento: </h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="input-group date juan-date">
-                                            <input type="text" id="fecha" onkeypress="return validarFecha(event,'fecha')" ng-model="fechaMantenimiento" placeholder="01/12/2017" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                        </div>
-                                        <script type="text/javascript">
-                                            $('.juan-date').datepicker({
-                                                format: "dd/mm/yyyy",
-                                                language: "es",
-                                                autoclose: true
-                                            });
-                                        </script>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-1">
-
-                                    </div>
-                                    <div class="col-md-3">
-                                        <h4>Mecánico: </h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="text" id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="mecanico" placeholder="Nombre mecánico" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-">
+                            <br />
                             <div class="row">
-                                <div class="row">
-                                    <div class="col-md-3">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-2">
 
+                                        </div>
+                                        <div class="col-md-5">
+                                            <h4>Tipo Mantenimiento: </h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select class="form-control" ng-model="tipoMantenimiento" ng-options="item._id as item.descripcion_tipo_mantenimiento for item in listaTipoMantenimiento"></select>
+                                        </div>
                                     </div>
-                                    <div class="col-md-4">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-1">
 
-                                        <h3>Detalle Mantenimiento: </h3>
-
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h4>Embarcación: </h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select class="form-control" ng-model="embarcacion" ng-options="item._id as item.nombre_embarcacion for item in listaEmbarcacion"></select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="row">
-                                    <div class="col-md-2">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-2">
 
-                                    </div>
-                                    <div class="col-md-2">
-                                        <h4>Horómetro: </h4>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="col-md-10">
-                                            <input type="number" id="orom" onkeypress="return soloNumeros(event,'orom')" ng-model="orometro" placeholder="0" min="0" class="form-control" />
                                         </div>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <h4>Proximo Horómetro: </h4>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="col-md-10">
-                                            <input type="number" id="porom" onkeypress="return soloNumeros(event,'porom')" ng-model="proximoOrometro" placeholder="0" min="0" class="form-control" />
+                                        <div class="col-md-5">
+                                            <h4>Fecha Mantenimiento: </h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-group date juan-date">
+                                                <input type="text" id="fecha" onkeypress="return validarFecha(event,'fecha')" ng-model="fechaMantenimiento" placeholder="01/12/2017" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            </div>
+                                            <script type="text/javascript">
+                                                $('.juan-date').datepicker({
+                                                    format: "dd/mm/yyyy",
+                                                    language: "es",
+                                                    autoclose: true
+                                                });
+                                            </script>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-2">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-1">
 
-                                    </div>
-                                    <div class="col-md-2">
-                                        <h4>Observación: </h4>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" id="descrip" onkeypress="return numerosLetras(event,'descrip')" ng-model="piezasCambiadasObservaciones" placeholder="Describir los cambios realizados" class="form-control" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h4>Mecánico: </h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" id="nombre" onkeypress="return soloLetras(event,'nombre')" ng-model="mecanico" placeholder="Nombre mecánico" class="form-control" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-">
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-md-3">
 
-                    </div>
+                                        </div>
+                                        <div class="col-md-4">
 
-                    <div class="col-md-2">
-                        <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarMantenimiento()" />
-                    </div>
+                                            <h3>Detalle Mantenimiento: </h3>
 
-                    <div class="col-md-2">
-                        <input class="form-control btn-primary" type="submit" value="Cancelar" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-md-2">
+
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h4>Horómetro: </h4>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="col-md-10">
+                                                <input type="number" id="orom" onkeypress="return soloNumeros(event,'orom')" ng-model="orometro" placeholder="0" min="0" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <h4>Proximo Horómetro: </h4>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="col-md-10">
+                                                <input type="number" id="porom" onkeypress="return soloNumeros(event,'porom')" ng-model="proximoOrometro" placeholder="0" min="0" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h4>Observación: </h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" id="descrip" onkeypress="return numerosLetras(event,'descrip')" ng-model="piezasCambiadasObservaciones" placeholder="Describir los cambios realizados" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+
+                            </div>
+
+                            <div class="col-md-2">
+                                <input class="form-control btn-primary" type="submit" value="Modificar" ng-click="modificarMantenimiento()" />
+                            </div>
+
+                            <div class="col-md-2">
+                                <input class="form-control btn-primary" type="submit" value="Cancelar" />
+                            </div>
+                            <br />
+                            <br />
+                        </div>
                     </div>
-                    <br />
-                    <br />
-                    <br />
                 </div>
             </div>
         </div>

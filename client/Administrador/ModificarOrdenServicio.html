@@ -225,6 +225,9 @@
                                     <li ng-class="{active: selectedTab == 4}">
                                         <a ng-click="selectedTab = 4;">Observaciones</a>
                                     </li>
+                                    <li ng-class="{active: selectedTab == 5}">
+                                        <a ng-click="selectedTab = 5;">Horómetros</a>
+                                    </li>
                                 </ul>
 
 
@@ -295,6 +298,7 @@
                                         </div>
 
                                         <div class="col-md-4">
+                                            <br />
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <h4>Puerto Embarque: </h4>
@@ -306,6 +310,7 @@
                                         </div>
 
                                         <div class="col-md-4">
+                                            <br />
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <h4>Puerto Desembarque: </h4>
@@ -319,31 +324,6 @@
                                         <div class="col-md-4">
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <h4>Horómetro Inicial M1: </h4>
-                                                </div>
-                                                <div class="col-md-7">
-                                                    <input type="number" id="oromIni1" onkeypress="return soloNumeros(event,'oromIni1')" min="0" ng-model="orometroInicialM1" placeholder="0" class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <h4>Horómetro Inicial M2: </h4>
-                                                </div>
-                                                <div class="col-md-7">
-                                                    <input type="number" id="oromIni2" onkeypress="return soloNumeros(event,'oromIni2')" min="0" placeholder="0" ng-model="orometroInicialM2" class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <div class="row">
-                                                <div class="col-md-1">
-
-                                                </div>
-                                                <div class="col-md-3">
                                                     <h4>Hora Salida: </h4>
                                                 </div>
                                                 <div class="col-md-3">
@@ -361,31 +341,6 @@
                                         <div class="col-md-4">
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <h4>Horómetro Final M1: </h4>
-                                                </div>
-                                                <div class="col-md-7">
-                                                    <input type="number" id="oromFin1" onkeypress="return soloNumeros(event,'oromFin1')" min="0" placeholder="0" ng-model="orometroFinalM1" class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <h4>Horómetro Final M2: </h4>
-                                                </div>
-                                                <div class="col-md-7">
-                                                    <input type="number" id="oromFin2" onkeypress="return soloNumeros(event,'oromFin2')" min="0" placeholder="0" ng-model="orometroFinalM2" class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <div class="row">
-                                                <div class="col-md-1">
-
-                                                </div>
-                                                <div class="col-md-3">
                                                     <h4>Hora Arribo: </h4>
                                                 </div>
                                                 <div class="col-md-3">
@@ -413,10 +368,21 @@
 
                                         <div class="col-md-4">
                                             <div class="row">
-                                                <div class="col-md-5">
+                                                <div class="col-md-4">
+                                                    <h4>Capitán: </h4>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <select class="form-control" ng-model="capitan" ng-options="item._id as item.nombre_tripulante for item in listaTripulantesCapitanes"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-4">
                                                     <h4>Fecha Emisión: </h4>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-7">
                                                     <div class="input-group date jp-date">
                                                         <input type="text" id="fecha" onkeypress="return validarFecha(event,'fecha')" ng-model="fechaEmision" placeholder="01/12/2017" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                     </div>
@@ -431,40 +397,12 @@
                                             </div>
                                         </div>
 
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="row">
-                                                <div class="col-md-1">
-
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <h4>Capitán: </h4>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <select class="form-control" ng-model="capitan" ng-options="item._id as item.nombre_tripulante for item in listaTripulantesCapitanes"></select>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                         <div class="col-md-4">
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <h4>Estado Orden: </h4>
-                                                </div>
-                                                <div class="col-md-7">
-                                                    <select class="form-control" ng-model="estado" ng-options="item._id as item.descripcion_estado for item in listaEstadosOrden"></select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <div class="row">
-                                                <div class="col-md-5">
                                                     <h4>Fecha Entrega: </h4>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-7">
                                                     <div class="input-group date juan-date">
                                                         <input type="text" id="fecha1" onkeypress="return validarFecha(event,'fecha1')" ng-model="fechaEntrega" placeholder="01/12/2017" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                     </div>
@@ -478,12 +416,23 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h4>Estado Orden: </h4>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <select class="form-control" ng-model="estado" ng-options="item._id as item.descripcion_estado for item in listaEstadosOrden"></select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="tab-content" ng-show="selectedTab == 2">
-
                                     <div class="row">
                                         <div class="col-md-2">
 
@@ -651,7 +600,7 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        <div class="col-md-4">
 
                                         </div>
                                         <div class="col-md-4">
@@ -847,9 +796,65 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
 
+                                <div class="tab-content" ng-show="selectedTab == 5">
+                                    <div class="row">
+                                        <br />
+                                        <div class="col-md-2">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h4>Horómetro Inicial M1: </h4>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="number" id="oromIni1" onkeypress="return soloNumeros(event,'oromIni1')" ng-model="orometroInicialM1" min="0" placeholder="0" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h4>Horómetro Inicial M2: </h4>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="number" id="oromIni2" onkeypress="return soloNumeros(event,'oromIni2')" ng-model="orometroInicialM2" min="0" placeholder="0" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <br />
+                                        <div class="col-md-2">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h4>Horómetro Final M1: </h4>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="number" id="oromFin1" onkeypress="return soloNumeros(event,'oromFin1')" ng-model="orometroFinalM1" min="0" placeholder="0" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h4>Horómetro Final M2: </h4>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="number" id="oromFin2" onkeypress="return soloNumeros(event,'oromFin2')" ng-model="orometroFinalM2" min="0" placeholder="0" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
 
