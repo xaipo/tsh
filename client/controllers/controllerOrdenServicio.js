@@ -153,10 +153,10 @@ app.controller('ControllerOrdenServicio', ['$scope', '$http', 'myProvider', "$q"
             $scope.fechaEntrega = "";
             $scope.puertoEmbarque = "";
             $scope.puertoDesembarque = "";
-            $scope.orometroInicialM1 = "";
-            $scope.orometroInicialM2 = "";
-            $scope.orometroFinalM1 = "";
-            $scope.orometroFinalM2 = "";
+            $scope.orometroInicialM1 = 0;
+            $scope.orometroInicialM2 = 0;
+            $scope.orometroFinalM1 = 1;
+            $scope.orometroFinalM2 = 1;
             $scope.horaSalida = "";
             $scope.horaArribo = "";
             $scope.cargaMaterialPetreo = "";

@@ -197,6 +197,91 @@
 
                                             <div class="col-md-4">
                                                 <div class="row">
+                                                    <div class="col-md-4">
+                                                        <h4>Puerto Embarque: </h4>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <select class="form-control" ng-model="puertoEmbarque" ng-options="item._id as item.descripcion_puerto for item in listaPuerto" disabled></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <h4>Puerto Desembarque: </h4>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <select class="form-control" ng-model="puertoDesembarque" ng-options="item._id as item.descripcion_puerto for item in listaPuerto" disabled></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="row">
+                                                    <div class="col-md-1">
+
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h4>Hora Salida: </h4>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" id="horaSal" onkeypress="return soloNumeros(event,'horaSal')" ng-model="horasSalida" min="0" max="23" placeholder="09" class="form-control" disabled />
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <h4>:</h4>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" id="minSal" onkeypress="return soloNumeros(event,'minSal')" ng-model="minutosSalida" min="0" max="59" placeholder="00" class="form-control" disabled />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <h4>Hora Arribo: </h4>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" id="horaLleg" onkeypress="return soloNumeros(event,'horaLleg')" ng-model="horasArribo" min="0" max="23" placeholder="15" class="form-control" disabled />
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <h4>:</h4>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" id="minLleg" onkeypress="return soloNumeros(event,'minLleg')" ng-model="minutosArribo" min="0" max="59" placeholder="00" class="form-control" disabled />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <h4>Contrato Recepción: </h4>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <select class="form-control" ng-model="contratoRecepcion" ng-options="item._id as item.descripcion_contrato_recepcion for item in listaContratoRecepcion" disabled></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="row">
+                                                    <div class="col-md-1">
+
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h4>Capitán: </h4>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <select class="form-control" ng-model="capitan" ng-options="item._id as item.nombre_tripulante for item in listaTripulantesCapitanes" disabled></select>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="row">
                                                     <div class="col-md-5">
                                                         <h4>Fecha Emisión: </h4>
                                                     </div>
@@ -218,49 +303,21 @@
                                             <div class="col-md-4">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <h4>Puerto Embarque: </h4>
+                                                        <h4>Fecha Entrega: </h4>
                                                     </div>
                                                     <div class="col-md-7">
-                                                        <select class="form-control" ng-model="puertoEmbarque" ng-options="item._id as item.descripcion_puerto for item in listaPuerto" disabled></select>
+                                                        <div class="input-group date juan-date">
+                                                            <input type="text" id="fecha1" onkeypress="return validarFecha(event,'fecha1')" ng-model="fechaEntrega" placeholder="01/12/2017" class="form-control" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                        </div>
+                                                        <script type="text/javascript">
+                                                            $('.juan-date').datepicker({
+                                                                format: "dd/mm/yyyy",
+                                                                language: "es",
+                                                                autoclose: true
+                                                            });
+                                                        </script>
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="row">
-                                                    <div class="col-md-1">
-
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <h4>Puerto Desembarque: </h4>
-                                                    </div>
-                                                    <div class="col-md-7">
-                                                        <select class="form-control" ng-model="puertoDesembarque" ng-options="item._id as item.descripcion_puerto for item in listaPuerto" disabled></select>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="row">
-                                                    <div class="col-md-5">
-                                                        <h4>Contrato Recepción: </h4>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <select class="form-control" ng-model="contratoRecepcion" ng-options="item._id as item.descripcion_contrato_recepcion for item in listaContratoRecepcion" disabled></select>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <h4>Capitán: </h4>
-                                                    </div>
-                                                    <div class="col-md-7">
-                                                        <select class="form-control" ng-model="capitan" ng-options="item._id as item.nombre_tripulante for item in listaTripulantesCapitanes" disabled></select>
-                                                    </div>
-                                                </div>
-                                                <br />
                                             </div>
                                         </div>
                                     </div>
@@ -326,7 +383,7 @@
                                         <div class="col-md-4">
 
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-5">
                                             <div class="row">
                                                 <div class="col-md-10">
                                                     <h3>Consumo Combustible: </h3>
